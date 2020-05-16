@@ -21,7 +21,11 @@
   }
 
   .spacer {
-    flex: 1;
+    flex: 0.1;
+  }
+
+  .spacerLarge {
+    flex: 0.4;
   }
 
   .toolbar {
