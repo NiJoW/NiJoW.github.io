@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TugendenComponent } from './tugenden/tugenden.component';
 import { DiensteComponent } from './dienste/dienste.component';
 import { BonusprogrammeComponent } from './bonusprogramme/bonusprogramme.component';
+import { BannerComponent } from './banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { BonusprogrammeComponent } from './bonusprogramme/bonusprogramme.compone
     DashboardComponent,
     TugendenComponent,
     DiensteComponent,
-    BonusprogrammeComponent
+    BonusprogrammeComponent,
+    BannerComponent
   ],
   imports: [
     BrowserModule,

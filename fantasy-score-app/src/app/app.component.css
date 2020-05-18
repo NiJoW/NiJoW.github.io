@@ -8,14 +8,14 @@ body {
 }
 
 .container {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
 }
 
 
 /*NavBar*/
 header {
-  background: red;
+  background: lightblue;
   padding: 1em;
 }
 
