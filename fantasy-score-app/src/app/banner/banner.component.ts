@@ -1,3 +1,4 @@
+import { BuergerService } from './../buerger.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BannerComponent implements OnInit {
 
-  constructor() { }
+  titel;
+  bueger : [];
+  
+  constructor(private buergerService: BuergerService) { 
+   // buergerService.getBueger();
+  }
 
   ngOnInit(): void {
+    this.getBueger();
+  }
+
+  getBueger(): void {
+    this.buergerService.getBuerger()
+    .subscribe(bueger => this.titel = bueger);
   }
 
 }
+
+
+
+
