@@ -14,7 +14,7 @@ export class BannerComponent implements OnInit {
   
   constructor(private buergerService: BuergerService) { }
 
-  @Input('buergerliste') buergerListe: Observable<Buerger[]>;
+  buergerListe: Observable<Buerger[]>;
 
   ngOnInit(): void {
     this.buergerListe = this.buergerService.getBuerger();
