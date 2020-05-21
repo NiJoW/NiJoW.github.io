@@ -6,12 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { HomeComponent } from './home/home.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { TugendenComponent } from './tugenden/tugenden.component';
-import { DiensteComponent } from './dienste/dienste.component';
-import { BonusprogrammeComponent } from './bonusprogramme/bonusprogramme.component';
-import { BannerComponent } from './banner/banner.component';
+import { HomeComponent } from './modules/home/home.component';
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
+import { TugendenComponent } from './modules/tugenden/tugenden.component';
+import { DiensteComponent } from './modules/dienste/dienste.component';
+import { BonusprogrammeComponent } from './modules/bonusprogramme/bonusprogramme.component';
+import { BannerComponent } from './modules/banner/banner.component';
 
 @NgModule({
   declarations: [

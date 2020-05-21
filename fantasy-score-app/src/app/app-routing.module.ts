@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './home/home.component';
-import { DashboardComponent} from './dashboard/dashboard.component';
-import { TugendenComponent} from './tugenden/tugenden.component';
-import { DiensteComponent} from './dienste/dienste.component';
-import { BonusprogrammeComponent} from './bonusprogramme/bonusprogramme.component';
+import { HomeComponent } from './modules/home/home.component';
+import { DashboardComponent} from './modules/dashboard/dashboard.component';
+import { TugendenComponent} from './modules/tugenden/tugenden.component';
+import { DiensteComponent} from './modules/dienste/dienste.component';
+import { BonusprogrammeComponent} from './modules/bonusprogramme/bonusprogramme.component';
 
 
 const routes: Routes = [
