@@ -1,16 +1,27 @@
 <div class="searchBar">
-    <button class="dropdownFilter" onclick="showKategorie">Filter</button>
-    <div id="dropdownContent" class="dropdownContent" *ngFor="let kategorie of kategorienListe | async">
+    <button class="dropdownFilter" (click)="showKategorie">Filter</button>
+    <div class="dropdownContent" id="dropdownContent" *ngFor="let kategorie of kategorienListe | async">
         <a>{{kategorie.bezeichnung}}</a>
     </div>
-    <input class="searchInput" type="text" placeholder="Search..">
+    <input class="searchInput" type="text" placeholder="&#61442; Search..">
     <button class="search">Suchen</button>
 </div>
 
-<script>
-
-    function showKategorie() {
-        document.getElementById("dropdownContent").classList.toggle("show");
-    }
-
-</script>
+<div class="searchResult">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Beschreibung</th>
+          <th>Erstellt von</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let tugend of tugendListe | filter:kategorie">
+          <td>{{tugend.name}}</td>
+          <td>{{tugend.beschreibung}}</td>
+          <td>{{tugend.aeltesterID}}</td>
+        </tr>
+        </tbody>
+      </table>
+</div>

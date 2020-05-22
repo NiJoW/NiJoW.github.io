@@ -13,6 +13,7 @@ export class TugendenComponent implements OnInit {
   constructor(private kategorieService: KategorieService) { }
 
   kategorienListe: Observable<Kategorie[]>;
+  shownKategorie: Observable<Kategorie[]>;
 
   ngOnInit(): void {
     this.kategorienListe = this.kategorieService.getKategorie();
@@ -22,6 +23,12 @@ export class TugendenComponent implements OnInit {
       console.log(this.kategorienListe);
     }); 
   }
+
+  
+  showKategorie(): void {
+    console.log("Button clicked -> show Kategorie")
+    this.shownKategorie = this.kategorienListe;
+}
 }
 
 
