@@ -1,0 +1,17 @@
+<p>todo-tugenden works!</p>
+<table class='table'> 
+    <thead>
+        <tr> 
+            <th>Name</th>
+            <th>benötigte Wiederholungen</th>
+            <th>Wert</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let tugend of todoTugenden | async"> 
+            <td>{{tugend.name}}</td>
+            <td>{{tugend.benoetigteWdh}}</td> 
+            <td>{{tugend.wert}}</td>  
+        </tr>
+    </tbody>
+</table>

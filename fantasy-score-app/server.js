@@ -59,3 +59,23 @@
       
         });
     });
+
+    app.get('/erfuellte-tugenden', function (req, res) {
+
+        pool.query('SELECT tu.name, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh = tu.benoetigteWdh AND tae.tugendhafterID=8', function (error, results, fields) {
+
+          if (error) throw error;
+          res.send(results);
+      
+        });
+    });
+
+    app.get('/todo-tugenden', function (req, res) {
+
+        pool.query('SELECT tu.name, tae.erfuellteWdh, tu.benoetigteWdh, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh<tu.benoetigteWdh AND tae.tugendhafterID=8 ', function (error, results, fields) {
+
+          if (error) throw error;
+          res.send(results);
+      
+        });
+    });

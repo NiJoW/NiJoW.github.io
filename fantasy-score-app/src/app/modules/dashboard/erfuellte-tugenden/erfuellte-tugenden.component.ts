@@ -1,4 +1,7 @@
+import { TugendService } from './../../../tugend.service';
+import { Tugend } from './../../../models/Tugend';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-erfuellte-tugenden',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErfuellteTugendenComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tugendService: TugendService) { }
+
+  erfuellteTugenden: Observable<Tugend[]>;
 
   ngOnInit(): void {
+    this.erfuellteTugenden = this.tugendService.getErfuellteTugenden();
+
+    this.erfuellteTugenden.subscribe(data => {
+      console.log(data);});
+      console.log(this.erfuellteTugenden);
   }
 
 }
