@@ -1,8 +1,4 @@
 <div class="banner">
-<div>
-    <p>test</p>
-    {{buergerListe}}
-</div>
 <div *ngFor="let buerger of buergerListe | async">
    {{ buerger.benutzername }}
   </div>

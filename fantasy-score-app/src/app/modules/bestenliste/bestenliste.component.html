@@ -6,7 +6,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let bester of bestenListe"> 
+        <tr *ngFor="let bester of bestenListe | async"> 
             <td>{{bester.benutzername}}</td> 
             <td>{{bester.social_score}}</td> 
         </tr>
