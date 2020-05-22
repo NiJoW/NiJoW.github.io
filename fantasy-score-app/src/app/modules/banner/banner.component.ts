@@ -19,10 +19,10 @@ export class BannerComponent implements OnInit {
 
     this.buergerListe.subscribe(data => {
       console.log(data);});
-      console.log("Test, this.bL");
-      console.log(this.buergerListe);
+    console.log("Test, this.bL");
+    console.log(this.buergerListe);
   }
-  
+
 
 }
 
