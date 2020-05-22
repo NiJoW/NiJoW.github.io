@@ -10,7 +10,7 @@
   .dropdownFilter:hover, .dropdownFilter:focus {
     background-color: #3e8e41;
   }
-  
+
   #searchInput {
     box-sizing: border-box;
    /* background-image: url('searchicon.png');*/
@@ -30,8 +30,6 @@
   }
   
   .dropdownContent {
-    display: none;
-    position: absolute;
     background-color: #f6f6f6;
     min-width: 230px;
     overflow: auto;

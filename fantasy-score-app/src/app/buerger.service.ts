@@ -14,6 +14,7 @@ export class BuergerService {
 
     private readonly buergerUrl = APIConfig.URL + ':' + APIConfig.PORT + '/buerger';
     private readonly bestenlisteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bestenliste';
+    private readonly aeltesterUrl = APIConfig.URL + ':' + APIConfig.PORT + '/aeltester';
 
   
 
@@ -24,6 +25,10 @@ export class BuergerService {
     getBestenliste(): Observable<Bester[]> {
         return this.http.get<Bester[]>(this.bestenlisteUrl)
     }
+
+    getAeltester(): Observable<Buerger[]> {
+      return this.http.get<Buerger[]>(this.aeltesterUrl)
+  }
 
    
     // Make the HTTP request:
