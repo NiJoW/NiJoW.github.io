@@ -1,1 +1,16 @@
-<p>tugenden works!</p>
+<div class="searchBar">
+    <button class="dropdownFilter" onclick="showKategorie">Filter</button>
+    <div id="dropdownContent" class="dropdownContent" *ngFor="let kategorie of kategorienListe | async">
+        <a>{{kategorie.bezeichnung}}</a>
+    </div>
+    <input class="searchInput" type="text" placeholder="Search..">
+    <button class="search">Suchen</button>
+</div>
+
+<script>
+
+    function showKategorie() {
+        document.getElementById("dropdownContent").classList.toggle("show");
+    }
+
+</script>

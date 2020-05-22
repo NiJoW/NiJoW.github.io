@@ -1,7 +1,9 @@
 <div class="banner">
-<div *ngFor="let buerger of buergerListe | async">
-   {{ buerger.benutzername }}
-  </div>
-</div>
-
-<app-bestenliste></app-bestenliste>
+ <div>		 <div>
+     <p>test</p>		     <p>Willkommen Bürger</p>
+     {{buergerListe}}		
+ </div>		 </div>
+ <div *ngFor="let buerger of buergerListe | async">		 <div *ngFor="let buerger of buergerListe | async">
+    {{ buerger.benutzername }}		    {{ buerger.benutzername }}
+   </div>		   </div>
+ </div>		 </div>

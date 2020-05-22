@@ -39,13 +39,23 @@
           res.send(results);
       
         });
-      });
+    });
 
-      app.get('/bestenliste', function (req, res) {
+    app.get('/kategorie', function (req, res) {
+
+        pool.query('SELECT * FROM kategorie', function (error, results, fields) {
+          if (error) throw error;
+          res.send(results);
+
+      });
+    });
+
+    app.get('/bestenliste', function (req, res) {
 
         pool.query('SELECT benutzername, social_score FROM buerger b JOIN hat_social_score hss ON b.id_buerger = hss.tugendhafterID ORDER BY social_score DESC limit 10', function (error, results, fields) {
+
           if (error) throw error;
           res.send(results);
       
         });
-      });
+    });

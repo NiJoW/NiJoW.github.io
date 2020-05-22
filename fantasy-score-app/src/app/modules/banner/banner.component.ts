@@ -10,8 +10,6 @@ import { Observable } from 'rxjs';
 })
 export class BannerComponent implements OnInit {
 
-  
-  
   constructor(private buergerService: BuergerService) { }
 
   buergerListe: Observable<Buerger[]>;
@@ -24,7 +22,6 @@ export class BannerComponent implements OnInit {
       console.log("Test, this.bL");
       console.log(this.buergerListe);
   }
-
   
 
 }
