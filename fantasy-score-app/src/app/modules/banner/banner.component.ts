@@ -25,14 +25,6 @@ export class BannerComponent implements OnInit {
       console.log(this.buergerListe);
   }
 
-  movies = [
-    { name: "Episode 1", date: "25.04.2020",
-    time: "9:00 Uhr" },
-    { name: "Episode 2", date: "25.04.2020",
-    time: "12:00 Uhr"},
-    { name: "Episode 3", date: "25.04.2020",
-    time: "15:00 Uhr" } ];
-
   
 
 }
