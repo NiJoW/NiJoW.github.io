@@ -5,6 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {OverlayComponent} from './modules/overlay/overlayComponent/overlay.component';
+import {SubscribeComponent} from './modules/overlay/subscribe/subscribe.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 import {FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -46,12 +49,17 @@ import { AngefragteDiensteComponent } from './modules/dashboard/angefragte-diens
     GeplanteDiensteComponent,
     ErledigteDiensteComponent,
     GebuchteDiensteComponent,
-    AngefragteDiensteComponent
+    AngefragteDiensteComponent,
+    ErfuellteTugendenComponent,
+    ErstelleTugendComponent,
+    OverlayComponent,
+    SubscribeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    OverlayModule,
     FormsModule,
     ReactiveFormsModule
   ],
