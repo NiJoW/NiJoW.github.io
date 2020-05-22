@@ -1,0 +1,14 @@
+<table class='table'> 
+    <thead>
+        <tr> 
+            <th>Benutzername</th>
+            <th>Social Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let bester of bestenListe"> 
+            <td>{{bester.benutzername}}</td> 
+            <td>{{bester.social_score}}</td> 
+        </tr>
+    </tbody>
+</table>
