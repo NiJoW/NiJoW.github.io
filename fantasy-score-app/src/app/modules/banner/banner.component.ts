@@ -22,9 +22,6 @@ export class BannerComponent implements OnInit {
       console.log("Test, this.bL");
       console.log(this.buergerListe);
   }
-
-
-
   
 
 }
