@@ -1,20 +1,8 @@
 <div class="banner">
 <div>
-    <p>test</p>
-    {{buergerListe}}
+    <p>Willkommen Bürger</p>
 </div>
 <div *ngFor="let buerger of buergerListe | async">
    {{ buerger.benutzername }}
   </div>
 </div>
-
-<table class='table'> <thead>
-    <tr> <th>Titel</th>
-    <th>Datum</th>
-    <th>Uhrzeit</th> </tr>
-        </thead>
-        <tbody>
-    <tr *ngFor="let movie of movies"> <td>{{movie.name}}</td> <td>{{movie.date}}</td> <td>{{movie.time}}</td>
-            </tr>
-        </tbody>
-    </table>

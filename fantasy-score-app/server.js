@@ -39,4 +39,14 @@
           res.send(results);
       
         });
-      });
+    });
+
+    app.get('/kategorie', function (req, res) {
+
+        pool.query('SELECT * FROM kategorie', function (error, results, fields) {
+          if (error) throw error;
+          res.send(results);
+      
+        });
+    });
+
