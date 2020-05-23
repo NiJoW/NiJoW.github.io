@@ -9,11 +9,14 @@
     </ul>
     <nav>
       <ul>
-        <li><a href="#" routerLink="/dashboard">Dashboard</a></li>
-        <li><a href="#" routerLink="/tugenden">Tugenden</a></li>
-        <li><a href="#" routerLink="/dienste">Dienste</a></li>
-        <li><a href="#" routerLink="/bonusprogramme">Bonusprogramme</a></li>
-        <li>Username<a href="#" routerLink="/">Menü</a></li>
+        <li *ngIf="!isAuthorized"><a href="#" routerLink="/registrieren">Registrieren</a></li>
+        <li *ngIf="!isAuthorized"><a href="#" routerLink="/login">Anmelden</a></li>
+        <li *ngIf="isAuthorized"><a href="#" routerLink="/dashboard">Dashboard</a></li>
+        <li *ngIf="isAuthorized"><a href="#" routerLink="/tugenden">Tugenden</a></li>
+        <li *ngIf="isAuthorized"><a href="#" routerLink="/dienste">Dienste</a></li>
+        <li *ngIf="isAuthorized"><a href="#" routerLink="/bonusprogramme">Bonusprogramme</a></li>
+        <li *ngIf="isAuthorized">Username<a href="#" routerLink="/">Menü</a></li>
+        <li *ngIf="isAuthorized"><a (click)="logout()">Abmelden</a></li>
       </ul>
     </nav>
   </div>

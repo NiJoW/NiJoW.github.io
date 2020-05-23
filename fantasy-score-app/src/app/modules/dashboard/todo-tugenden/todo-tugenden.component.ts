@@ -1,4 +1,4 @@
-import { TugendService } from './../../../tugend.service';
+import { TugendService } from './../../../services/tugend.service';
 import { Tugend } from './../../../models/Tugend';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';

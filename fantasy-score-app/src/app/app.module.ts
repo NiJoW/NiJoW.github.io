@@ -15,6 +15,8 @@ import { BannerComponent } from './modules/banner/banner.component';
 import { BestenlisteComponent } from './modules/bestenliste/bestenliste.component';
 import { ErfuellteTugendenComponent } from './modules/dashboard/erfuellte-tugenden/erfuellte-tugenden.component';
 import { TodoTugendenComponent } from './modules/dashboard/todo-tugenden/todo-tugenden.component';
+import { AuthService } from './services/auth.service';
+import { AnmeldenComponent } from './modules/anmelden/anmelden.component';
 
 @NgModule({
   declarations: [
@@ -27,14 +29,15 @@ import { TodoTugendenComponent } from './modules/dashboard/todo-tugenden/todo-tu
     BannerComponent,
     BestenlisteComponent,
     ErfuellteTugendenComponent,
-    TodoTugendenComponent
+    TodoTugendenComponent,
+    AnmeldenComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
