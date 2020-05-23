@@ -15,6 +15,9 @@ import { BannerComponent } from './modules/banner/banner.component';
 import { BestenlisteComponent } from './modules/bestenliste/bestenliste.component';
 import { ErfuellteTugendenComponent } from './modules/dashboard/erfuellte-tugenden/erfuellte-tugenden.component';
 import { TodoTugendenComponent } from './modules/dashboard/todo-tugenden/todo-tugenden.component';
+import { AngeboteneDiensteComponent } from './modules/dashboard/angebotene-dienste/angebotene-dienste.component';
+import { GeplanteDiensteComponent } from './modules/dashboard/geplante-dienste/geplante-dienste.component';
+import { ErledigteDiensteComponent } from './modules/dashboard/erledigte-dienste/erledigte-dienste.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { TodoTugendenComponent } from './modules/dashboard/todo-tugenden/todo-tu
     BannerComponent,
     BestenlisteComponent,
     ErfuellteTugendenComponent,
-    TodoTugendenComponent
+    TodoTugendenComponent,
+    AngeboteneDiensteComponent,
+    GeplanteDiensteComponent,
+    ErledigteDiensteComponent
   ],
   imports: [
     BrowserModule,

@@ -33,6 +33,10 @@
             console.log("Fantasy app listening at http://%s:%s", host, port)
     });
 
+//#######################################################################################
+//##################################Buerger##############################################
+//#######################################################################################
+
     app.get('/buerger', function (req, res) {
 
         pool.query('SELECT * FROM buerger', function (error, results, fields) {
@@ -41,6 +45,29 @@
       
         });
     });
+
+    app.get('/bestenliste', function (req, res) {
+
+      pool.query('SELECT benutzername, social_score FROM buerger b JOIN hat_social_score hss ON b.id_buerger = hss.tugendhafterID ORDER BY social_score DESC limit 10', function (error, results, fields) {
+
+        if (error) throw error;
+        res.send(results);
+    
+      });
+  });
+
+    app.get('/aeltester', function (req, res) {
+
+      pool.query('SELECT * FROM buerger Where typ = "aeltester"', function (error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+    
+      });
+  });
+
+//#######################################################################################
+//##################################Kategorie############################################
+//#######################################################################################
 
     app.get('/kategorie', function (req, res) {
 
@@ -51,16 +78,9 @@
       });
     });
 
-    app.get('/bestenliste', function (req, res) {
-
-        pool.query('SELECT benutzername, social_score FROM buerger b JOIN hat_social_score hss ON b.id_buerger = hss.tugendhafterID ORDER BY social_score DESC limit 10', function (error, results, fields) {
-
-          if (error) throw error;
-          res.send(results);
-      
-        });
-    });
-
+//#######################################################################################
+//##################################Dashboard############################################
+//#######################################################################################
 
     app.get('/dashboard/erfuellte-tugenden', function (req, res) {
 
@@ -82,12 +102,34 @@
         });
     });
 
-    
-    app.get('/aeltester', function (req, res) {
+      app.get('/dashboard/angebotene-tugenden', function (req, res) {
 
-        pool.query('SELECT * FROM buerger Where typ = "aeltester"', function (error, results, fields) {
+        pool.query('SELECT tu.name, tae.erfuellteWdh, tu.benoetigteWdh, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh<tu.benoetigteWdh AND tae.tugendhafterID=8 ', function (error, results, fields) {
+
           if (error) throw error;
           res.send(results);
       
         });
     });
+
+      app.get('/dashboard/erledigte-tugenden', function (req, res) {
+
+        pool.query('SELECT tu.name, tae.erfuellteWdh, tu.benoetigteWdh, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh<tu.benoetigteWdh AND tae.tugendhafterID=8 ', function (error, results, fields) {
+
+          if (error) throw error;
+          res.send(results);
+      
+        });
+    });
+
+      app.get('/dashboard/geplante-tugenden', function (req, res) {
+
+        pool.query('SELECT tu.name, tae.erfuellteWdh, tu.benoetigteWdh, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh<tu.benoetigteWdh AND tae.tugendhafterID=8 ', function (error, results, fields) {
+
+          if (error) throw error;
+          res.send(results);
+
+        });
+      });
+
+    
