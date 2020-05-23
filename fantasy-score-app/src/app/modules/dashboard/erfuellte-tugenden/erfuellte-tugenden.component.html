@@ -3,16 +3,12 @@
     <thead>
         <tr> 
             <th>Name</th>
-            <th>erfuellte Wiederholungen</th>
-            <th>benötigte Wiederholungen</th>
             <th>Wert</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let tugend of erfuellteTugenden | async"> 
             <td>{{tugend.name}}</td> 
-            <td>{{tugend.erfuellteWdh}}</td>
-            <td>{{tugend.benoetigteWdh}}</td> 
             <td>{{tugend.wert}}</td> 
         </tr>
     </tbody>
