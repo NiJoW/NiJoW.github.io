@@ -1,1 +1,15 @@
 <p>erfuellte-tugenden works!</p>
+<table class='table'> 
+    <thead>
+        <tr> 
+            <th>Name</th>
+            <th>Wert</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let tugend of erfuellteTugenden | async"> 
+            <td>{{tugend.name}}</td> 
+            <td>{{tugend.wert}}</td> 
+        </tr>
+    </tbody>
+</table>

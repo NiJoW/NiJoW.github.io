@@ -14,6 +14,7 @@ import { BonusprogrammeComponent } from './modules/bonusprogramme/bonusprogramme
 import { BannerComponent } from './modules/banner/banner.component';
 import { BestenlisteComponent } from './modules/bestenliste/bestenliste.component';
 import { ErfuellteTugendenComponent } from './modules/dashboard/erfuellte-tugenden/erfuellte-tugenden.component';
+import { TodoTugendenComponent } from './modules/dashboard/todo-tugenden/todo-tugenden.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ErfuellteTugendenComponent } from './modules/dashboard/erfuellte-tugend
     BonusprogrammeComponent,
     BannerComponent,
     BestenlisteComponent,
-    ErfuellteTugendenComponent
+    ErfuellteTugendenComponent,
+    TodoTugendenComponent
   ],
   imports: [
     BrowserModule,
