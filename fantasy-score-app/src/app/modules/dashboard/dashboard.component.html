@@ -1,3 +1,12 @@
 <p>dashboard works!</p>
+
 <app-todo-tugenden></app-todo-tugenden>
 <app-erfuellte-tugenden></app-erfuellte-tugenden>
+
+<label for="kategorien">Kategorie:</label>
+
+<select name="kategorien" id="kategorien">
+  <option  *ngFor="let kategorie of kategorien | async" value=" {{ kategorie.id_kategorie }}">
+    {{ kategorie.bezeichnung }}
+  </option>
+</select>
