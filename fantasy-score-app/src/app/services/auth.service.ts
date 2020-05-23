@@ -7,23 +7,29 @@ import { BuergerTyp } from '../models/BuergerTyp.enum';
 })
 export class AuthService {
 
-  private user: Buerger;
+  private nutzer: Buerger;
 
-  isAuthorized() {
-      return !!this.user;
+  isLoggedIn() {
+      return !!this.nutzer;
   }
 
-  isTyp(role: BuergerTyp) {
-      return this.isAuthorized() && this.user.typ === role;
+  isTyp(typ: BuergerTyp) {
+      return this.isLoggedIn() && this.nutzer.typ === typ;
   }
 
-  login(role: BuergerTyp) {
-    console.log("login as " + role);
-    this.user = {typ: role};
+  login(typ: BuergerTyp) {
+    console.log("login as " + typ);
+    this.nutzer = {
+      id_buerger: 99, 
+      benutzername: 'testUser',
+      passwort: 'test',
+      email_adresse: 'test@test.de', 
+      typ: typ
+    };
   }
 
   logout() {
-    this.user = null;
+    this.nutzer = null;
   }
 }
 

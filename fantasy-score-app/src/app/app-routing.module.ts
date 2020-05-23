@@ -7,6 +7,7 @@ import { DashboardComponent} from './modules/dashboard/dashboard.component';
 import { TugendenComponent} from './modules/tugenden/tugenden.component';
 import { DiensteComponent} from './modules/dienste/dienste.component';
 import { BonusprogrammeComponent} from './modules/bonusprogramme/bonusprogramme.component';
+import { RegistrierenComponent } from './modules/registrieren/registrieren.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,11 @@ const routes: Routes = [
       {
         path: 'login',
         component: AnmeldenComponent
+      },
+
+      {
+        path: 'registrieren',
+        component: RegistrierenComponent
       }
     ]
   },

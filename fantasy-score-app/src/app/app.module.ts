@@ -17,6 +17,7 @@ import { ErfuellteTugendenComponent } from './modules/dashboard/erfuellte-tugend
 import { TodoTugendenComponent } from './modules/dashboard/todo-tugenden/todo-tugenden.component';
 import { AuthService } from './services/auth.service';
 import { AnmeldenComponent } from './modules/anmelden/anmelden.component';
+import { RegistrierenComponent } from './modules/registrieren/registrieren.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AnmeldenComponent } from './modules/anmelden/anmelden.component';
     ErfuellteTugendenComponent,
     TodoTugendenComponent,
     AnmeldenComponent,
+    RegistrierenComponent,
   ],
   imports: [
     BrowserModule,

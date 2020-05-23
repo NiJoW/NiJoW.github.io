@@ -4,19 +4,19 @@
 <header>
   <div id="navBar">
     <ul>
-      <li class="navHome"><a href="#" routerLink="/">FS</a></li>
-      <li class="navHome"><a href="#" routerLink="/">FantasyScore</a></li>
+      <li class="navHome"><a routerLink="/">FS</a></li>
+      <li class="navHome"><a routerLink="/">FantasyScore</a></li>
     </ul>
     <nav>
       <ul>
-        <li *ngIf="!isAuthorized"><a href="#" routerLink="/registrieren">Registrieren</a></li>
-        <li *ngIf="!isAuthorized"><a href="#" routerLink="/login">Anmelden</a></li>
-        <li *ngIf="isAuthorized"><a href="#" routerLink="/dashboard">Dashboard</a></li>
-        <li *ngIf="isAuthorized"><a href="#" routerLink="/tugenden">Tugenden</a></li>
-        <li *ngIf="isAuthorized"><a href="#" routerLink="/dienste">Dienste</a></li>
-        <li *ngIf="isAuthorized"><a href="#" routerLink="/bonusprogramme">Bonusprogramme</a></li>
-        <li *ngIf="isAuthorized">Username<a href="#" routerLink="/">Menü</a></li>
-        <li *ngIf="isAuthorized"><a (click)="logout()">Abmelden</a></li>
+        <li *ngIf="!isLoggedIn"><a routerLink="/registrieren">Registrieren</a></li>
+        <li *ngIf="!isLoggedIn"><a routerLink="/login">Anmelden</a></li>
+        <li *ngIf="isLoggedIn"><a routerLink="/dashboard">Dashboard</a></li>
+        <li *ngIf="isLoggedIn"><a routerLink="/tugenden">Tugenden</a></li>
+        <li *ngIf="isLoggedIn"><a routerLink="/dienste">Dienste</a></li>
+        <li *ngIf="isLoggedIn"><a routerLink="/bonusprogramme">Bonusprogramme</a></li>
+        <li *ngIf="isLoggedIn">Username<a href="#" routerLink="/">Menü</a></li>
+        <li *ngIf="isLoggedIn"><a (click)="logout()">Abmelden</a></li>
       </ul>
     </nav>
   </div>
@@ -25,5 +25,31 @@
   <div class="container">
     <app-banner></app-banner>
     <router-outlet></router-outlet>
+    <div *ngIf="!isLoggedIn">
+      <h1>Willkommen bei FANTASY SCORE</h1>
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing 
+        elit. Aenean commodo ligula eget dolor. Aenean massa 
+        <strong>strong</strong>. Cum sociis natoque penatibus 
+        et magnis dis parturient montes, nascetur ridiculus 
+        mus. Donec quam felis, ultricies nec, pellentesque 
+        eu, pretium quis, sem. Nulla consequat massa quis 
+        enim. Donec pede justo, fringilla vel, aliquet nec, 
+        vulputate eget, arcu. In enim justo, rhoncus ut, 
+        imperdiet a, venenatis vitae, justo. Nullam dictum 
+        felis eu pede
+        mollis pretium. Integer tincidunt. Cras dapibus. 
+        Vivamus elementum semper nisi. Aenean vulputate 
+        eleifend tellus. Aenean leo ligula, porttitor eu, 
+        consequat vitae, eleifend ac, enim. Aliquam lorem ante, 
+        dapibus in, viverra quis, feugiat a, tellus. Phasellus 
+        viverra nulla ut metus varius laoreet. Quisque rutrum. 
+        Aenean imperdiet. Etiam ultricies nisi vel augue. 
+        Curabitur ullamcorper ultricies nisi.</p>
+    </div>
   </div>
+
+  <footer>
+    <hr>
+    <p>&copy; 2020 FantasyScore, Inc. All rights reserved</p>
+  </footer>
 
