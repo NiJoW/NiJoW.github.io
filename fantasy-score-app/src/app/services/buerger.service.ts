@@ -4,6 +4,7 @@ import { Buerger } from './../models/Buerger';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { ThrowStmt } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +23,18 @@ export class BuergerService {
         return this.http.get<Buerger[]>(this.buergerUrl)
     }
 
+    getBuergerByBenutzername(benutzername: string): Observable<Buerger> {
+      return this.http.get<Buerger>()
+    }
+
     getBestenliste(): Observable<Bester[]> {
         return this.http.get<Bester[]>(this.bestenlisteUrl)
     }
 
     getAeltester(): Observable<Buerger[]> {
       return this.http.get<Buerger[]>(this.aeltesterUrl)
-  }
+    }
+    
 
    
     // Make the HTTP request:

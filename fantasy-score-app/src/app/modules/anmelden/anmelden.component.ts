@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BuergerTyp } from './../../models/BuergerTyp.enum';
 import { AuthService } from './../../services/auth.service';
+import { Buerger } from 'src/app/models/Buerger';
 
 @Component({
   selector: 'app-anmelden',
@@ -10,15 +10,16 @@ import { AuthService } from './../../services/auth.service';
 })
 export class AnmeldenComponent implements OnInit {
   
-  Typ = BuergerTyp;
+  aktuellerNutzer: Buerger;
 
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
-  login(role: BuergerTyp) {
-    this.authService.login(role);
+  login(benutzername: string, passwort: string) {
+    this.authService.inputValid(benutzername, passwort);
+    this.authService.login(benutzername, passwort);
     this.router.navigate(['/']);
   }
 }

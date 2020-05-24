@@ -1,15 +1,7 @@
-<button 
-  class="btn btn-outline-warning" 
-  (click)="login(Typ.Tugendhafter)">Login als Tugendhafter
-</button>
+<h2>Anmelden</h2>
+<label>Benutzername:</label>
+<input id="benutzernameInput" type="text" placeholder="Benutzername">
+<label>Passwort:</label>
+<input class="passwortInput" type="text" placeholder="Passwort">
+<button class="anmeldeBtn" (click)="login(benutzernameInput.value, passwortInput.value)">Anmelden</button>
 
-<button 
-  class="btn btn-outline-warning" 
-  (click)="login(Typ.Suchender)">Login als Suchender
-</button>
-
-
-<button 
-  class="btn btn-outline-danger" 
-  (click)="login(Typ.Aeltester)">Login als Ältester
-</button>
