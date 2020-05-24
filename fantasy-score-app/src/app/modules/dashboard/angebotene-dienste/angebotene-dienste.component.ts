@@ -1,3 +1,6 @@
+import { Observable } from 'rxjs';
+import { DienstService } from './../../../services/dienst.service';
+import { Dienst } from './../../../models/Dienst';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AngeboteneDiensteComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dienstService: DienstService) { }
+
+  angeboteneDienste: Observable<Dienst[]>;
 
   ngOnInit(): void {
+    this.angeboteneDienste = this.dienstService.getAngeboteneDienste();
+
+    this.angeboteneDienste.subscribe(data => {
+      console.log(data);});
+      console.log(this.angeboteneDienste);
   }
 
 }

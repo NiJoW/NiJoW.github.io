@@ -1,1 +1,11 @@
-<p>geplante-dienste works!</p>
+<p>Meine geplanten Dienste:</p>
+<table class='table'> 
+    <tbody>
+        <tr *ngFor="let dienst of geplanteDienste | async"> 
+            <td>{{dienst.name}}</td> 
+            <td>{{dienst.beschreibung}}</td> 
+            <td>{{dienst.benutzername}}</td> 
+            <td>{{dienst.datum}}</td> 
+        </tr>
+    </tbody>
+</table>

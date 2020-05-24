@@ -2,6 +2,7 @@ import { DienstStatus } from './DienstStatus.enum';
 
 export class Dienst {
     id_dienstangebot: number;
+    name: string;
     beschreibung: string;
     bild: string;
     tugendhafterID: number;
@@ -12,4 +13,5 @@ export class Dienst {
     datum: Date;
     status: DienstStatus;
     suchenderGelesen: boolean;
+    benutzername: string;
 }

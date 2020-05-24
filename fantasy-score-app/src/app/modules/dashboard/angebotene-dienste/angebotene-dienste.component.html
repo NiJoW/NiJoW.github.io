@@ -1,1 +1,9 @@
-<p>angebotene-dienste works!</p>
+<p>Meine angebotenen Dienste:</p>
+<table class='table'> 
+    <tbody>
+        <tr *ngFor="let dienst of angeboteneDienste | async"> 
+            <td>{{dienst.name}}</td> 
+            <td>{{dienst.beschreibung}}</td> 
+        </tr>
+    </tbody>
+</table>

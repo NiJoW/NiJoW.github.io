@@ -102,19 +102,9 @@
         });
     });
 
-      app.get('/dashboard/angebotene-tugenden', function (req, res) {
+      app.get('/dashboard/angebotene-dienste', function (req, res) {
 
-        pool.query('SELECT da.beschreibung FROM dienstangebot da WHERE da.tugendhafterID = 8', function (error, results, fields) {
-
-          if (error) throw error;
-          res.send(results);
-      
-        });
-    });
-
-      app.get('/dashboard/erledigte-tugenden', function (req, res) {
-
-        pool.query('SELECT da.beschreibung, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = 8 AND dv.datum > "2020-05-08" ', function (error, results, fields) {
+        pool.query('SELECT da.name, da.beschreibung FROM dienstangebot da WHERE da.tugendhafterID = 8', function (error, results, fields) {
 
           if (error) throw error;
           res.send(results);
@@ -122,9 +112,19 @@
         });
     });
 
-      app.get('/dashboard/geplante-tugenden', function (req, res) {
+      app.get('/dashboard/erledigte-dienste', function (req, res) {
 
-        pool.query('SELECT da.beschreibung, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = 8 AND dv.datum < "2020-05-08"', function (error, results, fields) {
+        pool.query('SELECT da.name, da.beschreibung, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = 8 AND dv.datum > "2020-05-08" ', function (error, results, fields) {
+
+          if (error) throw error;
+          res.send(results);
+      
+        });
+    });
+
+      app.get('/dashboard/geplante-dienste', function (req, res) {
+
+        pool.query('SELECT da.name, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = 8 AND dv.datum < "2020-05-08"', function (error, results, fields) {
 
           if (error) throw error; 
           res.send(results);

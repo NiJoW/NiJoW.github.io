@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
   })
 
-  export class KategorieService {
+  export class DienstService {
       constructor(private http: HttpClient) {}
 
       private readonly angeboteneDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/angebotene-dienste';
