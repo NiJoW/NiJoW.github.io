@@ -1,5 +1,9 @@
-<p>Meine erledigten Dienste:</p>
 <table class='table'> 
+    <thead>
+        <tr> 
+            <th>Meine erledigten Dienste</th>
+        </tr>
+    </thead>
     <tbody>
         <tr *ngFor="let dienst of erledigteDienste | async"> 
             <td>{{dienst.name}}</td> 
@@ -8,3 +12,5 @@
         </tr>
     </tbody>
 </table>
+<br>
+<br>

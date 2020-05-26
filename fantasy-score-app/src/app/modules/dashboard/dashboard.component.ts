@@ -25,11 +25,13 @@ export class DashboardComponent implements OnInit {
     console.log(this.kategorien);
   }
 
-  changeType(typ){
-    if(this.type === "tugenden") {
-      this.type = "dienste";
-    } else if (this.type === "dienste") {
-      this.type = "tugenden";
+  changeType(typ: String){
+    if(this.type != typ) {
+      if(this.type === "tugenden") {
+        this.type = "dienste";
+      } else if (this.type === "dienste") {
+        this.type = "tugenden";
+      }
     }
   }
 }

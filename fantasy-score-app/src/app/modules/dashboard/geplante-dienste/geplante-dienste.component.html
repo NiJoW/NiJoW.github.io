@@ -1,5 +1,9 @@
-<p>Meine geplanten Dienste:</p>
 <table class='table'> 
+    <thead>
+        <tr> 
+            <th>Meine geplanten Dienste</th>
+        </tr>
+    </thead>
     <tbody>
         <tr *ngFor="let dienst of geplanteDienste | async"> 
             <td>{{dienst.name}}</td> 
@@ -9,3 +13,5 @@
         </tr>
     </tbody>
 </table>
+<br>
+<br>
