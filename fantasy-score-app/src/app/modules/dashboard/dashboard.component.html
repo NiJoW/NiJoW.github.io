@@ -1,11 +1,19 @@
-<button (click)="myFunc()">Tugenden</button>
-<button (click)="myFunc()">Dienste</button>
+<div>
+  <div routerLink="/dashboard/tugenden" (click)="changeType(tugenden)>Tugenden</div>
+  <div routerLink="/dashboard/dienste" (click)="changeType(dienste)>Dienste</div>
+</div>
 
-<app-angebotene-dienste class="dashboard-dienste"></app-angebotene-dienste>
-<app-geplante-dienste class="dashboard-dienste"></app-geplante-dienste>
-<app-erledigte-dienste class="dashboard-dienste"></app-erledigte-dienste>
-<app-todo-tugenden class="dashboard-tugenden"></app-todo-tugenden>
-<app-erfuellte-tugenden class="dashboard-tugenden"></app-erfuellte-tugenden>
+<div class="cards">
+  <div *ngIf="type === 'tugenden'">
+    <app-todo-tugenden></app-todo-tugenden> 
+    <app-erfuellte-tugenden></app-erfuellte-tugenden>
+  </div>
+  <div *ngIf="type === 'dienste'">
+    <app-angebotene-dienste></app-angebotene-dienste>
+    <app-geplante-dienste></app-geplante-dienste>
+    <app-erledigte-dienste></app-erledigte-dienste>
+  </div>
+
 
 
 
