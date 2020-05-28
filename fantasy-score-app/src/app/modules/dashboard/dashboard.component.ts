@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {KategorieService} from '../../services/kategorie.service';
 import {Kategorie} from '../../models/Kategorie';
 import {Observable} from 'rxjs';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +12,7 @@ import {Observable} from 'rxjs';
 export class DashboardComponent implements OnInit {
 
   kategorien: Observable<Kategorie[]>;
+  type = "tugenden";
 
   constructor(private kategorienService: KategorieService) { }
 
@@ -23,5 +25,14 @@ export class DashboardComponent implements OnInit {
     console.log(this.kategorien);
   }
 
+  changeType(typ: String){
+    if(this.type != typ) {
+      if(this.type === "tugenden") {
+        this.type = "dienste";
+      } else if (this.type === "dienste") {
+        this.type = "tugenden";
+      }
+    }
+  }
 }
 

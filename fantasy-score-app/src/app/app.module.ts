@@ -18,6 +18,9 @@ import { TodoTugendenComponent } from './modules/dashboard/todo-tugenden/todo-tu
 import { AuthService } from './services/auth.service';
 import { AnmeldenComponent } from './modules/anmelden/anmelden.component';
 import { RegistrierenComponent } from './modules/registrieren/registrieren.component';
+import { AngeboteneDiensteComponent } from './modules/dashboard/angebotene-dienste/angebotene-dienste.component';
+import { GeplanteDiensteComponent } from './modules/dashboard/geplante-dienste/geplante-dienste.component';
+import { ErledigteDiensteComponent } from './modules/dashboard/erledigte-dienste/erledigte-dienste.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import { RegistrierenComponent } from './modules/registrieren/registrieren.compo
     TodoTugendenComponent,
     AnmeldenComponent,
     RegistrierenComponent,
+    AngeboteneDiensteComponent,
+    GeplanteDiensteComponent,
+    ErledigteDiensteComponent
   ],
   imports: [
     BrowserModule,
