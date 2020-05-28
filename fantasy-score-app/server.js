@@ -82,7 +82,7 @@
 //##################################Dashboard############################################
 //#######################################################################################
 
-    app.get('/dashboard/erfuellte-tugenden', function (req, res) {
+    app.get('/dashboard/e^rfuellte-tugenden', function (req, res) {
 
         pool.query('SELECT tu.name, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh = tu.benoetigteWdh AND tae.tugendhafterID=8', function (error, results, fields) {
 
