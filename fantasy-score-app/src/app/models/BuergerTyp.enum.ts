@@ -1,5 +1,5 @@
 export enum BuergerTyp {
-    Tugendhafter,
-    Suchender,
-    Aeltester
+    Tugendhafter = 'Tugendhafter',
+    Suchender = 'Suchender',
+    Aeltester = 'Aeltester'
 }

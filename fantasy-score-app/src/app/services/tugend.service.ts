@@ -1,5 +1,5 @@
-import { APIConfig } from './../APIconfig';
-import { Tugend } from './models/Tugend';
+import { APIConfig } from './../../APIconfig';
+import { Tugend } from './../models/Tugend';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';

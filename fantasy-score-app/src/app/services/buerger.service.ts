@@ -1,6 +1,6 @@
-import { Bester } from './models/Bester';
-import { APIConfig } from './../APIconfig';
-import { Buerger } from './models/Buerger';
+import { Bester } from './../models/Bester';
+import { APIConfig } from './../../APIconfig';
+import { Buerger } from './../models/Buerger';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
