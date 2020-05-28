@@ -35,12 +35,6 @@ import { catchError, retry } from 'rxjs/operators';
       console.log(tugend.kategorieID);
       return this.http.post<Tugend>(this.tugendenUrl,
         {
-        /*  "name" : tugend.name,
-          "beschreibung" : tugend.beschreibung,
-          "wert": tugend.wert,
-          "benoetigteWdh": tugend.benoetigteWdh,
-          "aeltesterID": tugend.aeltesterID,
-          "kategorieID": tugend.kategorieID*/
           "name" : tugend.name,
           "beschreibung" : tugend.beschreibung,
           "wert": tugend.wert,

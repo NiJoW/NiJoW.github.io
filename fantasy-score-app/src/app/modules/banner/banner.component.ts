@@ -13,6 +13,7 @@ export class BannerComponent implements OnInit {
   constructor(private buergerService: BuergerService) { }
 
   buergerListe: Observable<Buerger[]>;
+  buergername: string;
 
   ngOnInit(): void {
     this.buergerListe = this.buergerService.getBuerger();
@@ -21,6 +22,7 @@ export class BannerComponent implements OnInit {
       console.log(data);});
     console.log("Test, this.bL");
     console.log(this.buergerListe);
+   // this.buergername
   }
 
 

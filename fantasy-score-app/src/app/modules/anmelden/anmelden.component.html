@@ -1,15 +1,26 @@
-<button 
-  class="btn btn-outline-warning" 
-  (click)="login(Typ.Tugendhafter)">Login als Tugendhafter
+<button
+  class="btn btn-outline-warning"
+  (click)="loginUrsprung(Typ.Tugendhafter)">Login als Tugendhafter
 </button>
 
-<button 
-  class="btn btn-outline-warning" 
-  (click)="login(Typ.Suchender)">Login als Suchender
+<button
+  class="btn btn-outline-warning"
+  (click)="loginUrsprung(Typ.Suchender)">Login als Suchender
 </button>
 
 
-<button 
-  class="btn btn-outline-danger" 
-  (click)="login(Typ.Aeltester)">Login als Ältester
+<button
+  class="btn btn-outline-danger"
+  (click)="loginUrsprung(Typ.Aeltester)">Login als Ältester
 </button>
+
+<form [formGroup]="anmeldenForm"   (ngSubmit)="login(anmeldenForm.value)">
+    <h2>Anmelden</h2>
+    <label>Benutzername:</label>
+    <input id="benutzernameInput" type="text" placeholder="Benutzername" formControlName="benutzername">
+    <label>Passwort:</label>
+    <input class="passwortInput" type="password" placeholder="Passwort" formControlName="passwort">
+    <button class="anmeldeBtn" type="submit">Anmelden</button>
+    <div id='fehlermeldungAnmeldung' [hidden]="!fehler">
+      <br>Angegebener der Benutzername oder das Passwort ist leider falsch!</div>
+</form>

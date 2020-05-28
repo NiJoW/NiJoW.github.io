@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BuergerTyp } from './../../models/BuergerTyp.enum';
 import { AuthService } from './../../services/auth.service';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-anmelden',
@@ -9,17 +10,37 @@ import { AuthService } from './../../services/auth.service';
   styleUrls: ['./anmelden.component.css']
 })
 export class AnmeldenComponent implements OnInit {
-  
-  Typ = BuergerTyp;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  anmeldenForm;
+  Typ = BuergerTyp;
+  fehler = false;
+
+  constructor(private router: Router, private authService: AuthService,
+              private formBuilder: FormBuilder) {
+    this.anmeldenForm = this.formBuilder.group({
+      benutzername: '',
+      passwort: ''
+    });
+  }
 
   ngOnInit(): void {
   }
 
-  login(role: BuergerTyp) {
-    this.authService.login(role);
+  loginUrsprung(role: BuergerTyp) {
+  //  this.authService.login(role);
     this.router.navigate(['/']);
+  }
+
+  login(anmeldenDaten) {
+    this.authService.login(this, anmeldenDaten.benutzername, anmeldenDaten.passwort);
+  }
+
+  navigiere(){
+    this.router.navigate(['/']);
+  }
+  fehlerAnzeigen(){
+    this.fehler = true;
+    console.warn('Nutzerdaten nicht korrekt!');
   }
 }
 

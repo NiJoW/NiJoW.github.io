@@ -160,3 +160,17 @@ app.post('/tugend', function (request, response) {
 
     });
 });
+
+app.post('/nutzer/login', function (request, response) {
+  const benutzername = request.body.benutzername;
+  const passwort = request.body.passwort;
+
+  const sql = "SELECT * FROM buerger WHERE  benutzername=? AND passwort=?";
+  const values = [benutzername, passwort];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+
+    });
+});

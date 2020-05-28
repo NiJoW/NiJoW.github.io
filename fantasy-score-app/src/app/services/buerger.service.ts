@@ -4,6 +4,7 @@ import { Buerger } from './../models/Buerger';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import {Tugend} from "../models/Tugend";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,9 @@ export class BuergerService {
     private readonly buergerUrl = APIConfig.URL + ':' + APIConfig.PORT + '/buerger';
     private readonly bestenlisteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bestenliste';
     private readonly aeltesterUrl = APIConfig.URL + ':' + APIConfig.PORT + '/aeltester';
+    private readonly loginUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/login';
 
-  
+
 
     getBuerger(): Observable<Buerger[]> {
         return this.http.get<Buerger[]>(this.buergerUrl)
@@ -30,8 +32,33 @@ export class BuergerService {
       return this.http.get<Buerger[]>(this.aeltesterUrl)
   }
 
-   
+  getBuergerByLoginData(benutzername: string, passwort: string): Observable<Buerger[]> {
+    return this.http.post<Buerger[]>(this.loginUrl,
+      {
+        "benutzername" : benutzername,
+        "passwort" : passwort
+      });
+  }
+/*
+  addTugend(tugend: Tugend): Observable<Tugend>
+  {
+    console.log('in service add tugend');
+    console.dir(tugend);
+
+    return this.http.post<Tugend>(this.tugendenUrl,
+      {
+        "name" : tugend.name,
+        "beschreibung" : tugend.beschreibung,
+        "wert": tugend.wert,
+        "benoetigteWdh": tugend.benoetigteWdh,
+        "aeltesterID": tugend.aeltesterID,
+        "kategorieID": tugend.kategorieID
+      });
+  } */
+
+
     // Make the HTTP request:
   //  this.http.get('http://localhost:port/assets/data.json')
     //         .subscribe(data => console.log(data));
+
 }
