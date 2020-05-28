@@ -1,0 +1,62 @@
+<h2>Neue Tugend erstellen:</h2>
+<!---
+<label>Color (null not allowed):
+  <select ng-model="myColor" ng-options="color.name for color in colors"></select> --->
+
+
+<form [formGroup]="neueTugendForm"
+      (ngSubmit)="onSubmit(neueTugendForm.value)">
+
+
+  <!---
+    <select>
+    <option  *ngFor="let kategorie of kategorien | async" >
+      {{kategorie.bezeichnung}}
+    </option>
+  </select>
+
+  <hr>
+
+  [ngValue]="selectedLevel"
+    {{selectedKategorie | json}}
+
+    <h1>Selecting object</h1>
+    <select type="number" [(ngModel)]="selectedLevel">
+      <option *ngFor="let level of levels" [ngValue]="level">{{level.name}}</option>
+    </select>
+    {{selectedLevel | json}}
+
+    <hr>---->
+<br><br>
+  <br>
+
+  <label for="kategorie">Kategorie:</label>
+
+  <select  id="kategorie"  formControlName="kategorie">
+    <option  *ngFor="let kategorie of kategorien | async" value="{{ kategorie.id_kategorie }}">
+      {{ kategorie.bezeichnung }}
+    </option>
+  </select>
+
+
+
+  <br><br>
+
+  <label for="titel_neue_tugend">Titel:</label>
+  <input id="titel_neue_tugend"  type="text" formControlName="titel">
+  <br><br>
+
+  <label for="punkte_neue_tugend">Punkte:</label>
+  <input id="punkte_neue_tugend" type="number" formControlName="punkte">
+  <br><br>
+
+  <label for="wiederholungen_neue_tugend">Benötigte Wiederholungen:</label>
+  <input id="wiederholungen_neue_tugend" type="number" formControlName="benoetigteWiederholungen">
+  <br><br>
+
+  <label for="beschreibung_neue_tugend">Beschreibung:</label>
+  <input id="beschreibung_neue_tugend" type="text" formControlName="beschreibung">
+  <br><br>
+
+  <button class="button" type="submit">Speichern</button>
+</form>

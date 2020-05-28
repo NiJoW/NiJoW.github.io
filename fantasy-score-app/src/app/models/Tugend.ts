@@ -8,4 +8,14 @@ export class Tugend{
     aeltesterID: number;
     kategorieID: number;
     erfuellteWdh: number;
+
+  constructor(name: string, beschreibung: string, wert: number, benoetigteWdh: number,
+              aeltesterID: number, kategorieID: number) {
+    this.name = name;
+    this.beschreibung = beschreibung;
+    this.wert = wert;
+    this.benoetigteWdh = benoetigteWdh;
+    this.aeltesterID = aeltesterID;
+    this.kategorieID = kategorieID;
+  }
 }

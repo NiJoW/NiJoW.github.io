@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {FormsModule} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { HomeComponent } from './modules/home/home.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
@@ -15,6 +17,7 @@ import { BannerComponent } from './modules/banner/banner.component';
 import { BestenlisteComponent } from './modules/bestenliste/bestenliste.component';
 import { ErfuellteTugendenComponent } from './modules/dashboard/erfuellte-tugenden/erfuellte-tugenden.component';
 import { TodoTugendenComponent } from './modules/dashboard/todo-tugenden/todo-tugenden.component';
+import { ErstelleTugendComponent } from './modules/dashboard/erstelle-tugend/erstelle-tugend.component';
 import { AuthService } from './services/auth.service';
 import { AnmeldenComponent } from './modules/anmelden/anmelden.component';
 import { RegistrierenComponent } from './modules/registrieren/registrieren.component';
@@ -34,6 +37,7 @@ import { ErledigteDiensteComponent } from './modules/dashboard/erledigte-dienste
     BestenlisteComponent,
     ErfuellteTugendenComponent,
     TodoTugendenComponent,
+    ErstelleTugendComponent,
     AnmeldenComponent,
     RegistrierenComponent,
     AngeboteneDiensteComponent,
@@ -43,7 +47,9 @@ import { ErledigteDiensteComponent } from './modules/dashboard/erledigte-dienste
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
