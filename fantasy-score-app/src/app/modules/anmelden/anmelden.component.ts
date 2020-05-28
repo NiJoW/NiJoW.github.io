@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BuergerTyp } from './../../models/BuergerTyp.enum';
 import { AuthService } from './../../services/auth.service';
 import {FormBuilder} from '@angular/forms';
+import { BannerComponent } from '../banner/banner.component';
 
 @Component({
   selector: 'app-anmelden',
@@ -37,7 +38,9 @@ export class AnmeldenComponent implements OnInit {
 
   navigiere(){
     this.router.navigate(['/']);
+    //this.bannerComponent.updateBanner();
   }
+
   fehlerAnzeigen(){
     this.fehler = true;
     console.warn('Nutzerdaten nicht korrekt!');

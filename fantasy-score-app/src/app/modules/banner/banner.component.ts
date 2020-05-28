@@ -2,6 +2,7 @@ import { Buerger } from './../../models/Buerger';
 import { BuergerService } from './../../services/buerger.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-banner',
@@ -10,19 +11,23 @@ import { Observable } from 'rxjs';
 })
 export class BannerComponent implements OnInit {
 
-  constructor(private buergerService: BuergerService) { }
+  constructor(private buergerService: BuergerService, private authService: AuthService) { }
 
   buergerListe: Observable<Buerger[]>;
-  buergername: string;
+  aktuellerNutzer: string;
 
   ngOnInit(): void {
     this.buergerListe = this.buergerService.getBuerger();
 
     this.buergerListe.subscribe(data => {
-      console.log(data);});
-    console.log("Test, this.bL");
+      console.log(data); });
     console.log(this.buergerListe);
-   // this.buergername
+   this.aktuellerNutzer = "Bürger";
+  }
+
+  updateBanner() {
+    this.aktuellerNutzer = this.authService.getBuerger().benutzername;
+    console.log("aktuellerNutzer: " + this.aktuellerNutzer);
   }
 
 

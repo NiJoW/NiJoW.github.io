@@ -1,6 +1,6 @@
 <div class="banner">
   <div>
-    <p>Willkommen buerger</p>
+    <p>Willkommen {{aktuellerNutzer}}</p>
   </div>
   <div *ngFor="let buerger of buergerListe | async">
     {{ buerger.benutzername }}

@@ -43,5 +43,9 @@ export class AuthService {
   logout() {
     this.nutzer = null;
   }
+
+  getBuerger(): Buerger {
+    return this.nutzer;
+  }
 }
 
