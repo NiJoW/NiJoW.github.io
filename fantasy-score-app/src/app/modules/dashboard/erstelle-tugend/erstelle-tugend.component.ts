@@ -4,7 +4,7 @@ import {Kategorie} from '../../../models/Kategorie';
 import {KategorieService} from '../../../services/kategorie.service';
 import { FormBuilder } from '@angular/forms';
 import {Tugend} from '../../../models/Tugend';
-import {TugendService} from '../../../tugend.service';
+import {TugendService} from '../../../services/tugend.service';
 
 @Component({
   selector: 'app-erstelle-tugend',
