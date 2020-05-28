@@ -5,6 +5,7 @@
 # npm install express
 # npm install mysql
 # npm install cors
+npm install body-parser --save
 
 
 
