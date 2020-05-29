@@ -109,14 +109,19 @@ app.get('/kategorie', function (req, res) {
         });
     });
 
-      app.get('/dashboard/angebotene-dienste', function (req, res) {
 
-        pool.query('SELECT da.name, da.beschreibung FROM dienstangebot da WHERE da.tugendhafterID = 8', function (error, results, fields) {
+      app.post('/dashboard/angebotene-dienste', function (req, res) {
+        const idbuerger = request.body.idbuerger;
 
-          if (error) throw error;
-          res.send(results);
+        const sql = "SELECT da.name, da.beschreibung FROM dienstangebot da WHERE da.tugendhafterID = ?";
+        const values = [idbuerger];
 
-        });
+        pool.query( sql, values,
+          function (error, results, fields) {
+            if (error) throw error;
+            response.send(results);
+      
+       });
     });
 
       app.get('/dashboard/erledigte-dienste', function (req, res) {
@@ -174,3 +179,4 @@ app.post('/nutzer/login', function (request, response) {
 
     });
 });
+

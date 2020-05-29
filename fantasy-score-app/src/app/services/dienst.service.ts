@@ -15,8 +15,10 @@ import { Injectable } from '@angular/core';
       private readonly erledigteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erledigte-dienste';
       private readonly geplanteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/geplante-dienste';
 
-      getAngeboteneDienste(): Observable<Dienst[]> {
-          return this.http.get<Dienst[]>(this.angeboteneDiensteUrl);
+      getAngeboteneDienste(idbuerger: number): Observable<Dienst[]> {
+          return this.http.post<Dienst[]>(this.angeboteneDiensteUrl, {
+            "idbuerger": idbuerger
+          });
       }
 
       getErledigteDienste(): Observable<Dienst[]> {

@@ -34,6 +34,7 @@ export class AnmeldenComponent implements OnInit {
 
   login(anmeldenDaten) {
     this.authService.login(this, anmeldenDaten.benutzername, anmeldenDaten.passwort);
+    
   }
 
   navigiere(){
