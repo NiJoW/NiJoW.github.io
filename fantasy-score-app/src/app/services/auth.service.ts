@@ -48,20 +48,21 @@ export class AuthService {
   registrieren(komponent: RegistrierenComponent, benutzername: string, passwort: string, email: string, typ: BuergerTyp) {
     const newBuerger =  new Buerger(benutzername, passwort, email, typ);
     console.dir(newBuerger);
-    this.benutzerObservable = this.buergerService.addBuerger(newBuerger);
-    this.benutzerObservable.subscribe(data => {
-      if (data != null  && !(data.length === 0)){
-        this.nutzer = data[0];
-        console.dir(data[0]);
-        console.dir(this.nutzer);
-        komponent.navigiere();
-        // return true;
-      } else {
-        //input falsch
-        komponent.benutzernameVorhanden();
-        // return false;
-      }
-    } );
+    this.benutzerObservable = this.buergerService.getBuergerByBenutzername(benutzername); // Get alle buerger mit eingegebenen Benutzername
+      this.benutzerObservable.subscribe(data => {
+        if (data == null  && data.length === 0) { // Benutzername noch nicht verwendet
+          this.benutzerObservable = this.buergerService.addBuerger(newBuerger);
+          this.benutzerObservable.subscribe(data => {
+            if (data != null  && !(data.length === 0)){
+              this.nutzer = data[0];
+              console.dir(data[0]);
+              komponent.navigiere();
+            }
+          } );
+        } else { // Benutzername bereits verwendet
+          komponent.benutzernameVorhanden();
+        }
+      });
   }
 
   getBuerger(): Buerger {

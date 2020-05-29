@@ -175,6 +175,19 @@ app.post('/nutzer/login', function (request, response) {
     });
 });
 
+app.post('/nutzer/name', function (request, response) {
+  const benutzername = request.body.benutzername;
+
+  const sql = "SELECT * FROM buerger WHERE  benutzername=?";
+  const values = [benutzername];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+
+    });
+});
+
 app.post('/nutzer/registrieren', function (request, response) {
   console.log('request body: ');
   console.dir(request.body);

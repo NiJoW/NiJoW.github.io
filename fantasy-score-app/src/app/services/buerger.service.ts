@@ -18,6 +18,7 @@ export class BuergerService {
     private readonly bestenlisteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bestenliste';
     private readonly aeltesterUrl = APIConfig.URL + ':' + APIConfig.PORT + '/aeltester';
     private readonly loginUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/login';
+    private readonly nutzerNameUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/name';
 
 
 
@@ -38,6 +39,13 @@ export class BuergerService {
       {
         "benutzername" : benutzername,
         "passwort" : passwort
+      });
+  }
+
+  getBuergerByBenutzername(benutzername: string): Observable<Buerger[]> {
+    return this.http.post<Buerger[]>(this.nutzerNameUrl,
+      {
+        "benutzername" : benutzername,
       });
   }
 
