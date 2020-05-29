@@ -50,7 +50,7 @@ export class AuthService {
     console.dir(newBuerger);
     this.benutzerObservable = this.buergerService.getBuergerByBenutzername(benutzername); // Get alle buerger mit eingegebenen Benutzername
       this.benutzerObservable.subscribe(data => {
-        if (data == null  && data.length === 0) { // Benutzername noch nicht verwendet
+        if (data == null  || data.length === 0) { // Benutzername noch nicht verwendet
           this.benutzerObservable = this.buergerService.addBuerger(newBuerger);
           this.benutzerObservable.subscribe(data => {
             if (data != null  && !(data.length === 0)){
@@ -60,6 +60,7 @@ export class AuthService {
             }
           } );
         } else { // Benutzername bereits verwendet
+          console.dir(data[0]);
           komponent.benutzernameVorhanden();
         }
       });
