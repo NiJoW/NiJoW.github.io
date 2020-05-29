@@ -14,6 +14,7 @@ export class BuergerService {
     constructor(private http: HttpClient) {}
 
     private readonly buergerUrl = APIConfig.URL + ':' + APIConfig.PORT + '/buerger';
+    private readonly newBuergerUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/registrieren';
     private readonly bestenlisteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bestenliste';
     private readonly aeltesterUrl = APIConfig.URL + ':' + APIConfig.PORT + '/aeltester';
     private readonly loginUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/login';
@@ -39,22 +40,19 @@ export class BuergerService {
         "passwort" : passwort
       });
   }
-/*
-  addTugend(tugend: Tugend): Observable<Tugend>
-  {
-    console.log('in service add tugend');
-    console.dir(tugend);
 
-    return this.http.post<Tugend>(this.tugendenUrl,
+  addBuerger(buerger: Buerger): Observable<Buerger[]> { 
+    const httpOptions = null;
+    console.log('in service add Buerger');
+    console.dir(buerger);
+    return this.http.post<Buerger[]>(this.newBuergerUrl,
       {
-        "name" : tugend.name,
-        "beschreibung" : tugend.beschreibung,
-        "wert": tugend.wert,
-        "benoetigteWdh": tugend.benoetigteWdh,
-        "aeltesterID": tugend.aeltesterID,
-        "kategorieID": tugend.kategorieID
+        "benutzername" : buerger.benutzername,
+        "passwort": buerger.passwort,
+        "email_adresse" : buerger.email_adresse,
+        "typ": buerger.typ,
       });
-  } */
+    }
 
 
     // Make the HTTP request:

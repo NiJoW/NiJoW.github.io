@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BuergerTyp } from './../../models/BuergerTyp.enum';
 import { AuthService } from './../../services/auth.service';
-import {FormBuilder} from '@angular/forms';
-import { BannerComponent } from '../banner/banner.component';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-anmelden',

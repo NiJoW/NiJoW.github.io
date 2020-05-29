@@ -174,3 +174,23 @@ app.post('/nutzer/login', function (request, response) {
 
     });
 });
+
+app.post('/nutzer/registrieren', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+
+  const benutzername = request.body.benutzername;
+  const passwort = request.body.passwort;
+  const email_adresse = request.body.email_adresse;
+  const typ = request.body.typ;
+
+  const sql = "INSERT INTO buerger (benutzername, passwort, email_adresse, typ) " +
+    "VALUES (?, ?, ?, ?)";
+  const values = [benutzername, passwort, email_adresse, typ];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+
+    });
+});

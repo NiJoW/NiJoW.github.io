@@ -1,1 +1,18 @@
-<p>registrieren works!</p>
+<form [formGroup]="registrierenForm"   (ngSubmit)="registrieren(registrierenForm.value)">
+    <h2>Registrieren als Tugendhafter</h2>
+    <label>Benutzername:</label>
+    <input id="benutzernameInput" type="text" placeholder="Benutzername" formControlName="benutzername">
+    <label>Email:</label>
+    <input class="emailInput" type="text" placeholder="Email" formControlName="email">
+    <label>Passwort:</label>
+    <input class="passwortInput" type="password" placeholder="Passwort" formControlName="passwort">
+    <label>Passwort erneut eingeben:</label>
+    <input class="passwortInput" type="password" placeholder="Passwort" formControlName="passwort2">
+    <button class="registrierenBtn" type="submit">Registrieren</button>
+    <div class='fehlermeldungAnmeldung' [hidden]="nutzer">
+        <br>Der angegebener Benutzername exsistiert bereits!</div>
+    <div class='fehlermeldungAnmeldung' [hidden]="passwort">
+        <br>Die angegebenen Passwörter stimmen nicht überein!</div>
+    <div class='fehlermeldungAnmeldung' [hidden]="email">
+        <br>Die angegebene Email-Adresse ist leider falsch!</div>
+</form>

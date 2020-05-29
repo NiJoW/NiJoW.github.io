@@ -6,4 +6,11 @@ export class Buerger {
     passwort: string;
     email_adresse: string;
     typ: BuergerTyp;
+
+    constructor(name: string, passwort: string, email: string, typ: BuergerTyp) {
+        this.benutzername = name;
+        this.passwort = passwort;
+        this.email_adresse = email;
+        this.typ = typ;
+    }
 }

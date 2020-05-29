@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {Tugend} from "../models/Tugend";
 import {empty} from "rxjs/internal/Observer";
 import {AnmeldenComponent} from "../modules/anmelden/anmelden.component";
+import { RegistrierenComponent } from '../modules/registrieren/registrieren.component';
 
 @Injectable({
   providedIn: 'root'
@@ -25,16 +26,16 @@ export class AuthService {
       return this.isLoggedIn() && this.nutzer.typ === typ;
   }
 
-  login(Komponente: AnmeldenComponent, benutzername: string, passwort: string): any {
+  login(komponent: AnmeldenComponent, benutzername: string, passwort: string): any {
     this.benutzerObservable = this.buergerService.getBuergerByLoginData(benutzername, passwort);
     this.benutzerObservable.subscribe(data => {
       if (data != null  && !(data.length === 0)){
         this.nutzer = data[0];
         console.dir(data[0]);
-        Komponente.navigiere();
+        komponent.navigiere();
         // return true;
       } else {
-        Komponente.fehlerAnzeigen();
+        komponent.fehlerAnzeigen();
         // return false;
       }
     } );
@@ -42,6 +43,25 @@ export class AuthService {
 
   logout() {
     this.nutzer = null;
+  }
+
+  registrieren(komponent: RegistrierenComponent, benutzername: string, passwort: string, email: string, typ: BuergerTyp) {
+    const newBuerger =  new Buerger(benutzername, passwort, email, typ);
+    console.dir(newBuerger);
+    this.benutzerObservable = this.buergerService.addBuerger(newBuerger);
+    this.benutzerObservable.subscribe(data => {
+      if (data != null  && !(data.length === 0)){
+        this.nutzer = data[0];
+        console.dir(data[0]);
+        console.dir(this.nutzer);
+        komponent.navigiere();
+        // return true;
+      } else {
+        //input falsch
+        komponent.benutzernameVorhanden();
+        // return false;
+      }
+    } );
   }
 
   getBuerger(): Buerger {
