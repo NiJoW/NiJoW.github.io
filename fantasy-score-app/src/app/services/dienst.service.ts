@@ -14,6 +14,8 @@ import { Injectable } from '@angular/core';
       private readonly angeboteneDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/angebotene-dienste';
       private readonly erledigteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erledigte-dienste';
       private readonly geplanteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/geplante-dienste';
+      private readonly gebuchteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/gebuchte-dienste';
+      private readonly angefragteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/angefragte-dienste';
 
       getAngeboteneDienste(): Observable<Dienst[]> {
           return this.http.get<Dienst[]>(this.angeboteneDiensteUrl);
@@ -25,5 +27,13 @@ import { Injectable } from '@angular/core';
 
       getGeplanteDienste(): Observable<Dienst[]> {
             return this.http.get<Dienst[]>(this.geplanteDiensteUrl);
+      }
+
+      getGebuchteDienste(): Observable<Dienst[]> {
+        return this.http.get<Dienst[]>(this.gebuchteDiensteUrl);
+      }
+      
+      getAngefragteDienste(): Observable<Dienst[]> {
+        return this.http.get<Dienst[]>(this.angefragteDiensteUrl);
       }
     }

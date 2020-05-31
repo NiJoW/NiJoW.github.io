@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
 
   kategorien: Observable<Kategorie[]>;
   type = "tugenden";
+  typeTemp = "tugendhafter";
 
   constructor(private kategorienService: KategorieService) { }
 
@@ -25,14 +26,14 @@ export class DashboardComponent implements OnInit {
     console.log(this.kategorien);
   }
 
-  changeType(typ: String){
-    if(this.type != typ) {
-      if(this.type === "tugenden") {
-        this.type = "dienste";
-      } else if (this.type === "dienste") {
-        this.type = "tugenden";
-      }
-    }
+  changeType(typ: string){
+    this.type = typ; 
   }
-}
 
+
+  changeTypeTemp(typ: string){
+    this.typeTemp = typ; 
+  }
+
+
+}
