@@ -16,4 +16,6 @@ import { Injectable } from '@angular/core';
       getKategorien(): Observable<Kategorie[]> {
           return this.http.get<Kategorie[]>(this.kategorieUrl);
       }
+
+      
     }

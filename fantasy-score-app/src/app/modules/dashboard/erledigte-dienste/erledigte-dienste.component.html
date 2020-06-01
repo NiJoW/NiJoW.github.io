@@ -7,7 +7,7 @@
     <tbody>
         <tr *ngFor="let dienst of erledigteDienste | async"> 
             <td>{{dienst.name}}</td> 
-            <td>{{dienst.datum}}</td> 
+            <td>{{dienst.datum | date}}</td> 
             <td>{{dienst.benutzername}}</td>
         </tr>
     </tbody>
