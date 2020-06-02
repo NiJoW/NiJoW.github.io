@@ -26,8 +26,8 @@ export class BannerComponent implements OnInit {
   }
 
   updateBanner() {
-    this.aktuellerNutzer = this.authService.getBuerger().benutzername;
-    console.log("aktuellerNutzer: " + this.aktuellerNutzer);
+   /* this.aktuellerNutzer = this.authService.getBuerger().benutzername;
+    console.log("aktuellerNutzer: " + this.aktuellerNutzer);*/
   }
 
 

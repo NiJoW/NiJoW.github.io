@@ -166,7 +166,7 @@ app.get('/kategorie', function (req, res) {
       });
     });
 
-    app.get('dashboard/gebuchte-dienste', function (req, res) {
+    app.get('/dashboard/gebuchte-dienste', function (req, res) {
 
       pool.query('SELECT da.name, da.beschreibung, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND dv.suchenderID = 16 AND dv.datum < "2020-05-08" ', function (error, results, fields) {
         
@@ -175,7 +175,7 @@ app.get('/kategorie', function (req, res) {
       });
     });
 
-    app.get('dashboard/angefragte-dienste', function (req, res) {
+    app.get('/dashboard/angefragte-dienste', function (req, res) {
 
       pool.query('SELECT da.name, da.beschreibung, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND dv.suchenderID = 16 AND dv.datum < "2020-05-08"', function (error, results, fields) {
         

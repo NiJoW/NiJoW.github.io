@@ -14,6 +14,7 @@ import { RegistrierenComponent } from '../modules/registrieren/registrieren.comp
 export class AuthService {
 
   private nutzer: Buerger;
+  private angemeldeterNutzer: Observable<Buerger>;
   private benutzerObservable: Observable<Buerger[]>;
 
   constructor(private buergerService: BuergerService) { }
@@ -66,8 +67,8 @@ export class AuthService {
       });
   }
 
-  getBuerger(): Buerger {
-    return this.nutzer;
+  getAngemeldeterNutzer(): Observable<Buerger> {
+    return this.angemeldeterNutzer;
   }
 }
 
