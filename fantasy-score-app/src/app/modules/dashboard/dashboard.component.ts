@@ -21,9 +21,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(private kategorienService: KategorieService,  private authService: AuthService) {
      this.getAktuellenNutzer();
-     console.log('dashboard: logged in?');
-    console.log(this.authService.isLoggedIn());
-
+     // console.log('dashboard: logged in?');
+     // console.log(this.authService.isLoggedIn());
   }
 
   ngOnInit(): void {
@@ -40,19 +39,15 @@ export class DashboardComponent implements OnInit {
 
 
   getAktuellenNutzer(){
- //   this.authService.getAngemeldeterNutzer().subscribe((dataNutzer: Buerger) => {
- //   this.nutzer = dataNutzer;
- //  });
     this.nutzer = this.authService.getNutzer();
-    console.log('dasboard get akt nutzer:');
-    console.log(this.nutzer);
   }
 
   getKategorien(){
     this.kategorien = this.kategorienService.getKategorien();
 
-    this.kategorien.subscribe(data => {
-      console.log(data); });
+    this.kategorien.subscribe(data => { });
+   // this.kategorien.subscribe(data => {
+   //   console.log(data); });
    // console.log('Test, this.kategorien: ');
    // console.log(this.kategorien);
   }

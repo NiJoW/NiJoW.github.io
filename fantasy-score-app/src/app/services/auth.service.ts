@@ -14,14 +14,23 @@ export class AuthService {
   private nutzer: Buerger;
   private benutzerObservable: Observable<Buerger[]>;
 
-  constructor(private buergerService: BuergerService) {}
+  constructor(private buergerService: BuergerService) {
+    // console.log('authService: isLoggedIn():');
+    // console.log(this.isLoggedIn());
+    if(this.isLoggedIn()){
+      this.nutzer  = JSON.parse(sessionStorage.loggedInUser);
+    }
+  }
 
   isLoggedIn() {
-      //return !!this.nutzer;
     if(sessionStorage.getItem('loggedInUser')!=undefined){
       return true;
     }
     return false;
+  }
+
+  getNutzer(){
+    return this.nutzer;
   }
 
   isTyp(typ: BuergerTyp) {
@@ -71,17 +80,6 @@ export class AuthService {
       });
   }
 
-  /*
-  getAngemeldeterNutzer(): Observable<Buerger> {
-    const nutzerObservable = new Observable<Buerger>(observer => {
-      observer.next(this.nutzer);
-    });
-    return nutzerObservable;
-  }*/
-
-  getNutzer(){
-    return this.nutzer;
-  }
 
 }
 
