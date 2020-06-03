@@ -17,39 +17,45 @@ export class DashboardComponent implements OnInit {
   type = "tugenden";
   typeTemp = "tugendhafter";
   aktuellerNutzer: Buerger;
-  public nutzer: Buerger;
+  nutzer: Buerger;
 
-  constructor(private kategorienService: KategorieService, private authService: AuthService) { }
+  constructor(private kategorienService: KategorieService,  private authService: AuthService) {
+     this.getAktuellenNutzer();
+     console.log('dashboard: logged in?');
+    console.log(this.authService.isLoggedIn());
+
+  }
 
   ngOnInit(): void {
+    this.getKategorien();
+  }
+
+  changeType(typ: string){
+    this.type = typ;
+  }
+
+  changeTypeTemp(typ: string){
+    this.typeTemp = typ;
+  }
+
+
+  getAktuellenNutzer(){
+    this.authService.getAngemeldeterNutzer().subscribe((dataNutzer: Buerger) => {
+    this.nutzer = dataNutzer;
+   });
+  //  this.nutzer = this.authService.getNutzer();
+    console.log('dasboard get akt nutzer:');
+    console.log(this.nutzer);
+  }
+
+  getKategorien(){
     this.kategorien = this.kategorienService.getKategorien();
 
     this.kategorien.subscribe(data => {
       console.log(data); });
-    console.log('Test, this.kategorien: ');
-    console.log(this.kategorien);
-    
-    
-    this.authService.getAngemeldeterNutzer().subscribe((Blanutzer: Buerger) => {
-      this.nutzer = Blanutzer;
-      console.log('In dasboard ist angemeldeter Nutzer angekommen:');
-      console.log(this.nutzer.benutzername);
-    })
+   // console.log('Test, this.kategorien: ');
+   // console.log(this.kategorien);
   }
-
-  changeType(typ: string){
-    this.type = typ; 
-  }
-
-  changeTypeTemp(typ: string){
-    this.typeTemp = typ; 
-  }
-
-  /*getAktuellenNutzer(){
-    this.aktuellerNutzer=this.authService.getBuerger();
-    console.log(this.aktuellerNutzer.id_buerger);
-  }*/
-    
 
 
 }

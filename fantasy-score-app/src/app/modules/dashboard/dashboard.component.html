@@ -1,3 +1,9 @@
+<hr>
+Test Observer
+  <div  *ngIf='nutzer !== undefined' >
+    <div >{{  nutzer.benutzername }} </div>
+  </div>
+<hr>
 <div>
   <div (click)="changeTypeTemp('tugendhafter')">Tugendhafter</div>
   <div (click)="changeTypeTemp('suchender')">Suchender</div>
@@ -6,7 +12,7 @@
 <br>
 <br>
 <br>
-
+<!---  --->
 <div *ngIf="typeTemp === 'tugendhafter'">
   <div>
     <div (click)="changeType('tugenden')">Tugenden</div>

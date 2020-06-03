@@ -3,8 +3,6 @@ import { Buerger } from '../models/Buerger';
 import { BuergerTyp } from '../models/BuergerTyp.enum';
 import { BuergerService} from './buerger.service';
 import {Observable} from "rxjs";
-import {Tugend} from "../models/Tugend";
-import {empty} from "rxjs/internal/Observer";
 import {AnmeldenComponent} from "../modules/anmelden/anmelden.component";
 import { RegistrierenComponent } from '../modules/registrieren/registrieren.component';
 
@@ -14,13 +12,16 @@ import { RegistrierenComponent } from '../modules/registrieren/registrieren.comp
 export class AuthService {
 
   private nutzer: Buerger;
-  private angemeldeterNutzer: Observable<Buerger>;
   private benutzerObservable: Observable<Buerger[]>;
 
-  constructor(private buergerService: BuergerService) { }
+  constructor(private buergerService: BuergerService) {}
 
   isLoggedIn() {
-      return !!this.nutzer;
+      //return !!this.nutzer;
+    if(sessionStorage.getItem('loggedInUser')!=undefined){
+      return true;
+    }
+    return false;
   }
 
   isTyp(typ: BuergerTyp) {
@@ -33,17 +34,20 @@ export class AuthService {
       if (data != null  && !(data.length === 0)){
         this.nutzer = data[0];
         console.dir(data[0]);
+
+        sessionStorage.setItem('loggedInUser', JSON.stringify(data[0]));
+        console.log(sessionStorage.getItem('loggedInUser'));
+
         komponent.navigiere();
-        // return true;
       } else {
         komponent.fehlerAnzeigen();
-        // return false;
       }
     } );
   }
 
   logout() {
     this.nutzer = null;
+    sessionStorage.removeItem('loggedInUser');
   }
 
   registrieren(komponent: RegistrierenComponent, benutzername: string, passwort: string, email: string, typ: BuergerTyp) {
@@ -68,7 +72,15 @@ export class AuthService {
   }
 
   getAngemeldeterNutzer(): Observable<Buerger> {
-    return this.angemeldeterNutzer;
+    const nutzerObservable = new Observable<Buerger>(observer => {
+      observer.next(this.nutzer);
+    });
+    return nutzerObservable;
   }
+/*
+  getNutzer(){
+    return this.nutzer;
+  }*/
+
 }
 
