@@ -40,10 +40,10 @@ export class DashboardComponent implements OnInit {
 
 
   getAktuellenNutzer(){
-    this.authService.getAngemeldeterNutzer().subscribe((dataNutzer: Buerger) => {
-    this.nutzer = dataNutzer;
-   });
-  //  this.nutzer = this.authService.getNutzer();
+ //   this.authService.getAngemeldeterNutzer().subscribe((dataNutzer: Buerger) => {
+ //   this.nutzer = dataNutzer;
+ //  });
+    this.nutzer = this.authService.getNutzer();
     console.log('dasboard get akt nutzer:');
     console.log(this.nutzer);
   }

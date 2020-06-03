@@ -71,16 +71,17 @@ export class AuthService {
       });
   }
 
+  /*
   getAngemeldeterNutzer(): Observable<Buerger> {
     const nutzerObservable = new Observable<Buerger>(observer => {
       observer.next(this.nutzer);
     });
     return nutzerObservable;
-  }
-/*
+  }*/
+
   getNutzer(){
     return this.nutzer;
-  }*/
+  }
 
 }
 
