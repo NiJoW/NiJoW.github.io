@@ -37,7 +37,6 @@ export class AnmeldenComponent implements OnInit {
 
   navigiere(){
     this.router.navigate(['/']);
-    //this.bannerComponent.updateBanner();
   }
 
   fehlerAnzeigen(){

@@ -1,3 +1,5 @@
+import { Buerger } from './../../models/Buerger';
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import {KategorieService} from '../../services/kategorie.service';
 import {Kategorie} from '../../models/Kategorie';
@@ -13,26 +15,42 @@ export class DashboardComponent implements OnInit {
 
   kategorien: Observable<Kategorie[]>;
   type = "tugenden";
+  typeTemp = "tugendhafter";
+  aktuellerNutzer: Buerger;
+  nutzer: Buerger;
 
-  constructor(private kategorienService: KategorieService) { }
+  constructor(private kategorienService: KategorieService,  private authService: AuthService) {
+     this.getAktuellenNutzer();
+     // console.log('dashboard: logged in?');
+     // console.log(this.authService.isLoggedIn());
+  }
 
   ngOnInit(): void {
+    this.getKategorien();
+  }
+
+  changeType(typ: string){
+    this.type = typ;
+  }
+
+  changeTypeTemp(typ: string){
+    this.typeTemp = typ;
+  }
+
+
+  getAktuellenNutzer(){
+    this.nutzer = this.authService.getNutzer();
+  }
+
+  getKategorien(){
     this.kategorien = this.kategorienService.getKategorien();
 
-    this.kategorien.subscribe(data => {
-      console.log(data); });
-    console.log('Test, this.kategorien: ');
-    console.log(this.kategorien);
+    this.kategorien.subscribe(data => { });
+   // this.kategorien.subscribe(data => {
+   //   console.log(data); });
+   // console.log('Test, this.kategorien: ');
+   // console.log(this.kategorien);
   }
 
-  changeType(typ: String){
-    if(this.type != typ) {
-      if(this.type === "tugenden") {
-        this.type = "dienste";
-      } else if (this.type === "dienste") {
-        this.type = "tugenden";
-      }
-    }
-  }
+
 }
-

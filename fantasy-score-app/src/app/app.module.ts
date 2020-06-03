@@ -24,6 +24,8 @@ import { RegistrierenComponent } from './modules/registrieren/registrieren.compo
 import { AngeboteneDiensteComponent } from './modules/dashboard/angebotene-dienste/angebotene-dienste.component';
 import { GeplanteDiensteComponent } from './modules/dashboard/geplante-dienste/geplante-dienste.component';
 import { ErledigteDiensteComponent } from './modules/dashboard/erledigte-dienste/erledigte-dienste.component';
+import { GebuchteDiensteComponent } from './modules/dashboard/gebuchte-dienste/gebuchte-dienste.component';
+import { AngefragteDiensteComponent } from './modules/dashboard/angefragte-dienste/angefragte-dienste.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { ErledigteDiensteComponent } from './modules/dashboard/erledigte-dienste
     RegistrierenComponent,
     AngeboteneDiensteComponent,
     GeplanteDiensteComponent,
-    ErledigteDiensteComponent
+    ErledigteDiensteComponent,
+    GebuchteDiensteComponent,
+    AngefragteDiensteComponent
   ],
   imports: [
     BrowserModule,
