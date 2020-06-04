@@ -9,6 +9,16 @@
     var bodyParser = require('body-parser')
     var app = express();
     var index;
+
+    var pad = function(num) { return ('00'+num).slice(-2) };
+      var date;
+      date = new Date();
+      date = date.getUTCFullYear()        + '-' +
+        pad(date.getUTCMonth() + 1) + '-' +
+        pad(date.getUTCDate())       + ' ';
+
+
+
     app.use(cors());
     // parse application/x-www-form-urlencoded
     app.use(bodyParser.urlencoded({ extended: false }))
@@ -107,8 +117,11 @@ app.get('/kategorie', function (req, res) {
     });
 
     app.get('/dashboard/todo-tugenden', function (req, res) {
-
-        pool.query('SELECT tu.name, tae.erfuellteWdh, tu.benoetigteWdh, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh<tu.benoetigteWdh AND tae.tugendhafterID=8 ', function (error, results, fields) {
+      const buergerID = req.query.buergerID;
+      const sql = 'SELECT tu.name, tae.erfuellteWdh, tu.benoetigteWdh, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh<tu.benoetigteWdh AND tae.tugendhafterID=?';
+      const value = [buergerID];
+        pool.query(sql, value,
+           function (error, results, fields) {
 
           if (error) throw error;
           res.send(results);
@@ -141,18 +154,24 @@ app.get('/kategorie', function (req, res) {
     //##################################Dienste##############################################
 
       app.get('/dashboard/angebotene-dienste', function (req, res) {
+        const buergerID = req.query.buergerID;
+        const sql = 'SELECT da.name, da.beschreibung FROM dienstangebot da WHERE da.tugendhafterID = ?';
+        const value = [buergerID];
+          pool.query(sql, value, 
+            function (error, results, fields) {
 
-        pool.query('SELECT da.name, da.beschreibung FROM dienstangebot da WHERE da.tugendhafterID = 8', function (error, results, fields) {
+            if (error) throw error;
+            res.send(results);
 
-          if (error) throw error;
-          res.send(results);
-
-        });
-    });
+          });
+      });
 
       app.get('/dashboard/erledigte-dienste', function (req, res) {
-
-        pool.query('SELECT da.name, da.beschreibung, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = 8 AND dv.datum > "2020-05-08" ', function (error, results, fields) {
+        const buergerID = req.query.buergerID;
+        const sql = 'SELECT da.name, da.beschreibung, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = ? AND dv.datum > ? ';
+        const value = [buergerID, date+""];
+        pool.query(sql, value,
+           function (error, results, fields) {
 
           if (error) throw error;
           res.send(results);
@@ -161,12 +180,39 @@ app.get('/kategorie', function (req, res) {
     });
 
     app.get('/dashboard/geplante-dienste', function (req, res) {
-
-      pool.query('SELECT da.name, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = 8 AND dv.datum < "2020-05-08" ', function (error, results, fields) {
+      const buergerID = req.query.buergerID;
+      const sql = 'SELECT da.name, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = ? AND dv.datum < ? ';
+      const value = [buergerID, date+""];
+      pool.query(sql, value,
+         function (error, results, fields) {
 
         if (error) throw error;
         res.send(results);
 
+      });
+    });
+
+    app.get('/dashboard/gebuchte-dienste', function (req, res) {
+      const buergerID = req.query.buergerID;
+      const sql = 'SELECT da.name, da.beschreibung, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND da.tugendhafterID = b.id_buerger AND dv.status = "bestätigt" AND dv.suchenderID = ? AND dv.datum < ?';
+      const value = [buergerID, date+""];
+      pool.query(sql, value,
+         function (error, results, fields) {
+        
+        if (error) throw error;
+        res.send(results);
+      });
+    });
+
+    app.get('/dashboard/angefragte-dienste', function (req, res) {
+      const buergerID = req.query.buergerID;
+      const sql = 'SELECT da.name, da.beschreibung, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND da.tugendhafterID = b.id_buerger AND dv.status = "bestätigt" AND dv.suchenderID = ? AND dv.datum < ?';
+      const value = [buergerID, date+""];
+      pool.query(sql, value,
+         function (error, results, fields) {
+        
+        if (error) throw error;
+        res.send(results);
       });
     });
 
@@ -234,24 +280,7 @@ app.post('/newTugend', function (request, response) {
     });
   });
 
-    app.get('/dashboard/gebuchte-dienste', function (req, res) {
-
-
-      pool.query('SELECT da.name, da.beschreibung, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND dv.suchenderID = 16 AND dv.datum < "2020-05-08" ', function (error, results, fields) {
-        
-        if (error) throw error;
-        res.send(results);
-      });
-    });
-
-    app.get('/dashboard/angefragte-dienste', function (req, res) {
-
-      pool.query('SELECT da.name, da.beschreibung, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND dv.suchenderID = 16 AND dv.datum < "2020-05-08"', function (error, results, fields) {
-        
-        if (error) throw error;
-        res.send(results);
-      });
-    });
+    
     
     app.get('/tugend', function (req, res) {
 
