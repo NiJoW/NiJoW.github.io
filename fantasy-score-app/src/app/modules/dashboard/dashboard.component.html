@@ -1,27 +1,49 @@
+<hr>
+Test Observer
+  <div  *ngIf='nutzer !== undefined' >
+    <div >{{  nutzer.benutzername }} </div>
+  </div>
+<hr>
 <div>
-  <div (click)="changeType('tugenden')">Tugenden</div>
-  <div (click)="changeType('dienste')">Dienste</div>
+  <div (click)="changeTypeTemp('tugendhafter')">Tugendhafter</div>
+  <div (click)="changeTypeTemp('suchender')">Suchender</div>
+  <div (click)="changeTypeTemp('aeltester')">Aeltester</div>
+</div>
+<br>
+<br>
+<br>
+<!---  --->
+<div *ngIf="typeTemp === 'tugendhafter'">
+  <div>
+    <div (click)="changeType('tugenden')">Tugenden</div>
+    <div (click)="changeType('dienste')">Dienste</div>
+  </div>
+
+  <div>
+    <div *ngIf="type === 'tugenden'">
+      <app-todo-tugenden></app-todo-tugenden>
+      <app-erfuellte-tugenden></app-erfuellte-tugenden>
+    </div>
+    <div *ngIf="type === 'dienste'">
+      <app-angebotene-dienste></app-angebotene-dienste>
+      <app-geplante-dienste></app-geplante-dienste>
+      <app-erledigte-dienste></app-erledigte-dienste>
+    </div>
+  </div>
 </div>
 
-<div class="cards">
-  <div *ngIf="type === 'tugenden'">
-    <app-todo-tugenden></app-todo-tugenden>
-    <app-erfuellte-tugenden></app-erfuellte-tugenden>
-    <app-erstelle-tugend></app-erstelle-tugend>
-  </div>
-  <div *ngIf="type === 'dienste'">
-    <app-angebotene-dienste></app-angebotene-dienste>
-    <app-geplante-dienste></app-geplante-dienste>
-    <app-erledigte-dienste></app-erledigte-dienste>
-  </div>
+<div *ngIf= "typeTemp === 'suchender'">
+  <app-gebuchte-dienste></app-gebuchte-dienste>
+  <app-angefragte-dienste></app-angefragte-dienste>
+</div>
 
+<div *ngIf= "typeTemp === 'aeltester'">
+  <app-erstelle-tugend></app-erstelle-tugend>
 
-
-
-<label for="kategorien">Kategorie:</label>
-
-<select name="kategorien" id="kategorien">
-  <option  *ngFor="let kategorie of kategorien | async" value=" {{ kategorie.id_kategorie }}">
-    {{ kategorie.bezeichnung }}
-  </option>
-</select>
+  <label for="kategorien">Kategorie:</label>
+  <select name="kategorien" id="kategorien">
+    <option  *ngFor="let kategorie of kategorien | async" value=" {{ kategorie.id_kategorie }}">
+      {{ kategorie.bezeichnung }}
+    </option>
+  </select>
+</div>

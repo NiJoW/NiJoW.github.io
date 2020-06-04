@@ -47,7 +47,7 @@ export class ErstelleTugendComponent implements OnInit {
   }
 
   setDefaultSelect(): void {
-    console.log('say so');
+    console.log('setDefaultSelect');
   }
 
   onSubmit(tugendData) {

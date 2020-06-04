@@ -89,6 +89,9 @@ app.get('/kategorie', function (req, res) {
 //##################################Dashboard############################################
 //#######################################################################################
 
+
+//##################################Tugenden#############################################
+
     app.get('/dashboard/erfuellte-tugenden', function (req, res) {
 
         pool.query('SELECT tu.name, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh = tu.benoetigteWdh AND tae.tugendhafterID=8', function (error, results, fields) {
@@ -108,6 +111,30 @@ app.get('/kategorie', function (req, res) {
 
         });
     });
+
+    app.post('/tugend', function (request, response) {
+      console.log('request body: ');
+      console.dir(request.body);
+
+      const name = request.body.name;
+      const beschreibung = request.body.beschreibung;
+      const wert = request.body.wert;
+      const benoetigteWdh = request.body.benoetigteWdh;
+      const aeltesterID = 7;
+      const kategorieID = request.body.kategorieID;
+
+      const sql = "INSERT INTO tugend (name, beschreibung, wert, benoetigteWdh, aeltesterID, kategorieID) " +
+        "VALUES (?, ?, ?, ?, ?, ?)";
+      const values = [name, beschreibung, wert, benoetigteWdh, aeltesterID, kategorieID];
+      pool.query( sql, values,
+        function (error, results, fields) {
+          if (error) throw error;
+          response.send(results);
+
+        });
+    });
+
+    //##################################Dienste##############################################
 
       app.get('/dashboard/angebotene-dienste', function (req, res) {
 
@@ -129,15 +156,16 @@ app.get('/kategorie', function (req, res) {
         });
     });
 
-app.get('/dashboard/geplante-dienste', function (req, res) {
+    app.get('/dashboard/geplante-dienste', function (req, res) {
 
-  pool.query('SELECT da.name, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = 8 AND dv.datum < "2020-05-08"', function (error, results, fields) {
+      pool.query('SELECT da.name, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = 8 AND dv.datum < "2020-05-08" ', function (error, results, fields) {
 
-    if (error) throw error;
-    res.send(results);
+        if (error) throw error;
+        res.send(results);
 
-  });
-});
+      });
+    });
+
 
 //#######################################################################################
 //##################################POST###############################################
@@ -199,53 +227,75 @@ app.post('/newTugend', function (request, response) {
       if (error) throw error;
       response.send(results);
 
+    app.get('/dashboard/gebuchte-dienste', function (req, res) {
+
+
+      pool.query('SELECT da.name, da.beschreibung, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND dv.suchenderID = 16 AND dv.datum < "2020-05-08" ', function (error, results, fields) {
+        
+        if (error) throw error;
+        res.send(results);
+      });
     });
-});
 
+    app.get('/dashboard/angefragte-dienste', function (req, res) {
 
-app.post('/nutzer/login', function (request, response) {
-  const benutzername = request.body.benutzername;
-  const passwort = request.body.passwort;
-
-  const sql = "SELECT * FROM buerger WHERE  benutzername=? AND passwort=?";
-  const values = [benutzername, passwort];
-  pool.query( sql, values,
-    function (error, results, fields) {
-      if (error) throw error;
-      response.send(results);
-
+      pool.query('SELECT da.name, da.beschreibung, b.benutzername, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND dv.suchenderID = 16 AND dv.datum < "2020-05-08"', function (error, results, fields) {
+        
+        if (error) throw error;
+        res.send(results);
+      });
     });
-});
 
-app.post('/nutzer/name', function (request, response) {
-  const benutzername = request.body.benutzername;
 
-  const sql = "SELECT * FROM buerger WHERE  benutzername=?";
-  const values = [benutzername];
-  pool.query( sql, values,
-    function (error, results, fields) {
-      if (error) throw error;
-      response.send(results);
+//#######################################################################################
+//##################################Login################################################
+//#######################################################################################
 
+
+
+    app.post('/nutzer/login', function (request, response) {
+      const benutzername = request.body.benutzername;
+      const passwort = request.body.passwort;
+
+      const sql = "SELECT * FROM buerger WHERE  benutzername=? AND passwort=?";
+      const values = [benutzername, passwort];
+      pool.query( sql, values,
+        function (error, results, fields) {
+          if (error) throw error;
+          response.send(results);
+
+        });
     });
-});
 
-app.post('/nutzer/registrieren', function (request, response) {
-  console.log('request body: ');
-  console.dir(request.body);
+    app.post('/nutzer/name', function (request, response) {
+      const benutzername = request.body.benutzername;
 
-  const benutzername = request.body.benutzername;
-  const passwort = request.body.passwort;
-  const email_adresse = request.body.email_adresse;
-  const typ = request.body.typ;
+      const sql = "SELECT * FROM buerger WHERE  benutzername=?";
+      const values = [benutzername];
+      pool.query( sql, values,
+        function (error, results, fields) {
+          if (error) throw error;
+          response.send(results);
 
-  const sql = "INSERT INTO buerger (benutzername, passwort, email_adresse, typ) " +
-    "VALUES (?, ?, ?, ?)";
-  const values = [benutzername, passwort, email_adresse, typ];
-  pool.query( sql, values,
-    function (error, results, fields) {
-      if (error) throw error;
-      response.send(results);
-
+        });
     });
-});
+
+    app.post('/nutzer/registrieren', function (request, response) {
+      console.log('request body: ');
+      console.dir(request.body);
+
+      const benutzername = request.body.benutzername;
+      const passwort = request.body.passwort;
+      const email_adresse = request.body.email_adresse;
+      const typ = request.body.typ;
+
+      const sql = "INSERT INTO buerger (benutzername, passwort, email_adresse, typ) " +
+        "VALUES (?, ?, ?, ?)";
+      const values = [benutzername, passwort, email_adresse, typ];
+      pool.query( sql, values,
+        function (error, results, fields) {
+          if (error) throw error;
+          response.send(results);
+
+        });
+    });
