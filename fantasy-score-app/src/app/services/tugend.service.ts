@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { APIConfig } from './../../APIconfig';
 import { Tugend } from './../models/Tugend';
 import { HttpClient , HttpHeaders, HttpParams } from '@angular/common/http';
@@ -11,7 +12,7 @@ import { catchError, retry } from 'rxjs/operators';
   })
 
   export class TugendService {
-      constructor(private http: HttpClient) {}
+      constructor(private http: HttpClient, private authService: AuthService) {}
 
   private readonly tugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugend';
   private readonly newTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newTugend';
@@ -24,7 +25,8 @@ import { catchError, retry } from 'rxjs/operators';
     }
 
       getErfuellteTugenden(): Observable<Tugend[]> {
-          return this.http.get<Tugend[]>(this.erfuellteTugendenUrl)
+        let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
+          return this.http.get<Tugend[]>(this.erfuellteTugendenUrl, {params : buergerParams});
       }
 
       getTodoTugenden(): Observable<Tugend[]> {

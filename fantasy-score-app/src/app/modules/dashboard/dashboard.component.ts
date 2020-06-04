@@ -1,3 +1,4 @@
+import { BuergerTyp } from './../../models/BuergerTyp.enum';
 import { Buerger } from './../../models/Buerger';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +16,7 @@ export class DashboardComponent implements OnInit {
 
   kategorien: Observable<Kategorie[]>;
   type = "tugenden";
-  typeTemp = "tugendhafter";
+  typeUser: BuergerTyp;
   aktuellerNutzer: Buerger;
   nutzer: Buerger;
 
@@ -27,14 +28,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getKategorien();
+    this.typeUser = this.authService.getNutzer().typ;
   }
 
   changeType(typ: string){
     this.type = typ;
   }
 
-  changeTypeTemp(typ: string){
-    this.typeTemp = typ;
+  isTyp(typ: string) : boolean {
+    return this.authService.getNutzer().typ+"" == typ;
   }
 
 

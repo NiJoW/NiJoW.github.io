@@ -92,9 +92,13 @@ app.get('/kategorie', function (req, res) {
 
 //##################################Tugenden#############################################
 
-    app.get('/dashboard/erfuellte-tugenden', function (req, res) {
 
-        pool.query('SELECT tu.name, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh = tu.benoetigteWdh AND tae.tugendhafterID=8', function (error, results, fields) {
+    app.get('/dashboard/erfuellte-tugenden', function (req, res) {
+      const buergerID = req.query.buergerID;
+      const sql = 'SELECT tu.name, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh = tu.benoetigteWdh AND tae.tugendhafterID=?';
+      const value = [buergerID];
+        pool.query(sql, value, 
+          function (error, results, fields) {
 
           if (error) throw error;
           res.send(results);
@@ -263,10 +267,10 @@ app.post('/newTugend', function (request, response) {
     });*/
     //TODO: url in /tugenden?kategorieID=3 umändern -> request.query
     app.get('/tugenden', function (request, response) {
-      console.log(request.query);
-      console.log('Tugend request body: ');
+      //console.log(request.query);
+      //console.log('Tugend request body: ');
        //requerst.params
-      console.log(request.params);
+      //console.log(request.params);
       const kategorieID = request.query.kategorieID;
     
       const sql = "SELECT * FROM tugend WHERE kategorieID=?";

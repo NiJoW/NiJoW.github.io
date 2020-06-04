@@ -23,11 +23,12 @@ export class BannerComponent implements OnInit {
       console.log(data); });
     console.log(this.buergerListe);
    this.aktuellerNutzer = "Bürger";
+   this.updateBanner();
   }
 
   updateBanner() {
-   /* this.aktuellerNutzer = this.authService.getBuerger().benutzername;
-    console.log("aktuellerNutzer: " + this.aktuellerNutzer);*/
+    this.aktuellerNutzer = this.authService.getNutzer().benutzername;
+    console.log("aktuellerNutzer: " + this.aktuellerNutzer);
   }
 
 
