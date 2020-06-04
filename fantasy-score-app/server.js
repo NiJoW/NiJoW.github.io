@@ -184,7 +184,37 @@ app.get('/kategorie', function (req, res) {
       });
     });
     
+    app.get('/tugend', function (req, res) {
 
+      pool.query('SELECT * FROM tugend', function (error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+    
+      });
+    });
+    
+    /*app.get('/p/:tagId', function(req, res) {
+      res.send("tagId is set to " + req.params.tagId);
+    });*/
+    //TODO: url in /tugenden?kategorieID=3 umändern -> request.query
+    app.get('/tugenden', function (request, response) {
+      console.log(request.query);
+      console.log('Tugend request body: ');
+       //requerst.params
+      console.log(request.params);
+      const kategorieID = request.query.kategorieID;
+    
+      const sql = "SELECT * FROM tugend WHERE kategorieID=?";
+      const values = [kategorieID];
+      pool.query( sql, values,
+        function (error, results, fields) {
+          console.log(request.query);
+          if (error) throw error;
+          response.send(results);
+    
+        });
+    });
+    
 
 
 //#######################################################################################
