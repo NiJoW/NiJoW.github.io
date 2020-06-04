@@ -30,7 +30,8 @@ import { catchError, retry } from 'rxjs/operators';
       }
 
       getTodoTugenden(): Observable<Tugend[]> {
-        return this.http.get<Tugend[]>(this.todoTugendenUrl)
+        let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
+          return this.http.get<Tugend[]>(this.todoTugendenUrl, {params : buergerParams});
      }
 
      getTugendVonKategorie(kategorieID: number): Observable<Tugend[]> {

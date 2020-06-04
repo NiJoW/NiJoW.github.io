@@ -1,6 +1,7 @@
+import { Dienst } from './../models/Dienst';
+import { AuthService } from './auth.service';
 import { APIConfig } from '../../APIconfig';
-import { Dienst } from '../models/Dienst';
-import { HttpClient , HttpHeaders } from '@angular/common/http';
+import { HttpClient , HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -9,7 +10,7 @@ import { Injectable } from '@angular/core';
   })
 
   export class DienstService {
-      constructor(private http: HttpClient) {}
+      constructor(private http: HttpClient, private authService: AuthService) {}
 
       private readonly angeboteneDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/angebotene-dienste';
       private readonly erledigteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erledigte-dienste';
@@ -18,22 +19,27 @@ import { Injectable } from '@angular/core';
       private readonly angefragteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/angefragte-dienste';
 
       getAngeboteneDienste(): Observable<Dienst[]> {
-            return this.http.get<Dienst[]>(this.angeboteneDiensteUrl);
+            let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
+          return this.http.get<Dienst[]>(this.angeboteneDiensteUrl, {params : buergerParams});
       }
 
       getErledigteDienste(): Observable<Dienst[]> {
-            return this.http.get<Dienst[]>(this.erledigteDiensteUrl);
+            let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
+          return this.http.get<Dienst[]>(this.erledigteDiensteUrl, {params : buergerParams});
       }
 
       getGeplanteDienste(): Observable<Dienst[]> {
-            return this.http.get<Dienst[]>(this.geplanteDiensteUrl);
+            let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
+          return this.http.get<Dienst[]>(this.geplanteDiensteUrl, {params : buergerParams});
       }
 
       getGebuchteDienste(): Observable<Dienst[]> {
-            return this.http.get<Dienst[]>(this.gebuchteDiensteUrl);
+            let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
+          return this.http.get<Dienst[]>(this.gebuchteDiensteUrl, {params : buergerParams});
       }
       
       getAngefragteDienste(): Observable<Dienst[]> {
-            return this.http.get<Dienst[]>(this.angefragteDiensteUrl);
+            let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
+          return this.http.get<Dienst[]>(this.angefragteDiensteUrl, {params : buergerParams});
       }
     }
