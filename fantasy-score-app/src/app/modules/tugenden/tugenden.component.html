@@ -1,11 +1,25 @@
+
+
 <div class="searchBar">
-    <button class="dropdownFilter" (click)="showKategorie">Filter</button>
-    <div class="dropdownContent" id="dropdownContent" *ngFor="let kategorie of kategorienListe | async">
-        <a>{{kategorie.bezeichnung}}</a>
-    </div>
-    <input class="searchInput" type="text" placeholder="&#61442; Search..">
-    <button class="search">Suchen</button>
+  <select name="kategorien" [(ngModel)]='kategorieID'  (ngModelChange)='onKategorieSelected($event)'>
+    <option  *ngFor="let kategorie of kategorienListe | async" value=" {{ kategorie.id_kategorie }}">
+      {{ kategorie.bezeichnung }}
+    </option>
+  </select>
+
+  <form [formGroup]="searchForm" (ngSubmit)="(searchForm.value)">
+    <input class="form-control" type="text" placeholder="Suchen..." formControlName="searchInput">
+    
+    <button class="searchBtn" type="submit">Suchen</button>
+  </form>
+  
 </div>
+
+<ul class="searchResult">
+  <li class="tugendInfo" *ngFor="let tugend of tugenden | async">
+    {{tugend.name}}
+  </li> 
+</ul>
 
 <!--<div class="searchResult">
     <table class="table table-striped">
