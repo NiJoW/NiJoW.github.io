@@ -17,6 +17,8 @@ export class DiensteComponent implements OnInit {
   searchInput: string;
   searchForm;
   searchText;
+  
+  willBuchen = false;
 
   constructor(private kategorieService: KategorieService, 
     private dienstService: DienstService,
@@ -25,9 +27,15 @@ export class DiensteComponent implements OnInit {
       searchInput: ''
     });
   }
+
   kategorienListe: Observable<Kategorie[]>;
   dienste: Observable<Dienst[]>;
   shownDienste: Dienst[];
+
+
+  choosenDienst: Dienst;
+  dienst: Observable<Dienst>;
+
 
   ngOnInit(): void {
     this.kategorienListe = this.kategorieService.getKategorien();
@@ -61,7 +69,13 @@ export class DiensteComponent implements OnInit {
   }
 
   buchen(dienstID) {
-    console.log("Nutzer will den DIenst " + dienstID)+ "buchen";
+    console.log("Nutzer will den Dienst " + dienstID)+ "buchen";
+    this.dienst = this.dienstService.getDienstByID(dienstID);
+    this.dienst.subscribe(data => {
+      this.choosenDienst = data;
+      console.dir(this.choosenDienst);
+      this.willBuchen = true;
+    })
   }
 
 }

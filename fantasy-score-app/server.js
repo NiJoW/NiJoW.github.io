@@ -225,6 +225,19 @@ app.get('/kategorie', function (req, res) {
       });
     });
 
+    app.get('/dienst', function (req, res) {
+
+      console.log(req.query.dienstID);
+      const dienstID = req.query.dienstID;
+
+      pool.query('SELECT * FROM dienstangebot WHERE dienstID=?', [dienstID], 
+        function (error, results, fields) {
+          if (error) throw error;
+          res.send(results);
+    
+      });
+    });
+
     app.get('/kategorie/dienste', function (request, response) {
       console.log(request.query);
       console.log(request.params);

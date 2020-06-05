@@ -13,6 +13,7 @@ import { Injectable } from '@angular/core';
       constructor(private http: HttpClient, private authService: AuthService) {}
 
       private readonly diensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dienste';
+      private readonly dienstUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dienst';
       private readonly angeboteneDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/angebotene-dienste';
       private readonly erledigteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erledigte-dienste';
       private readonly geplanteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/geplante-dienste';
@@ -22,6 +23,11 @@ import { Injectable } from '@angular/core';
 
       getDienste(): Observable<Dienst[]> {
         return this.http.get<Dienst[]>(this.diensteUrl);
+      }
+
+      getDienstByID(id: number): Observable<Dienst> {
+        let dienstParams = new HttpParams().set("dienstID", id+"");
+        return this.http.get<Dienst>(this.dienstUrl, {params : dienstParams});
       }
 
       getDiensteInKategorie(kategorieID: number): Observable<Dienst[]> {

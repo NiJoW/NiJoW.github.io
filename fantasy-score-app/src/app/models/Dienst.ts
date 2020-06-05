@@ -13,5 +13,6 @@ export class Dienst {
     datum: Date;
     status: DienstStatus;
     suchenderGelesen: boolean;
-    benutzername: string;
+    benutzername: string; //Name des Suchenden
+    tugendhafterName: string;
 }

@@ -1,5 +1,8 @@
 <div class="searchBar">
     <select name="kategorien" [(ngModel)]='kategorieID'  (ngModelChange)='onKategorieSelected($event)'>
+        <option value="-1">
+            Alle
+          </option>
       <option  *ngFor="let kategorie of kategorienListe | async" value=" {{ kategorie.id_kategorie }}">
         {{ kategorie.bezeichnung }}
       </option>
@@ -22,3 +25,8 @@
       <br>
     </div>
   </div>
+
+  <div *ngIf="willBuchen == true">
+    <app-dienst-buchen [choosenDienst] = "choosenDienst"></app-dienst-buchen>
+</div>
+  
