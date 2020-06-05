@@ -1,1 +1,26 @@
-<p>dienste works!</p>
+<div class="searchBar">
+    <select name="kategorien" [(ngModel)]='kategorieID'  (ngModelChange)='onKategorieSelected($event)'>
+      <option  *ngFor="let kategorie of kategorienListe | async" value=" {{ kategorie.id_kategorie }}">
+        {{ kategorie.bezeichnung }}
+      </option>
+    </select>
+  
+    <form [formGroup]="searchForm" (ngSubmit)="(searchForm.value)">
+      <input class="form-control" type="text" placeholder="Suchen..." formControlName="searchInput">
+      
+      <button class="searchBtn" type="submit">Suchen</button>
+    </form>
+    
+  </div>
+  
+  <div class="searchResult" *ngFor="let tugend of tugenden | async">
+    <div class="tugendInfo">
+      <h3>DIENST: {{dienst.name}}</h3>
+      <h4>Deine Belohung sind {{tugend.wert}} Social Score Punkte!</h4>
+      <h4>Beschreibung: {{tugend.beschreibung}}</h4>
+      <h4>Angeboten von: {{tugend.aeltesterID}}</h4>
+      <button class="buchenBtn" (click)=planen(tugend.id_tugend)>Challenge annehmen</button>
+      <br>
+    </div>
+  </div>
+  
