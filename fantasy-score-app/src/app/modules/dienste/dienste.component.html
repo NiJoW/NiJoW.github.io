@@ -13,14 +13,12 @@
     
   </div>
   
-  <div class="searchResult" *ngFor="let tugend of tugenden | async">
-    <div class="tugendInfo">
+  <div class="searchResult" *ngFor="let dienst of dienste | async">
+    <div class="angebotInfo">
       <h3>DIENST: {{dienst.name}}</h3>
-      <h4>Deine Belohung sind {{tugend.wert}} Social Score Punkte!</h4>
-      <h4>Beschreibung: {{tugend.beschreibung}}</h4>
-      <h4>Angeboten von: {{tugend.aeltesterID}}</h4>
-      <button class="buchenBtn" (click)=planen(tugend.id_tugend)>Challenge annehmen</button>
+      <h4>Angeboten von: {{dienst.tugendhafterID}}</h4>
+      <h4>Beschreibung: {{dienst.beschreibung}}</h4>
+      <button class="buchenBtn" (click)=buchen(dienst.id_dienstangebot)>Buchen</button>
       <br>
     </div>
   </div>
-  
