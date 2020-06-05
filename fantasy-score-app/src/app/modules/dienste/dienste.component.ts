@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DienstService } from 'src/app/services/dienst.service';
 import { Observable } from 'rxjs';
 import { Dienst } from 'src/app/models/Dienst';
+import { KategorieService } from 'src/app/services/kategorie.service';
+import { FormBuilder } from '@angular/forms';
+import { Kategorie } from 'src/app/models/Kategorie';
 
 @Component({
   selector: 'app-dienste',
@@ -12,14 +15,28 @@ export class DiensteComponent implements OnInit {
 
   kategorieID: number;
   searchInput: string;
+  searchForm;
+  searchText;
 
-  constructor(private dienstService: DienstService) { }
-
+  constructor(private kategorieService: KategorieService, 
+    private dienstService: DienstService,
+    private formBuilder: FormBuilder) {
+    this.searchForm = this.formBuilder.group({
+      searchInput: ''
+    });
+  }
+  kategorienListe: Observable<Kategorie[]>;
   dienste: Observable<Dienst[]>;
   shownDienste: Dienst[];
 
   ngOnInit(): void {
-    
+    this.kategorienListe = this.kategorieService.getKategorien();
+
+    this.kategorienListe.subscribe(data => {
+      console.log(data);
+      console.log(this.kategorienListe);
+    });
+
     this.dienste = this.dienstService.getDienste();
     this.dienste.subscribe(data => {
       console.log(data);

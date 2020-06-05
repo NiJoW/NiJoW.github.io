@@ -12,11 +12,22 @@ import { Injectable } from '@angular/core';
   export class DienstService {
       constructor(private http: HttpClient, private authService: AuthService) {}
 
+      private readonly diensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dienste';
       private readonly angeboteneDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/angebotene-dienste';
       private readonly erledigteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erledigte-dienste';
       private readonly geplanteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/geplante-dienste';
       private readonly gebuchteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/gebuchte-dienste';
       private readonly angefragteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/angefragte-dienste';
+      private readonly diensteInKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/kategorie/dienste';
+
+      getDienste(): Observable<Dienst[]> {
+        return this.http.get<Dienst[]>(this.diensteUrl);
+      }
+
+      getDiensteInKategorie(kategorieID: number): Observable<Dienst[]> {
+        let kategorieParams = new HttpParams().set("kategorieID", kategorieID+""); 
+         return this.http.get<Dienst[]>(this.diensteInKategorieUrl, {params : kategorieParams});
+       }
 
       getAngeboteneDienste(): Observable<Dienst[]> {
             let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
