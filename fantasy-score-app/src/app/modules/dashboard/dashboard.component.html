@@ -1,19 +1,23 @@
+<!--
 <hr>
 Test Observer
   <div  *ngIf='nutzer !== undefined' >
     <div >{{  nutzer.benutzername }} </div>
   </div>
 <hr>
+-->
 
 <br>
 <br>
 <br>
 <!---  --->
 <div *ngIf="isTyp('Tugendhafter')">
-  <div>
-    <button (click)="changeType('tugenden')">Tugenden</button>
-    <button (click)="changeType('dienste')">Dienste</button>
+  <div class="contentTabs">
+    <button class="leftButton" (click)="changeType('tugenden')">Tugenden</button>
+    <button class="rightButton" (click)="changeType('dienste')">Dienste</button>
   </div>
+
+  <div class="seperator"></div>
 
   <div>
     <div *ngIf="type === 'tugenden'">

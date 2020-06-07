@@ -2,8 +2,8 @@
 <div *ngIf="isTyp('Tugendhafter')">
     <div  *ngIf='nutzer !== undefined' >
         <div class="homeContent">
+            <h2>Hallo, Tugendhafter {{nutzer.benutzername}}</h2>
             <div class="leftContent">
-                <p>Hallo, Tugendhafter {{nutzer.benutzername}}</p>
                 <p>Bist du es leid mit kleinen Punkten zu vergnügen?
                     Dann verpasse diese <a routerLink="/bonusprogramme">Bonusprogramme</a> nicht! </p>
                 <div class="homePicture"></div>
@@ -23,8 +23,8 @@
 <div *ngIf= "isTyp('Suchender')">
     <div  *ngIf='nutzer !== undefined' >
         <div class="homeContent">
+            <h2>Hallo, Suchender {{nutzer.benutzername}}</h2>
             <div class="leftContent">
-                <p>Hallo, Suchender {{nutzer.benutzername}}</p>
                 <p>Suchst du verzweifelt nach Hilfe? Dann sehe dir doch diese <a routerLink="/dienste">Dienste</a> an!
                     Sie haben anderen Suchenden schon zu einer vollkommenen Verbindung mit einem Tugendhaften verholfen.</p>
                 <div class="homePicture"></div>
@@ -44,8 +44,8 @@
 <div *ngIf= "isTyp('Aeltester')">
     <div  *ngIf='nutzer !== undefined' >
         <div class="homeContent">
+            <h2>Hallo, Ältester {{nutzer.benutzername}}</h2>
             <div class="leftContent">
-                <p>Hallo, Ältester {{nutzer.benutzername}}</p>
                 <p>Hast du schon die neusten Statistiken gesehen?
                     Sieh dir die Früchte deiner Arbeit an!</p>
                 <div class="homePicture"></div>

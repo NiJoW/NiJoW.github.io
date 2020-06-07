@@ -2,3 +2,15 @@
 
 
 .buergerListe{ height: 150px; width: 150px; overflow-y: scroll;}
+
+.contentTabs {  }
+
+.leftButton, .rightButton { background-color: white; color: black; border: 2px solid black; border-style: solid solid none solid; border-radius: 8px 8px 0 0;}
+
+.leftButton { margin-left: 40px; }
+
+.rightButton {  }
+
+.contentTabs button { font-size: 1.5rem; }
+
+.seperator { width: 100%; border: 1px solid black; margin-bottom: 30px;}
