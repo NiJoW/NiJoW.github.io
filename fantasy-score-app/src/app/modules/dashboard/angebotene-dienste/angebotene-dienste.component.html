@@ -1,15 +1,20 @@
 <h3>Meine angebotenen Dienste</h3>
+<button (click)="changeFormat()">Beschreibungen anzeigen</button>
 <table class='table'> 
     <thead>
         <tr> 
             <th>Dienstname</th>
-            <th>Beschreibung</th>
+            <div *ngIf= "isLongFormat()">
+                <th>Beschreibung</th>
+            </div>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let dienst of angeboteneDienste | async"> 
             <td>{{dienst.name}}</td> 
-            <td>{{dienst.beschreibung}}</td> 
+            <div *ngIf= "isLongFormat()">
+                <p>{{dienst.beschreibung}}<p> 
+            </div>
         </tr>
     </tbody>
 </table>

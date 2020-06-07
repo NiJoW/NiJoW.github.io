@@ -1,0 +1,21 @@
+<h3>Meine erstellten Bonusprogramme</h3>
+<table class='table'> 
+    <thead>
+        <tr> 
+            <th>Titel</th>
+            <th>Frist</th>
+            <th>benötigte Punkte in Kategorie</th>
+            <th>Anforderung</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let bonuseintrag of erstellteBonusprogramme | async"> 
+            <td>{{bonuseintrag.titel}}</td> 
+            <td>{{bonuseintrag.first | date}}</td> 
+            <td>{{bonuseintrag.punkte_in_kategorie}} Punkte in Kategorie {{bonuseintrag.bezeichnung}}</td>
+            <td>{{bonuseintrag.nachricht}}</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<br>
