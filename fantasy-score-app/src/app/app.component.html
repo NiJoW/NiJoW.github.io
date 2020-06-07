@@ -13,7 +13,7 @@
         <li *ngIf="isLoggedIn"><a routerLink="/tugenden">Tugenden</a></li>
         <li *ngIf="isLoggedIn"><a routerLink="/dienste">Dienste</a></li>
         <li *ngIf="isLoggedIn"><a routerLink="/bonusprogramme">Bonusprogramme</a></li>
-        <li *ngIf="isLoggedIn">Username<a href="#" routerLink="/">Menü</a></li>
+        <li *ngIf="isLoggedIn"><a href="#" routerLink="/">{{nutzer.benutzername}}</a></li>
         <li *ngIf="isLoggedIn"><a (click)="logout()">Abmelden</a></li>
       </ul>
     </nav>

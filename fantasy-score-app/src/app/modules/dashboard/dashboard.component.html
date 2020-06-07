@@ -34,6 +34,13 @@ Test Observer
 </div>
 <div *ngIf= "isTyp('Aeltester')">
   <app-erstelle-tugend></app-erstelle-tugend>
+  <app-erstellte-bonusprogramme></app-erstellte-bonusprogramme>
+  <div class="buergerListe">
+    <div  *ngFor="let buerger of buergerListe | async">
+      {{ buerger.benutzername }}
+    </div>
+  </div>
+ 
 
   <label for="kategorien">Kategorie:</label>
   <select name="kategorien" id="kategorien">

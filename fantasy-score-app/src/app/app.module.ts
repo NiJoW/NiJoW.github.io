@@ -26,6 +26,7 @@ import { GeplanteDiensteComponent } from './modules/dashboard/geplante-dienste/g
 import { ErledigteDiensteComponent } from './modules/dashboard/erledigte-dienste/erledigte-dienste.component';
 import { GebuchteDiensteComponent } from './modules/dashboard/gebuchte-dienste/gebuchte-dienste.component';
 import { AngefragteDiensteComponent } from './modules/dashboard/angefragte-dienste/angefragte-dienste.component';
+import { ErstellteBonusprogrammeComponent } from './modules/dashboard/erstellte-bonusprogramme/erstellte-bonusprogramme.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AngefragteDiensteComponent } from './modules/dashboard/angefragte-diens
     GeplanteDiensteComponent,
     ErledigteDiensteComponent,
     GebuchteDiensteComponent,
-    AngefragteDiensteComponent
+    AngefragteDiensteComponent,
+    ErstellteBonusprogrammeComponent
   ],
   imports: [
     BrowserModule,

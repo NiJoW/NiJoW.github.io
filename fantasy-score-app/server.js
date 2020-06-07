@@ -100,6 +100,22 @@ app.get('/kategorie', function (req, res) {
 //#######################################################################################
 
 
+//##################################Bonusprogramme#######################################
+
+app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
+  const buergerID = req.query.buergerID;
+  const sql = 'SELECT bp.titel, bp.nachricht, bp.frist, bp.punkte_in_kategorie, k.bezeichnung FROM bonusprogramm bp, kategorie k WHERE k.id_kategorie = bp.kategorieID AND aeltesterID = ?;';
+  const value = [buergerID];
+    pool.query(sql, value, 
+      function (error, results, fields) {
+
+      if (error) throw error;
+      res.send(results);
+
+    });
+});
+
+
 //##################################Tugenden#############################################
 
 

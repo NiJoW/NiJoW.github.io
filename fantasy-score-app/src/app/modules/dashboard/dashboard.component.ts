@@ -1,3 +1,4 @@
+import { BuergerService } from './../../services/buerger.service';
 import { BuergerTyp } from './../../models/BuergerTyp.enum';
 import { Buerger } from './../../models/Buerger';
 import { AuthService } from './../../services/auth.service';
@@ -19,8 +20,9 @@ export class DashboardComponent implements OnInit {
   typeUser: BuergerTyp;
   aktuellerNutzer: Buerger;
   nutzer: Buerger;
+  buergerListe: Observable<Buerger[]>;
 
-  constructor(private kategorienService: KategorieService,  private authService: AuthService) {
+  constructor(private kategorienService: KategorieService,  private authService: AuthService, private buergerService: BuergerService) {
      this.getAktuellenNutzer();
      // console.log('dashboard: logged in?');
      // console.log(this.authService.isLoggedIn());
@@ -29,6 +31,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getKategorien();
     this.typeUser = this.authService.getNutzer().typ;
+    this.buergerListe = this.buergerService.getBuerger();
+
+    this.buergerListe.subscribe(data => {
+      console.log(data); });
+    console.log(this.buergerListe);
   }
 
   changeType(typ: string){
