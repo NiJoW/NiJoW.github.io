@@ -1,5 +1,5 @@
-import { TugendService } from './../../../services/tugend.service';
-import { Tugend } from './../../../models/Tugend';
+import { TugendService } from '../../../../services/tugend.service';
+import { Tugend } from '../../../../models/Tugend';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BuergerTyp } from 'src/app/models/BuergerTyp.enum';
@@ -25,7 +25,7 @@ export class TodoTugendenComponent implements OnInit {
   }
 
   get isTugendhafter() {
-    return this.authService.isTyp(BuergerTyp.Tugendhafter); 
+    return this.authService.isTyp(BuergerTyp.Tugendhafter);
   }
 
 }

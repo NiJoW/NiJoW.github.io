@@ -11,8 +11,8 @@ Test Observer
 <!---  --->
 <div *ngIf="isTyp('Tugendhafter')">
   <div>
-    <div (click)="changeType('tugenden')">Tugenden</div>
-    <div (click)="changeType('dienste')">Dienste</div>
+    <button (click)="changeType('tugenden')">Tugenden</button>
+    <button (click)="changeType('dienste')">Dienste</button>
   </div>
 
   <div>
@@ -34,6 +34,14 @@ Test Observer
 </div>
 <div *ngIf= "isTyp('Aeltester')">
   <app-erstelle-tugend></app-erstelle-tugend>
+  <app-erstellte-bonusprogramme></app-erstellte-bonusprogramme>
+  <app-erstellte-tugenden></app-erstellte-tugenden>
+  <div class="buergerListe">
+    <div  *ngFor="let buerger of buergerListe | async">
+      {{ buerger.benutzername }}
+    </div>
+  </div>
+
 
   <label for="kategorien">Kategorie:</label>
   <select name="kategorien" id="kategorien">
@@ -42,3 +50,4 @@ Test Observer
     </option>
   </select>
 </div>
+

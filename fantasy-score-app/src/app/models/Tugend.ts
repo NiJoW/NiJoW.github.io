@@ -6,8 +6,9 @@ export class Tugend{
     icon: string;
     benoetigteWdh: number;
     aeltesterID: number;
-    kategorieID: number;
     erfuellteWdh: number;
+    kategorieTitel: string;
+    kategorieID: number;
 
   constructor(name: string, beschreibung: string, wert: number, benoetigteWdh: number,
               aeltesterID: number, kategorieID: number) {
