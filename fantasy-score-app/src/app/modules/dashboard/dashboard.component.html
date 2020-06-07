@@ -34,46 +34,5 @@ Test Observer
 </div>
 <div *ngIf= "isTyp('Aeltester')">
   <app-erstelle-tugend></app-erstelle-tugend>
-
-  <label for="kategorien">Kategorie:</label>
-  <select name="kategorien" id="kategorien">
-    <option  *ngFor="let kategorie of kategorien | async" value=" {{ kategorie.id_kategorie }}">
-      {{ kategorie.bezeichnung }}
-    </option>
-  </select>
 </div>
 
-<hr>
-Todo: nach merge anpassen!
-<hr>
-<h1>Neue Tugend erstellen</h1>
-<label for="kategorien">Kategorie:</label>
-<select name="kategorien" id="kategorien">
-  <option  *ngFor="let kategorie of kategorien | async" value=" {{ kategorie.id_kategorie }}">
-    {{ kategorie.bezeichnung }}
-  </option>
-</select>
-<br><br>
-
-<label for="titel_neue_tugend">Titel:</label>
-<input id="titel_neue_tugend">
-
-<div class="section">
-  <div class="container">
-    <div class="columns">
-      <div class="column has-text-left">
-        Subscribe form component content modal overlay
-      </div>
-      <div class="column is-narrow">
-        <button (click)="open(subscribeComponent)" class="button is-small is-primary">
-          show
-        </button>
-      </div>
-      <div class="column">
-        <ng-container *ngIf="subscribeData">
-          {{ subscribeData | json }}
-        </ng-container>
-      </div>
-    </div>
-  </div>
-</div>

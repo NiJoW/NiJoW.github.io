@@ -29,6 +29,7 @@ import { GeplanteDiensteComponent } from './modules/dashboard/geplante-dienste/g
 import { ErledigteDiensteComponent } from './modules/dashboard/erledigte-dienste/erledigte-dienste.component';
 import { GebuchteDiensteComponent } from './modules/dashboard/gebuchte-dienste/gebuchte-dienste.component';
 import { AngefragteDiensteComponent } from './modules/dashboard/angefragte-dienste/angefragte-dienste.component';
+import { ErstelleTugendOverlayComponent } from './modules/dashboard/erstelle-tugend/erstelle-tugend-overlay/erstelle-tugend-overlay.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { AngefragteDiensteComponent } from './modules/dashboard/angefragte-diens
     ErfuellteTugendenComponent,
     ErstelleTugendComponent,
     OverlayComponent,
-    SubscribeComponent
+    SubscribeComponent,
+    ErstelleTugendOverlayComponent
   ],
   imports: [
     BrowserModule,
