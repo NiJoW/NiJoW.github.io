@@ -106,7 +106,7 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
   const buergerID = req.query.buergerID;
   const sql = 'SELECT bp.titel, bp.nachricht, bp.frist, bp.punkte_in_kategorie, k.bezeichnung FROM bonusprogramm bp, kategorie k WHERE k.id_kategorie = bp.kategorieID AND aeltesterID = ?;';
   const value = [buergerID];
-    pool.query(sql, value, 
+    pool.query(sql, value,
       function (error, results, fields) {
 
       if (error) throw error;
@@ -123,7 +123,7 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
       const buergerID = req.query.buergerID;
       const sql = 'SELECT tu.name, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh = tu.benoetigteWdh AND tae.tugendhafterID=?';
       const value = [buergerID];
-        pool.query(sql, value, 
+        pool.query(sql, value,
           function (error, results, fields) {
 
           if (error) throw error;
@@ -167,13 +167,27 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
         });
     });
 
+    // Aeltester
+    app.get('/dashboard/erstellte-tugenden', function (req, res) {
+      const aeltesterID = req.query.aeltesterID;
+      const sql = 'SELECT id_tugend, name, beschreibung, wert, benoetigteWdh,  kategorieID, bezeichnung AS kategorieTitel FROM tugend JOIN kategorie ON kategorieID=id_kategorie WHERE aeltesterID = ?';
+      const value = [aeltesterID];
+      pool.query(sql, value,
+        function (error, results, fields) {
+
+          if (error) throw error;
+          res.send(results);
+
+        });
+    });
+
     //##################################Dienste##############################################
 
       app.get('/dashboard/angebotene-dienste', function (req, res) {
         const buergerID = req.query.buergerID;
         const sql = 'SELECT da.name, da.beschreibung FROM dienstangebot da WHERE da.tugendhafterID = ?';
         const value = [buergerID];
-          pool.query(sql, value, 
+          pool.query(sql, value,
             function (error, results, fields) {
 
             if (error) throw error;
@@ -214,7 +228,7 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
       const value = [buergerID, date+""];
       pool.query(sql, value,
          function (error, results, fields) {
-        
+
         if (error) throw error;
         res.send(results);
       });
@@ -226,7 +240,7 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
       const value = [buergerID, date+""];
       pool.query(sql, value,
          function (error, results, fields) {
-        
+
         if (error) throw error;
         res.send(results);
       });
@@ -234,7 +248,7 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
 
 
 //#######################################################################################
-//##################################POST###############################################
+//#################################################################################
 //#######################################################################################
 
 app.get('/tugend', function (req, res) {
@@ -296,17 +310,17 @@ app.post('/newTugend', function (request, response) {
     });
   });
 
-    
-    
+
+
     app.get('/tugend', function (req, res) {
 
       pool.query('SELECT * FROM tugend', function (error, results, fields) {
         if (error) throw error;
         res.send(results);
-    
+
       });
     });
-    
+
     /*app.get('/p/:tagId', function(req, res) {
       res.send("tagId is set to " + req.params.tagId);
     });*/
@@ -317,7 +331,7 @@ app.post('/newTugend', function (request, response) {
        //requerst.params
       //console.log(request.params);
       const kategorieID = request.query.kategorieID;
-    
+
       const sql = "SELECT * FROM tugend WHERE kategorieID=?";
       const values = [kategorieID];
       pool.query( sql, values,
@@ -325,10 +339,10 @@ app.post('/newTugend', function (request, response) {
           console.log(request.query);
           if (error) throw error;
           response.send(results);
-    
+
         });
     });
-    
+
 
 
 //#######################################################################################
