@@ -61,7 +61,7 @@ import { Injectable } from '@angular/core';
           return this.http.get<Dienst[]>(this.angefragteDiensteUrl, {params : buergerParams});
       }
 
-      createDiensvertrag(dienstID: number, datum: string): Observable<Dienst> {
+      createDiensvertrag(dienstID: number, datum: Date): Observable<Dienst> {
         return this.http.post<Dienst>(this.newDienstUrl,
           {
             "dienstID" : dienstID,

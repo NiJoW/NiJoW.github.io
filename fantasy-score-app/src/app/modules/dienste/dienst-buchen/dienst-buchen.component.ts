@@ -33,7 +33,7 @@ export class DienstBuchenComponent implements OnInit {
     this.dienst = this.choosenDienst[0];
   }
 
-  buchen(datum: string) {
+  buchen(datum: Date) {
     
     console.log(datum);
     if(datum == null) { //TODO funktioniert nicht + nur dates nach heute akzeptieren
@@ -41,10 +41,10 @@ export class DienstBuchenComponent implements OnInit {
       console.log("show Fehler");
     } else {
       console.log(datum);
-    /*this.newDienst = this.dienstService.createDiensvertrag(this.choosenDienst[0].id_dienstangebot, datum+"");
+      this.newDienst = this.dienstService.createDiensvertrag(this.choosenDienst[0].id_dienstangebot, datum);
       this.newDienst.subscribe(data => {
         console.log(data);
-      });*/
+      });
   
     }
   }
