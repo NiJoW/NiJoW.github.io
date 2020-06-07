@@ -3,8 +3,9 @@
 
 body {
     margin: 0;
-    font-family: 'Nunito', 'sans-serif';
-    font-size: 18px;
+    /*font-family: "Helvetica Neue", 'Nunito', 'sans-serif';*/
+  font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 18px;
 }
 
 .container {
@@ -15,8 +16,14 @@ body {
 
 /*NavBar*/
 header {
-  background: lightblue;
+ /* border-bottom: solid black;
+  border-width: thin;*/
   padding: 1em;
+  height: 50px;
+  color: #D80765;
+  font-weight: 450;
+  font-size: 1.15rem;
+  line-height: 0.7;
 }
 
 header nav {
@@ -31,6 +38,11 @@ header nav ul {
 
 li a {
     padding: 1em;
+    color: #D80765;
+}
+li a:hover  {
+  #padding: 1em;
+  color: black;
 }
 
 .navHome {

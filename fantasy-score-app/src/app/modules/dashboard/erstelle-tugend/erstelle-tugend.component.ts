@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Kategorie} from '../../../models/Kategorie';
 import {KategorieService} from '../../../services/kategorie.service';
@@ -34,6 +34,7 @@ export class ErstelleTugendComponent implements OnInit {
 
     });
   }
+
 
   ngOnInit(): void {
     this.kategorien = this.kategorienService.getKategorien();

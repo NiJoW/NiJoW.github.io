@@ -5,6 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {OverlayComponent} from './modules/overlay/overlayComponent/overlay.component';
+import {SubscribeComponent} from './modules/overlay/subscribe/subscribe.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 import {FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -27,6 +30,8 @@ import { ErledigteDiensteComponent } from './modules/dashboard/erledigte-dienste
 import { GebuchteDiensteComponent } from './modules/dashboard/gebuchte-dienste/gebuchte-dienste.component';
 import { AngefragteDiensteComponent } from './modules/dashboard/angefragte-dienste/angefragte-dienste.component';
 import { ErstellteBonusprogrammeComponent } from './modules/dashboard/erstellte-bonusprogramme/erstellte-bonusprogramme.component';
+import { ErstelleTugendOverlayComponent } from './modules/dashboard/erstelle-tugend/erstelle-tugend-overlay/erstelle-tugend-overlay.component';
+
 
 @NgModule({
   declarations: [
@@ -48,12 +53,18 @@ import { ErstellteBonusprogrammeComponent } from './modules/dashboard/erstellte-
     ErledigteDiensteComponent,
     GebuchteDiensteComponent,
     AngefragteDiensteComponent,
-    ErstellteBonusprogrammeComponent
+    ErstellteBonusprogrammeComponent,
+    ErfuellteTugendenComponent,
+    ErstelleTugendComponent,
+    OverlayComponent,
+    SubscribeComponent,
+    ErstelleTugendOverlayComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    OverlayModule,
     FormsModule,
     ReactiveFormsModule
   ],
