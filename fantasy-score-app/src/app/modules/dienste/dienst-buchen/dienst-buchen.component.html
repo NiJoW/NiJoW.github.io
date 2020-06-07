@@ -2,14 +2,14 @@
 <form [formGroup]="dienstForm"   (ngSubmit)="buchen(dienstForm.value)">
     <h2>Dienst buchen</h2>
     <br>
-    <h4>DIENST: {{dienst.name}}</h4>
-    <h5>Angeboten von: {{dienst.tugendhafterID}}</h5>
-    <h5>Beschreibung: {{dienst.beschreibung}}</h5>
+    <h2>DIENST: {{dienst.name}}</h2>
+    <h3>Angeboten von: {{dienst.tugendhafterID}}</h3>
+    <h3>Beschreibung: {{dienst.beschreibung}}</h3>
     <br>
     <br>
-    <label>Schlage ein Tag vor, an dem du den Dienst in Anspruch nehmen willst:</label>
-    <input id="datumInput" type="date" placeholder="Datum" formControlName="datum">
+    <label>Schlage ein Tag vor, an dem du den Dienst in Anspruch nehmen willst:</label><br>
+    <input id="datumInput" type="date" placeholder="Datum" formControlName="datum" required>
     <button class="buchenBtn" type="submit">Buchen</button>
-    <div id='fehlermeldungAnmeldung' [hidden]="fehler">
+    <div id='fehlermeldungAnmeldung' [hidden]="!fehler">
       <br>Bitte gib ein korrektes Datum ein.</div>
 </form>

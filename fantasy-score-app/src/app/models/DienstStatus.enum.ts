@@ -3,3 +3,4 @@ export enum DienstStatus{
     bestätigt,
     abgelehnt
 }
+

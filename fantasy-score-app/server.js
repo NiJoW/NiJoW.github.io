@@ -230,7 +230,7 @@ app.get('/kategorie', function (req, res) {
       console.log(req.query.dienstID);
       const dienstID = req.query.dienstID;
 
-      pool.query('SELECT * FROM dienstangebot WHERE dienstID=?', [dienstID], 
+      pool.query('SELECT * FROM dienstangebot WHERE id_dienstangebot=?', [dienstID], 
         function (error, results, fields) {
           if (error) throw error;
           res.send(results);
@@ -253,6 +253,28 @@ app.get('/kategorie', function (req, res) {
     
         });
     });
+
+    app.post('/newDienst', function (request, response) {
+      console.log('request body: ');
+      console.dir(request.body);
+    
+      const dienstID = request.body.dienstID;
+      const suchenderID = request.body.suchenderID;
+      const datum = request.body.datum;
+      const status = 'angefragt';
+      const suchenderGelesen = 0;
+    
+      const sql = "INSERT INTO dienstvertrag (dienstID, suchenderID, datum, status, suchenderGelesen) " +
+        "VALUES (?, ?, ?, ?, ?)";
+      const values = [dienstID, suchenderID, datum, status, suchenderGelesen];
+      pool.query( sql, values,
+        function (error, results, fields) {
+          if (error) throw error;
+          response.send(results);
+    
+        });
+      });
+    
 
 //#######################################################################################
 //##################################POST###############################################
