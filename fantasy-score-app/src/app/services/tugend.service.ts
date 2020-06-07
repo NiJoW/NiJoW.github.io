@@ -15,10 +15,12 @@ import { catchError, retry } from 'rxjs/operators';
       constructor(private http: HttpClient, private authService: AuthService) {}
 
   private readonly tugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugend';
-  private readonly newTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newTugend';
   private readonly tugendVonKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugenden';
   private readonly erfuellteTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erfuellte-tugenden';
   private readonly todoTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/todo-tugenden';
+  // Aeltester
+  private readonly createNewTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newTugend';
+  private readonly erstellteTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erstellte-tugenden';
 
     getTugenden(): Observable<Tugend[]> {
       return this.http.get<Tugend[]>(this.tugendenUrl)
@@ -41,13 +43,11 @@ import { catchError, retry } from 'rxjs/operators';
        return this.http.get<Tugend[]>(this.tugendVonKategorieUrl, {params : kategorieParams});
      }
 
-     // TODO
+     //Aeltester
+
     addTugend(tugend: Tugend): Observable<Tugend>
-    { const httpOptions = null;
-      console.log('in service add tugend');
-      console.dir(tugend);
-      console.log(tugend.kategorieID);
-      return this.http.post<Tugend>(this.newTugendenUrl,
+    {
+      return this.http.post<Tugend>(this.createNewTugendenUrl,
         {
           "name" : tugend.name,
           "beschreibung" : tugend.beschreibung,
@@ -56,6 +56,11 @@ import { catchError, retry } from 'rxjs/operators';
           "aeltesterID": tugend.aeltesterID,
           "kategorieID": tugend.kategorieID
         });
+    }
+
+    getErstellteTugenden(): Observable<Tugend[]> {
+      let aeltesterIDParams = new HttpParams().set("aeltesterID", this.authService.getNutzer().id_buerger+"");
+      return this.http.get<Tugend[]>(this.erstellteTugendenUrl, {params : aeltesterIDParams});
     }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DienstService } from './../../../services/dienst.service';
-import { Dienst } from './../../../models/Dienst';
+import { DienstService } from '../../../../services/dienst.service';
+import { Dienst } from '../../../../models/Dienst';
 import { Observable } from 'rxjs';
 
 

@@ -1,7 +1,7 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {ComponentType} from "@angular/cdk/overlay";
-import {OverlayService} from "../../../overlay/overlay.service";
-import {SubscribeComponent} from "../../../overlay/subscribe/subscribe.component";
+import {OverlayService} from "../../../../overlay/overlay.service";
+import {SubscribeComponent} from "../../../../overlay/subscribe/subscribe.component";
 
 
 @Component({

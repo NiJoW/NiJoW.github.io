@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
-import { Bonuseintrag } from './../../../models/Bonuseintrag';
-import { BonusService } from './../../../services/bonus.service';
+import { Bonuseintrag } from '../../../../models/Bonuseintrag';
+import { BonusService } from '../../../../services/bonus.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
