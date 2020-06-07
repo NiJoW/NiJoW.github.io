@@ -34,11 +34,5 @@ Test Observer
 </div>
 <div *ngIf= "isTyp('Aeltester')">
   <app-erstelle-tugend></app-erstelle-tugend>
-
-  <label for="kategorien">Kategorie:</label>
-  <select name="kategorien" id="kategorien">
-    <option  *ngFor="let kategorie of kategorien | async" value=" {{ kategorie.id_kategorie }}">
-      {{ kategorie.bezeichnung }}
-    </option>
-  </select>
 </div>
+

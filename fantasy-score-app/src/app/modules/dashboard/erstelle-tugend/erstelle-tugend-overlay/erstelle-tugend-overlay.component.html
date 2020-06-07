@@ -1,0 +1,20 @@
+<div class="section">
+  <div class="container">
+
+<div class="columns">
+  <div class="column has-text-left">
+    Subscribe form component content modal overlay
+  </div>
+  <div class="column is-narrow">
+    <button (click)="open(subscribeComponent)" class="button is-small is-primary">
+      show
+    </button>
+  </div>
+  <div class="column">
+    <ng-container *ngIf="subscribeData">
+      {{ subscribeData | json }}
+    </ng-container>
+  </div>
+</div>
+</div>
+</div>

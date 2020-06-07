@@ -1,11 +1,12 @@
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BuergerTyp } from './../../models/BuergerTyp.enum';
 import { Buerger } from './../../models/Buerger';
 import { AuthService } from './../../services/auth.service';
-import { Component, OnInit } from '@angular/core';
 import {KategorieService} from '../../services/kategorie.service';
 import {Kategorie} from '../../models/Kategorie';
 import {Observable} from 'rxjs';
 import { NgIf } from '@angular/common';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +21,7 @@ export class DashboardComponent implements OnInit {
   aktuellerNutzer: Buerger;
   nutzer: Buerger;
 
-  constructor(private kategorienService: KategorieService,  private authService: AuthService) {
+ constructor(private kategorienService: KategorieService,  private authService: AuthService) {
      this.getAktuellenNutzer();
      // console.log('dashboard: logged in?');
      // console.log(this.authService.isLoggedIn());
@@ -56,3 +57,5 @@ export class DashboardComponent implements OnInit {
 
 
 }
+
+
