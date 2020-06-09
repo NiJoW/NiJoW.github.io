@@ -19,7 +19,7 @@
   <div class="searchResult" *ngFor="let dienst of dienste | async">
     <div class="angebotInfo">
       <h3>DIENST: {{dienst.name}}</h3>
-      <h4>Angeboten von: {{dienst.tugendhafterID}}</h4>
+      <h4>Angeboten von: {{dienst.tugendhafterName}}</h4>
       <h4>Beschreibung: {{dienst.beschreibung}}</h4>
       <button class="buchenBtn" (click)=buchen(dienst.id_dienstangebot)>Buchen</button>
       <br>

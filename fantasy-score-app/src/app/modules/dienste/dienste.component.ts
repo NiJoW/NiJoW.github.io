@@ -47,6 +47,7 @@ export class DiensteComponent implements OnInit {
 
     this.dienste = this.dienstService.getDienste();
     this.dienste.subscribe(data => {
+      console.log("Dienste: ");
       console.log(data);
       this.shownDienste = data;
     });

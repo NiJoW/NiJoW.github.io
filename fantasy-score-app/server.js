@@ -248,7 +248,8 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
 
     app.get('/dienste', function (req, res) {
 
-      pool.query('SELECT * FROM dienstangebot', function (error, results, fields) {
+      pool.query('SELECT d.*, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger', 
+      function (error, results, fields) {
         if (error) throw error;
         res.send(results);
     
