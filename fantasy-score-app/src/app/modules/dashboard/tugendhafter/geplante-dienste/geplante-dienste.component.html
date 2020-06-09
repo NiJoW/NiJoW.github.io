@@ -8,7 +8,7 @@
         <tr *ngFor="let dienst of geplanteDienste | async"> 
             <td>{{dienst.name}}</td> 
             <td>{{dienst.beschreibung}}</td> 
-            <td>{{dienst.benutzername}}</td> 
+            <td>{{dienst.suchenderName}}</td> 
             <td>{{dienst.datum | date}}</td> 
         </tr>
     </tbody>
