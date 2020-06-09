@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  typeUser: BuergerTyp;
+  //typeUser: BuergerTyp;
   nutzer: Buerger;
 
   constructor(private authService: AuthService,
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.typeUser = this.authService.getNutzer().typ;
+    //this.typeUser = this.authService.getNutzer().typ;
   }
 
 

@@ -1,6 +1,6 @@
 
 <div class="searchBar">
-    <select name="kategorien" (ngModelChange)='onKategorieSelected($event)'>
+    <select name="kategorien" [(ngModel)]='kategorieID' (ngModelChange)='onKategorieSelected($event)'>
       <option value="-1">
         Alle
       </option>

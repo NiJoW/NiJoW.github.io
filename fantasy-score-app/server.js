@@ -115,7 +115,7 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
     });
 });
 
-app.get('bonusprogramme', function(req, res) {
+app.get('/bonusprogramme', function(req, res) {
 
   pool.query('SELECT * FROM bonusprogramm', function (error, results, fields) {
     if (error) throw error;
@@ -124,7 +124,7 @@ app.get('bonusprogramme', function(req, res) {
   });
 });
 
-app.get('kategorie/bonusprogramme', function(req, res) {
+app.get('/kategorie/bonusprogramme', function(req, res) {
 
   const kategorieID = req.query.kategorieID;
   const sql = 'SELECT * FROM bonusprogramm WHERE kategorieID = ?;';

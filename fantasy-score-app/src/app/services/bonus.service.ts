@@ -13,12 +13,13 @@ import { Bonusprogramm } from '../models/Bonusprogramm';
   export class BonusService {
     constructor(private http: HttpClient, private authService: AuthService) {}
 
-    private readonly bonusprogrammeUrl = APIConfig.URL + ':' + APIConfig.PORT + 'bonusprogramme';
+    private readonly bonusprogrammeUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusprogramme';
     private readonly programmeVonKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/kategorie/bonusprogramme';
     private readonly erstellteBonusprogrammeUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erstellte-bonusprogramme';
 
 
     getBonusprogramme(): Observable<Bonusprogramm[]> {
+        console.log("Im service");
         return this.http.get<Bonusprogramm[]>(this.bonusprogrammeUrl);
     }
     getBonusprogrammeVonKategorie(kategorieID: number): Observable<Bonusprogramm[]> {

@@ -17,6 +17,7 @@ export class BonusprogrammeComponent implements OnInit {
   searchForm;
   bonusprogramme: Observable<Bonusprogramm[]>;
   shownProgramme: Bonusprogramm[];
+  kategorieID: number;
 
   constructor(private kategorieService: KategorieService, 
     private bonusService: BonusService,
