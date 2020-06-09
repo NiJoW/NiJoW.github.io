@@ -246,6 +246,66 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
       });
     });
 
+    app.get('/dienste', function (req, res) {
+
+      pool.query('SELECT d.*, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger', 
+      function (error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+    
+      });
+    });
+
+    app.get('/dienst', function (req, res) {
+
+      console.log(req.query.dienstID);
+      const dienstID = req.query.dienstID;
+
+      pool.query('SELECT * FROM dienstangebot WHERE id_dienstangebot=?', [dienstID], 
+        function (error, results, fields) {
+          if (error) throw error;
+          res.send(results);
+    
+      });
+    });
+
+    app.get('/kategorie/dienste', function (request, response) {
+      console.log(request.query);
+      console.log(request.params);
+      const kategorieID = request.query.kategorieID;
+    
+      const sql = "SELECT * FROM dienstangebot WHERE kategorieID=?";
+      const values = [kategorieID];
+      pool.query( sql, values,
+        function (error, results, fields) {
+          console.log(request.query);
+          if (error) throw error;
+          response.send(results);
+    
+        });
+    });
+
+    app.post('/newDienst', function (request, response) {
+      console.log('request body: ');
+      console.dir(request.body);
+    
+      const dienstID = request.body.dienstID;
+      const suchenderID = request.body.suchenderID;
+      const datum = request.body.datum;
+      const status = 'angefragt';
+      const suchenderGelesen = 0;
+    
+      const sql = "INSERT INTO dienstvertrag (dienstID, suchenderID, datum, status, suchenderGelesen) " +
+        "VALUES (?, ?, ?, ?, ?)";
+      const values = [dienstID, suchenderID, datum, status, suchenderGelesen];
+      pool.query( sql, values,
+        function (error, results, fields) {
+          if (error) throw error;
+          response.send(results);
+    
+        });
+      });
+    
 
 //#######################################################################################
 //#################################################################################

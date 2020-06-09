@@ -46,6 +46,15 @@ export class TugendenComponent implements OnInit {
   }
 
   onKategorieSelected(kategorieID):void {
+    if(kategorieID == "-1") { // Alle anzeigen
+      this.tugenden = this.tugendService.getTugenden();
+      this.tugenden.subscribe(data => {
+        console.log(data);
+        this.shownTugenden = data;
+      });
+      return;
+    }
+
     this.tugenden = this.tugendService.getTugendVonKategorie(kategorieID)
     this.tugenden.subscribe(data => {
       this.shownTugenden = data;
@@ -58,6 +67,13 @@ export class TugendenComponent implements OnInit {
     //ToDo: Such-Funktion
   }
   
+
+  
+planen(tugendId: number) {
+  console.log("Nutzer will Tugend mit Id: " + tugendId + " planen.");
+  //setTugendAlsGeplant();
+  //openDashboard();
+}
 }
 
 

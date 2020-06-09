@@ -32,6 +32,7 @@ import { AngefragteDiensteComponent } from './modules/dashboard/suchender/angefr
 import { ErstellteBonusprogrammeComponent } from './modules/dashboard/aeltester/erstellte-bonusprogramme/erstellte-bonusprogramme.component';
 import { ErstelleTugendOverlayComponent } from './modules/dashboard/aeltester/erstelle-tugend/erstelle-tugend-overlay/erstelle-tugend-overlay.component';
 import { ErstellteTugendenComponent } from './modules/dashboard/aeltester/erstellte-tugenden/erstellte-tugenden.component';
+import { DienstBuchenComponent } from './modules/dienste/dienst-buchen/dienst-buchen.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { ErstellteTugendenComponent } from './modules/dashboard/aeltester/erstel
     ErledigteDiensteComponent,
     GebuchteDiensteComponent,
     AngefragteDiensteComponent,
+    DienstBuchenComponent,
     ErstellteBonusprogrammeComponent,
     ErfuellteTugendenComponent,
     ErstelleTugendComponent,

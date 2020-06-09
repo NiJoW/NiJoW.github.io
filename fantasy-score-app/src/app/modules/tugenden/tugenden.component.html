@@ -2,7 +2,10 @@
 
 <div class="searchBar">
   <select name="kategorien" [(ngModel)]='kategorieID'  (ngModelChange)='onKategorieSelected($event)'>
-    <option  *ngFor="let kategorie of kategorienListe | async" value=" {{ kategorie.id_kategorie }}">
+    <option value="-1">
+      Alle
+    </option>
+    <option  *ngFor="let kategorie of kategorienListe | async" value="{{ kategorie.id_kategorie }}">
       {{ kategorie.bezeichnung }}
     </option>
   </select>
@@ -15,8 +18,13 @@
   
 </div>
 
-<ul class="searchResult">
-  <li class="tugendInfo" *ngFor="let tugend of tugenden | async">
-    {{tugend.name}}
-  </li> 
-</ul>
+<div class="searchResult" *ngFor="let tugend of tugenden | async">
+  <div class="tugendInfo">
+    <h3>TUGEND: {{tugend.name}}</h3>
+    <h4>Deine Belohung sind {{tugend.wert}} Social Score Punkte!</h4>
+    <h4>Beschreibung: {{tugend.beschreibung}}</h4>
+    <h4>Angeboten von: {{tugend.aeltesterID}}</h4>
+    <button class="buchenBtn" (click)=planen(tugend.id_tugend)>Challenge annehmen</button>
+    <br>
+  </div>
+</div>
