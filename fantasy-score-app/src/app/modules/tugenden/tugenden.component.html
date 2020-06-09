@@ -1,5 +1,4 @@
 
-
 <div class="searchBar">
   <select name="kategorien" [(ngModel)]='kategorieID'  (ngModelChange)='onKategorieSelected($event)'>
     <option value="-1">
@@ -23,7 +22,7 @@
     <h3>TUGEND: {{tugend.name}}</h3>
     <h4>Deine Belohung sind {{tugend.wert}} Social Score Punkte!</h4>
     <h4>Beschreibung: {{tugend.beschreibung}}</h4>
-    <h4>Angeboten von: {{tugend.aeltesterID}}</h4>
+    <h4>Erstellt von: {{tugend.aeltesterID}}</h4>
     <button class="buchenBtn" (click)=planen(tugend.id_tugend)>Challenge annehmen</button>
     <br>
   </div>

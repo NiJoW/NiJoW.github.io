@@ -1,1 +1,29 @@
-<p>bonusprogramme works!</p>
+
+<div class="searchBar">
+    <select name="kategorien" (ngModelChange)='onKategorieSelected($event)'>
+      <option value="-1">
+        Alle
+      </option>
+      <option  *ngFor="let kategorie of kategorienListe | async" value="{{ kategorie.id_kategorie }}">
+        {{ kategorie.bezeichnung }}
+      </option>
+    </select>
+  
+    <form [formGroup]="searchForm" (ngSubmit)="(searchForm.value)">
+      <input class="form-control" type="text" placeholder="Suchen..." formControlName="searchInput">
+      
+      <button class="searchBtn" type="submit">Suchen</button>
+    </form>
+    
+  </div>
+  
+  <div class="searchResult" *ngFor="let bonusprogramm of bonusprogramme | async">
+    <div class="bonusprogramminfo">
+      <h3>BONUSPROGRAMM: {{bonusprogramm.titel}}</h3>
+      <h4>Erstellt von: {{bonusprogramm.aeltesterID}}</h4>
+      <h4>Beschreibung: {{bonusprogramm.nachicht}}</h4>
+      <h4>Deine Belohung könnten {{bonusprogramm.punkte_in_kategorie}} Social Score Punkte sein!</h4>
+      <br>
+    </div>
+  </div>
+  

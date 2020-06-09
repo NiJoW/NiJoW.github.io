@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { BonusService } from 'src/app/services/bonus.service';
+import { KategorieService } from 'src/app/services/kategorie.service';
+import { Kategorie } from 'src/app/models/Kategorie';
+import { Observable } from 'rxjs';
+import { FormBuilder } from '@angular/forms';
+import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
 
 @Component({
   selector: 'app-bonusprogramme',
@@ -7,9 +13,49 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BonusprogrammeComponent implements OnInit {
 
-  constructor() { }
+  kategorienListe: Observable<Kategorie[]>;
+  searchForm;
+  bonusprogramme: Observable<Bonusprogramm[]>;
+  shownProgramme: Bonusprogramm[];
+
+  constructor(private kategorieService: KategorieService, 
+    private bonusService: BonusService,
+    private formBuilder: FormBuilder) {
+      this.searchForm = this.formBuilder.group({
+        searchInput: ''
+      });
+    }
 
   ngOnInit(): void {
+    this.kategorienListe = this.kategorieService.getKategorien();
+
+    this.kategorienListe.subscribe(data => {
+      console.log(data);
+      console.log(this.kategorienListe);
+    });
+
+    this.bonusprogramme = this.bonusService.getBonusprogramme();
+      this.bonusprogramme.subscribe(data => {
+        console.log(data);
+        this.shownProgramme = data;
+      });
+  }
+
+  onKategorieSelected(kategorieID):void {
+    if(kategorieID == "-1") { // Alle anzeigen
+      this.bonusprogramme = this.bonusService.getBonusprogramme();
+      this.bonusprogramme.subscribe(data => {
+        console.log(data);
+        this.shownProgramme = data;
+      });
+      return;
+    }
+
+    this.bonusprogramme = this.bonusService.getBonusprogrammeVonKategorie(kategorieID)
+    this.bonusprogramme.subscribe(data => {
+      this.shownProgramme = data;
+      console.log(this.shownProgramme[0].titel);
+    });
   }
 
 }
