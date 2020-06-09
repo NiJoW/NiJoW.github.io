@@ -115,6 +115,26 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
     });
 });
 
+app.get('/bonusprogramme', function(req, res) {
+
+  pool.query('SELECT * FROM bonusprogramm', function (error, results, fields) {
+    if (error) throw error;
+    res.send(results);
+
+  });
+});
+
+app.get('/kategorie/bonusprogramme', function(req, res) {
+
+  const kategorieID = req.query.kategorieID;
+  const sql = 'SELECT * FROM bonusprogramm WHERE kategorieID = ?;';
+  const value = [kategorieID];
+    pool.query(sql, value,
+      function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+  });
+});
 
 //##################################Tugenden#############################################
 
@@ -305,6 +325,8 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
     
         });
       });
+
+
     
 
 //#######################################################################################
