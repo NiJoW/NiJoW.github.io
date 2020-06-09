@@ -117,7 +117,7 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
 
 app.get('/bonusprogramme', function(req, res) {
 
-  pool.query('SELECT * FROM bonusprogramm', function (error, results, fields) {
+  pool.query('SELECT *, b.benutzername as aeltersterName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger', function (error, results, fields) {
     if (error) throw error;
     res.send(results);
 
@@ -198,6 +198,24 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
           if (error) throw error;
           res.send(results);
 
+        });
+
+    });
+
+
+    app.post('newTaetigkeit', function (req, res) {
+      const erfuellteWdh = 0;
+      const tugendID = req.body.tugendID;
+      const tugendhafterID = req.body.tugendhafterID;
+    
+      const sql = "INSERT INTO taetigkeit (erfuellteWdh, tugendID, tugendhafterID) " +
+        "VALUES (?, ?, ?)";
+      const values = [erfuellteWdh, tugendID, tugendhafterID];
+      pool.query( sql, values,
+        function (error, results, fields) {
+          if (error) throw error;
+          response.send(results);
+    
         });
     });
 
@@ -281,7 +299,7 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
       console.log(req.query.dienstID);
       const dienstID = req.query.dienstID;
 
-      pool.query('SELECT * FROM dienstangebot WHERE id_dienstangebot=?', [dienstID], 
+      pool.query('SELECT *, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger WHERE id_dienstangebot=?', [dienstID], 
         function (error, results, fields) {
           if (error) throw error;
           res.send(results);
@@ -294,7 +312,7 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
       console.log(request.params);
       const kategorieID = request.query.kategorieID;
     
-      const sql = "SELECT * FROM dienstangebot WHERE kategorieID=?";
+      const sql = "SELECT *, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger WHERE kategorieID=?";
       const values = [kategorieID];
       pool.query( sql, values,
         function (error, results, fields) {
@@ -335,7 +353,7 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
 
 app.get('/tugend', function (req, res) {
 
-  pool.query('SELECT * FROM tugend', function (error, results, fields) {
+  pool.query('SELECT *, b.benutzername as aeltersterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger', function (error, results, fields) {
     if (error) throw error;
     res.send(results);
 
@@ -352,8 +370,8 @@ app.get('/tugenden', function (request, response) {
    //requerst.params
   console.log(request.params);
   const kategorieID = request.query.kategorieID;
-
-  const sql = "SELECT * FROM tugend WHERE kategorieID=?";
+  
+  const sql = "SELECT *, b.benutzername as aeltersterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger  WHERE kategorieID=?";
   const values = [kategorieID];
   pool.query( sql, values,
     function (error, results, fields) {

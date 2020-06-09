@@ -15,6 +15,7 @@ import { catchError, retry } from 'rxjs/operators';
       constructor(private http: HttpClient, private authService: AuthService) {}
 
   private readonly tugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugend';
+  private readonly planeTugendUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newTaetigkeit';
   private readonly tugendVonKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugenden';
   private readonly erfuellteTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erfuellte-tugenden';
   private readonly todoTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/todo-tugenden';
@@ -24,6 +25,14 @@ import { catchError, retry } from 'rxjs/operators';
 
     getTugenden(): Observable<Tugend[]> {
       return this.http.get<Tugend[]>(this.tugendenUrl)
+    }
+
+    planeTugend(tugendID: number): Observable<Tugend> {
+      return this.http.post<Tugend>(this.planeTugendUrl,
+        {
+          "tugendID" : tugendID,
+          "tugendhafterID": this.authService.getNutzer().id_buerger
+        });
     }
 
       getErfuellteTugenden(): Observable<Tugend[]> {
