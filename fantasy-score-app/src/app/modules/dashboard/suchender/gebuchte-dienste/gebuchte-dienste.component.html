@@ -11,7 +11,7 @@
         <tr *ngFor="let dienst of gebuchteDienste | async"> 
             <td>{{dienst.name}}</td> 
             <td>{{dienst.datum | date}}</td> 
-            <td>{{dienst.benutzername}}</td>
+            <td>{{dienst.tugendhafterName}}</td>
         </tr>
     </tbody>
 </table>
