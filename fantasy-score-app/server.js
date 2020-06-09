@@ -203,7 +203,7 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
     });
 
 
-    app.post('newTaetigkeit', function (req, res) {
+    app.post('/newTaetigkeit', function (req, res) {
       const erfuellteWdh = 0;
       const tugendID = req.body.tugendID;
       const tugendhafterID = req.body.tugendhafterID;
