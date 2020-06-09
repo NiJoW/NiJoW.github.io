@@ -106,7 +106,7 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
   const buergerID = req.query.buergerID;
   const sql = 'SELECT bp.titel, bp.nachricht, bp.frist, bp.punkte_in_kategorie, k.bezeichnung FROM bonusprogramm bp, kategorie k WHERE k.id_kategorie = bp.kategorieID AND aeltesterID = ?;';
   const value = [buergerID];
-    pool.query(sql, value, 
+    pool.query(sql, value,
       function (error, results, fields) {
 
       if (error) throw error;
@@ -123,7 +123,7 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
       const buergerID = req.query.buergerID;
       const sql = 'SELECT tu.name, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh = tu.benoetigteWdh AND tae.tugendhafterID=?';
       const value = [buergerID];
-        pool.query(sql, value, 
+        pool.query(sql, value,
           function (error, results, fields) {
 
           if (error) throw error;
@@ -167,13 +167,27 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
         });
     });
 
+    // Aeltester
+    app.get('/dashboard/erstellte-tugenden', function (req, res) {
+      const aeltesterID = req.query.aeltesterID;
+      const sql = 'SELECT id_tugend, name, beschreibung, wert, benoetigteWdh,  kategorieID, bezeichnung AS kategorieTitel FROM tugend JOIN kategorie ON kategorieID=id_kategorie WHERE aeltesterID = ?';
+      const value = [aeltesterID];
+      pool.query(sql, value,
+        function (error, results, fields) {
+
+          if (error) throw error;
+          res.send(results);
+
+        });
+    });
+
     //##################################Dienste##############################################
 
       app.get('/dashboard/angebotene-dienste', function (req, res) {
         const buergerID = req.query.buergerID;
         const sql = 'SELECT da.name, da.beschreibung FROM dienstangebot da WHERE da.tugendhafterID = ?';
         const value = [buergerID];
-          pool.query(sql, value, 
+          pool.query(sql, value,
             function (error, results, fields) {
 
             if (error) throw error;
@@ -214,7 +228,7 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
       const value = [buergerID, date+""];
       pool.query(sql, value,
          function (error, results, fields) {
-        
+
         if (error) throw error;
         res.send(results);
       });
@@ -226,15 +240,75 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
       const value = [buergerID, date+""];
       pool.query(sql, value,
          function (error, results, fields) {
-        
+
         if (error) throw error;
         res.send(results);
       });
     });
 
+    app.get('/dienste', function (req, res) {
+
+      pool.query('SELECT d.*, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger', 
+      function (error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+    
+      });
+    });
+
+    app.get('/dienst', function (req, res) {
+
+      console.log(req.query.dienstID);
+      const dienstID = req.query.dienstID;
+
+      pool.query('SELECT * FROM dienstangebot WHERE id_dienstangebot=?', [dienstID], 
+        function (error, results, fields) {
+          if (error) throw error;
+          res.send(results);
+    
+      });
+    });
+
+    app.get('/kategorie/dienste', function (request, response) {
+      console.log(request.query);
+      console.log(request.params);
+      const kategorieID = request.query.kategorieID;
+    
+      const sql = "SELECT * FROM dienstangebot WHERE kategorieID=?";
+      const values = [kategorieID];
+      pool.query( sql, values,
+        function (error, results, fields) {
+          console.log(request.query);
+          if (error) throw error;
+          response.send(results);
+    
+        });
+    });
+
+    app.post('/newDienst', function (request, response) {
+      console.log('request body: ');
+      console.dir(request.body);
+    
+      const dienstID = request.body.dienstID;
+      const suchenderID = request.body.suchenderID;
+      const datum = request.body.datum;
+      const status = 'angefragt';
+      const suchenderGelesen = 0;
+    
+      const sql = "INSERT INTO dienstvertrag (dienstID, suchenderID, datum, status, suchenderGelesen) " +
+        "VALUES (?, ?, ?, ?, ?)";
+      const values = [dienstID, suchenderID, datum, status, suchenderGelesen];
+      pool.query( sql, values,
+        function (error, results, fields) {
+          if (error) throw error;
+          response.send(results);
+    
+        });
+      });
+    
 
 //#######################################################################################
-//##################################POST###############################################
+//#################################################################################
 //#######################################################################################
 
 app.get('/tugend', function (req, res) {
@@ -296,17 +370,17 @@ app.post('/newTugend', function (request, response) {
     });
   });
 
-    
-    
+
+
     app.get('/tugend', function (req, res) {
 
       pool.query('SELECT * FROM tugend', function (error, results, fields) {
         if (error) throw error;
         res.send(results);
-    
+
       });
     });
-    
+
     /*app.get('/p/:tagId', function(req, res) {
       res.send("tagId is set to " + req.params.tagId);
     });*/
@@ -317,7 +391,7 @@ app.post('/newTugend', function (request, response) {
        //requerst.params
       //console.log(request.params);
       const kategorieID = request.query.kategorieID;
-    
+
       const sql = "SELECT * FROM tugend WHERE kategorieID=?";
       const values = [kategorieID];
       pool.query( sql, values,
@@ -325,10 +399,10 @@ app.post('/newTugend', function (request, response) {
           console.log(request.query);
           if (error) throw error;
           response.send(results);
-    
+
         });
     });
-    
+
 
 
 //#######################################################################################

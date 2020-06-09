@@ -12,12 +12,14 @@ export class AppComponent {
   title = 'fantasy-score-app';
   nutzer: Buerger;
 
-  constructor(private router: Router, private authService: AuthService) { 
+  constructor(private router: Router, private authService: AuthService) {
     this.getAktuellenNutzer();
   }
 
   get isLoggedIn() {
-    return this.authService.isLoggedIn();
+    const isLoggedIn = this.authService.isLoggedIn();
+    if(isLoggedIn){ this.nutzer = this.authService.getNutzer(); }
+    return isLoggedIn;
   }
 
   logout() {

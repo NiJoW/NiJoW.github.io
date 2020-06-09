@@ -1,1 +1,32 @@
-<p>dienste works!</p>
+<div class="searchBar">
+    <select name="kategorien" [(ngModel)]='kategorieID'  (ngModelChange)='onKategorieSelected($event)'>
+        <option value="-1">
+            Alle
+          </option>
+      <option  *ngFor="let kategorie of kategorienListe | async" value=" {{ kategorie.id_kategorie }}">
+        {{ kategorie.bezeichnung }}
+      </option>
+    </select>
+  
+    <form [formGroup]="searchForm" (ngSubmit)="(searchForm.value)">
+      <input class="form-control" type="text" placeholder="Suchen..." formControlName="searchInput">
+      
+      <button class="searchBtn" type="submit">Suchen</button>
+    </form>
+    
+  </div>
+  
+  <div class="searchResult" *ngFor="let dienst of dienste | async">
+    <div class="angebotInfo">
+      <h3>DIENST: {{dienst.name}}</h3>
+      <h4>Angeboten von: {{dienst.tugendhafterName}}</h4>
+      <h4>Beschreibung: {{dienst.beschreibung}}</h4>
+      <button class="buchenBtn" (click)=buchen(dienst.id_dienstangebot)>Buchen</button>
+      <br>
+    </div>
+  </div>
+
+  <div *ngIf="willBuchen == true">
+    <app-dienst-buchen [choosenDienst] = "choosenDienst"></app-dienst-buchen>
+</div>
+  

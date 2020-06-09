@@ -1,0 +1,23 @@
+<h3>Meine erstellten Tugenden</h3>
+<table class='table'>
+  <thead>
+  <tr>
+    <th>Kategorie</th>
+    <th>Titel</th>
+    <th>Beschreibung</th>
+    <th>Punkte</th>
+    <th>Benötigte Wiederholungen</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let tugend of erstellteTugenden | async">
+    <td>{{tugend.kategorieTitel}}</td>
+    <td>{{tugend.name}}</td>
+    <td>{{tugend.beschreibung}}</td>
+    <td>{{tugend.wert}}</td>
+    <td>{{tugend.benoetigteWdh}}</td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<br>
