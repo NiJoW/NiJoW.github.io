@@ -1,6 +1,6 @@
 
-<div class="section searchBar control media">
-  <div class="select media-left">
+<div class="section searchBar control is-grouped-centered media">
+  <div class="select control media-left">
     <select name="kategorien" [(ngModel)]='kategorieID'  (ngModelChange)='onKategorieSelected($event)'>
       <option value="-1">
         Alle
@@ -12,12 +12,15 @@
   </div>
 
   <form [formGroup]="searchForm" (ngSubmit)="(searchForm.value)">
-    <input class="form-control input media-content" type="text" placeholder="Suchen..." formControlName="searchInput">
-    
-    <button class="button is-info" type="submit">Suchen</button>
+    <div class="media-content">
+      <input class="form-control input" type="text" placeholder="Suchen..." formControlName="searchInput">
+    </div>
+    <div class="media-right">
+      <button class="button is-info" type="submit">Suchen</button>
+    </div>
   </form>
-  
 </div>
+  
   
   <div class="searchResult" *ngFor="let bonusprogramm of bonusprogramme | async">
     <div class="section is-paddingless-horizontal container-grid" style="padding-top: 0;">
