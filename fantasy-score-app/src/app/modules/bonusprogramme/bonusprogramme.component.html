@@ -1,6 +1,7 @@
 
-<div class="searchBar">
-    <select name="kategorien" [(ngModel)]='kategorieID' (ngModelChange)='onKategorieSelected($event)'>
+<div class="section searchBar control media">
+  <div class="select media-left">
+    <select name="kategorien" [(ngModel)]='kategorieID'  (ngModelChange)='onKategorieSelected($event)'>
       <option value="-1">
         Alle
       </option>
@@ -8,22 +9,30 @@
         {{ kategorie.bezeichnung }}
       </option>
     </select>
-  
-    <form [formGroup]="searchForm" (ngSubmit)="(searchForm.value)">
-      <input class="form-control" type="text" placeholder="Suchen..." formControlName="searchInput">
-      
-      <button class="searchBtn" type="submit">Suchen</button>
-    </form>
-    
   </div>
+
+  <form [formGroup]="searchForm" (ngSubmit)="(searchForm.value)">
+    <input class="form-control input media-content" type="text" placeholder="Suchen..." formControlName="searchInput">
+    
+    <button class="button is-info" type="submit">Suchen</button>
+  </form>
+  
+</div>
   
   <div class="searchResult" *ngFor="let bonusprogramm of bonusprogramme | async">
-    <div class="bonusprogramminfo">
-      <h3>BONUSPROGRAMM: {{bonusprogramm.titel}}</h3>
-      <h4>Erstellt von: {{bonusprogramm.aeltersterName}}</h4>
-      <h4>Beschreibung: {{bonusprogramm.nachicht}}</h4>
-      <h4>Deine Belohung könnten {{bonusprogramm.punkte_in_kategorie}} Social Score Punkte sein!</h4>
-      <br>
+    <div class="section is-paddingless-horizontal container-grid" style="padding-top: 0;">
+      <div class="notification media">
+        <figure class="media-left image is-96x96">
+          <img src="https://bulma.io/images/placeholders/128x128.png">
+        </figure>
+        <div class="media-content">
+          <h3><strong>BONUSPROGRAMM:</strong> {{bonusprogramm.titel}}</h3>
+          <h4>Erstellt von: {{bonusprogramm.aeltersterName}}</h4>
+          <h4>Beschreibung: {{bonusprogramm.nachricht}}</h4>
+          <h4>Deine Belohung könnten {{bonusprogramm.punkte_in_kategorie}} Social Score Punkte sein!</h4>
+          
+        </div>
+      </div>
     </div>
   </div>
   

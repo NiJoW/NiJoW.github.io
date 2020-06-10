@@ -1,29 +1,39 @@
 
-<div class="searchBar">
-  <select name="kategorien" [(ngModel)]='kategorieID'  (ngModelChange)='onKategorieSelected($event)'>
-    <option value="-1">
-      Alle
-    </option>
-    <option  *ngFor="let kategorie of kategorienListe | async" value="{{ kategorie.id_kategorie }}">
-      {{ kategorie.bezeichnung }}
-    </option>
-  </select>
+<div class="section searchBar control media">
+  <div class="select media-left">
+    <select name="kategorien" [(ngModel)]='kategorieID'  (ngModelChange)='onKategorieSelected($event)'>
+      <option value="-1">
+        Alle
+      </option>
+      <option  *ngFor="let kategorie of kategorienListe | async" value="{{ kategorie.id_kategorie }}">
+        {{ kategorie.bezeichnung }}
+      </option>
+    </select>
+  </div>
 
   <form [formGroup]="searchForm" (ngSubmit)="(searchForm.value)">
-    <input class="form-control" type="text" placeholder="Suchen..." formControlName="searchInput">
+    <input class="form-control input media-content" type="text" placeholder="Suchen..." formControlName="searchInput">
     
-    <button class="searchBtn" type="submit">Suchen</button>
+    <button class="button is-info" type="submit">Suchen</button>
   </form>
   
 </div>
 
 <div class="searchResult" *ngFor="let tugend of tugenden | async">
-  <div class="tugendInfo">
-    <h3>TUGEND: {{tugend.name}}</h3>
-    <h4>Deine Belohung sind {{tugend.wert}} Social Score Punkte!</h4>
-    <h4>Beschreibung: {{tugend.beschreibung}}</h4>
-    <h4>Erstellt von: {{tugend.aeltersterName}}</h4>
-    <button class="buchenBtn" (click)=planen(tugend.id_tugend)>Challenge annehmen</button>
-    <br>
+  <div class="section is-paddingless-horizontal container-grid" style="padding-top: 0;">
+    <div class="notification media"> 
+      <figure class="media-left image is-96x96">
+        <img src="https://bulma.io/images/placeholders/128x128.png">
+      </figure>
+      <div class="media-content">
+        <h3><strong>TUGEND:</strong> {{tugend.name}}</h3>
+        <h4>Deine Belohung sind {{tugend.wert}} Social Score Punkte!</h4>
+        <h4>Beschreibung: {{tugend.beschreibung}}</h4>
+        <h4>Erstellt von: {{tugend.aeltersterName}}</h4>
+      </div>
+      <div class="media-right">
+        <button class="button is-primary" (click)=planen(tugend.id_tugend)>Challenge annehmen</button>
+      </div>
+    </div>
   </div>
 </div>

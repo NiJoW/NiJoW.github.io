@@ -33,6 +33,7 @@ import { ErstellteBonusprogrammeComponent } from './modules/dashboard/aeltester/
 import { ErstelleTugendOverlayComponent } from './modules/dashboard/aeltester/erstelle-tugend/erstelle-tugend-overlay/erstelle-tugend-overlay.component';
 import { ErstellteTugendenComponent } from './modules/dashboard/aeltester/erstellte-tugenden/erstellte-tugenden.component';
 import { DienstBuchenComponent } from './modules/dienste/dienst-buchen/dienst-buchen.component';
+import { NotificationComponent } from './modules/notification/notification.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { DienstBuchenComponent } from './modules/dienste/dienst-buchen/dienst-bu
     OverlayComponent,
     SubscribeComponent,
     ErstelleTugendOverlayComponent,
-    ErstellteTugendenComponent
+    ErstellteTugendenComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
