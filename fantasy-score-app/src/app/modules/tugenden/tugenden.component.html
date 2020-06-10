@@ -1,4 +1,9 @@
 
+<div class="notification is-success" *ngIf="erfolg == true" style="display: inline-block; float: right;">
+  <button class="delete"></button>
+  Die Tugend wurde deinem Dashboard hinzugefügt.
+</div>
+
 <div class="section searchBar control media">
   <div class="select media-left">
     <select name="kategorien" [(ngModel)]='kategorieID'  (ngModelChange)='onKategorieSelected($event)'>
@@ -12,9 +17,16 @@
   </div>
 
   <form [formGroup]="searchForm" (ngSubmit)="(searchForm.value)">
-    <input class="form-control input media-content" type="text" placeholder="Suchen..." formControlName="searchInput">
-    
-    <button class="button is-info" type="submit">Suchen</button>
+    <div class="field has-addons">
+      <div class="control">
+        <input class="form-control input media-content" type="text" placeholder="Suchen" formControlName="searchInput">
+      </div>
+      <div class="control">
+        <a class="button is-info" type="submit">
+          Suchen
+        </a>
+      </div>
+    </div>
   </form>
   
 </div>

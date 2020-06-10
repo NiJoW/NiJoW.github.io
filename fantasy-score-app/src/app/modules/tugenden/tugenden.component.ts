@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Kategorie } from 'src/app/models/Kategorie';
 import { KategorieService } from '../../services/kategorie.service';
 import { Observable } from 'rxjs';
@@ -18,6 +18,7 @@ export class TugendenComponent implements OnInit {
   kategorieID: number;
   searchInput: string;
   searchText;
+  erfolg: boolean;
 
   constructor(private kategorieService: KategorieService, 
     private tugendService: TugendService,
@@ -76,6 +77,7 @@ planen(tugendId: number) {
   this.choosenTugend = this.tugendService.planeTugend(tugendId);
   this.choosenTugend.subscribe(data => {
     console.log(data);
+    this.erfolg = true;
   });
   
   //openDashboard();

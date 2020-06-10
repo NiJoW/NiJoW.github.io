@@ -59,4 +59,9 @@ export class BonusprogrammeComponent implements OnInit {
     });
   }
 
+  suchen(searchData) {
+    console.log(searchData.searchInput);
+    
+  }
+
 }
