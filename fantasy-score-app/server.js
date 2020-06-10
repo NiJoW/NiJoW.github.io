@@ -210,12 +210,13 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
     
       const sql = "INSERT INTO taetigkeit (erfuellteWdh, tugendID, tugendhafterID) " +
         "VALUES (?, ?, ?)";
-      const values = [erfuellteWdh, tugendID, tugendhafterID];
-      pool.query( sql, values,
+      const value = [erfuellteWdh, tugendID, tugendhafterID];
+      pool.query(sql, value,
         function (error, results, fields) {
+
           if (error) throw error;
-          response.send(results);
-    
+          res.send(results);
+
         });
     });
 
