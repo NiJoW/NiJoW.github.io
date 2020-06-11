@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationComponent implements OnInit {
 
+  message: string;
+  notify: boolean;
   constructor() { }
 
   ngOnInit(): void {
+    this.notify = false;
+  }
+
+  showNotification(_message: string) {
+    this.message = _message;
+    this.notify = true;
+  }
+
+  hideNotification() {
+    this.notify = false;
   }
 
 }

@@ -6,6 +6,7 @@ import { FormBuilder } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { Tugend } from 'src/app/models/Tugend';
 import { TugendService } from 'src/app/services/tugend.service';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-tugenden',
@@ -18,10 +19,10 @@ export class TugendenComponent implements OnInit {
   kategorieID: number;
   searchInput: string;
   searchText;
-  erfolg: boolean;
 
   constructor(private kategorieService: KategorieService, 
     private tugendService: TugendService,
+    //private notificationComponent: NotificationComponent,
     private formBuilder: FormBuilder) {
     this.searchForm = this.formBuilder.group({
       searchInput: ''
@@ -77,7 +78,7 @@ planen(tugendId: number) {
   this.choosenTugend = this.tugendService.planeTugend(tugendId);
   this.choosenTugend.subscribe(data => {
     console.log(data);
-    this.erfolg = true;
+    //this.notification.showNotification("Die Tugend wurde deinem Dashboard hinzugefügt.");
   });
   
   //openDashboard();
