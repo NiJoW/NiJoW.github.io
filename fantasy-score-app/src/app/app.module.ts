@@ -34,6 +34,7 @@ import { ErstelleTugendOverlayComponent } from './modules/dashboard/aeltester/er
 import { ErstellteTugendenComponent } from './modules/dashboard/aeltester/erstellte-tugenden/erstellte-tugenden.component';
 import { DienstBuchenComponent } from './modules/dienste/dienst-buchen/dienst-buchen.component';
 import { NotificationComponent } from './modules/notification/notification.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { NotificationComponent } from './modules/notification/notification.compo
     HttpClientModule,
     OverlayModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

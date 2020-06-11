@@ -1,22 +1,22 @@
-<h3>Meine angebotenen Dienste</h3>
-<button class="angeboteneDiensteButton" (click)="changeFormat()">Beschreibungen anzeigen</button>
-<table class='table'> 
-    <thead>
-        <tr> 
-            <th>Dienstname</th>
-            <div *ngIf= "isLongFormat()">
-                <th>Beschreibung</th>
-            </div>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let dienst of angeboteneDienste | async"> 
-            <td>{{dienst.name}}</td> 
-            <div *ngIf= "isLongFormat()">
-                <p>{{dienst.beschreibung}}<p> 
-            </div>
-        </tr>
-    </tbody>
-</table>
-<br>
-<br>
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+<h2><strong>Meine angebotenen Dienste</strong></h2>
+<div class="content">
+    <div *ngFor="let dienst of angeboteneDienste | async">
+    <div class="section is-paddingless-horizontal container-grid" style="padding: 10px 0 10px 0;">
+      <div class="notification media">
+        <div class="media-content">
+          <h3>{{dienst.name}}</h3>
+          <button class="angeboteneDiensteButton" (click)="changeFormat()">Beschreibungen anzeigen</button>
+          <div *ngIf= "isLongFormat()">
+            <h4>{{dienst.beschreibung}}</h4>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+   
+<span class="icon has-text-info">
+    <i class="fas fa-info-circle"></i>
+</span>
