@@ -250,7 +250,7 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
 
     app.get('/dashboard/geplante-dienste', function (req, res) {
       const buergerID = req.query.buergerID;
-      const sql = 'SELECT da.name, b.benutzername AS suchenderName, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = ? AND dv.datum < ? ';
+      const sql = 'SELECT da.name, b.benutzername AS suchenderName, dv.datum, da.beschreibung FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = ? AND dv.datum < ? ';
       const value = [buergerID, date+""];
       pool.query(sql, value,
          function (error, results, fields) {

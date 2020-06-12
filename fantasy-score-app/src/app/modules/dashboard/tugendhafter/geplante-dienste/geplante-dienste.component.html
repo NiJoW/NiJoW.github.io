@@ -1,17 +1,21 @@
-<table class='table'> 
-    <thead>
-        <tr> 
-            <th>Meine geplanten Dienste</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let dienst of geplanteDienste | async"> 
-            <td>{{dienst.name}}</td> 
-            <td>{{dienst.beschreibung}}</td> 
-            <td>{{dienst.suchenderName}}</td> 
-            <td>{{dienst.datum | date}}</td> 
-        </tr>
-    </tbody>
-</table>
-<br>
-<br>
+<div class="box"> 
+<h2><strong>Meine geplanten Dienste</strong></h2>
+  <a class="button is-info" (click)="changeFormat()">Details anzeigen</a>
+  <div class="content">
+      <div *ngFor="let dienst of geplanteDienste | async">
+      <div class="section is-paddingless-horizontal container-grid" style="padding: 10px 0 10px 0;">
+        <div class="notification media">
+          <div class="media-content">
+            <h3>{{dienst.name}}</h3>
+            <div *ngIf= "isLongFormat()">
+              <h4>Beschreibung: {{dienst.beschreibung}}</h4>
+              <h4>Suchender <strong>{{dienst.suchenderName}}</strong> hat deinen Dienst für den 
+                  <br>
+                  <strong>{{dienst.datum | date}}</strong> gebucht</h4>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

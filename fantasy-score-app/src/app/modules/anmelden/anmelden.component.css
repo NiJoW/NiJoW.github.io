@@ -1,3 +1,11 @@
-button {
-    margin: 0 2px;
-  }
+.anmeldung {
+
+}
+
+.anmeldung h2 {
+  margin: 30px 0 10px 0;
+}
+
+.anmeldung input {
+  width: 250px;
+}

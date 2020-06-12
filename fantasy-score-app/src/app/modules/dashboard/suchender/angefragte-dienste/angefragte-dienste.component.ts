@@ -13,6 +13,7 @@ export class AngefragteDiensteComponent implements OnInit {
   constructor(private dienstService: DienstService) { }
 
   angefragteDienste: Observable<Dienst[]>;
+  longFormat: boolean;
 
   ngOnInit(): void {
     this.angefragteDienste = this.dienstService.getAngefragteDienste();
@@ -20,6 +21,14 @@ export class AngefragteDiensteComponent implements OnInit {
     this.angefragteDienste.subscribe(data => {
       console.log(data);});
       console.log(this.angefragteDienste);
-  }
-
+      this.longFormat = false;
+    }
+    
+    changeFormat(): void {
+      this.longFormat = !this.longFormat;
+    }
+    
+    isLongFormat(): boolean {
+      return this.longFormat;
+    }
 }
