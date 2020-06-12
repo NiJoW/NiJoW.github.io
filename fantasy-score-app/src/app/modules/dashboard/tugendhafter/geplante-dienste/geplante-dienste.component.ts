@@ -13,6 +13,7 @@ export class GeplanteDiensteComponent implements OnInit {
   constructor(private dienstService: DienstService) { }
 
   geplanteDienste: Observable<Dienst[]>;
+  longFormat: boolean;
 
   ngOnInit(): void {
     this.geplanteDienste = this.dienstService.getGeplanteDienste();
@@ -20,6 +21,14 @@ export class GeplanteDiensteComponent implements OnInit {
     this.geplanteDienste.subscribe(data => {
       console.log(data);});
       console.log(this.geplanteDienste);
-  }
-
+      this.longFormat = false;
+    }
+  
+    changeFormat(): void {
+      this.longFormat = !this.longFormat;
+    }
+  
+    isLongFormat(): boolean {
+      return this.longFormat;
+    }
 }

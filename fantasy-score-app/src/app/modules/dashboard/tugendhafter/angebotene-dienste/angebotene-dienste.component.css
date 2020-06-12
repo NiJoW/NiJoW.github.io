@@ -1,9 +1,14 @@
 .content {
-    height: 500px;
+    max-height: 300px;
+    min-height: 150px;
     overflow-y: scroll;
+    margin: 10px 0 30px 0;
 }
 
-.icon {
-    height: 2rem;
-    width: 2rem;
+.button {
+    margin-top: 10px;
+}
+
+.box {
+    margin-bottom: 5px;
 }

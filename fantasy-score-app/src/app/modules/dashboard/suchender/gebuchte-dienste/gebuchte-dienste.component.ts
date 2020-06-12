@@ -14,6 +14,7 @@ export class GebuchteDiensteComponent implements OnInit {
   constructor(private dienstService: DienstService) { }
 
   gebuchteDienste: Observable<Dienst[]>;
+  longFormat: boolean;
 
   ngOnInit(): void {
     this.gebuchteDienste = this.dienstService.getGebuchteDienste();
@@ -21,6 +22,14 @@ export class GebuchteDiensteComponent implements OnInit {
     this.gebuchteDienste.subscribe(data => {
       console.log(data);});
       console.log(this.gebuchteDienste);
-  }
-
+      this.longFormat = false;
+    }
+    
+    changeFormat(): void {
+      this.longFormat = !this.longFormat;
+    }
+    
+    isLongFormat(): boolean {
+      return this.longFormat;
+    }
 }
