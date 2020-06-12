@@ -1,8 +1,8 @@
+import { BuergerTyp } from './../../models/BuergerTyp.enum';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { FormBuilder } from '@angular/forms';
-import { BuergerTyp } from 'src/app/models/BuergerTyp.enum';
 
 @Component({
   selector: 'app-registrieren',
@@ -15,6 +15,7 @@ export class RegistrierenComponent implements OnInit {
   nutzer = true;
   email = true;
   passwort = true;
+  requestedType: BuergerTyp;
 
   constructor(private router: Router, private authService: AuthService,
     private formBuilder: FormBuilder) {
@@ -22,7 +23,8 @@ export class RegistrierenComponent implements OnInit {
         benutzername: '',
         email: '',
         passwort: '',
-        passwort2: ''
+        passwort2: '',
+        requestedType: BuergerTyp.Tugendhafter
       });
      }
 
@@ -31,9 +33,14 @@ export class RegistrierenComponent implements OnInit {
 
   registrieren(registrierenDaten) {
     if(this.loginKorrekt(registrierenDaten.email, registrierenDaten.passwort, registrierenDaten.passwort2)) {
-      console.log("Daten Korrect");
-      this.authService.registrieren(this, registrierenDaten.benutzername, registrierenDaten.passwort, registrierenDaten.email, BuergerTyp.Tugendhafter);
+      console.log("Daten Korrekt");
+      this.authService.registrieren(this, registrierenDaten.benutzername, registrierenDaten.passwort, registrierenDaten.email, this.requestedType);
     }
+  }
+
+  changeType(event: any){
+    console.log(event.target.value);
+    this.requestedType = event.target.value;
   }
 
   private loginKorrekt(email: string, passwort: string, passwort2:string): boolean {
