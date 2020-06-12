@@ -1,10 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { Dienst } from 'src/app/models/Dienst';
 import { FormBuilder } from '@angular/forms';
 import { DienstService} from 'src/app/services/dienst.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
+import { TestBed } from '@angular/core/testing';
 
 @Component({
   selector: 'app-dienst-buchen',
@@ -18,6 +20,8 @@ export class DienstBuchenComponent implements OnInit {
   fehler = false;
   newDienst: Observable<Dienst>;
 
+  
+
   constructor(private dienstService: DienstService,
     private authService: AuthService,
     private formBuilder: FormBuilder) {
@@ -27,6 +31,8 @@ export class DienstBuchenComponent implements OnInit {
   }
 
   @Input() choosenDienst: Dienst;
+
+  @Output() onClose = new EventEmitter();
 
   ngOnInit(): void {
     console.log(this.choosenDienst);
@@ -51,6 +57,11 @@ export class DienstBuchenComponent implements OnInit {
       });*/
   
     }
+  }
+
+  cancel() {
+    console.log("close Modal");
+    this.onClose.emit(null); 
   }
 
 }

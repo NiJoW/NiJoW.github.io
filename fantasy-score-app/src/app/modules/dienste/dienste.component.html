@@ -25,26 +25,25 @@
   
 </div>
   
-  <div class="searchResult" *ngFor="let dienst of dienste | async">
-    <div class="section is-paddingless-horizontal container-grid" style="padding-top: 0;">
-      <div class="notification media"> 
-        <figure class="media-left image is-96x96">
-          <img src="https://bulma.io/images/placeholders/128x128.png">
-        </figure>
-          <div class="media-content">
-          <h3><strong>DIENST:</strong> {{dienst.name}}</h3>
-          <h4>Angeboten von: {{dienst.tugendhafterName}}</h4>
-          <h4>Beschreibung: {{dienst.beschreibung}}</h4>
-        </div>
-        <div class="media-right">
-          <button class="button is-primary" (click)=buchen(dienst.id_dienstangebot)>Buchen</button> 
-        </div>
+<div class="searchResult" *ngFor="let dienst of dienste | async">
+  <div class="section is-paddingless-horizontal container-grid" style="padding-top: 0;">
+    <div class="notification media"> 
+      <figure class="media-left image is-96x96">
+        <img src="https://bulma.io/images/placeholders/128x128.png">
+      </figure>
+        <div class="media-content">
+        <h3><strong>DIENST:</strong> {{dienst.name}}</h3>
+        <h4>Angeboten von: {{dienst.tugendhafterName}}</h4>
+        <h4>Beschreibung: {{dienst.beschreibung}}</h4>
+      </div>
+      <div class="media-right">
+        <button class="button is-primary" (click)=buchen(dienst.id_dienstangebot)>Buchen</button> 
       </div>
     </div>
   </div>
-  
-
-  <div *ngIf="willBuchen == true">
-    <app-dienst-buchen [choosenDienst] = "choosenDienst"></app-dienst-buchen>
 </div>
+
+
+  <app-dienst-buchen [choosenDienst] = "choosenDienst" *ngIf="willBuchen" (onClose)="willBuchen = false"></app-dienst-buchen>
+
   

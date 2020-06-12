@@ -35,6 +35,7 @@ import { ErstellteTugendenComponent } from './modules/dashboard/aeltester/erstel
 import { DienstBuchenComponent } from './modules/dienste/dienst-buchen/dienst-buchen.component';
 import { NotificationComponent } from './modules/notification/notification.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MessageService } from './services/message.service';
 
 
 @NgModule({
@@ -76,7 +77,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ReactiveFormsModule,
     FontAwesomeModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

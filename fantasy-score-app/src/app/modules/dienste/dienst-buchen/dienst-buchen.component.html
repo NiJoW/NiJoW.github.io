@@ -1,15 +1,25 @@
-
-<form [formGroup]="dienstForm"   (ngSubmit)="buchen()">
-    <h2>Dienst buchen</h2>
-    <br>
-    <h2>DIENST: {{dienst.name}}</h2>
-    <h3>Angeboten von: {{dienst.tugendhafterName}}</h3>
-    <h3>Beschreibung: {{dienst.beschreibung}}</h3>
-    <br>
-    <br>
-    <label>Schlage ein Tag vor, an dem du den Dienst in Anspruch nehmen willst:</label><br>
-    <input id="datumInput" type="date" placeholder="Datum" formControlName="datum" required>
-    <button class="buchenBtn" type="submit">Buchen</button>
-    <div id='fehlermeldungAnmeldung' [hidden]="!fehler">
-      <br>Bitte gib ein korrektes Datum ein.</div>
-</form>
+<div class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Dienst buchen:</p>
+      <button class="delete" aria-label="close" (click)="cancel()"></button>
+    </header>
+      <form [formGroup]="dienstForm" (ngSubmit)="buchen()">
+        <section class="modal-card-body">
+          <h2><strong>DIENST:</strong> {{dienst.name}}</h2>
+          <h3>Angeboten von: {{dienst.tugendhafterName}}</h3>
+          <h3>Beschreibung: {{dienst.beschreibung}}</h3>
+          <br>
+          <label>Schlage ein Tag vor, an dem du den Dienst in Anspruch nehmen willst:</label><br>
+          <input id="datumInput" type="date" placeholder="Datum" formControlName="datum" required>
+          <div id='fehlermeldungAnmeldung' [hidden]="!fehler">
+            <br>Bitte gib ein korrektes Datum ein.</div>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" type="submit">Buchen</button>
+          <button class="button is-danger" type="reset" (click)="cancel()">Abbrechen</button>
+        </footer>
+      </form>
+  </div>
+</div>
