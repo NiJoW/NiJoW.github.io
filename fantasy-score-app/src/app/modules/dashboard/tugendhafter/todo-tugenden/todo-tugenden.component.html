@@ -1,22 +1,23 @@
-<h3>Todo - Tugenden</h3>
-<table class='table'> 
-    <thead>
-        <tr> 
-            <th>Name</th>
-            <th>erfuellte Wiederholungen</th>
-            <th>benötigte Wiederholungen</th>
-            <th>Wert</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let tugend of todoTugenden | async"> 
-            <td>{{tugend.name}}</td>
-            <td>{{tugend.erfuellteWdh}}</td> 
-            <td>{{tugend.benoetigteWdh}}</td> 
-            <td>{{tugend.wert}}</td>  
-        </tr>
-    </tbody>
-</table>
-<!-- </div> -->
-<br>
-<br>
+<div class="box">
+    <h2><strong>Todo - Tugenden</strong></h2>
+    <div class="content">
+        <table class='table is-striped'> 
+            <thead>
+                <tr> 
+                    <th>Name</th>
+                    <th>erfuellte Wiederholungen</th>
+                    <th>benötigte Wiederholungen</th>
+                    <th>Wert</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tugend of todoTugenden | async"> 
+                    <td>{{tugend.name}}</td>
+                    <td>{{tugend.erfuellteWdh}}</td> 
+                    <td>{{tugend.benoetigteWdh}}</td> 
+                    <td>{{tugend.wert}}</td>  
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

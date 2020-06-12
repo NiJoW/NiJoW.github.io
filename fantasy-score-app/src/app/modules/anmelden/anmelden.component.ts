@@ -26,11 +26,6 @@ export class AnmeldenComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  loginUrsprung(role: BuergerTyp) {
-  //  this.authService.login(role);
-    this.router.navigate(['/']);
-  }
-
   login(anmeldenDaten) {
     this.authService.login(this, anmeldenDaten.benutzername, anmeldenDaten.passwort);
   }

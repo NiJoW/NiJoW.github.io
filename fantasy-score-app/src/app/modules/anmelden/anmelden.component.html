@@ -1,26 +1,25 @@
-<button
-  class="btn btn-outline-warning"
-  (click)="loginUrsprung(Typ.Tugendhafter)">Login als Tugendhafter
-</button>
+<div class="anmeldung">
+  <form [formGroup]="anmeldenForm"   (ngSubmit)="login(anmeldenForm.value)">
+      <h2><strong>Anmelden</strong></h2>
+      <div class="field">
+        <p class="control has-icons-left has-icons-right">
+          <input id="benutzernameInput" class="input" type="text" placeholder="Benutzername" formControlName="benutzername">
+        </p>
+      </div>
+      <div class="field">
+        <p class="control has-icons-left">
+          <input class="input passwortInput" type="password" placeholder="Passwort" formControlName="passwort">
+        </p>
+      </div>
+      <div class="field">
+        <p class="control">
+          <button class="button is-success" type="submit">
+            Login
+          </button>
+        </p>
+      </div>
 
-<button
-  class="btn btn-outline-warning"
-  (click)="loginUrsprung(Typ.Suchender)">Login als Suchender
-</button>
-
-
-<button
-  class="btn btn-outline-danger"
-  (click)="loginUrsprung(Typ.Aeltester)">Login als Ältester
-</button>
-
-<form [formGroup]="anmeldenForm"   (ngSubmit)="login(anmeldenForm.value)">
-    <h2>Anmelden</h2>
-    <label>Benutzername:</label>
-    <input id="benutzernameInput" type="text" placeholder="Benutzername" formControlName="benutzername">
-    <label>Passwort:</label>
-    <input class="passwortInput" type="password" placeholder="Passwort" formControlName="passwort">
-    <button class="anmeldeBtn" type="submit">Anmelden</button>
-    <div id='fehlermeldungAnmeldung' [hidden]="!fehler">
-      <br>Angegebener der Benutzername oder das Passwort ist leider falsch!</div>
-</form>
+      <div id='fehlermeldungAnmeldung' [hidden]="!fehler">
+        <br>Angegebener der Benutzername oder das Passwort ist leider falsch!</div>
+  </form>
+</div>

@@ -1,19 +1,21 @@
-<h3>Meine gebuchten Dienste</h3>
-<table class='table'> 
-    <thead>
-        <tr> 
-            <th>Dienstname</th>
-            <th>gebucht für:</th>
-            <th>ausführen für:</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let dienst of gebuchteDienste | async"> 
-            <td>{{dienst.name}}</td> 
-            <td>{{dienst.datum | date}}</td> 
-            <td>{{dienst.tugendhafterName}}</td>
-        </tr>
-    </tbody>
-</table>
-<br>
-<br>
+<div class="box">
+    <h2><strong>Meine gebuchten Dienste</strong></h2>
+    <a class="button is-info" (click)="changeFormat()">Informationen anzeigen</a>
+    <div class="content">
+        <div *ngFor="let dienst of gebuchteDienste | async">
+        <div class="section is-paddingless-horizontal container-grid" style="padding: 10px 0 10px 0;">
+          <div class="notification media">
+            <div class="media-content">
+              <h3>{{dienst.name}}</h3>
+              <div *ngIf= "isLongFormat()">
+                <h4>{{dienst.beschreibung}}</h4>
+                <h4>gebucht bei: <strong>{{dienst.tugendhafterName}}</strong>
+                <br>
+                für den: <strong>{{dienst.datum | date}}</strong></h4>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
