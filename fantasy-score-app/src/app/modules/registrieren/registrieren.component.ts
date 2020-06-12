@@ -12,9 +12,9 @@ import { FormBuilder } from '@angular/forms';
 export class RegistrierenComponent implements OnInit {
 
   registrierenForm;
-  nutzer = true;
-  email = true;
-  passwort = true;
+  nutzer;
+  email;
+  passwort;
   requestedType: BuergerTyp;
 
   constructor(private router: Router, private authService: AuthService,
@@ -32,6 +32,9 @@ export class RegistrierenComponent implements OnInit {
   }
 
   registrieren(registrierenDaten) {
+    this.email = true;
+    this.nutzer = true;
+    this.passwort = true;
     if(this.loginKorrekt(registrierenDaten.email, registrierenDaten.passwort, registrierenDaten.passwort2)) {
       console.log("Daten Korrekt");
       this.authService.registrieren(this, registrierenDaten.benutzername, registrierenDaten.passwort, registrierenDaten.email, this.requestedType);
