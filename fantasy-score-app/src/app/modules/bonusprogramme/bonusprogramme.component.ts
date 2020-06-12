@@ -1,10 +1,10 @@
+import { Bonusprogramm } from './../../models/Bonusprogramm';
 import { Component, OnInit } from '@angular/core';
 import { BonusService } from 'src/app/services/bonus.service';
 import { KategorieService } from 'src/app/services/kategorie.service';
 import { Kategorie } from 'src/app/models/Kategorie';
 import { Observable } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
-import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
 
 @Component({
   selector: 'app-bonusprogramme',
