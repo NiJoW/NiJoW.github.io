@@ -28,10 +28,10 @@ export class NotificationComponent implements OnInit {
   showNotification(_message: string) {
     this.message = _message;
     this.notify = true;
-  }
+  }*/
 
   hideNotification() {
     this.notify = false;
-  }*/
+  }
 
 }
