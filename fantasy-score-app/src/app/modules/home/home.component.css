@@ -4,14 +4,21 @@
         
 .homeContent h2 { font-size: 1.5rem;}
         
-.leftContent{width: 60%; margin-top: 30px;}
+.leftContent{width: 100%; margin-top: 30px;}
+.leftContent img {
+    max-width: 640px;
+    max-height: 320px;
+    border: 1px solid black;
+     margin: 20px 0 0 0;
+}
+
+.leftContent, .rightContent {
+    margin-bottom: 5px;
+}
            
 .leftContent p { width: 80%; }
 .leftContent a { text-decoration: underline; color: black;}
-
-.rightContent{width: 40%;}
         
-.is-2by1{ border: 1px solid black; margin: 20px 0 50px 0;}
+.first{ margin-bottom: 50px; }
 
 .message { width: 75%; word-break: normal;}
-

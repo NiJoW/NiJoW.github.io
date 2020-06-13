@@ -482,7 +482,7 @@ app.post('/newTugend', function (request, response) {
     app.post('/nutzer/name', function (request, response) {
       const benutzername = request.body.benutzername;
 
-      const sql = "SELECT * FROM buerger WHERE  benutzername=?";
+      const sql = "SELECT * FROM buerger WHERE benutzername=?";
       const values = [benutzername];
       pool.query( sql, values,
         function (error, results, fields) {
@@ -509,5 +509,20 @@ app.post('/newTugend', function (request, response) {
           if (error) throw error;
           response.send(results);
 
+        });
+    });
+
+    app.post('/nutzer/socialScoreEintrag', function(request, response) {
+      console.dir(request.body);
+      const tugendhafterID = request.body.social_score;
+      console.log("in server.js SSCore");
+
+      const sql = "INSERT INTO hat_social_score (tugendhafterID, social_score)" + 
+        "VALUES (?, 0)";
+        const values = [tugendhafterID];
+      pool.query(sql, values,
+        function (error, results, fields) {
+          if (error) throw error;
+          response.send(results);
         });
     });

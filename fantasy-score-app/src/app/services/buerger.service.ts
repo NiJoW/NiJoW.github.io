@@ -19,7 +19,7 @@ export class BuergerService {
     private readonly aeltesterUrl = APIConfig.URL + ':' + APIConfig.PORT + '/aeltester';
     private readonly loginUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/login';
     private readonly nutzerNameUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/name';
-
+    private readonly newSocialScoreEintragUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/socialScoreEintrag';
 
 
     getBuerger(): Observable<Buerger[]> {
@@ -61,6 +61,19 @@ export class BuergerService {
         "typ": buerger.typ,
       });
     }
+
+    newSocialScoreAnlegen(id: number)  {
+      const httpOptions = null;
+      console.log('in service add SocialScore');
+      return this.http.post(this.newSocialScoreEintragUrl,
+        {
+          "tugendhafterID" : id,
+        });
+      }
+
+
+
+
 
 
     // Make the HTTP request:
