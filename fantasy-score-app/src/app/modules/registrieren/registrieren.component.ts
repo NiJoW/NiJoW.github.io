@@ -27,6 +27,9 @@ export class RegistrierenComponent implements OnInit {
         requestedType: BuergerTyp.Tugendhafter
       });
       this.requestedType = BuergerTyp.Tugendhafter;
+      this.nutzer = true;
+      this.email = true;
+      this.passwort = true;
      }
 
   ngOnInit(): void {
