@@ -10,25 +10,20 @@ export class NotificationComponent implements OnInit {
 
   message: string;
   notify: boolean;
-  constructor(private messageService: MessageService) {
-    this.messageService.getMessage().subscribe((data:string) => {
-      this.message = data;
-      console.log("this.message");
-    });
-   }
+  constructor(private messageService: MessageService) {}
+   
 
   ngOnInit(): void {
     this.notify = false;
     console.log(this.message);
+    this.messageService.currentMessage.subscribe(_message => {
+      this.message = _message;
+      if(_message != "")
+        this.notify = true;
+    });
     
    
   }
-
-  /*
-  showNotification(_message: string) {
-    this.message = _message;
-    this.notify = true;
-  }*/
 
   hideNotification() {
     this.notify = false;

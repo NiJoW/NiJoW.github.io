@@ -136,6 +136,19 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
   });
 });
 
+app.get('/bonusprogramm/suche', function(req, res) {
+  const searchInput = req.query.suche;
+  const sql = "SELECT * FROM bonusprogramm WHERE titel LIKE '%?%' OR nachricht LIKE '%?%';";
+  const value = [searchInput];
+    pool.query(sql, value,
+      function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+  });
+});
+
+
+
 //##################################Tugenden#############################################
 
 

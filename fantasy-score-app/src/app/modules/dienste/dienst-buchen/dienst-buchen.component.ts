@@ -7,6 +7,7 @@ import { DienstService} from 'src/app/services/dienst.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-dienst-buchen',
@@ -23,6 +24,7 @@ export class DienstBuchenComponent implements OnInit {
   
 
   constructor(private dienstService: DienstService,
+    private messageService: MessageService,
     private authService: AuthService,
     private formBuilder: FormBuilder) {
     this.dienstForm = this.formBuilder.group({
@@ -52,6 +54,8 @@ export class DienstBuchenComponent implements OnInit {
       console.log("show Fehler");
     } else {
       this.newDienst = this.dienstService.createDiensvertrag(this.choosenDienst[0].id_dienstangebot, this.dienstForm.value.datum);
+      this.onClose.emit(null); 
+      this.messageService.setMessage("Der Dienst wurde deinem Dashboard hinzugefügt.");
       /*this.newDienst.subscribe(data => {
         console.dir(data);
       });*/
