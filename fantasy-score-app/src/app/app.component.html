@@ -1,23 +1,54 @@
 <!-- NavBar -->
 <header>
-  <div id="navBar">
-    <ul>
-      <li class="navHome"><a routerLink="/">FS</a></li>
-      <li class="navHome"><a routerLink="/">FantasyScore</a></li>
-    </ul>
-    <nav>
-      <ul>
-        <li *ngIf="!isLoggedIn"><a routerLink="/registrieren">Registrieren</a></li>
-        <li *ngIf="!isLoggedIn"><a routerLink="/login">Anmelden</a></li>
-        <li *ngIf="isLoggedIn"><a routerLink="/dashboard">Dashboard</a></li>
-        <li *ngIf="isLoggedIn"><a routerLink="/tugenden">Tugenden</a></li>
-        <li *ngIf="isLoggedIn"><a routerLink="/dienste">Dienste</a></li>
-        <li *ngIf="isLoggedIn"><a routerLink="/bonusprogramme">Bonusprogramme</a></li>
-        <li *ngIf="isLoggedIn"><a href="#" routerLink="/">{{nutzer.benutzername}}</a></li>
-        <li *ngIf="isLoggedIn"><a (click)="logout()">Abmelden</a></li>
-      </ul>
-    </nav>
-  </div>
+  
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      
+      <a class="navbar-item has-text-danger is-size-4" routerLink="/"><strong>FS</strong></a>
+      <a class="navbar-item has-text-danger is-size-5" routerLink="/">FantasyScore</a>
+
+      <a class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    
+    <div class="navbar-menu">
+      <div class="navbar-end ">
+        <a *ngIf="!isLoggedIn" class="navbar-item has-text-danger" routerLink="/registrieren">
+          Registrieren
+        </a>
+        <a *ngIf="!isLoggedIn" class="navbar-item has-text-danger" routerLink="/login">
+          Anmelden
+        </a>
+        <a *ngIf="isLoggedIn" class="navbar-item has-text-danger" routerLink="/dashboard">
+          Dashboard
+        </a>
+        <a *ngIf="isLoggedIn" class="navbar-item has-text-danger" routerLink="/tugenden">
+          Tugenden
+        </a>
+        <a *ngIf="isLoggedIn" class="navbar-item has-text-danger" routerLink="/dienste">
+          Dienste
+        </a>
+        <a *ngIf="isLoggedIn" class="navbar-item has-text-danger" routerLink="/bonusprogramme">
+          Bonusprogramme
+        </a>
+
+        <div *ngIf="isLoggedIn" class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link has-text-danger">
+            {{nutzer.benutzername}}
+          </a>
+  
+          <div class="navbar-dropdown">
+            <a (click)="logout()" class="navbar-item has-text-danger">
+              Abmelden
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
 </header>
 <app-banner></app-banner>
 
