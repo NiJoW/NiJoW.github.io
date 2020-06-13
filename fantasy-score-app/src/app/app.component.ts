@@ -13,6 +13,7 @@ export class AppComponent {
   title = 'fantasy-score-app';
   nutzer: Buerger;
   faCoffee = faCoffee;
+  willAnmelden: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) {
     this.getAktuellenNutzer();
@@ -22,6 +23,10 @@ export class AppComponent {
     const isLoggedIn = this.authService.isLoggedIn();
     if(isLoggedIn){ this.nutzer = this.authService.getNutzer(); }
     return isLoggedIn;
+  }
+
+  login() {
+    this.willAnmelden = true;
   }
 
   logout() {

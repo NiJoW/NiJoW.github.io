@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { BuergerTyp } from './../../models/BuergerTyp.enum';
 import { AuthService } from './../../services/auth.service';
@@ -15,6 +15,8 @@ export class AnmeldenComponent implements OnInit {
   Typ = BuergerTyp;
   fehler = false;
 
+  @Output() onClose = new EventEmitter();
+
   constructor(private router: Router, private authService: AuthService,
               private formBuilder: FormBuilder) {
     this.anmeldenForm = this.formBuilder.group({
@@ -28,6 +30,7 @@ export class AnmeldenComponent implements OnInit {
 
   login(anmeldenDaten) {
     this.authService.login(this, anmeldenDaten.benutzername, anmeldenDaten.passwort);
+    this.onClose.emit(null); 
   }
 
   navigiere(){
@@ -37,6 +40,11 @@ export class AnmeldenComponent implements OnInit {
   fehlerAnzeigen(){
     this.fehler = true;
     console.warn('Nutzerdaten nicht korrekt!');
+  }
+
+  cancel() {
+    console.log("close Modal");
+    this.onClose.emit(null); 
   }
 }
 
