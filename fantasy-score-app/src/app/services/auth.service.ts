@@ -70,6 +70,10 @@ export class AuthService {
             if (data != null  && !(data.length === 0)){
               this.nutzer = data[0];
               console.dir(data[0]);
+              console.log(data);
+              console.log("vor new...");
+              this.buergerService.newSocialScoreAnlegen();
+              console.log("nach new...");
               komponent.navigiere();
             }
           } );
@@ -79,7 +83,5 @@ export class AuthService {
         }
       });
   }
-
-
 }
 

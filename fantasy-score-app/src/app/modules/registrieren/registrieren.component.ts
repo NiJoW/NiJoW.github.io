@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { FormBuilder } from '@angular/forms';
+import { BuergerService } from 'src/app/services/buerger.service';
 
 @Component({
   selector: 'app-registrieren',
@@ -18,7 +19,7 @@ export class RegistrierenComponent implements OnInit {
   requestedType: BuergerTyp;
 
   constructor(private router: Router, private authService: AuthService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder, private buergerService: BuergerService) {
       this.registrierenForm = this.formBuilder.group({
         benutzername: '',
         email: '',
@@ -44,6 +45,9 @@ export class RegistrierenComponent implements OnInit {
       console.log("Daten Korrekt");
       this.authService.registrieren(this, registrierenDaten.benutzername, registrierenDaten.passwort, registrierenDaten.email, this.requestedType);
     }
+    //if(this.requestedType == "Tugendhafter") {
+     //this.buergerService.newSocialScoreAnlegen();
+    //}
   }
 
   changeType(event: any){

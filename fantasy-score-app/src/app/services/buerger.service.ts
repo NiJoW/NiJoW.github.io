@@ -62,12 +62,12 @@ export class BuergerService {
       });
     }
 
-    newSocialScoreAnlegen(id: number)  {
+    newSocialScoreAnlegen(): Observable<Buerger[]> {
       const httpOptions = null;
-      console.log('in service add SocialScore');
-      return this.http.post(this.newSocialScoreEintragUrl,
+      console.log('in service add SocialScore1234');
+      return this.http.post<Buerger[]>(this.newSocialScoreEintragUrl,
         {
-          "tugendhafterID" : id,
+          "social_score" : 0,
         });
       }
 
