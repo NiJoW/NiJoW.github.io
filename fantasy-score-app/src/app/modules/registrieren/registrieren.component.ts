@@ -26,6 +26,7 @@ export class RegistrierenComponent implements OnInit {
         passwort2: '',
         requestedType: BuergerTyp.Tugendhafter
       });
+      this.requestedType = BuergerTyp.Tugendhafter;
      }
 
   ngOnInit(): void {
@@ -35,6 +36,7 @@ export class RegistrierenComponent implements OnInit {
     this.email = true;
     this.nutzer = true;
     this.passwort = true;
+    this.requestedType;
     if(this.loginKorrekt(registrierenDaten.email, registrierenDaten.passwort, registrierenDaten.passwort2)) {
       console.log("Daten Korrekt");
       this.authService.registrieren(this, registrierenDaten.benutzername, registrierenDaten.passwort, registrierenDaten.email, this.requestedType);
@@ -43,7 +45,21 @@ export class RegistrierenComponent implements OnInit {
 
   changeType(event: any){
     console.log(event.target.value);
-    this.requestedType = event.target.value;
+    if(event.target.value == "Tugendhafter") {
+      this.requestedType = BuergerTyp.Tugendhafter;
+      console.log(event.target.value);
+      console.log(this.requestedType);
+    }
+    if(event.target.value == "Suchender") {
+      this.requestedType = BuergerTyp.Suchender;
+      console.log(event.target.value);
+      console.log(this.requestedType);
+    }
+    if(event.target.value == "Aeltester") {
+      this.requestedType = BuergerTyp.Aeltester;
+      console.log(event.target.value);
+      console.log(this.requestedType);
+    }
   }
 
   private loginKorrekt(email: string, passwort: string, passwort2:string): boolean {
