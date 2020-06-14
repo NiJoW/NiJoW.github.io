@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs";
 import {TugendService} from "../../../../services/tugend.service";
 import {Tugend} from "../../../../models/Tugend";
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -11,21 +12,42 @@ import {Tugend} from "../../../../models/Tugend";
 })
 export class ErstellteTugendenComponent implements OnInit {
 
+  erstellteTugenden: Observable<Tugend[]>;
+  editIcon = faPencilAlt;
+
+  zeigeBearbeitenOverlay = false;
+  choosenTugend: Tugend;
+  tugendObservable : Observable<Tugend>;
+
+
   constructor(private tugendService: TugendService) { }
 
-  erstellteTugenden: Observable<Tugend[]>;
-
   ngOnInit(): void {
+    this.getEigeneErstellteTugenden();
+  }
+
+  bearbeiten(tugendID) {
+    console.log("Nutzer will die Tugend " + tugendID)+ " bearbeiten";
+    this.tugendObservable = this.tugendService.getTugendByID(tugendID);
+    this.tugendObservable.subscribe(data => {
+      this.choosenTugend = data;
+      console.dir(this.choosenTugend);
+      this.zeigeBearbeitenOverlay = true;
+    })
+  }
+
+  private getEigeneErstellteTugenden() {
     this.erstellteTugenden = this.tugendService.getErstellteTugenden();
 
     this.erstellteTugenden.subscribe(data => {
       console.log('Tugend aus DB in Componente:');
       console.log(data);
     });
-    // für's Bearbeiten nutzen:
-    // tugend.kategorieID
-    // id_tugend
-    console.log(this.erstellteTugenden);
+  }
+
+  updateTugendenOnEvent(){
+    this.zeigeBearbeitenOverlay = false;
+    this.getEigeneErstellteTugenden();
   }
 
 }

@@ -16,8 +16,19 @@
     <td>{{tugend.beschreibung}}</td>
     <td>{{tugend.wert}}</td>
     <td>{{tugend.benoetigteWdh}}</td>
+    <td> <button class="button is-primary  is-outlined"
+                 (click)=bearbeiten(tugend.id_tugend)
+        >
+      <fa-icon [icon]="editIcon"></fa-icon>
+    </button>
+
+
+
+    </td>
   </tr>
   </tbody>
 </table>
 <br>
 <br>
+<app-bearbeite-tugend [choosenTugend]="choosenTugend" *ngIf="zeigeBearbeitenOverlay" (onCloseEvent)="updateTugendenOnEvent()"></app-bearbeite-tugend>
+

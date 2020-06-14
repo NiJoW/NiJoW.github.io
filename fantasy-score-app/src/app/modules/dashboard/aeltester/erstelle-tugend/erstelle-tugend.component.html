@@ -2,34 +2,10 @@
 
 
 <h3>Neue Tugend erstellen:</h3>
-<!---
-<label>Color (null not allowed):
-  <select ng-model="myColor" ng-options="color.name for color in colors"></select> --->
-
 
 <form [formGroup]="neueTugendForm"
       (ngSubmit)="onSubmit(neueTugendForm.value)">
 
-
-  <!---
-    <select>
-    <option  *ngFor="let kategorie of kategorien | async" >
-      {{kategorie.bezeichnung}}
-    </option>
-  </select>
-
-  <hr>
-
-  [ngValue]="selectedLevel"
-    {{selectedKategorie | json}}
-
-    <h1>Selecting object</h1>
-    <select type="number" [(ngModel)]="selectedLevel">
-      <option *ngFor="let level of levels" [ngValue]="level">{{level.name}}</option>
-    </select>
-    {{selectedLevel | json}}
-
-    <hr>---->
 <br>
 <br>
 

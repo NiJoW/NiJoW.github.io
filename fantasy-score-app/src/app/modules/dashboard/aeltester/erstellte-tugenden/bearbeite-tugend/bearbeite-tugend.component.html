@@ -1,0 +1,43 @@
+<div class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Tugend bearbeiten:</p>
+      <button class="delete" aria-label="close" (click)="cancel()"></button>
+    </header>
+    <form [formGroup]="bearbeiteTugendForm" (ngSubmit)="speichern(bearbeiteTugendForm.value)">
+      <section class="modal-card-body">
+
+        <label for="kategorie">Kategorie:</label>
+
+        <select  id="kategorie"  formControlName="kategorie">
+          <option  *ngFor="let kategorie of kategorien | async" value="{{ kategorie.id_kategorie }}">
+            {{ kategorie.bezeichnung }}
+          </option>
+        </select>
+
+        <br><br>
+
+        <label for="titel_neue_tugend">Titel:</label>
+        <input id="titel_neue_tugend"  type="text" formControlName="titel">
+        <br><br>
+
+        <label for="punkte_neue_tugend">Punkte:</label>
+        <input id="punkte_neue_tugend" type="number" formControlName="punkte">
+        <br><br>
+
+        <label for="wiederholungen_neue_tugend">Benötigte Wiederholungen:</label>
+        <input id="wiederholungen_neue_tugend" type="number" formControlName="benoetigteWiederholungen">
+        <br><br>
+
+        <label for="beschreibung_neue_tugend">Beschreibung:</label>
+        <input id="beschreibung_neue_tugend" type="text" formControlName="beschreibung">
+
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success" type="submit">Speichern</button>
+        <button class="button is-danger" type="reset" (click)="cancel()">Abbrechen</button>
+      </footer>
+    </form>
+  </div>
+</div>
