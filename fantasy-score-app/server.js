@@ -9,7 +9,6 @@
     var bodyParser = require('body-parser')
     var app = express();
     var index;
-    var insertIdTEMP = -1;
 
     var pad = function(num) { return ('00'+num).slice(-2) };
       var date;
@@ -497,7 +496,6 @@ app.post('/newTugend', function (request, response) {
     app.post('/nutzer/registrieren', function (request, response) {
       console.log('request body: ');
       console.dir(request.body);
-      console.log("Ist es die richtige ID eine Klammer weiter draussen?  "+insertIdTEMP);
       const benutzername = request.body.benutzername;
       const passwort = request.body.passwort;
       const email_adresse = request.body.email_adresse;
@@ -509,36 +507,27 @@ app.post('/newTugend', function (request, response) {
       pool.query( sql, values,
         function (error, results, fields) {
           if (error) throw error;
-          
-          console.log("INSERT ID  "+results.insertId);
-          console.log("Ist es -1?  "+insertIdTEMP);
-          insertIdTEMP = results.insertId;
-          console.log("Ist es die richtige ID?  "+insertIdTEMP);
-
+          //results.insertedId;
           response.send(results);
 
-
-
         });
-        console.log("Ist es die richtige ID eine Klammer weiter draussen?  "+insertIdTEMP);
     });
 
     app.post('/nutzer/socialScoreEintrag', function(request, response) {
       console.log("in POST SocialScore");
       console.dir(request.body);
-      const social_score = request.body.social_score;
-      const tugendhafterID = insertIdTEMP;
-      console.log(insertIdTEMP);
+      const tugendhafterID = request.body.tugendhafterID;
+      //const tugendhafterID = 140;
+
       console.log(tugendhafterID);
 
       const sql = "INSERT INTO hat_social_score (tugendhafterID, social_score)" + 
-        "VALUES (? , ?)";
-
-
-        const values = [insertIdTEMP, social_score];
+        "VALUES (? , 0)";
+        const values = [tugendhafterID];
       pool.query(sql, values,
         function (error, results, fields) {
           if (error) throw error;
+
           response.send(results);
         });
     });

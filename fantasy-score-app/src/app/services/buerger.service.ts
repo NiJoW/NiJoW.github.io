@@ -1,8 +1,8 @@
+import { Observable } from 'rxjs';
 import { Bester } from './../models/Bester';
 import { APIConfig } from './../../APIconfig';
 import { Buerger } from './../models/Buerger';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {Tugend} from "../models/Tugend";
 
@@ -62,12 +62,13 @@ export class BuergerService {
       });
     }
 
-    newSocialScoreAnlegen(): Observable<Buerger[]> {
+    newSocialScoreAnlegen(id: number): Observable<Buerger[]> {
       const httpOptions = null;
       console.log('in service add SocialScore1234');
+      console.log(" inside BS " + id);
       return this.http.post<Buerger[]>(this.newSocialScoreEintragUrl,
         {
-          "social_score" : 0,
+          "tugendhafterID" : id,
         });
       }
 
