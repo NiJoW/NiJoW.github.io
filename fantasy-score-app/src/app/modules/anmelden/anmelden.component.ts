@@ -29,8 +29,8 @@ export class AnmeldenComponent implements OnInit {
   }
 
   login(anmeldenDaten) {
+    this.cancel(); 
     this.authService.login(this, anmeldenDaten.benutzername, anmeldenDaten.passwort);
-    this.onClose.emit(null); 
   }
 
   navigiere(){

@@ -138,7 +138,7 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
 
 app.get('/bonusprogramm/suche', function(req, res) {
   const searchInput = req.query.suche;
-  const sql = "SELECT * FROM bonusprogramm WHERE titel LIKE '%?%' OR nachricht LIKE '%?%';";
+  const sql = "SELECT * FROM bonusprogramm WHERE titel LIKE '%'?'%' OR nachricht LIKE '%'?'%';";
   const value = [searchInput];
     pool.query(sql, value,
       function (error, results, fields) {
@@ -288,7 +288,7 @@ app.get('/bonusprogramm/suche', function(req, res) {
 
     app.get('/dashboard/angefragte-dienste', function (req, res) {
       const buergerID = req.query.buergerID;
-      const sql = 'SELECT da.name, da.beschreibung, b.benutzername AS tugendhafterName, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND da.tugendhafterID = b.id_buerger AND dv.status = "bestätigt" AND dv.suchenderID = ? AND dv.datum < ?';
+      const sql = 'SELECT da.name, da.beschreibung, b.benutzername AS tugendhafterName, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND da.tugendhafterID = b.id_buerger AND dv.status = "angefragt" AND dv.suchenderID = ? AND dv.datum < ?';
       const value = [buergerID, date+""];
       pool.query(sql, value,
          function (error, results, fields) {
