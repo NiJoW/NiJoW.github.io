@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {TugendService} from "../../../../services/tugend.service";
 import {Tugend} from "../../../../models/Tugend";
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -14,8 +15,10 @@ export class ErstellteTugendenComponent implements OnInit {
 
   erstellteTugenden: Observable<Tugend[]>;
   editIcon = faPencilAlt;
+  createIcon = faPlus;
 
   zeigeBearbeitenOverlay = false;
+  zeigeErstellenOverlay = false;
   choosenTugend: Tugend;
   tugendObservable : Observable<Tugend>;
 
@@ -36,6 +39,10 @@ export class ErstellteTugendenComponent implements OnInit {
     })
   }
 
+  neueTugendErstellen(){
+    this.zeigeErstellenOverlay = true;
+  }
+
   private getEigeneErstellteTugenden() {
     this.erstellteTugenden = this.tugendService.getErstellteTugenden();
 
@@ -47,6 +54,7 @@ export class ErstellteTugendenComponent implements OnInit {
 
   updateTugendenOnEvent(){
     this.zeigeBearbeitenOverlay = false;
+    this.zeigeErstellenOverlay = false;
     this.getEigeneErstellteTugenden();
   }
 

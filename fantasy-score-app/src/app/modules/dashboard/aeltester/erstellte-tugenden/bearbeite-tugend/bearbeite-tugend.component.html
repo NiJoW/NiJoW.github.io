@@ -8,7 +8,7 @@
     <form [formGroup]="bearbeiteTugendForm" (ngSubmit)="speichern(bearbeiteTugendForm.value)">
       <section class="modal-card-body">
 
-        <label for="kategorie">Kategorie:</label>
+        <label for="kategorie">Kategorie:</label> &nbsp;
 
         <select  id="kategorie"  formControlName="kategorie">
           <option  *ngFor="let kategorie of kategorien | async" value="{{ kategorie.id_kategorie }}">
@@ -18,19 +18,19 @@
 
         <br><br>
 
-        <label for="titel_neue_tugend">Titel:</label>
+        <label for="titel_neue_tugend">Titel:</label> &nbsp;
         <input id="titel_neue_tugend"  type="text" formControlName="titel">
         <br><br>
 
-        <label for="punkte_neue_tugend">Punkte:</label>
+        <label for="punkte_neue_tugend">Punkte:</label> &nbsp;
         <input id="punkte_neue_tugend" type="number" formControlName="punkte">
         <br><br>
 
-        <label for="wiederholungen_neue_tugend">Benötigte Wiederholungen:</label>
+        <label for="wiederholungen_neue_tugend">Benötigte Wiederholungen:</label> &nbsp;
         <input id="wiederholungen_neue_tugend" type="number" formControlName="benoetigteWiederholungen">
         <br><br>
 
-        <label for="beschreibung_neue_tugend">Beschreibung:</label>
+        <label for="beschreibung_neue_tugend">Beschreibung:</label> &nbsp;
         <input id="beschreibung_neue_tugend" type="text" formControlName="beschreibung">
 
       </section>

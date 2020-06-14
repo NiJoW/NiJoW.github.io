@@ -28,7 +28,11 @@
   </tr>
   </tbody>
 </table>
+<button class="button is-primary "  (click)=neueTugendErstellen()>
+  <fa-icon [icon]="createIcon"></fa-icon> &nbsp; Neue Tugend erstellen
+</button>
 <br>
 <br>
 <app-bearbeite-tugend [choosenTugend]="choosenTugend" *ngIf="zeigeBearbeitenOverlay" (onCloseEvent)="updateTugendenOnEvent()"></app-bearbeite-tugend>
+<app-erstelle-tugend *ngIf="zeigeErstellenOverlay" (onCloseEvent)="updateTugendenOnEvent()"></app-erstelle-tugend>
 

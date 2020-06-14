@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
 import {MessageService} from "../../../../../services/message.service";
 import {AuthService} from "../../../../../services/auth.service";
 import {FormBuilder} from "@angular/forms";
@@ -52,16 +52,16 @@ export class BearbeiteTugendComponent implements OnInit {
     this.tugend.wert = tugendData.punkte;
     this.tugend.benoetigteWdh = tugendData.benoetigteWiederholungen;
     this.tugend.kategorieID = tugendData.kategorie;
+    // bearbeitete Tugend in DB updaten
     this.tugendService.updateTugend(this.tugend).subscribe(data => {
       console.log(data);
     } );
-
-      this.onCloseEvent.emit(null);
-      this.messageService.setMessage("Die Tugend wurde erfolgreich bearbeitet.");
+    // Overlay schließen, Erfolgsmeldung anzeigen
+    this.onCloseEvent.emit(null);
+    this.messageService.setMessage("Die Tugend wurde erfolgreich bearbeitet.");
   }
 
   cancel() {
-    console.log("close Modal");
     this.onCloseEvent.emit(null);
   }
 

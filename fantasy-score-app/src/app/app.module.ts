@@ -5,8 +5,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {OverlayComponent} from './modules/overlay/overlayComponent/overlay.component';
-import {SubscribeComponent} from './modules/overlay/subscribe/subscribe.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import {FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -32,7 +30,6 @@ import { ErledigteDiensteComponent } from './modules/dashboard/tugendhafter/erle
 import { GebuchteDiensteComponent } from './modules/dashboard/suchender/gebuchte-dienste/gebuchte-dienste.component';
 import { AngefragteDiensteComponent } from './modules/dashboard/suchender/angefragte-dienste/angefragte-dienste.component';
 import { ErstellteBonusprogrammeComponent } from './modules/dashboard/aeltester/erstellte-bonusprogramme/erstellte-bonusprogramme.component';
-import { ErstelleTugendOverlayComponent } from './modules/dashboard/aeltester/erstelle-tugend/erstelle-tugend-overlay/erstelle-tugend-overlay.component';
 import { ErstellteTugendenComponent } from './modules/dashboard/aeltester/erstellte-tugenden/erstellte-tugenden.component';
 import { DienstBuchenComponent } from './modules/dienste/dienst-buchen/dienst-buchen.component';
 import { NotificationComponent } from './modules/notification/notification.component';
@@ -64,9 +61,6 @@ import {BearbeiteTugendComponent} from "./modules/dashboard/aeltester/erstellte-
     ErstellteBonusprogrammeComponent,
     ErfuellteTugendenComponent,
     ErstelleTugendComponent,
-    OverlayComponent,
-    SubscribeComponent,
-    ErstelleTugendOverlayComponent,
     ErstellteTugendenComponent,
     NotificationComponent,
     BearbeiteTugendComponent,
