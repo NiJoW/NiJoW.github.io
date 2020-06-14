@@ -177,21 +177,16 @@ app.get('/bonusprogramm/suche', function(req, res) {
 
         });
     });
+// Ältester ###########
 
-    app.post('/tugend', function (request, response) {
+    // neue Tugend (nicht Tätigkeit) anlegen
+    app.post('/newTugend', function (request, response) {
       console.log('request body: ');
       console.dir(request.body);
 
-      const name = request.body.name;
-      const beschreibung = request.body.beschreibung;
-      const wert = request.body.wert;
-      const benoetigteWdh = request.body.benoetigteWdh;
-      const aeltesterID = 7;
-      const kategorieID = request.body.kategorieID;
-
       const sql = "INSERT INTO tugend (name, beschreibung, wert, benoetigteWdh, aeltesterID, kategorieID) " +
         "VALUES (?, ?, ?, ?, ?, ?)";
-      const values = [name, beschreibung, wert, benoetigteWdh, aeltesterID, kategorieID];
+      const values = [request.body.name, request.body.beschreibung, request.body.wert, request.body.benoetigteWdh, request.body.aeltesterID, request.body.kategorieID];
       pool.query( sql, values,
         function (error, results, fields) {
           if (error) throw error;
@@ -200,27 +195,57 @@ app.get('/bonusprogramm/suche', function(req, res) {
         });
     });
 
-    // Aeltester
+// get alle Tugenden, die angemeldeter Nutzer erstellt hat
     app.get('/dashboard/erstellte-tugenden', function (req, res) {
       const aeltesterID = req.query.aeltesterID;
       const sql = 'SELECT id_tugend, name, beschreibung, wert, benoetigteWdh,  kategorieID, bezeichnung AS kategorieTitel FROM tugend JOIN kategorie ON kategorieID=id_kategorie WHERE aeltesterID = ?';
       const value = [aeltesterID];
       pool.query(sql, value,
         function (error, results, fields) {
+              if (error) throw error;
+              res.send(results);
+      });
+    });
 
+    // get eine bestimmte Tugend anhand ihrer ID (Tugend, nicht Tätigkeit)
+    app.get('/tugendByID', function (req, res) {
+      const tugendID = req.query.tugendID;
+      const sql = 'SELECT id_tugend, name, beschreibung, wert, benoetigteWdh,  kategorieID, bezeichnung AS kategorieTitel FROM tugend JOIN kategorie ON kategorieID=id_kategorie WHERE id_tugend = ?';
+      const value = [tugendID];
+      pool.query(sql, value,
+        function (error, results, fields) {
+              if (error) throw error;
+              res.send(results);
+      });
+    });
+
+    // bearbeite bestehende Tugend (nicht Tätigkeit) anlegen
+    app.put('/dashboard/bearbeite-tugend', function (request, response) {
+      console.log('request body: ');
+      console.dir(request.body);
+
+      const sql = " UPDATE tugend SET name=?,  beschreibung=?, wert=?, benoetigteWdh=?, kategorieID=? WHERE id_tugend=?;";
+      const values = [request.body.name, request.body.beschreibung, request.body.wert, request.body.benoetigteWdh, request.body.kategorieID, request.body.id_tugend];
+      //[name, beschreibung, wert, benoetigteWdh, kategorieID, id_tugend];
+      pool.query( sql, values,
+        function (error, results, fields) {
           if (error) throw error;
-          res.send(results);
+          response.send(results);
 
         });
-
     });
+
+
+
+
+    //##########################Tätigkeit##############################################
 
 
     app.post('/newTaetigkeit', function (req, res) {
       const erfuellteWdh = 0;
       const tugendID = req.body.tugendID;
       const tugendhafterID = req.body.tugendhafterID;
-    
+
       const sql = "INSERT INTO taetigkeit (erfuellteWdh, tugendID, tugendhafterID) " +
         "VALUES (?, ?, ?)";
       const value = [erfuellteWdh, tugendID, tugendhafterID];
@@ -300,11 +325,11 @@ app.get('/bonusprogramm/suche', function(req, res) {
 
     app.get('/dienste', function (req, res) {
 
-      pool.query('SELECT d.*, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger', 
+      pool.query('SELECT d.*, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger',
       function (error, results, fields) {
         if (error) throw error;
         res.send(results);
-    
+
       });
     });
 
@@ -313,11 +338,11 @@ app.get('/bonusprogramm/suche', function(req, res) {
       console.log(req.query.dienstID);
       const dienstID = req.query.dienstID;
 
-      pool.query('SELECT *, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger WHERE id_dienstangebot=?', [dienstID], 
+      pool.query('SELECT *, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger WHERE id_dienstangebot=?', [dienstID],
         function (error, results, fields) {
           if (error) throw error;
           res.send(results);
-    
+
       });
     });
 
@@ -325,7 +350,7 @@ app.get('/bonusprogramm/suche', function(req, res) {
       console.log(request.query);
       console.log(request.params);
       const kategorieID = request.query.kategorieID;
-    
+
       const sql = "SELECT *, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger WHERE kategorieID=?";
       const values = [kategorieID];
       pool.query( sql, values,
@@ -333,20 +358,20 @@ app.get('/bonusprogramm/suche', function(req, res) {
           console.log(request.query);
           if (error) throw error;
           response.send(results);
-    
+
         });
     });
 
     app.post('/newDienst', function (request, response) {
       console.log('request body: ');
       console.dir(request.body);
-    
+
       const dienstID = request.body.dienstID;
       const suchenderID = request.body.suchenderID;
       const datum = request.body.datum;
       const status = 'angefragt';
       const suchenderGelesen = 0;
-    
+
       const sql = "INSERT INTO dienstvertrag (dienstID, suchenderID, datum, status, suchenderGelesen) " +
         "VALUES (?, ?, ?, ?, ?)";
       const values = [dienstID, suchenderID, datum, status, suchenderGelesen];
@@ -354,12 +379,12 @@ app.get('/bonusprogramm/suche', function(req, res) {
         function (error, results, fields) {
           if (error) throw error;
           response.send(results);
-    
+
         });
       });
 
 
-    
+
 
 //#######################################################################################
 //#################################################################################
@@ -384,7 +409,7 @@ app.get('/tugenden', function (request, response) {
    //requerst.params
   console.log(request.params);
   const kategorieID = request.query.kategorieID;
-  
+
   const sql = "SELECT *, b.benutzername as aeltersterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger  WHERE kategorieID=?";
   const values = [kategorieID];
   pool.query( sql, values,
@@ -399,30 +424,9 @@ app.get('/tugenden', function (request, response) {
 
 
 //#######################################################################################
-//##################################POST###############################################
+//#################################################################################
 //#######################################################################################
 
-app.post('/newTugend', function (request, response) {
-  console.log('request body: ');
-  console.dir(request.body);
-
-  const name = request.body.name;
-  const beschreibung = request.body.beschreibung;
-  const wert = request.body.wert;
-  const benoetigteWdh = request.body.benoetigteWdh;
-  const aeltesterID = 7;
-  const kategorieID = request.body.kategorieID;
-
-  const sql = "INSERT INTO tugend (name, beschreibung, wert, benoetigteWdh, aeltesterID, kategorieID) " +
-    "VALUES (?, ?, ?, ?, ?, ?)";
-  const values = [name, beschreibung, wert, benoetigteWdh, aeltesterID, kategorieID];
-  pool.query( sql, values,
-    function (error, results, fields) {
-      if (error) throw error;
-      response.send(results);
-
-    });
-  });
 
 
 

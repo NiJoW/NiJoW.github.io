@@ -16,8 +16,23 @@
     <td>{{tugend.beschreibung}}</td>
     <td>{{tugend.wert}}</td>
     <td>{{tugend.benoetigteWdh}}</td>
+    <td> <button class="button is-primary  is-outlined"
+                 (click)=bearbeiten(tugend.id_tugend)
+        >
+      <fa-icon [icon]="editIcon"></fa-icon>
+    </button>
+
+
+
+    </td>
   </tr>
   </tbody>
 </table>
+<button class="button is-primary "  (click)=neueTugendErstellen()>
+  <fa-icon [icon]="createIcon"></fa-icon> &nbsp; Neue Tugend erstellen
+</button>
 <br>
 <br>
+<app-bearbeite-tugend [choosenTugend]="choosenTugend" *ngIf="zeigeBearbeitenOverlay" (onCloseEvent)="updateTugendenOnEvent()"></app-bearbeite-tugend>
+<app-erstelle-tugend *ngIf="zeigeErstellenOverlay" (onCloseEvent)="updateTugendenOnEvent()"></app-erstelle-tugend>
+

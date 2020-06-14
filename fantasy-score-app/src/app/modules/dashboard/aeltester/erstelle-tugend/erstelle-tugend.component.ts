@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Kategorie} from '../../../../models/Kategorie';
 import {KategorieService} from '../../../../services/kategorie.service';
@@ -7,6 +7,7 @@ import {Tugend} from '../../../../models/Tugend';
 import {TugendService} from '../../../../services/tugend.service';
 import {AuthService} from "../../../../services/auth.service";
 import {Buerger} from "../../../../models/Buerger";
+import {MessageService} from "../../../../services/message.service";
 
 @Component({
   selector: 'app-erstelle-tugend',
@@ -15,22 +16,19 @@ import {Buerger} from "../../../../models/Buerger";
 })
 export class ErstelleTugendComponent implements OnInit {
 
-  kategorien: Observable<Kategorie[]>;
   neueTugendForm;
+  kategorien: Observable<Kategorie[]>;
   nutzer: Buerger;
- /* selectedKategorie;
-  levels:Array<Object> = [
-    {num: 0, name: "AA"},
-    {num: 1, name: "BB"}
-  ];
-  selectedLevel = this.levels[0]; */
+  @Output() onCloseEvent = new EventEmitter();
 
   constructor(private kategorienService: KategorieService,
               private tugendService: TugendService,
               private formBuilder: FormBuilder,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private messageService: MessageService)
+  {
     this.neueTugendForm = this.formBuilder.group({
-      kategorie: '',
+      kategorie: 1,
       titel: '',
       punkte: '',
       beschreibung: '',
@@ -41,38 +39,38 @@ export class ErstelleTugendComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.kategorien = this.kategorienService.getKategorien();
-
-    this.kategorien.subscribe(data => {
-      console.log(data); this.setDefaultSelect(); } );
-    console.log('Test, this.kategorien: ');
-    console.log(this.kategorien);
+    this.getKategorien();
     this.nutzer = this.authService.getNutzer();
 
   }
 
-  setDefaultSelect(): void {
-    console.log('setDefaultSelect');
-  }
 
-  onSubmit(tugendData) {
-    // (TODO: Später: Validation)
+  speichern(tugendData) {
+    //Todo:Validierung der Daten
+
     const aeltestenID  = this.nutzer.id_buerger;
-    console.log("tugendData.kategorie");
-    console.log(tugendData.kategorie);
-
-
     const newTugend =  new Tugend(tugendData.titel, tugendData.beschreibung, tugendData.punkte, tugendData.benoetigteWiederholungen,
       aeltestenID, tugendData.kategorie);
     this.neueTugendForm.reset();
-    console.log("newTugend.kategorieID:");
-    console.log(newTugend.kategorieID);
-
-    console.log('Your data has been submitted', tugendData);
-
-    this.tugendService
-      .addTugend(newTugend).subscribe(data => {
+    console.log('Your data has been submitted', newTugend);
+    // neue Tugend in DB eintragen
+    this.tugendService.addTugend(newTugend).subscribe(data => {
       console.log(data); } );
+    // Overlay schließen, Erfolgsmeldung anzeigen
+    this.onCloseEvent.emit(null);
+    this.messageService.setMessage("Die Tugend wurde erfolgreich bearbeitet.");
+  }
+
+  private getKategorien() {
+    this.kategorien = this.kategorienService.getKategorien();
+
+    this.kategorien.subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  cancel() {
+    this.onCloseEvent.emit(null);
   }
 
 

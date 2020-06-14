@@ -1,39 +1,17 @@
-
-
-
-<h3>Neue Tugend erstellen:</h3>
-<!---
-<label>Color (null not allowed):
-  <select ng-model="myColor" ng-options="color.name for color in colors"></select> --->
-
+<div class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Neue Tugend erstellen:</p>
+      <button class="delete" aria-label="close" (click)="cancel()"></button>
+    </header>
 
 <form [formGroup]="neueTugendForm"
-      (ngSubmit)="onSubmit(neueTugendForm.value)">
+      (ngSubmit)="speichern(neueTugendForm.value)">
+  <section class="modal-card-body">
 
 
-  <!---
-    <select>
-    <option  *ngFor="let kategorie of kategorien | async" >
-      {{kategorie.bezeichnung}}
-    </option>
-  </select>
-
-  <hr>
-
-  [ngValue]="selectedLevel"
-    {{selectedKategorie | json}}
-
-    <h1>Selecting object</h1>
-    <select type="number" [(ngModel)]="selectedLevel">
-      <option *ngFor="let level of levels" [ngValue]="level">{{level.name}}</option>
-    </select>
-    {{selectedLevel | json}}
-
-    <hr>---->
-<br>
-<br>
-
-  <label for="kategorie">Kategorie:</label>
+  <label for="kategorie">Kategorie:</label> &nbsp;
 
   <select  id="kategorie"  formControlName="kategorie">
     <option  *ngFor="let kategorie of kategorien | async" value="{{ kategorie.id_kategorie }}">
@@ -45,27 +23,32 @@
 
   <br><br>
 
-  <label for="titel_neue_tugend">Titel:</label>
+  <label for="titel_neue_tugend">Titel:</label> &nbsp;
   <input id="titel_neue_tugend"  type="text" formControlName="titel">
   <br><br>
 
-  <label for="punkte_neue_tugend">Punkte:</label>
+  <label for="punkte_neue_tugend">Punkte:</label> &nbsp;
   <input id="punkte_neue_tugend" type="number" formControlName="punkte">
   <br><br>
 
-  <label for="wiederholungen_neue_tugend">Benötigte Wiederholungen:</label>
+  <label for="wiederholungen_neue_tugend">Benötigte Wiederholungen:</label> &nbsp;
   <input id="wiederholungen_neue_tugend" type="number" formControlName="benoetigteWiederholungen">
   <br><br>
 
-  <label for="beschreibung_neue_tugend">Beschreibung:</label>
+  <label for="beschreibung_neue_tugend">Beschreibung:</label> &nbsp;
   <input id="beschreibung_neue_tugend" type="text" formControlName="beschreibung">
   <br><br>
 
-  <button class="button" type="submit">Speichern</button>
+  </section>
+  <footer class="modal-card-foot">
+    <button class="button is-success" type="submit">Speichern</button>
+    <button class="button is-danger" type="reset" (click)="cancel()">Abbrechen</button>
+  </footer>
 </form>
-<app-erstelle-tugend-overlay></app-erstelle-tugend-overlay>
-<br>
-<hr>
+
+  </div>
+</div>
+
 
 
 

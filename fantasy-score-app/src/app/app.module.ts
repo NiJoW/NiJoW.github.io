@@ -1,16 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+// utilities
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {OverlayComponent} from './modules/overlay/overlayComponent/overlay.component';
-import {SubscribeComponent} from './modules/overlay/subscribe/subscribe.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import {FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+// our own components
 import { HomeComponent } from './modules/home/home.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { TugendenComponent } from './modules/tugenden/tugenden.component';
@@ -30,12 +30,11 @@ import { ErledigteDiensteComponent } from './modules/dashboard/tugendhafter/erle
 import { GebuchteDiensteComponent } from './modules/dashboard/suchender/gebuchte-dienste/gebuchte-dienste.component';
 import { AngefragteDiensteComponent } from './modules/dashboard/suchender/angefragte-dienste/angefragte-dienste.component';
 import { ErstellteBonusprogrammeComponent } from './modules/dashboard/aeltester/erstellte-bonusprogramme/erstellte-bonusprogramme.component';
-import { ErstelleTugendOverlayComponent } from './modules/dashboard/aeltester/erstelle-tugend/erstelle-tugend-overlay/erstelle-tugend-overlay.component';
 import { ErstellteTugendenComponent } from './modules/dashboard/aeltester/erstellte-tugenden/erstellte-tugenden.component';
 import { DienstBuchenComponent } from './modules/dienste/dienst-buchen/dienst-buchen.component';
 import { NotificationComponent } from './modules/notification/notification.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MessageService } from './services/message.service';
+import {BearbeiteTugendComponent} from "./modules/dashboard/aeltester/erstellte-tugenden/bearbeite-tugend/bearbeite-tugend.component";
 
 
 @NgModule({
@@ -62,11 +61,10 @@ import { MessageService } from './services/message.service';
     ErstellteBonusprogrammeComponent,
     ErfuellteTugendenComponent,
     ErstelleTugendComponent,
-    OverlayComponent,
-    SubscribeComponent,
-    ErstelleTugendOverlayComponent,
     ErstellteTugendenComponent,
-    NotificationComponent
+    NotificationComponent,
+    BearbeiteTugendComponent,
+    BearbeiteTugendComponent
   ],
   imports: [
     BrowserModule,
