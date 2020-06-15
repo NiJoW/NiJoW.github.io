@@ -51,7 +51,7 @@ export class BuergerService {
 
   addBuerger(buerger: Buerger): Observable<Buerger[]> { 
     const httpOptions = null;
-    console.log('in service add Buerger');
+    console.log('In buerger.service.ts addBuerger');
     console.dir(buerger);
     return this.http.post<Buerger[]>(this.newBuergerUrl,
       {
@@ -62,15 +62,30 @@ export class BuergerService {
       });
     }
 
+
+
+
+
     newSocialScoreAnlegen(id: number): Observable<Buerger[]> {
       const httpOptions = null;
-      console.log('in service add SocialScore1234');
-      console.log(" inside BS " + id);
+      console.log('In buerger.service.ts newSocialScoreAnlegen');
+      console.log("InsertID in newSocialScoreAnlegen" + id);
       return this.http.post<Buerger[]>(this.newSocialScoreEintragUrl,
         {
           "tugendhafterID" : id,
         });
       }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

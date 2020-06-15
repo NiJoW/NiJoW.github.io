@@ -494,8 +494,10 @@ app.post('/newTugend', function (request, response) {
     
 
     app.post('/nutzer/registrieren', function (request, response) {
+      console.log("In server.js -> post /nutzer/registrieren");
       console.log('request body: ');
       console.dir(request.body);
+
       const benutzername = request.body.benutzername;
       const passwort = request.body.passwort;
       const email_adresse = request.body.email_adresse;
@@ -514,10 +516,10 @@ app.post('/newTugend', function (request, response) {
     });
 
     app.post('/nutzer/socialScoreEintrag', function(request, response) {
-      console.log("in POST SocialScore");
+      console.log("In server.js -> post /nutzer/socialScoreEintrag");
+      console.log('request body: ');
       console.dir(request.body);
       const tugendhafterID = request.body.tugendhafterID;
-      //const tugendhafterID = 140;
 
       console.log(tugendhafterID);
 

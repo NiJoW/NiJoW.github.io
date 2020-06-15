@@ -35,20 +35,7 @@ export class RegistrierenComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    this.authService.currentID.subscribe(buergerID => {
-      
-      if(buergerID != -1) {
-        console.log("Observable newSocScore" + buergerID);
-        this.buergerService.newSocialScoreAnlegen(buergerID);
-      }
-        
-    });
   }
-
-  delay(ms: number)
-{
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 
  registrieren(registrierenDaten) {
     this.email = true;
@@ -56,21 +43,8 @@ export class RegistrierenComponent implements OnInit {
     this.passwort = true;
     this.requestedType;
     if(this.loginKorrekt(registrierenDaten.email, registrierenDaten.passwort, registrierenDaten.passwort2)) {
-      console.log("Daten Korrekt");
       this.authService.registrieren(this, registrierenDaten.benutzername, registrierenDaten.passwort, registrierenDaten.email, this.requestedType);
-      //if(this.requestedType == "Tugendhafter") {
-      //  console.log(" ID in REGISTER  " + id)
-      //  this.buergerService.newSocialScoreAnlegen(id);
-      //}
-      //await this.delay(5000);
-      //console.log("ID nach delay " + id)
-      //this.neueFunktion(146);
     }
-  }
-
-  neueFunktion(id:number) {
-    console.log("sollte letzte Ausgabe sein");
-    this.buergerService.newSocialScoreAnlegen(id);
   }
 
   changeType(event: any){

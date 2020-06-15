@@ -16,8 +16,7 @@ export class AuthService {
   private nutzer: Buerger;
   private benutzerObservable: Observable<Buerger[]>;
 
-  private idBuerger = new BehaviorSubject<number>(-1);
-  currentID = this.idBuerger.asObservable();
+
 
 
   constructor(private buergerService: BuergerService) {
@@ -26,11 +25,6 @@ export class AuthService {
     if(this.isLoggedIn()){
       this.nutzer  = JSON.parse(sessionStorage.loggedInUser);
     }
-  }
-
-  setBuergerID(newID:number) {
-    console.log(newID);
-    this.idBuerger.next(newID);
   }
 
   isLoggedIn() {
@@ -73,29 +67,32 @@ export class AuthService {
 
 
   registrieren(komponent: RegistrierenComponent, benutzername: string, passwort: string, email: string, typ: BuergerTyp) {
+    console.log("In auth.service.ts -> registrieren");
     const newBuerger =  new Buerger(benutzername, passwort, email, typ);
-    console.dir(newBuerger);
+    //console.dir(newBuerger);
     this.benutzerObservable = this.buergerService.getBuergerByBenutzername(benutzername); // Get alle buerger mit eingegebenen Benutzername
       this.benutzerObservable.subscribe(data => {
         if (data == null  || data.length === 0) { // Benutzername noch nicht verwendet
+          console.log("direkt vor addBuerger");
           this.benutzerObservable = this.buergerService.addBuerger(newBuerger);
+          console.log("direkt nach addBuerger");
           this.benutzerObservable.subscribe(data => {
             if (data != null  && !(data.length === 0)){
               this.nutzer = data[0];
-              console.dir(data[0]);
+              //console.dir(data[0]);
+
               console.log(data);
               var myInsertId = 0;
               Object.keys(data).forEach(function(key) {
                 if(key=='insertId')
                 {  myInsertId = data[key]; }
               });
-              console.log("ID in AuthService " + myInsertId);
 
-              this.setBuergerID(myInsertId);
+              console.log("InsertID in auth.service.ts -> registrieren: " + myInsertId);
 
-              console.log("vor new...");
-              //this.buergerService.newSocialScoreAnlegen(myInsertId);
-              console.log("nach new...");
+              console.log("direkt vor newSocialScoreAnlegen");
+              this.buergerService.newSocialScoreAnlegen(myInsertId);
+              console.log("direkt nach newSocialScoreAnlegen");
               komponent.navigiere();
             }
           });
