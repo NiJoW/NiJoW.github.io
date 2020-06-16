@@ -15,6 +15,7 @@ import { catchError, retry } from 'rxjs/operators';
       constructor(private http: HttpClient, private authService: AuthService) {}
 
   private readonly tugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugend';
+  private readonly tugendByIDUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugendByID';
   private readonly planeTugendUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newTaetigkeit';
   private readonly tugendVonKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugenden';
   private readonly tugendSuchUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugenden/suche';
