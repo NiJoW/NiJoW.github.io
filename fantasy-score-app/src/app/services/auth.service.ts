@@ -3,10 +3,9 @@ import { Injectable } from '@angular/core';
 import { Buerger } from '../models/Buerger';
 import { BuergerTyp } from '../models/BuergerTyp.enum';
 import { BuergerService} from './buerger.service';
-import {Observable} from "rxjs";
 import {AnmeldenComponent} from "../modules/anmelden/anmelden.component";
 import { RegistrierenComponent } from '../modules/registrieren/registrieren.component';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +14,7 @@ export class AuthService {
 
   private nutzer: Buerger;
   private benutzerObservable: Observable<Buerger[]>;
+  private scoreObservable: Observable<Buerger[]>;
 
 
 
@@ -73,9 +73,7 @@ export class AuthService {
     this.benutzerObservable = this.buergerService.getBuergerByBenutzername(benutzername); // Get alle buerger mit eingegebenen Benutzername
       this.benutzerObservable.subscribe(data => {
         if (data == null  || data.length === 0) { // Benutzername noch nicht verwendet
-          console.log("direkt vor addBuerger");
           this.benutzerObservable = this.buergerService.addBuerger(newBuerger);
-          console.log("direkt nach addBuerger");
           this.benutzerObservable.subscribe(data => {
             if (data != null  && !(data.length === 0)){
               this.nutzer = data[0];
@@ -87,12 +85,12 @@ export class AuthService {
                 if(key=='insertId')
                 {  myInsertId = data[key]; }
               });
+              if(typ === "Tugendhafter") { 
+                this.scoreObservable = this.buergerService.newSocialScoreAnlegen(myInsertId);
+                this.scoreObservable.subscribe(data => {
 
-              console.log("InsertID in auth.service.ts -> registrieren: " + myInsertId);
-
-              console.log("direkt vor newSocialScoreAnlegen");
-              this.buergerService.newSocialScoreAnlegen(myInsertId);
-              console.log("direkt nach newSocialScoreAnlegen");
+                });
+              }
               komponent.navigiere();
             }
           });
