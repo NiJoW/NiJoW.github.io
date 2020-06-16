@@ -136,9 +136,9 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
 });
 
 app.get('/bonusprogramm/suche', function(req, res) {
-  const searchInput = req.query.suche;
-  const sql = "SELECT * FROM bonusprogramm WHERE titel LIKE '%'?'%' OR nachricht LIKE '%'?'%';";
-  const value = [searchInput];
+  const searchInput = '%'+req.query.suche.trim()+'%';
+  const sql = "SELECT * FROM bonusprogramm WHERE titel LIKE  ? OR nachricht LIKE ?;";
+  const value = [searchInput, searchInput]; // 2 mal searchInput!!!
     pool.query(sql, value,
       function (error, results, fields) {
       if (error) throw error;
@@ -495,7 +495,7 @@ app.get('/tugenden', function (request, response) {
         });
     });
 
-    
+
 
     app.post('/nutzer/registrieren', function (request, response) {
       console.log("In server.js -> post /nutzer/registrieren");
@@ -527,7 +527,7 @@ app.get('/tugenden', function (request, response) {
 
       console.log(tugendhafterID);
 
-      const sql = "INSERT INTO hat_social_score (tugendhafterID, social_score)" + 
+      const sql = "INSERT INTO hat_social_score (tugendhafterID, social_score)" +
         "VALUES (? , 0)";
         const values = [tugendhafterID];
       pool.query(sql, values,
