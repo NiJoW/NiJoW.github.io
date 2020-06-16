@@ -97,7 +97,7 @@ export class DashboardComponent implements OnInit {
       this.buergerService.newSocialScoreAnlegen(this.nutzer.id_buerger).subscribe(data => {
         console.log(data);
       });
-
+      alert("Sie müssen sich erneut einloggen!");
       this.logout();
       
     } else {
