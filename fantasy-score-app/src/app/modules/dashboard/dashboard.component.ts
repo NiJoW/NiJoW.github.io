@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { BuergerService } from './../../services/buerger.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BuergerTyp } from './../../models/BuergerTyp.enum';
@@ -27,12 +28,14 @@ export class DashboardComponent implements OnInit {
   hatAngefragteDienste: boolean;
   angefragteDiensteObservable: Observable<Dienst[]>;
   angefragteDienste: Dienst[];
+  unlockClicked = false;
 
 
   constructor(private kategorienService: KategorieService, 
     private dienstService: DienstService, 
     private authService: AuthService, 
-    private buergerService: BuergerService) {
+    private buergerService: BuergerService,
+    private router: Router) {
     
      this.getAktuellenNutzer();
      // console.log('dashboard: logged in?');
@@ -86,6 +89,28 @@ export class DashboardComponent implements OnInit {
     console.log(dienstID);
   }
 
+  unlockTugendhafter() {
+    if (confirm("Bist du dir sicher, dass du ein Tugendhafter werden möchtest?")) {
+      this.buergerService.unlockTugendhafter(this.nutzer.id_buerger).subscribe(data => {
+        console.log(data);
+      });
+      this.buergerService.newSocialScoreAnlegen(this.nutzer.id_buerger).subscribe(data => {
+        console.log(data);
+      });
+
+      this.logout();
+      
+    } else {
+      
+    }
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
+    window.location.reload();
+
+  }
 }
 
 

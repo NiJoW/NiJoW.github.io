@@ -33,7 +33,8 @@ Test Observer
   </div>
 </div>
 
-<div *ngIf= "isTyp('Suchender')" class="section">
+<div *ngIf= "isTyp('Suchender')">
+  <button class="button is-danger" (click)="unlockTugendhafter()">Schalte jetzt deinen inneren Tugendhaften frei!</button>
   <app-gebuchte-dienste></app-gebuchte-dienste>
   <app-angefragte-dienste></app-angefragte-dienste>
 </div>

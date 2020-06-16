@@ -20,6 +20,7 @@ export class BuergerService {
     private readonly loginUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/login';
     private readonly nutzerNameUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/name';
     private readonly newSocialScoreEintragUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/socialScoreEintrag';
+    private readonly unlockTugendhafterUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/unlockTugendhafter';
 
 
     getBuerger(): Observable<Buerger[]> {
@@ -62,10 +63,6 @@ export class BuergerService {
       });
     }
 
-
-
-
-
     newSocialScoreAnlegen(id: number): Observable<Buerger[]> {
       const httpOptions = null;
       console.log('In buerger.service.ts newSocialScoreAnlegen');
@@ -76,15 +73,13 @@ export class BuergerService {
         });
       }
 
-
-
-
-
-
-
-
-
-
+      unlockTugendhafter(id: number): Observable<Buerger> {
+        const httpOptions = null;
+        return this.http.put<Buerger>(this.unlockTugendhafterUrl,
+          {
+            "id_buerger": id
+          });
+      }
 
 
 
