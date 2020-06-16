@@ -67,9 +67,13 @@ export class TugendenComponent implements OnInit {
     });
   }
 
-  onSearch(searchData) {
+  suchen(searchData) {
     console.log(searchData.searchInput);
-    //ToDo: Such-Funktion
+    this.tugenden = this.tugendService.getTugendenLike(searchData.searchInput);
+    this.tugenden.subscribe(data => {
+      this.shownTugenden = data;
+      console.dir(this.shownTugenden[0]);
+    });
   }
   
 

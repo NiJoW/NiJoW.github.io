@@ -17,6 +17,7 @@ import { catchError, retry } from 'rxjs/operators';
   private readonly tugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugend';
   private readonly planeTugendUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newTaetigkeit';
   private readonly tugendVonKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugenden';
+  private readonly tugendSuchUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugenden/suche';
   private readonly erfuellteTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erfuellte-tugenden';
   private readonly todoTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/todo-tugenden';
   // Aeltester
@@ -27,6 +28,21 @@ import { catchError, retry } from 'rxjs/operators';
       return this.http.get<Tugend[]>(this.tugendenUrl)
     }
 
+<<<<<<< Updated upstream
+=======
+  // get eine bestimmte Tugend anhand ihrer ID (Tugend, nicht Tätigkeit)
+    getTugendByID(tugendID: number): Observable<Tugend>  {
+      let tugendParams = new HttpParams().set("tugendID", tugendID+"");
+      return this.http.get<Tugend>(this.tugendByIDUrl, {params : tugendParams});
+    }
+
+    getTugendenLike(suchInput:string): Observable<Tugend[]> {
+      let searchParams = new HttpParams().set("suche", suchInput);
+      return this.http.get<Tugend[]>(this.tugendSuchUrl, {params: searchParams});
+    }
+
+    // newTaetigkeit (vorher planeTugendUrl)
+>>>>>>> Stashed changes
     planeTugend(tugendID: number): Observable<Tugend> {
       return this.http.post<Tugend>(this.planeTugendUrl,
         {

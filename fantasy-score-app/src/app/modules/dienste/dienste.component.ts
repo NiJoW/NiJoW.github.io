@@ -79,4 +79,13 @@ export class DiensteComponent implements OnInit {
     })
   }
 
+  suchen(searchData) {
+    console.log(searchData.searchInput);
+    this.dienste = this.dienstService.getDiensteLike(searchData.searchInput);
+    this.dienste.subscribe(data => {
+      this.shownDienste = data;
+      console.dir(this.shownDienste[0]);
+    });
+  }
+
 }

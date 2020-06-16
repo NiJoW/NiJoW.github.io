@@ -6,7 +6,8 @@
     var mysql = require('mysql');
     var cors = require('cors');
 
-    var bodyParser = require('body-parser')
+    var bodyParser = require('body-parser');
+const { response } = require('express');
     var app = express();
     var index;
 
@@ -136,10 +137,15 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
   });
 });
 
-app.get('/bonusprogramm/suche', function(req, res) {
+app.get('/bonusprogramme/suche', function(req, res) {
+  console.log(req.params.suche);
+  console.log(req.query.suche);
+  //const searchInput = 'b'; 
   const searchInput = req.query.suche;
-  const sql = "SELECT * FROM bonusprogramm WHERE titel LIKE '%'?'%' OR nachricht LIKE '%'?'%';";
-  const value = [searchInput];
+  //const sql = "SELECT * FROM bonusprogramm WHERE titel LIKE '%b%';";
+  //const sql = "SELECT * FROM bonusprogramm WHERE titel LIKE '%" + req.query.suche + "%';"; // 
+  const sql = 'SELECT * FROM bonusprogramm WHERE titel LIKE "%?%" OR nachricht LIKE "%?%";';
+  const value = [searchInput, searchInput];
     pool.query(sql, value,
       function (error, results, fields) {
       if (error) throw error;
@@ -177,6 +183,21 @@ app.get('/bonusprogramm/suche', function(req, res) {
 
         });
     });
+<<<<<<< Updated upstream
+=======
+
+    app.get('/tugenden/suche', function ( req, res) {
+      const suchInput = req.query.suche;
+      const sql = 'SELECT * FROM tugend WHERE name LIKE "%?%" OR beschreibung LIKE "%?%";';
+      const value = [suchInput, suchInput];
+      pool.query(sql, value, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+      });
+    });
+
+// Ältester ###########
+>>>>>>> Stashed changes
 
     app.post('/tugend', function (request, response) {
       console.log('request body: ');
@@ -336,6 +357,20 @@ app.get('/bonusprogramm/suche', function(req, res) {
     
         });
     });
+
+    app.get('/dienste/suche', function (req, res) {
+      console.log("Suche in Diensteangebote-Liste:");
+      console.log( req.query.suche);
+      const searchInput = req.query.suche;
+      const sql = 'SELECT * FROM dienstangebot WHERE name LIKE "%?%" OR beschreibung LIKE "%?%";';
+      const value = [searchInput, searchInput];
+      pool.query(sql, value,
+        function(error, results, fields) {
+          if(error) throw error;
+          res.send(results);
+        });
+    });
+
 
     app.post('/newDienst', function (request, response) {
       console.log('request body: ');
