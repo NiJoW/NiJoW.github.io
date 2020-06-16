@@ -13,7 +13,7 @@ export class AnmeldenComponent implements OnInit {
 
   anmeldenForm;
   Typ = BuergerTyp;
-  fehler = false;
+  message = " ";
 
   @Output() onClose = new EventEmitter();
 
@@ -29,16 +29,16 @@ export class AnmeldenComponent implements OnInit {
   }
 
   login(anmeldenDaten) {
-    this.cancel(); 
     this.authService.login(this, anmeldenDaten.benutzername, anmeldenDaten.passwort);
   }
 
   navigiere(){
     this.router.navigate(['/']);
+    window.location.reload();
   }
 
   fehlerAnzeigen(){
-    this.fehler = true;
+    this.message = "Angegebener der Benutzername oder das Passwort ist leider falsch!";
     console.warn('Nutzerdaten nicht korrekt!');
   }
 

@@ -17,7 +17,7 @@
             <input class="input passwortInput" type="password" placeholder="Passwort" formControlName="passwort">
           </p>
         </div>
-        <div id='fehlermeldungAnmeldung' [hidden]="!fehler">Angegebener der Benutzername oder das Passwort ist leider falsch!</div>
+        <div class="field has-text-danger">{{message}}</div>
       </section>
 
       <footer class="modal-card-foot">
