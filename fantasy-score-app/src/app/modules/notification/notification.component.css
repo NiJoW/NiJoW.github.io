@@ -1,0 +1,7 @@
+.notification {
+    display: inline-block; 
+    float: right; 
+    position: sticky; 
+    top:1%;
+    z-index: 1;
+}

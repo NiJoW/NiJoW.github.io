@@ -60,6 +60,7 @@ export class BonusprogrammeComponent implements OnInit {
   }
 
   suchen(searchData) {
+    console.log(searchData);
     console.log(searchData.searchInput);
     this.bonusprogramme = this.bonusService.getBonusprogrammeLike(searchData.searchInput);
     this.bonusprogramme.subscribe(data => {

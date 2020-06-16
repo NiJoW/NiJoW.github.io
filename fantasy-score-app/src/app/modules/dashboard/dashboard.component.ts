@@ -7,6 +7,8 @@ import {KategorieService} from '../../services/kategorie.service';
 import {Kategorie} from '../../models/Kategorie';
 import {Observable} from 'rxjs';
 import { NgIf } from '@angular/common';
+import { DienstService } from 'src/app/services/dienst.service';
+import { Dienst } from 'src/app/models/Dienst';
 
 
 @Component({
@@ -22,8 +24,15 @@ export class DashboardComponent implements OnInit {
   aktuellerNutzer: Buerger;
   nutzer: Buerger;
   buergerListe: Observable<Buerger[]>;
+  hatAngefragteDienste: boolean;
+  angefragteDiensteObservable: Observable<Dienst[]>;
+  angefragteDienste: Dienst[];
 
-  constructor(private kategorienService: KategorieService,  private authService: AuthService, private buergerService: BuergerService) {
+
+  constructor(private kategorienService: KategorieService, 
+    private dienstService: DienstService, 
+    private authService: AuthService, 
+    private buergerService: BuergerService) {
     
      this.getAktuellenNutzer();
      // console.log('dashboard: logged in?');
@@ -38,6 +47,16 @@ export class DashboardComponent implements OnInit {
     this.buergerListe.subscribe(data => {
       console.log(data); });
     console.log(this.buergerListe);
+
+    this.hatAngefragteDienste = false;
+    this.angefragteDiensteObservable = this.dienstService.getAngefragteDienste();
+    this.angefragteDiensteObservable.subscribe(data => {
+      console.dir(data);
+      if(data != null) {
+        this.angefragteDienste = data;
+        this.hatAngefragteDienste = true;
+      }
+    })
   }
 
   changeType(typ: string){
@@ -63,6 +82,9 @@ export class DashboardComponent implements OnInit {
    // console.log(this.kategorien);
   }
 
+  closeAnfrage(dienstID) {
+    console.log(dienstID);
+  }
 
 }
 

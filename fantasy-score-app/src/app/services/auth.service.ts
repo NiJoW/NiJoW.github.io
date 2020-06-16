@@ -41,12 +41,13 @@ export class AuthService {
     this.benutzerObservable = this.buergerService.getBuergerByLoginData(benutzername, passwort);
     this.benutzerObservable.subscribe(data => {
       if (data != null  && !(data.length === 0)){
+        komponent.cancel();
         this.nutzer = data[0];
         console.dir(data[0]);
 
         sessionStorage.setItem('loggedInUser', JSON.stringify(data[0]));
         console.log(sessionStorage.getItem('loggedInUser'));
-
+        
         komponent.navigiere();
       } else {
         komponent.fehlerAnzeigen();
