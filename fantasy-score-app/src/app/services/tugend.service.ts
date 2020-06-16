@@ -28,8 +28,6 @@ import { catchError, retry } from 'rxjs/operators';
       return this.http.get<Tugend[]>(this.tugendenUrl)
     }
 
-<<<<<<< Updated upstream
-=======
   // get eine bestimmte Tugend anhand ihrer ID (Tugend, nicht Tätigkeit)
     getTugendByID(tugendID: number): Observable<Tugend>  {
       let tugendParams = new HttpParams().set("tugendID", tugendID+"");
@@ -42,7 +40,6 @@ import { catchError, retry } from 'rxjs/operators';
     }
 
     // newTaetigkeit (vorher planeTugendUrl)
->>>>>>> Stashed changes
     planeTugend(tugendID: number): Observable<Tugend> {
       return this.http.post<Tugend>(this.planeTugendUrl,
         {

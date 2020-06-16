@@ -183,11 +183,6 @@ app.get('/bonusprogramme/suche', function(req, res) {
 
         });
     });
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
 
     app.get('/tugenden/suche', function ( req, res) {
       const suchInput = req.query.suche;
@@ -200,7 +195,6 @@ app.get('/bonusprogramme/suche', function(req, res) {
     });
 
 // Ältester ###########
->>>>>>> Stashed changes
 
     app.post('/tugend', function (request, response) {
       console.log('request body: ');
@@ -374,8 +368,6 @@ app.get('/bonusprogramme/suche', function(req, res) {
         });
     });
 
-<<<<<<< Updated upstream
-=======
     app.get('/dienste/suche', function (req, res) {
       console.log("Suche in Diensteangebote-Liste:");
       console.log( req.query.suche);
@@ -388,8 +380,6 @@ app.get('/bonusprogramme/suche', function(req, res) {
           res.send(results);
         });
     });
-
->>>>>>> Stashed changes
 
     app.post('/newDienst', function (request, response) {
       console.log('request body: ');
