@@ -1,8 +1,8 @@
+import { Observable } from 'rxjs';
 import { Bester } from './../models/Bester';
 import { APIConfig } from './../../APIconfig';
 import { Buerger } from './../models/Buerger';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {Tugend} from "../models/Tugend";
 
@@ -19,7 +19,7 @@ export class BuergerService {
     private readonly aeltesterUrl = APIConfig.URL + ':' + APIConfig.PORT + '/aeltester';
     private readonly loginUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/login';
     private readonly nutzerNameUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/name';
-
+    private readonly newSocialScoreEintragUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/socialScoreEintrag';
 
 
     getBuerger(): Observable<Buerger[]> {
@@ -51,7 +51,7 @@ export class BuergerService {
 
   addBuerger(buerger: Buerger): Observable<Buerger[]> { 
     const httpOptions = null;
-    console.log('in service add Buerger');
+    console.log('In buerger.service.ts addBuerger');
     console.dir(buerger);
     return this.http.post<Buerger[]>(this.newBuergerUrl,
       {
@@ -61,6 +61,35 @@ export class BuergerService {
         "typ": buerger.typ,
       });
     }
+
+
+
+
+
+    newSocialScoreAnlegen(id: number): Observable<Buerger[]> {
+      const httpOptions = null;
+      console.log('In buerger.service.ts newSocialScoreAnlegen');
+      console.log("InsertID in newSocialScoreAnlegen" + id);
+      return this.http.post<Buerger[]>(this.newSocialScoreEintragUrl,
+        {
+          "tugendhafterID" : id,
+        });
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     // Make the HTTP request:

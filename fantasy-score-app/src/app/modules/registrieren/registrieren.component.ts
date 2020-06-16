@@ -1,8 +1,10 @@
+import { async } from '@angular/core/testing';
 import { BuergerTyp } from './../../models/BuergerTyp.enum';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { FormBuilder } from '@angular/forms';
+import { BuergerService } from 'src/app/services/buerger.service';
 
 @Component({
   selector: 'app-registrieren',
@@ -18,7 +20,7 @@ export class RegistrierenComponent implements OnInit {
   requestedType: BuergerTyp;
 
   constructor(private router: Router, private authService: AuthService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder, private buergerService: BuergerService) {
       this.registrierenForm = this.formBuilder.group({
         benutzername: '',
         email: '',
@@ -26,24 +28,42 @@ export class RegistrierenComponent implements OnInit {
         passwort2: '',
         requestedType: BuergerTyp.Tugendhafter
       });
+      this.requestedType = BuergerTyp.Tugendhafter;
+      this.nutzer = true;
+      this.email = true;
+      this.passwort = true;
      }
 
   ngOnInit(): void {
   }
 
-  registrieren(registrierenDaten) {
+ registrieren(registrierenDaten) {
     this.email = true;
     this.nutzer = true;
     this.passwort = true;
+    this.requestedType;
     if(this.loginKorrekt(registrierenDaten.email, registrierenDaten.passwort, registrierenDaten.passwort2)) {
-      console.log("Daten Korrekt");
       this.authService.registrieren(this, registrierenDaten.benutzername, registrierenDaten.passwort, registrierenDaten.email, this.requestedType);
     }
   }
 
   changeType(event: any){
     console.log(event.target.value);
-    this.requestedType = event.target.value;
+    if(event.target.value == "Tugendhafter") {
+      this.requestedType = BuergerTyp.Tugendhafter;
+      console.log(event.target.value);
+      console.log(this.requestedType);
+    }
+    if(event.target.value == "Suchender") {
+      this.requestedType = BuergerTyp.Suchender;
+      console.log(event.target.value);
+      console.log(this.requestedType);
+    }
+    if(event.target.value == "Aeltester") {
+      this.requestedType = BuergerTyp.Aeltester;
+      console.log(event.target.value);
+      console.log(this.requestedType);
+    }
   }
 
   private loginKorrekt(email: string, passwort: string, passwort2:string): boolean {

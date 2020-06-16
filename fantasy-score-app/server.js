@@ -18,7 +18,6 @@
         pad(date.getUTCDate())       + ' ';
 
 
-
     app.use(cors());
     // parse application/x-www-form-urlencoded
     app.use(bodyParser.urlencoded({ extended: false }))
@@ -486,7 +485,7 @@ app.get('/tugenden', function (request, response) {
     app.post('/nutzer/name', function (request, response) {
       const benutzername = request.body.benutzername;
 
-      const sql = "SELECT * FROM buerger WHERE  benutzername=?";
+      const sql = "SELECT * FROM buerger WHERE benutzername=?";
       const values = [benutzername];
       pool.query( sql, values,
         function (error, results, fields) {
@@ -496,7 +495,10 @@ app.get('/tugenden', function (request, response) {
         });
     });
 
+    
+
     app.post('/nutzer/registrieren', function (request, response) {
+      console.log("In server.js -> post /nutzer/registrieren");
       console.log('request body: ');
       console.dir(request.body);
 
@@ -511,7 +513,27 @@ app.get('/tugenden', function (request, response) {
       pool.query( sql, values,
         function (error, results, fields) {
           if (error) throw error;
+          //results.insertedId;
           response.send(results);
 
+        });
+    });
+
+    app.post('/nutzer/socialScoreEintrag', function(request, response) {
+      console.log("In server.js -> post /nutzer/socialScoreEintrag");
+      console.log('request body: ');
+      console.dir(request.body);
+      const tugendhafterID = request.body.tugendhafterID;
+
+      console.log(tugendhafterID);
+
+      const sql = "INSERT INTO hat_social_score (tugendhafterID, social_score)" + 
+        "VALUES (? , 0)";
+        const values = [tugendhafterID];
+      pool.query(sql, values,
+        function (error, results, fields) {
+          if (error) throw error;
+
+          response.send(results);
         });
     });
