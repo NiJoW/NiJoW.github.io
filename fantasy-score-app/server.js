@@ -184,7 +184,10 @@ app.get('/bonusprogramme/suche', function(req, res) {
         });
     });
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 
     app.get('/tugenden/suche', function ( req, res) {
       const suchInput = req.query.suche;
@@ -371,6 +374,22 @@ app.get('/bonusprogramme/suche', function(req, res) {
         });
     });
 
+<<<<<<< Updated upstream
+=======
+    app.get('/dienste/suche', function (req, res) {
+      console.log("Suche in Diensteangebote-Liste:");
+      console.log( req.query.suche);
+      const searchInput = req.query.suche;
+      const sql = 'SELECT * FROM dienstangebot WHERE name LIKE "%?%" OR beschreibung LIKE "%?%";';
+      const value = [searchInput, searchInput];
+      pool.query(sql, value,
+        function(error, results, fields) {
+          if(error) throw error;
+          res.send(results);
+        });
+    });
+
+>>>>>>> Stashed changes
 
     app.post('/newDienst', function (request, response) {
       console.log('request body: ');
