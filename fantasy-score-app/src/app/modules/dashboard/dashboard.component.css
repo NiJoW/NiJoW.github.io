@@ -12,3 +12,7 @@
 .contentTabs button { font-size: 1.5rem; }
 
 .seperator { width: 100%; border: 1px solid black; margin-bottom: 30px;}
+
+.unlock {
+    margin: 30px 0 30px 0;
+}

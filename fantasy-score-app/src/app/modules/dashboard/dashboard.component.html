@@ -6,6 +6,7 @@ Test Observer
   </div>
 <hr>
 -->
+<app-notification *ngIf="hatAngefragteDienste" [angefragteDienste] = "angefragteDienste"></app-notification>
 <!---  --->
 <div *ngIf="isTyp('Tugendhafter')">
 
@@ -34,7 +35,7 @@ Test Observer
 </div>
 
 <div *ngIf= "isTyp('Suchender')">
-  <button class="button is-danger" (click)="unlockTugendhafter()">Schalte jetzt deinen inneren Tugendhaften frei!</button>
+  <button class="button is-danger unlock" (click)="unlockTugendhafter()">Schalte jetzt deinen inneren Tugendhaften frei!</button>
   <app-gebuchte-dienste></app-gebuchte-dienste>
   <app-angefragte-dienste></app-angefragte-dienste>
 </div>
