@@ -49,12 +49,12 @@ export class DashboardComponent implements OnInit {
     console.log(this.buergerListe);
 
     this.hatAngefragteDienste = false;
-    this.angefragteDiensteObservable = this.dienstService.getAngefragteDienste();
+    this.angefragteDiensteObservable = this.dienstService.getAnfragenAnTugendhaften();
     this.angefragteDiensteObservable.subscribe(data => {
-      console.dir(data);
-      if(data != null) {
+      if(data.length != 0 ) {
         this.angefragteDienste = data;
         this.hatAngefragteDienste = true;
+        console.dir(data);
       }
     })
   }

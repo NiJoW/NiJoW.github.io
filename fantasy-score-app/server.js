@@ -7,7 +7,7 @@
     var cors = require('cors');
 
     var bodyParser = require('body-parser');
-const { response } = require('express');
+    const { response } = require('express');
     var app = express();
     var index;
 
@@ -138,7 +138,6 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
 
 app.get('/bonusprogramme/suche', function(req, res) {
   const searchInput = '%'+req.query.suche.trim()+'%';
-  console.log(searchInput);
   const sql = "SELECT * FROM bonusprogramm WHERE titel LIKE ? OR nachricht LIKE ?;";
   const value = [searchInput, searchInput]; // 2 mal searchInput!!!
     pool.query(sql, value,
@@ -327,6 +326,18 @@ app.get('/bonusprogramme/suche', function(req, res) {
       const buergerID = req.query.buergerID;
       const sql = 'SELECT da.name, da.beschreibung, b.benutzername AS tugendhafterName, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND da.tugendhafterID = b.id_buerger AND dv.status = "angefragt" AND dv.suchenderID = ? AND dv.datum < ?';
       const value = [buergerID, date+""];
+      pool.query(sql, value,
+         function (error, results, fields) {
+
+        if (error) throw error;
+        res.send(results);
+      });
+    });
+
+    app.get('/anfragenAnTugendhafter', function(req, res) {
+      const buergerID = req.query.buergerID;
+      const sql = "SELECT da.name, da.beschreibung, dv.datum, b.benutzername AS suchenderName FROM buerger b, dienstangebot da, dienstvertrag dv WHERE da.tugendhafterID = ? AND da.id_dienstangebot = dv.dienstID AND b.id_buerger = dv.suchenderID AND dv.status = 'angefragt';";
+      const value = [buergerID];
       pool.query(sql, value,
          function (error, results, fields) {
 

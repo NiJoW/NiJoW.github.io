@@ -1,16 +1,8 @@
 
 
-<div *ngIf="notify" class="notification is-success">
+<div *ngIf="notify" class="notification is-success is-message">
     <button class="delete" (click)="hideNotification()"></button>
     {{ message }}
 </div>
 
-<div *ngIf="dienstAngefragt">
-    <div *ngFor="let dienst of angefragteDienste | async" class="notification is-info is-light">
-        <p class="titel">Neue Anfrage:</p>
-        <p class="is-size-5">Nutzer {{dienst.suchenderID}} möchte deinen angebotenen Dienst "{{dienst.name}}" buchen.</p>
-        <button class="button is-success">Bestätigen</button>
-        <button class="button is-danger">Ablehnen</button>
-    </div>
-</div>
-  
+

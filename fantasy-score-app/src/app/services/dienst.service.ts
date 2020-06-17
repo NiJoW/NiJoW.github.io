@@ -22,6 +22,7 @@ import { Injectable } from '@angular/core';
       private readonly diensteInKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/kategorie/dienste';
       private readonly dienstSuchUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dienste/suche';
       private readonly newDienstUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newDienst';
+      private readonly angefragenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/anfragenAnTugendhafter';
 
       getDienste(): Observable<Dienst[]> {
         return this.http.get<Dienst[]>(this.diensteUrl);
@@ -65,6 +66,11 @@ import { Injectable } from '@angular/core';
       getAngefragteDienste(): Observable<Dienst[]> {
             let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
           return this.http.get<Dienst[]>(this.angefragteDiensteUrl, {params : buergerParams});
+      }
+
+      getAnfragenAnTugendhaften(): Observable<Dienst[]> {
+        let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
+        return this.http.get<Dienst[]>(this.angefragenUrl, {params : buergerParams});
       }
 
       createDiensvertrag(dienstID: number, datum: Date): Observable<Dienst> {

@@ -1,0 +1,17 @@
+
+<div *ngFor="let dienst of angefragteDienste | async">
+    <div class="section" style="padding-top: 0;">
+        <div class="message is-info" >
+            <div class="message-header">
+                <p class="messageTitle">Neue Anfrage:</p>
+                <button class="delete"></button>
+            </div>
+            <div class="message-body">
+                <p><strong>{{dienst.suchenderName}}</strong> möchte deinen angebotenen Dienst <strong>"{{dienst.name}}"</strong> buchen.</p>
+            <br>
+                <button class="button is-success">Bestätigen</button>
+                <button class="button is-danger">Ablehnen</button>
+            </div>
+        </div>
+    </div>
+</div>
