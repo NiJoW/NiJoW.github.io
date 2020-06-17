@@ -336,7 +336,7 @@ app.get('/bonusprogramme/suche', function(req, res) {
 
     app.get('/anfragenAnTugendhafter', function(req, res) {
       const buergerID = req.query.buergerID;
-      const sql = "SELECT da.name, da.beschreibung, dv.datum, b.benutzername AS suchenderName FROM buerger b, dienstangebot da, dienstvertrag dv WHERE da.tugendhafterID = ? AND da.id_dienstangebot = dv.dienstID AND b.id_buerger = dv.suchenderID AND dv.status = 'angefragt';";
+      const sql = "SELECT da.name, da.beschreibung, dv.datum, b.benutzername AS suchenderName, dv.id_dienstvertrag FROM buerger b, dienstangebot da, dienstvertrag dv WHERE da.tugendhafterID = ? AND da.id_dienstangebot = dv.dienstID AND b.id_buerger = dv.suchenderID AND dv.status = 'angefragt';";
       const value = [buergerID];
       pool.query(sql, value,
          function (error, results, fields) {
@@ -416,6 +416,22 @@ app.get('/bonusprogramme/suche', function(req, res) {
 
         });
       });
+
+      app.put('/updateDienstvertrag', function (request, response) {
+        console.log('DIENSTVERTRAG: request body: ');
+  
+        const dienstID = request.body.dienstID;
+        const status = 'bestätigt';
+  
+        const sql = "UPDATE dienstvertrag dv SET status = ? WHERE dv.id_dienstvertrag = ?";
+        const values = [status, dienstID];
+        pool.query( sql, values,
+          function (error, results, fields) {
+            if (error) throw error;
+            response.send(results);
+  
+          });
+        });
 
 
 

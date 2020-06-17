@@ -23,6 +23,7 @@ import { Injectable } from '@angular/core';
       private readonly dienstSuchUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dienste/suche';
       private readonly newDienstUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newDienst';
       private readonly angefragenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/anfragenAnTugendhafter';
+      private readonly updateVertragsUrl = APIConfig.URL + ':' + APIConfig.PORT + '/updateDienstvertrag';
 
       getDienste(): Observable<Dienst[]> {
         return this.http.get<Dienst[]>(this.diensteUrl);
@@ -73,6 +74,13 @@ import { Injectable } from '@angular/core';
         return this.http.get<Dienst[]>(this.angefragenUrl, {params : buergerParams});
       }
 
+      bestaetigeVertrag(dienstID:number): Observable<Dienst> {
+        return this.http.put<Dienst>(this.updateVertragsUrl,
+          {
+            "dienstID" : dienstID
+          });
+      }
+
       createDiensvertrag(dienstID: number, datum: Date): Observable<Dienst> {
         return this.http.post<Dienst>(this.newDienstUrl,
           {
@@ -80,7 +88,7 @@ import { Injectable } from '@angular/core';
             "suchenderID" : this.authService.getNutzer().id_buerger,
             "datum": datum
           });
-        }
+      }
     }
 
     

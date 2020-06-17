@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Dienst } from 'src/app/models/Dienst';
+import { DienstService } from 'src/app/services/dienst.service';
 
 @Component({
   selector: 'app-dienst-anfragen',
@@ -13,8 +14,9 @@ export class DienstAnfragenComponent implements OnInit {
   
   dienstAngefragt: boolean;
   dienst: Dienst;
+  dienstObservable: Observable<Dienst>;
 
-  constructor() { }
+  constructor(private dienstService: DienstService) { }
 
   ngOnInit(): void {
     
@@ -25,4 +27,15 @@ export class DienstAnfragenComponent implements OnInit {
     }
   }
 
+  antragAnnehmen(dienstID:number) {
+    console.log("Dienst: " + dienstID + " annehmen!");
+    this.dienstObservable = this.dienstService.bestaetigeVertrag(dienstID);
+    this.dienstObservable.subscribe(data => {
+      console.dir(data);
+    })
+  }
+
+  antragAblehnen(dienstID:number) {
+    console.log("Dienst: " + dienstID + " ablehnen!");
+  }
 }
