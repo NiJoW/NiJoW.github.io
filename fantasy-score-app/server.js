@@ -136,9 +136,10 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
   });
 });
 
-app.get('/bonusprogramm/suche', function(req, res) {
+app.get('/bonusprogramme/suche', function(req, res) {
   const searchInput = '%'+req.query.suche.trim()+'%';
-  const sql = "SELECT * FROM bonusprogramm WHERE titel LIKE  ? OR nachricht LIKE ?;";
+  console.log(searchInput);
+  const sql = "SELECT * FROM bonusprogramm WHERE titel LIKE ? OR nachricht LIKE ?;";
   const value = [searchInput, searchInput]; // 2 mal searchInput!!!
     pool.query(sql, value,
       function (error, results, fields) {
@@ -180,8 +181,8 @@ app.get('/bonusprogramm/suche', function(req, res) {
 // Ältester ###########
 
     app.get('/tugenden/suche', function ( req, res) {
-      const suchInput = req.query.suche;
-      const sql = 'SELECT * FROM tugend WHERE name LIKE "%?%" OR beschreibung LIKE "%?%";';
+      const suchInput = '%'+req.query.suche.trim()+'%';;
+      const sql = "SELECT * FROM tugend WHERE name LIKE ? OR beschreibung LIKE ?;";
       const value = [suchInput, suchInput];
       pool.query(sql, value, function (error, results, fields) {
         if (error) throw error;
@@ -374,23 +375,8 @@ app.get('/bonusprogramm/suche', function(req, res) {
     });
 
     app.get('/dienste/suche', function (req, res) {
-      console.log("Suche in Diensteangebote-Liste:");
-      console.log( req.query.suche);
-      const searchInput = req.query.suche;
-      const sql = 'SELECT * FROM dienstangebot WHERE name LIKE "%?%" OR beschreibung LIKE "%?%";';
-      const value = [searchInput, searchInput];
-      pool.query(sql, value,
-        function(error, results, fields) {
-          if(error) throw error;
-          res.send(results);
-        });
-    });
-
-    app.get('/dienste/suche', function (req, res) {
-      console.log("Suche in Diensteangebote-Liste:");
-      console.log( req.query.suche);
-      const searchInput = req.query.suche;
-      const sql = 'SELECT * FROM dienstangebot WHERE name LIKE "%?%" OR beschreibung LIKE "%?%";';
+      const searchInput = '%'+req.query.suche.trim()+'%';;
+      const sql = "SELECT * FROM dienstangebot WHERE name LIKE ? OR beschreibung LIKE ?;";
       const value = [searchInput, searchInput];
       pool.query(sql, value,
         function(error, results, fields) {
