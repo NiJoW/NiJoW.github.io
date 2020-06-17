@@ -6,7 +6,8 @@
     var mysql = require('mysql');
     var cors = require('cors');
 
-    var bodyParser = require('body-parser')
+    var bodyParser = require('body-parser');
+const { response } = require('express');
     var app = express();
     var index;
 
@@ -178,8 +179,19 @@ app.get('/bonusprogramm/suche', function(req, res) {
     });
 // Ältester ###########
 
-    // neue Tugend (nicht Tätigkeit) anlegen
-    app.post('/newTugend', function (request, response) {
+    app.get('/tugenden/suche', function ( req, res) {
+      const suchInput = req.query.suche;
+      const sql = 'SELECT * FROM tugend WHERE name LIKE "%?%" OR beschreibung LIKE "%?%";';
+      const value = [suchInput, suchInput];
+      pool.query(sql, value, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+      });
+    });
+
+// Ältester ###########
+
+  app.post('/newTugend', function (request, response) {
       console.log('request body: ');
       console.dir(request.body);
 
@@ -358,6 +370,32 @@ app.get('/bonusprogramm/suche', function(req, res) {
           if (error) throw error;
           response.send(results);
 
+        });
+    });
+
+    app.get('/dienste/suche', function (req, res) {
+      console.log("Suche in Diensteangebote-Liste:");
+      console.log( req.query.suche);
+      const searchInput = req.query.suche;
+      const sql = 'SELECT * FROM dienstangebot WHERE name LIKE "%?%" OR beschreibung LIKE "%?%";';
+      const value = [searchInput, searchInput];
+      pool.query(sql, value,
+        function(error, results, fields) {
+          if(error) throw error;
+          res.send(results);
+        });
+    });
+
+    app.get('/dienste/suche', function (req, res) {
+      console.log("Suche in Diensteangebote-Liste:");
+      console.log( req.query.suche);
+      const searchInput = req.query.suche;
+      const sql = 'SELECT * FROM dienstangebot WHERE name LIKE "%?%" OR beschreibung LIKE "%?%";';
+      const value = [searchInput, searchInput];
+      pool.query(sql, value,
+        function(error, results, fields) {
+          if(error) throw error;
+          res.send(results);
         });
     });
 

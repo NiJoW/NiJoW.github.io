@@ -5,7 +5,7 @@
     {{ message }}
 </div>
 
-<div *ngIf="dienstAngefragt" >
+<div *ngIf="dienstAngefragt">
     <div *ngFor="let dienst of angefragteDienste | async" class="notification is-info is-light">
         <p class="titel">Neue Anfrage:</p>
         <p class="is-size-5">Nutzer {{dienst.suchenderID}} möchte deinen angebotenen Dienst "{{dienst.name}}" buchen.</p>
