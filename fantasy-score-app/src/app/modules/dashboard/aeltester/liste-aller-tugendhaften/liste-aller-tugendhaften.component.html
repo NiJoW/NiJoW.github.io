@@ -1,0 +1,9 @@
+<br>
+<h2><strong>Liste aller Tugendhaften</strong></h2>
+<br>
+<div class="buergerListe">
+  <div  *ngFor="let buerger of buergerListe | async">
+    {{ buerger.benutzername }}
+  </div>
+</div>
+

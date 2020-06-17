@@ -36,6 +36,7 @@ import { NotificationComponent } from './modules/notification/notification.compo
 import { MessageService } from './services/message.service';
 import {BearbeiteTugendComponent} from "./modules/dashboard/aeltester/erstellte-tugenden/bearbeite-tugend/bearbeite-tugend.component";
 import { DienstAnfragenComponent } from './modules/dashboard/tugendhafter/dienst-anfragen/dienst-anfragen.component';
+import { ListeAllerTugendhaftenComponent } from './modules/dashboard/aeltester/liste-aller-tugendhaften/liste-aller-tugendhaften.component';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { DienstAnfragenComponent } from './modules/dashboard/tugendhafter/dienst
     NotificationComponent,
     BearbeiteTugendComponent,
     BearbeiteTugendComponent,
-    DienstAnfragenComponent
+    DienstAnfragenComponent,
+    ListeAllerTugendhaftenComponent
   ],
   imports: [
     BrowserModule,

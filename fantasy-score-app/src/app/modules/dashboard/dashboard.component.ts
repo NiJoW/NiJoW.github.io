@@ -24,7 +24,6 @@ export class DashboardComponent implements OnInit {
   typeUser: BuergerTyp;
   aktuellerNutzer: Buerger;
   nutzer: Buerger;
-  buergerListe: Observable<Buerger[]>;
   hatAngefragteDienste: boolean;
   angefragteDiensteObservable: Observable<Dienst[]>;
   angefragteDienste: Dienst[];
@@ -45,11 +44,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getKategorien();
     this.typeUser = this.authService.getNutzer().typ;
-    this.buergerListe = this.buergerService.getBuerger();
-
-    this.buergerListe.subscribe(data => {
-      console.log(data); });
-    console.log(this.buergerListe);
 
     this.hatAngefragteDienste = false;
     this.angefragteDiensteObservable = this.dienstService.getAnfragenAnTugendhaften();
