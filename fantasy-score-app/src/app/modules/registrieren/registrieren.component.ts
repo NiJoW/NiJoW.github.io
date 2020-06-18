@@ -1,6 +1,6 @@
-import { async } from '@angular/core/testing';
+
 import { BuergerTyp } from './../../models/BuergerTyp.enum';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { FormBuilder } from '@angular/forms';
@@ -17,11 +17,16 @@ export class RegistrierenComponent implements OnInit {
   nutzer;
   email;
   passwort;
+  code;
   requestedType: BuergerTyp;
+
+  
+  @Output() onClose = new EventEmitter();
 
   constructor(private router: Router, private authService: AuthService,
     private formBuilder: FormBuilder, private buergerService: BuergerService) {
       this.registrierenForm = this.formBuilder.group({
+        code: '',
         benutzername: '',
         email: '',
         passwort: '',
@@ -32,6 +37,7 @@ export class RegistrierenComponent implements OnInit {
       this.nutzer = true;
       this.email = true;
       this.passwort = true;
+      this.code = true;
      }
 
   ngOnInit(): void {
@@ -42,8 +48,9 @@ export class RegistrierenComponent implements OnInit {
     this.nutzer = true;
     this.passwort = true;
     this.requestedType;
-    if(this.loginKorrekt(registrierenDaten.email, registrierenDaten.passwort, registrierenDaten.passwort2)) {
+    if(this.loginKorrekt(registrierenDaten.email, registrierenDaten.passwort, registrierenDaten.passwort2, registrierenDaten.code)) {
       this.authService.registrieren(this, registrierenDaten.benutzername, registrierenDaten.passwort, registrierenDaten.email, this.requestedType);
+      this.cancel();
     }
   }
 
@@ -66,7 +73,15 @@ export class RegistrierenComponent implements OnInit {
     }
   }
 
-  private loginKorrekt(email: string, passwort: string, passwort2:string): boolean {
+  private loginKorrekt(email: string, passwort: string, passwort2:string, code:string): boolean {
+    if(this.requestedType == 'Aeltester') {
+      console.log(code);
+      if(code != '43173573r!') {
+        this.code = false;
+        console.log("code");
+        return;
+      }
+    }
     if(passwort == passwort2) {
       if(email.includes('@') && email.includes('.')) {
         return true;
@@ -87,7 +102,13 @@ export class RegistrierenComponent implements OnInit {
   }
 
   benutzernameVorhanden() {
+    console.log("benutzername falsch");
     this.nutzer = false;
+  }
+
+  cancel() {
+    console.log("close Modal");
+    this.onClose.emit(null); 
   }
 
 }
