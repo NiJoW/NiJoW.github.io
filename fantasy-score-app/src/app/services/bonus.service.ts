@@ -17,6 +17,7 @@ import { Bonusprogramm } from '../models/Bonusprogramm';
     private readonly programmeVonKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/kategorie/bonusprogramme';
     private readonly erstellteBonusprogrammeUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erstellte-bonusprogramme';
     private readonly bonusSearchUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusprogramme/suche';
+    private readonly nutzerProfitiertUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusprogramme/nutzer';
 
     getBonusprogramme(): Observable<Bonusprogramm[]> {
         console.log("Im service");
@@ -35,6 +36,12 @@ import { Bonusprogramm } from '../models/Bonusprogramm';
         console.log(searchInput);
         let searchParams = new HttpParams().set("suche", searchInput);
         return this.http.get<Bonusprogramm[]>(this.bonusSearchUrl, {params: searchParams});
+    }
+
+    getBonusprogrammeVonNutzer(): Observable<Bonusprogramm[]> {
+        console.log("Profitiere Ich?");
+        let buergerParams = new HttpParams().set("buerger", this.authService.getNutzer().id_buerger+"");
+        return this.http.get<Bonusprogramm[]>(this.nutzerProfitiertUrl, {params: buergerParams});
     }
 
   }

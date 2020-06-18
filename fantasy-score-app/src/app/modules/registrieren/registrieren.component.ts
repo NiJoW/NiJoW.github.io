@@ -50,7 +50,6 @@ export class RegistrierenComponent implements OnInit {
     this.requestedType;
     if(this.loginKorrekt(registrierenDaten.email, registrierenDaten.passwort, registrierenDaten.passwort2, registrierenDaten.code)) {
       this.authService.registrieren(this, registrierenDaten.benutzername, registrierenDaten.passwort, registrierenDaten.email, this.requestedType);
-      this.cancel();
     }
   }
 

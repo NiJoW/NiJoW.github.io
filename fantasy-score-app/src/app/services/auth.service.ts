@@ -92,6 +92,7 @@ export class AuthService {
 
                 });
               }
+              komponent.cancel();
               komponent.navigiere();
             }
           });

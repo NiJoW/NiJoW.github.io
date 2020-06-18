@@ -10,6 +10,8 @@ import {Observable} from 'rxjs';
 import { NgIf } from '@angular/common';
 import { DienstService } from 'src/app/services/dienst.service';
 import { Dienst } from 'src/app/models/Dienst';
+import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
+import { BonusService } from 'src/app/services/bonus.service';
 
 
 @Component({
@@ -28,10 +30,13 @@ export class DashboardComponent implements OnInit {
   angefragteDiensteObservable: Observable<Dienst[]>;
   angefragteDienste: Dienst[];
   unlockClicked = false;
+  betroffeneProgramme: Observable<Bonusprogramm[]>;
+  erhaeltBonus: boolean = false;
 
 
   constructor(private kategorienService: KategorieService, 
     private dienstService: DienstService, 
+    private bonusService: BonusService,
     private authService: AuthService, 
     private buergerService: BuergerService,
     private router: Router) {
@@ -51,6 +56,14 @@ export class DashboardComponent implements OnInit {
       if(data.length != 0 ) {
         this.angefragteDienste = data;
         this.hatAngefragteDienste = true;
+        console.dir(data);
+      }
+    });
+
+    this.betroffeneProgramme = this.bonusService.getBonusprogrammeVonNutzer(); //TODO: getBonusprogrammeVonNutzer funktioniert noch nicht
+    this.betroffeneProgramme.subscribe(data => {
+      if(data.length != 0 ) {
+        this.erhaeltBonus = true;
         console.dir(data);
       }
     })

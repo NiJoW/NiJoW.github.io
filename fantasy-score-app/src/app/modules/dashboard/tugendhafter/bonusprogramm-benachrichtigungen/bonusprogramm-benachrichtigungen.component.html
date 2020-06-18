@@ -1,0 +1,14 @@
+<div *ngFor="let programm of bonusProgramme | async">
+    <div class="section" style="padding-top: 0;">
+        <div class="message is-primary" >
+            <div class="message-header">
+                <p class="messageTitle">Neue Bonus:</p>
+            </div>
+            <div class="message-body">
+                <p>Du erhältst einen neuen <strong>Bonus {{programm.titel}}</strong> für deinen Fleiß in der Kategorie<strong>"{{programm.kategorieName}}"</strong>!</p>
+                <p>{{programm.nachricht}}</p>
+                <button class="button is-warning" (click)="close()">Juhu!</button>
+            </div>
+        </div>
+    </div>
+</div>
