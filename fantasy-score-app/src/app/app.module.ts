@@ -35,6 +35,7 @@ import { DienstBuchenComponent } from './modules/dienste/dienst-buchen/dienst-bu
 import { NotificationComponent } from './modules/notification/notification.component';
 import { MessageService } from './services/message.service';
 import {BearbeiteTugendComponent} from "./modules/dashboard/aeltester/erstellte-tugenden/bearbeite-tugend/bearbeite-tugend.component";
+import { DienstAnfragenComponent } from './modules/dashboard/tugendhafter/dienst-anfragen/dienst-anfragen.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import {BearbeiteTugendComponent} from "./modules/dashboard/aeltester/erstellte-
     ErstellteTugendenComponent,
     NotificationComponent,
     BearbeiteTugendComponent,
-    BearbeiteTugendComponent
+    BearbeiteTugendComponent,
+    DienstAnfragenComponent
   ],
   imports: [
     BrowserModule,

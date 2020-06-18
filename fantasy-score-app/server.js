@@ -6,7 +6,8 @@
     var mysql = require('mysql');
     var cors = require('cors');
 
-    var bodyParser = require('body-parser')
+    var bodyParser = require('body-parser');
+    const { response } = require('express');
     var app = express();
     var index;
 
@@ -135,9 +136,9 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
   });
 });
 
-app.get('/bonusprogramm/suche', function(req, res) {
+app.get('/bonusprogramme/suche', function(req, res) {
   const searchInput = '%'+req.query.suche.trim()+'%';
-  const sql = "SELECT * FROM bonusprogramm WHERE titel LIKE  ? OR nachricht LIKE ?;";
+  const sql = "SELECT * FROM bonusprogramm WHERE titel LIKE ? OR nachricht LIKE ?;";
   const value = [searchInput, searchInput]; // 2 mal searchInput!!!
     pool.query(sql, value,
       function (error, results, fields) {
@@ -178,8 +179,19 @@ app.get('/bonusprogramm/suche', function(req, res) {
     });
 // Ältester ###########
 
-    // neue Tugend (nicht Tätigkeit) anlegen
-    app.post('/newTugend', function (request, response) {
+    app.get('/tugenden/suche', function ( req, res) {
+      const suchInput = '%'+req.query.suche.trim()+'%';;
+      const sql = "SELECT * FROM tugend WHERE name LIKE ? OR beschreibung LIKE ?;";
+      const value = [suchInput, suchInput];
+      pool.query(sql, value, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+      });
+    });
+
+// Ältester ###########
+
+  app.post('/newTugend', function (request, response) {
       console.log('request body: ');
       console.dir(request.body);
 
@@ -322,6 +334,18 @@ app.get('/bonusprogramm/suche', function(req, res) {
       });
     });
 
+    app.get('/anfragenAnTugendhafter', function(req, res) {
+      const buergerID = req.query.buergerID;
+      const sql = "SELECT da.name, da.beschreibung, dv.datum, b.benutzername AS suchenderName, dv.id_dienstvertrag FROM buerger b, dienstangebot da, dienstvertrag dv WHERE da.tugendhafterID = ? AND da.id_dienstangebot = dv.dienstID AND b.id_buerger = dv.suchenderID AND dv.status = 'angefragt';";
+      const value = [buergerID];
+      pool.query(sql, value,
+         function (error, results, fields) {
+
+        if (error) throw error;
+        res.send(results);
+      });
+    });
+
     app.get('/dienste', function (req, res) {
 
       pool.query('SELECT d.*, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger',
@@ -361,6 +385,17 @@ app.get('/bonusprogramm/suche', function(req, res) {
         });
     });
 
+    app.get('/dienste/suche', function (req, res) {
+      const searchInput = '%'+req.query.suche.trim()+'%';;
+      const sql = "SELECT * FROM dienstangebot WHERE name LIKE ? OR beschreibung LIKE ?;";
+      const value = [searchInput, searchInput];
+      pool.query(sql, value,
+        function(error, results, fields) {
+          if(error) throw error;
+          res.send(results);
+        });
+    });
+
     app.post('/newDienst', function (request, response) {
       console.log('request body: ');
       console.dir(request.body);
@@ -380,6 +415,23 @@ app.get('/bonusprogramm/suche', function(req, res) {
           response.send(results);
 
         });
+    });
+
+      app.put('/updateDienstvertrag', function (request, response) {
+  
+        const dienstID = request.body.dienstID;
+        const status = request.body.status;
+        /* console.log('DIENSTVERTRAG: request body: ');
+        console.log(dienstID);
+        console.log(status); */
+        const sql = "UPDATE dienstvertrag dv SET status = ? WHERE dv.id_dienstvertrag = ?";
+        const values = [status, dienstID];
+        pool.query( sql, values,
+          function (error, results, fields) {
+            if (error) throw error;
+            response.send(results);
+  
+          });
       });
 
 

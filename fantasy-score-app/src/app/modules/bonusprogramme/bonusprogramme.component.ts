@@ -60,14 +60,20 @@ export class BonusprogrammeComponent implements OnInit {
   }
 
   suchen(searchData) {
-    console.log(searchData);
     console.log(searchData.searchInput);
-    this.bonusprogramme = this.bonusService.getBonusprogrammeLike(searchData.searchInput);
-    this.bonusprogramme.subscribe(data => {
-      this.shownProgramme = data;
-      console.dir(this.shownProgramme[0]);
-    });
-    
+    if(searchData.searchInput = "") {
+      this.bonusprogramme = this.bonusService.getBonusprogramme();
+      this.bonusprogramme.subscribe(data => {
+        console.log(data);
+        this.shownProgramme = data;
+      });
+    } else {
+      this.bonusprogramme = this.bonusService.getBonusprogrammeLike(searchData.searchInput);
+      this.bonusprogramme.subscribe(data => {
+        this.shownProgramme = data;
+        console.dir(this.shownProgramme[0]);
+      });
+    }
   }
 
 }

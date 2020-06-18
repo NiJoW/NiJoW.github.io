@@ -19,6 +19,7 @@ import {Dienst} from "../models/Dienst";
   private readonly tugendByIDUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugendByID';
   private readonly newTaetigkeitUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newTaetigkeit'; // (vorher planeTugendUrl)
   private readonly tugendVonKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugenden';
+  private readonly tugendSuchUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugenden/suche';
   private readonly erfuellteTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erfuellte-tugenden';
   private readonly todoTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/todo-tugenden';
   // Aeltester
@@ -34,6 +35,11 @@ import {Dienst} from "../models/Dienst";
     getTugendByID(tugendID: number): Observable<Tugend>  {
       let tugendParams = new HttpParams().set("tugendID", tugendID+"");
       return this.http.get<Tugend>(this.tugendByIDUrl, {params : tugendParams});
+    }
+
+    getTugendenLike(suchInput:string): Observable<Tugend[]> {
+      let searchParams = new HttpParams().set("suche", suchInput);
+      return this.http.get<Tugend[]>(this.tugendSuchUrl, {params: searchParams});
     }
 
     // newTaetigkeit (vorher planeTugendUrl)

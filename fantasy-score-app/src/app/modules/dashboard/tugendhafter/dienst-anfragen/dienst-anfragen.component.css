@@ -1,0 +1,13 @@
+.is-success {
+    margin-right: 1%;
+}
+
+.message-body {
+    background-color: lightblue;
+}
+
+.messageTitle {
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.25;
+}

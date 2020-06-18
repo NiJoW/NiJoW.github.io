@@ -6,37 +6,38 @@ Test Observer
   </div>
 <hr>
 -->
-<app-notification *ngIf="hatAngefragteDienste" [angefragteDienste] = "angefragteDienste"></app-notification>
-<br>
-<br>
-<br>
 <!---  --->
 <div *ngIf="isTyp('Tugendhafter')">
-  <div class="contentTabs">
-    <a class="button is-primary leftButton" (click)="changeType('tugenden')">Tugenden</a>
-    <a class="button is-danger rightButton" (click)="changeType('dienste')">Dienste</a>
-  </div>
 
-  <div class="seperator"></div>
+  <app-dienst-anfragen class="section" *ngIf="hatAngefragteDienste" [angefragteDienste] = angefragteDiensteObservable></app-dienst-anfragen>
 
-  <div>
-    <div *ngIf="type === 'tugenden'">
-      <app-todo-tugenden></app-todo-tugenden>
-      <app-erfuellte-tugenden></app-erfuellte-tugenden>
+  <div class="section">
+    <div class="contentTabs">
+      <a class="button is-primary leftButton" (click)="changeType('tugenden')">Tugenden</a>
+      <a class="button is-danger rightButton" (click)="changeType('dienste')">Dienste</a>
     </div>
-    <div *ngIf="type === 'dienste'">
-      <app-angebotene-dienste></app-angebotene-dienste>
-      <app-geplante-dienste></app-geplante-dienste>
-      <app-erledigte-dienste></app-erledigte-dienste>
+
+    <div class="seperator"></div>
+
+    <div>
+      <div *ngIf="type === 'tugenden'">
+        <app-todo-tugenden></app-todo-tugenden>
+        <app-erfuellte-tugenden></app-erfuellte-tugenden>
+      </div>
+      <div *ngIf="type === 'dienste'">
+        <app-angebotene-dienste></app-angebotene-dienste>
+        <app-geplante-dienste></app-geplante-dienste>
+        <app-erledigte-dienste></app-erledigte-dienste>
+      </div>
     </div>
   </div>
 </div>
 
-<div *ngIf= "isTyp('Suchender')">
+<div *ngIf= "isTyp('Suchender')" class="section">
   <app-gebuchte-dienste></app-gebuchte-dienste>
   <app-angefragte-dienste></app-angefragte-dienste>
 </div>
-<div *ngIf= "isTyp('Aeltester')">
+<div *ngIf= "isTyp('Aeltester')" class="section">
   <!--- <app-erstelle-tugend></app-erstelle-tugend> --->
   <app-erstellte-bonusprogramme></app-erstellte-bonusprogramme>
   <app-erstellte-tugenden></app-erstellte-tugenden>
