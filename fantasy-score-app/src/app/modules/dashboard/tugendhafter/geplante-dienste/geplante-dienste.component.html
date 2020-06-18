@@ -1,21 +1,18 @@
-<div class="box"> 
-<h2><strong>Meine geplanten Dienste</strong></h2>
-  <a class="button is-info" (click)="changeFormat()">Details anzeigen</a>
-  <div class="content">
-      <div *ngFor="let dienst of geplanteDienste | async">
-      <div class="section is-paddingless-horizontal container-grid" style="padding: 10px 0 10px 0;">
-        <div class="notification media">
-          <div class="media-content">
-            <h3>{{dienst.name}}</h3>
-            <div *ngIf= "isLongFormat()">
-              <h4>Beschreibung: {{dienst.beschreibung}}</h4>
-              <h4>Suchender <strong>{{dienst.suchenderName}}</strong> hat deinen Dienst für den 
-                  <br>
-                  <strong>{{dienst.datum | date}}</strong> gebucht</h4>
-          </div>
-          </div>
-        </div>
+<p class="title is-4">Meine geplanten Dienste</p>
+<div *ngFor="let dienst of geplanteDienste | async">
+  <div class="card">
+    <header class="card-header">
+      <p class="card-header-title">{{dienst.name}}</p>
+      <a class="card-header-icon" aria-label="more options" (click)="changeFormat()">
+        <fa-icon [icon]="moreIcon"></fa-icon>
+      </a>
+    </header>
+    <div *ngIf="longFormat">
+      <div class="card-content">
+        <p>Beschreibung: {{dienst.beschreibung}}</p>
+        <p>Suchender <strong>{{dienst.suchenderName}}</strong> hat deinen Dienst für den <strong>{{dienst.datum | date}}</strong> gebucht</p>
       </div>
     </div>
   </div>
+  <br>
 </div>
