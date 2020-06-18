@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { BuergerService } from './../../services/buerger.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BuergerTyp } from './../../models/BuergerTyp.enum';
@@ -23,16 +24,17 @@ export class DashboardComponent implements OnInit {
   typeUser: BuergerTyp;
   aktuellerNutzer: Buerger;
   nutzer: Buerger;
-  buergerListe: Observable<Buerger[]>;
   hatAngefragteDienste: boolean;
   angefragteDiensteObservable: Observable<Dienst[]>;
   angefragteDienste: Dienst[];
+  unlockClicked = false;
 
 
   constructor(private kategorienService: KategorieService, 
     private dienstService: DienstService, 
     private authService: AuthService, 
-    private buergerService: BuergerService) {
+    private buergerService: BuergerService,
+    private router: Router) {
     
      this.getAktuellenNutzer();
      // console.log('dashboard: logged in?');
@@ -42,11 +44,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getKategorien();
     this.typeUser = this.authService.getNutzer().typ;
-    this.buergerListe = this.buergerService.getBuerger();
-
-    this.buergerListe.subscribe(data => {
-      console.log(data); });
-    console.log(this.buergerListe);
 
     this.hatAngefragteDienste = false;
     this.angefragteDiensteObservable = this.dienstService.getAnfragenAnTugendhaften();
@@ -86,6 +83,28 @@ export class DashboardComponent implements OnInit {
     console.log(dienstID);
   }
 
+  unlockTugendhafter() {
+    if (confirm("Bist du dir sicher, dass du ein Tugendhafter werden möchtest?")) {
+      this.buergerService.unlockTugendhafter(this.nutzer.id_buerger).subscribe(data => {
+        console.log(data);
+      });
+      this.buergerService.newSocialScoreAnlegen(this.nutzer.id_buerger).subscribe(data => {
+        console.log(data);
+      });
+      alert("Sie müssen sich erneut einloggen!");
+      this.logout();
+      
+    } else {
+      
+    }
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
+    window.location.reload();
+
+  }
 }
 
 

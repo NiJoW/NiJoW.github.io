@@ -6,6 +6,7 @@ Test Observer
   </div>
 <hr>
 -->
+
 <!---  --->
 <div *ngIf="isTyp('Tugendhafter')">
 
@@ -28,12 +29,15 @@ Test Observer
         <app-angebotene-dienste></app-angebotene-dienste>
         <app-geplante-dienste></app-geplante-dienste>
         <app-erledigte-dienste></app-erledigte-dienste>
+        <app-gebuchte-dienste></app-gebuchte-dienste>
+        <app-angefragte-dienste></app-angefragte-dienste>
       </div>
     </div>
   </div>
 </div>
 
-<div *ngIf= "isTyp('Suchender')" class="section">
+<div *ngIf= "isTyp('Suchender')">
+  <button class="button is-danger unlock" (click)="unlockTugendhafter()">Schalte jetzt deinen inneren Tugendhaften frei!</button>
   <app-gebuchte-dienste></app-gebuchte-dienste>
   <app-angefragte-dienste></app-angefragte-dienste>
 </div>
@@ -41,12 +45,6 @@ Test Observer
   <!--- <app-erstelle-tugend></app-erstelle-tugend> --->
   <app-erstellte-bonusprogramme></app-erstellte-bonusprogramme>
   <app-erstellte-tugenden></app-erstellte-tugenden>
-  <h2>Liste aller Tugendhaften</h2>
-  <div class="buergerListe">
-    <div  *ngFor="let buerger of buergerListe | async">
-      {{ buerger.benutzername }}
-    </div>
-  </div>
-
+  <app-liste-aller-tugendhaften></app-liste-aller-tugendhaften>
 </div>
 

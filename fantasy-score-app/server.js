@@ -435,6 +435,22 @@ app.get('/bonusprogramme/suche', function(req, res) {
       });
 
 
+          // bearbeite bestehende Tugend (nicht Tätigkeit) anlegen
+    app.put('/nutzer/unlockTugendhafter', function (request, response) {
+      console.log('request body: ');
+      console.dir(request.body);
+
+      const sql = " UPDATE buerger SET typ='Tugendhafter' WHERE id_buerger=?;";
+      const values = [request.body.id_buerger];
+      pool.query( sql, values,
+        function (error, results, fields) {
+          if (error) throw error;
+          response.send(results);
+
+        });
+    });
+
+
 
 
 //#######################################################################################

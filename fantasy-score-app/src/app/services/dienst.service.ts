@@ -74,11 +74,11 @@ import { Injectable } from '@angular/core';
         return this.http.get<Dienst[]>(this.angefragenUrl, {params : buergerParams});
       }
 
-      bestaetigeVertrag(dienstID:number): Observable<Dienst> {
+      bestaetigeVertrag(dienstID: number, status: string ): Observable<Dienst> {
         return this.http.put<Dienst>(this.updateVertragsUrl,
           {
             "dienstID" : dienstID,
-            "status" : 'bestätigt'
+            "status" : status
           });
       }
 
