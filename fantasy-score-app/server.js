@@ -415,14 +415,15 @@ app.get('/bonusprogramme/suche', function(req, res) {
           response.send(results);
 
         });
-      });
+    });
 
       app.put('/updateDienstvertrag', function (request, response) {
-        console.log('DIENSTVERTRAG: request body: ');
   
         const dienstID = request.body.dienstID;
-        const status = 'bestätigt';
-  
+        const status = request.body.status;
+        /* console.log('DIENSTVERTRAG: request body: ');
+        console.log(dienstID);
+        console.log(status); */
         const sql = "UPDATE dienstvertrag dv SET status = ? WHERE dv.id_dienstvertrag = ?";
         const values = [status, dienstID];
         pool.query( sql, values,
@@ -431,7 +432,7 @@ app.get('/bonusprogramme/suche', function(req, res) {
             response.send(results);
   
           });
-        });
+      });
 
 
 

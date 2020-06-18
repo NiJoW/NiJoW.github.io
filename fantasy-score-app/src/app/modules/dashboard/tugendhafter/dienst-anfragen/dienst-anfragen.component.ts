@@ -15,6 +15,7 @@ export class DienstAnfragenComponent implements OnInit {
   dienstAngefragt: boolean;
   dienst: Dienst;
   dienstObservable: Observable<Dienst>;
+  bearbeitet: boolean = false;
 
   constructor(private dienstService: DienstService) { }
 
@@ -32,10 +33,13 @@ export class DienstAnfragenComponent implements OnInit {
     this.dienstObservable = this.dienstService.bestaetigeVertrag(dienstID);
     this.dienstObservable.subscribe(data => {
       console.dir(data);
+      window.location.reload(); //TODO: find ich nicht so gut
     })
   }
 
   antragAblehnen(dienstID:number) {
     console.log("Dienst: " + dienstID + " ablehnen!");
+    //TODO: status als ablehnen setzten oder löschen? -> brauch man das den noch?
+    //TODO: message schließen
   }
 }

@@ -77,7 +77,8 @@ import { Injectable } from '@angular/core';
       bestaetigeVertrag(dienstID:number): Observable<Dienst> {
         return this.http.put<Dienst>(this.updateVertragsUrl,
           {
-            "dienstID" : dienstID
+            "dienstID" : dienstID,
+            "status" : 'bestätigt'
           });
       }
 
