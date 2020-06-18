@@ -14,6 +14,7 @@ export class AppComponent {
   nutzer: Buerger;
   faCoffee = faCoffee;
   willAnmelden: boolean = false;
+  willRegistrieren: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) {
     this.getAktuellenNutzer();
@@ -27,6 +28,10 @@ export class AppComponent {
 
   login() {
     this.willAnmelden = true;
+  }
+
+  registrieren() {
+    this.willRegistrieren = true;
   }
 
   logout() {

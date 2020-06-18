@@ -16,7 +16,7 @@
     
     <div class="navbar-menu">
       <div class="navbar-end ">
-        <a *ngIf="!isLoggedIn" class="navbar-item has-text-danger" routerLink="/registrieren">
+        <a *ngIf="!isLoggedIn" class="navbar-item has-text-danger" (click)="registrieren()">
           Registrieren
         </a>
         <a *ngIf="!isLoggedIn" class="navbar-item has-text-danger" (click)="login()">
@@ -52,6 +52,7 @@
 </header>
 
 <app-anmelden *ngIf="willAnmelden" (onClose)="willAnmelden = false"></app-anmelden>
+<app-registrieren *ngIf="willRegistrieren" (onClose)="willRegistrieren = false"></app-registrieren>
 
 <app-banner></app-banner>
 
