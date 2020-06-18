@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { DienstService } from 'src/app/services/dienst.service';
 import { Observable } from 'rxjs';
@@ -22,7 +23,8 @@ export class DiensteComponent implements OnInit {
 
   constructor(private kategorieService: KategorieService, 
     private dienstService: DienstService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private authService: AuthService) {
     this.searchForm = this.formBuilder.group({
       searchInput: ''
     });
@@ -51,6 +53,10 @@ export class DiensteComponent implements OnInit {
       console.log(data);
       this.shownDienste = data;
     });
+  }
+
+  isTyp(typ: string) : boolean {
+    return this.authService.getNutzer().typ+"" == typ;
   }
 
   onKategorieSelected(kategorieID):void {

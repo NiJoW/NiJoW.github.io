@@ -61,7 +61,7 @@ export class BonusprogrammeComponent implements OnInit {
 
   suchen(searchData) {
     console.log(searchData.searchInput);
-    if(searchData.searchInput = "") {
+    if(searchData.searchInput === "") {
       this.bonusprogramme = this.bonusService.getBonusprogramme();
       this.bonusprogramme.subscribe(data => {
         console.log(data);

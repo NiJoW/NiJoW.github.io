@@ -37,9 +37,9 @@
         <h3><strong>TUGEND:</strong> {{tugend.name}}</h3>
         <h4>Deine Belohung sind {{tugend.wert}} Social Score Punkte!</h4>
         <h4>Beschreibung: {{tugend.beschreibung}}</h4>
-        <h4>Erstellt von: {{tugend.aeltersterName}}</h4>
+        <h4>Erstellt von: {{tugend.aeltesterName}}</h4>
       </div>
-      <div class="media-right">
+      <div *ngIf= "!isTyp('Aeltester')" class="media-right">
         <button class="button is-primary" (click)=planen(tugend.id_tugend)>Challenge annehmen</button>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Kategorie } from 'src/app/models/Kategorie';
 import { KategorieService } from '../../services/kategorie.service';
@@ -25,7 +26,8 @@ export class TugendenComponent implements OnInit {
     private tugendService: TugendService,
     private messageService: MessageService,
     //private notificationComponent: NotificationComponent,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private authService: AuthService) {
     this.searchForm = this.formBuilder.group({
       searchInput: ''
     });
@@ -48,6 +50,10 @@ export class TugendenComponent implements OnInit {
       console.log(data);
       this.shownTugenden = data;
     });
+  }
+
+  isTyp(typ: string) : boolean {
+    return this.authService.getNutzer().typ+"" == typ;
   }
 
   onKategorieSelected(kategorieID):void {

@@ -18,7 +18,7 @@ import {Dienst} from "../models/Dienst";
   private readonly tugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugend';
   private readonly tugendByIDUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugendByID';
   private readonly newTaetigkeitUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newTaetigkeit'; // (vorher planeTugendUrl)
-  private readonly tugendVonKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugenden';
+  private readonly tugendVonKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/kategorie/tugenden';
   private readonly tugendSuchUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugenden/suche';
   private readonly erfuellteTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erfuellte-tugenden';
   private readonly todoTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/todo-tugenden';
