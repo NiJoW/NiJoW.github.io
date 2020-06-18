@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { catchError, retry } from 'rxjs/operators';
 import {Dienst} from "../models/Dienst";
+import {Taetigkeit} from "../models/Taetigkeit";
 
 
 @Injectable({
@@ -21,7 +22,6 @@ import {Dienst} from "../models/Dienst";
   private readonly tugendVonKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/kategorie/tugenden';
   private readonly tugendSuchUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugenden/suche';
   private readonly erfuellteTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erfuellte-tugenden';
-  private readonly todoTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/todo-tugenden';
   // Aeltester
   private readonly createNewTugendUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newTugend';
   private readonly erstellteTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erstellte-tugenden';
@@ -55,11 +55,6 @@ import {Dienst} from "../models/Dienst";
         let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
           return this.http.get<Tugend[]>(this.erfuellteTugendenUrl, {params : buergerParams});
       }
-
-      getTodoTugenden(): Observable<Tugend[]> {
-        let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
-          return this.http.get<Tugend[]>(this.todoTugendenUrl, {params : buergerParams});
-     }
 
      getTugendVonKategorie(kategorieID: number): Observable<Tugend[]> {
       console.log('in service get Tugenden');

@@ -185,7 +185,7 @@ app.get('/bonusprogramme/nutzer', function(req, res) {
 
     app.get('/dashboard/todo-tugenden', function (req, res) {
       const buergerID = req.query.buergerID;
-      const sql = 'SELECT tu.name, tae.erfuellteWdh, tu.benoetigteWdh, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh<tu.benoetigteWdh AND tae.tugendhafterID=?';
+      const sql = 'SELECT tae.id_taetigkeit, tu.name AS tugend_name, tae.erfuellteWdh, tu.benoetigteWdh, tu.wert AS tugend_wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh<tu.benoetigteWdh AND tae.tugendhafterID=?';
       const value = [buergerID];
         pool.query(sql, value,
            function (error, results, fields) {
@@ -287,6 +287,21 @@ app.get('/bonusprogramme/nutzer', function(req, res) {
 
         });
     });
+
+
+    app.post('/dashboard/set-erfuellte-wdh-taetigkeit', function (req, res) {
+      const sql = "UPDATE taetigkeit SET erfuellteWdh=? WHERE id_taetigkeit=?";
+      const value = [req.body.erfuellteWdh, req.body.id_taetigkeit];
+      pool.query(sql, value,
+        function (error, results, fields) {
+
+          if (error) throw error;
+          res.send(results);
+
+        });
+    });
+
+
 
     //##################################Dienste##############################################
 
@@ -415,7 +430,7 @@ app.get('/bonusprogramme/nutzer', function(req, res) {
         });
     });
 
-    
+
 
     app.post('/newDienst', function (request, response) {
       console.log('request body: ');
@@ -439,7 +454,7 @@ app.get('/bonusprogramme/nutzer', function(req, res) {
     });
 
       app.put('/updateDienstvertrag', function (request, response) {
-  
+
         const dienstID = request.body.dienstID;
         const status = request.body.status;
         /* console.log('DIENSTVERTRAG: request body: ');
@@ -451,7 +466,7 @@ app.get('/bonusprogramme/nutzer', function(req, res) {
           function (error, results, fields) {
             if (error) throw error;
             response.send(results);
-  
+
           });
       });
 

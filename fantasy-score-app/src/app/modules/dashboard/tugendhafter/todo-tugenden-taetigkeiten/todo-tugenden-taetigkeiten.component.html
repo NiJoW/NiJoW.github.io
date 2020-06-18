@@ -1,0 +1,26 @@
+
+<div class="box">
+    <h2><strong>Todo - Tugenden</strong></h2>
+    <div class="content">
+        <table class='table is-striped'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Wert</th>
+                   <th>Erledigt</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let taetigkeit of Taetigkeiten | async">
+                    <td>{{taetigkeit.tugend_name}}</td>
+                    <td>{{taetigkeit.tugend_wert}}</td>
+                 <td>
+                    <input class="myCheckbox" *ngFor="let i of ArrDone(taetigkeit.erfuellteWdh).fill(1)" type="checkbox" checked="checked" disabled>
+                    <input class="myCheckbox" (change)="checkmarkTaetigkeitErfuellt($event, taetigkeit.id_taetigkeit, taetigkeit.erfuellteWdh)"
+                           *ngFor="let i of ArrDo(taetigkeit.benoetigteWdh - taetigkeit.erfuellteWdh).fill(1)" type="checkbox">
+                 </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
