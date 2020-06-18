@@ -37,6 +37,7 @@ import { MessageService } from './services/message.service';
 import {BearbeiteTugendComponent} from "./modules/dashboard/aeltester/erstellte-tugenden/bearbeite-tugend/bearbeite-tugend.component";
 import { DienstAnfragenComponent } from './modules/dashboard/tugendhafter/dienst-anfragen/dienst-anfragen.component';
 import { ListeAllerTugendhaftenComponent } from './modules/dashboard/aeltester/liste-aller-tugendhaften/liste-aller-tugendhaften.component';
+import { BonusprogrammBenachrichtigungenComponent } from './modules/dashboard/tugendhafter/bonusprogramm-benachrichtigungen/bonusprogramm-benachrichtigungen.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { ListeAllerTugendhaftenComponent } from './modules/dashboard/aeltester/l
     BearbeiteTugendComponent,
     BearbeiteTugendComponent,
     DienstAnfragenComponent,
-    ListeAllerTugendhaftenComponent
+    ListeAllerTugendhaftenComponent,
+    BonusprogrammBenachrichtigungenComponent
   ],
   imports: [
     BrowserModule,

@@ -147,6 +147,23 @@ app.get('/bonusprogramme/suche', function(req, res) {
   });
 });
 
+app.get('/bonusprogramme/nutzer', function(req, res) {
+  const buerger = req.query.buerger;
+  const sql = "SELECT distinct bo.id_bonusprogramm, bo.titel, bo.nachricht, k.bezeichnung AS kategorieName FROM bonusprogramm bo"
+  + " JOIN kategorie k ON k.id_kategorie = bo.kategorieID"
+  + " WHERE (SELECT sum(tu.wert) AS kategorieScore FROM taetigkeit tae"
+  + " JOIN tugend tu ON tae.tugendID = tu.id_tugend"
+  + " JOIN bonusprogramm b ON b.kategorieID = tu.kategorieID"
+  + " WHERE tu.kategorieID = b.kategorieID AND tae.tugendhafterID = ?"
+  + " AND tae.erfuellteWdh = tu.benoetigteWdh) >= bo.punkte_in_kategorie;";
+  const value = [buerger];
+  pool.query(sql, value, 
+    function(error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    })
+})
+
 
 
 //##################################Tugenden#############################################
