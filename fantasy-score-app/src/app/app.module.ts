@@ -19,7 +19,7 @@ import { BonusprogrammeComponent } from './modules/bonusprogramme/bonusprogramme
 import { BannerComponent } from './modules/banner/banner.component';
 import { BestenlisteComponent } from './modules/bestenliste/bestenliste.component';
 import { ErfuellteTugendenComponent } from './modules/dashboard/tugendhafter/erfuellte-tugenden/erfuellte-tugenden.component';
-import { TodoTugendenComponent } from './modules/dashboard/tugendhafter/todo-tugenden/todo-tugenden.component';
+import { TodoTugendenTaetigkeitenComponent } from './modules/dashboard/tugendhafter/todo-tugenden-taetigkeiten/todo-tugenden-taetigkeiten.component';
 import { ErstelleTugendComponent } from './modules/dashboard/aeltester/erstelle-tugend/erstelle-tugend.component';
 import { AuthService } from './services/auth.service';
 import { AnmeldenComponent } from './modules/anmelden/anmelden.component';
@@ -37,6 +37,7 @@ import { MessageService } from './services/message.service';
 import {BearbeiteTugendComponent} from "./modules/dashboard/aeltester/erstellte-tugenden/bearbeite-tugend/bearbeite-tugend.component";
 import { DienstAnfragenComponent } from './modules/dashboard/tugendhafter/dienst-anfragen/dienst-anfragen.component';
 import { ListeAllerTugendhaftenComponent } from './modules/dashboard/aeltester/liste-aller-tugendhaften/liste-aller-tugendhaften.component';
+import {DoUpdateService} from "./services/do-update.service";
 import { BonusprogrammBenachrichtigungenComponent } from './modules/dashboard/tugendhafter/bonusprogramm-benachrichtigungen/bonusprogramm-benachrichtigungen.component';
 
 
@@ -51,7 +52,7 @@ import { BonusprogrammBenachrichtigungenComponent } from './modules/dashboard/tu
     BannerComponent,
     BestenlisteComponent,
     ErfuellteTugendenComponent,
-    TodoTugendenComponent,
+    TodoTugendenTaetigkeitenComponent,
     ErstelleTugendComponent,
     AnmeldenComponent,
     RegistrierenComponent,
@@ -83,7 +84,8 @@ import { BonusprogrammBenachrichtigungenComponent } from './modules/dashboard/tu
   ],
   providers: [
     AuthService,
-    MessageService
+    MessageService,
+    DoUpdateService
   ],
   bootstrap: [AppComponent]
 })
