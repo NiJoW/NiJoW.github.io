@@ -22,17 +22,12 @@ export class NotificationComponent implements OnInit {
 
     this.notify = false;
 
-    if(this.message != undefined) {
-      console.log(this.message);
-      this.messageService.currentMessage.subscribe(_message => {
-        this.message = _message;
-        if(_message != "")
-          this.notify = true;
-      });
-    } else {
-      
-      console.log("message undefined");
-    }
+    console.log(this.message);
+    this.messageService.currentMessage.subscribe(_message => {
+      this.message = _message;
+      if(_message != "")
+        this.notify = true;
+    });
 
   }
 
