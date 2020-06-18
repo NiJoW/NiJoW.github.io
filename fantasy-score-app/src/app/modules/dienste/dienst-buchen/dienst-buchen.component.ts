@@ -54,11 +54,12 @@ export class DienstBuchenComponent implements OnInit {
       console.log("show Fehler");
     } else {
       this.newDienst = this.dienstService.createDiensvertrag(this.choosenDienst[0].id_dienstangebot, this.dienstForm.value.datum);
-      this.onClose.emit(null); 
-      this.messageService.setMessage("Der Dienst wurde deinem Dashboard hinzugefügt.");
-      /*this.newDienst.subscribe(data => {
+      
+      this.newDienst.subscribe(data => {
         console.dir(data);
-      });*/
+        this.onClose.emit(null); 
+        this.messageService.setMessage("Der Dienst wurde deinem Dashboard hinzugefügt.");
+      });
   
     }
   }

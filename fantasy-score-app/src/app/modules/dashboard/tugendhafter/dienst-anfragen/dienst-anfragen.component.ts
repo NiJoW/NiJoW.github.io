@@ -30,7 +30,7 @@ export class DienstAnfragenComponent implements OnInit {
 
   antragAnnehmen(dienstID:number) {
     console.log("Dienst: " + dienstID + " annehmen!");
-    this.dienstObservable = this.dienstService.bestaetigeVertrag(dienstID);
+    this.dienstObservable = this.dienstService.bestaetigeVertrag(dienstID, 'bestätigt');
     this.dienstObservable.subscribe(data => {
       console.dir(data);
       window.location.reload(); //TODO: find ich nicht so gut
@@ -39,6 +39,11 @@ export class DienstAnfragenComponent implements OnInit {
 
   antragAblehnen(dienstID:number) {
     console.log("Dienst: " + dienstID + " ablehnen!");
+    this.dienstObservable = this.dienstService.bestaetigeVertrag(dienstID, 'abgelehnt');
+    this.dienstObservable.subscribe(data => {
+      console.dir(data);
+      window.location.reload(); //TODO: find ich nicht so gut
+    })
     //TODO: status als ablehnen setzten oder löschen? -> brauch man das den noch?
     //TODO: message schließen
   }
