@@ -29,6 +29,9 @@ export class NotificationComponent implements OnInit {
         if(_message != "")
           this.notify = true;
       });
+    } else {
+      
+      console.log("message undefined");
     }
 
   }
