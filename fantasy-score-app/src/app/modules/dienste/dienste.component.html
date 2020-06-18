@@ -36,7 +36,7 @@
         <h4>Angeboten von: {{dienst.tugendhafterName}}</h4>
         <h4>Beschreibung: {{dienst.beschreibung}}</h4>
       </div>
-      <div class="media-right">
+      <div *ngIf= "!isTyp('Aeltester')" class="media-right">
         <button class="button is-primary" (click)=buchen(dienst.id_dienstangebot)>Buchen</button> 
       </div>
     </div>

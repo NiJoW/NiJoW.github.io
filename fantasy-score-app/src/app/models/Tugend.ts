@@ -9,7 +9,7 @@ export class Tugend{
     erfuellteWdh: number;
     kategorieTitel: string;
     kategorieID: number;
-    aeltersterName: string;
+    aeltesterName: string;
 
   constructor(name: string, beschreibung: string, wert: number, benoetigteWdh: number,
               aeltesterID: number, kategorieID: number) {

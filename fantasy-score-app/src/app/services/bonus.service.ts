@@ -32,6 +32,7 @@ import { Bonusprogramm } from '../models/Bonusprogramm';
     }
 
     getBonusprogrammeLike(searchInput: string): Observable<Bonusprogramm[]> {
+        console.log(searchInput);
         let searchParams = new HttpParams().set("suche", searchInput);
         return this.http.get<Bonusprogramm[]>(this.bonusSearchUrl, {params: searchParams});
     }
