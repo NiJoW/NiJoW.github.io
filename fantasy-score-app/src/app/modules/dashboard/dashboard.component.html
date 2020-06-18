@@ -12,29 +12,32 @@ Test Observer
 
   <app-dienst-anfragen class="section" *ngIf="hatAngefragteDienste" [angefragteDienste] = angefragteDiensteObservable></app-dienst-anfragen>
 
-  <div class="section">
-    <div class="contentTabs">
-      <a class="button is-primary leftButton" (click)="changeType('tugenden')">Tugenden</a>
-      <a class="button is-danger rightButton" (click)="changeType('dienste')">Dienste</a>
+  <div class="tabs is-boxed is-centered is-medium">
+    <ul>
+      <li [ngClass]="{'is-active' : type == 'tugenden'}">
+        <a (click)="changeType('tugenden')">Tugenden</a>
+      </li>
+      <li [ngClass]="{'is-active' : type == 'dienste'}">
+        <a (click)="changeType('dienste')">Dienste</a>
+      </li>
+    </ul>
+  </div>
+
+  <div>
+    <div *ngIf="type === 'tugenden'">
+      <app-todo-tugenden></app-todo-tugenden>
+      <app-erfuellte-tugenden></app-erfuellte-tugenden>
     </div>
-
-    <div class="seperator"></div>
-
-    <div>
-      <div *ngIf="type === 'tugenden'">
-        <app-todo-tugenden></app-todo-tugenden>
-        <app-erfuellte-tugenden></app-erfuellte-tugenden>
-      </div>
-      <div *ngIf="type === 'dienste'">
-        <app-angebotene-dienste></app-angebotene-dienste>
-        <app-geplante-dienste></app-geplante-dienste>
-        <app-erledigte-dienste></app-erledigte-dienste>
-        <app-gebuchte-dienste></app-gebuchte-dienste>
-        <app-angefragte-dienste></app-angefragte-dienste>
-      </div>
+    <div *ngIf="type === 'dienste'">
+      <app-angebotene-dienste></app-angebotene-dienste>
+      <app-geplante-dienste></app-geplante-dienste>
+      <app-erledigte-dienste></app-erledigte-dienste>
+      <app-gebuchte-dienste></app-gebuchte-dienste>
+      <app-angefragte-dienste></app-angefragte-dienste>
     </div>
   </div>
 </div>
+
 
 <div *ngIf= "isTyp('Suchender')">
   <button class="button is-danger unlock" (click)="unlockTugendhafter()">Schalte jetzt deinen inneren Tugendhaften frei!</button>
