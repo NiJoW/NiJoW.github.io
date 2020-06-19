@@ -349,7 +349,9 @@ app.post('/newBonusprogramm', function (request, response) {
 
       app.get('/dashboard/angebotene-dienste', function (req, res) {
         const buergerID = req.query.buergerID;
+        
         const sql = 'SELECT da.id_dienstangebot, da.name, da.beschreibung, k.bezeichnung AS kategorieTitel FROM dienstangebot da, kategorie k WHERE da.tugendhafterID = ? AND k.id_kategorie = da.kategorieID';
+
         const value = [buergerID];
           pool.query(sql, value,
             function (error, results, fields) {
@@ -375,7 +377,7 @@ app.post('/newBonusprogramm', function (request, response) {
 
     app.get('/dashboard/geplante-dienste', function (req, res) {
       const buergerID = req.query.buergerID;
-      const sql = 'SELECT da.name, b.benutzername AS suchenderName, dv.datum, da.beschreibung FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = ? AND dv.datum < ? ';
+      const sql = 'SELECT da.name, b.benutzername AS suchenderName, dv.datum, da.beschreibung, dv.id_dienstvertrag FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = ? AND dv.datum < ? ';
       const value = [buergerID, date+""];
       pool.query(sql, value,
          function (error, results, fields) {
