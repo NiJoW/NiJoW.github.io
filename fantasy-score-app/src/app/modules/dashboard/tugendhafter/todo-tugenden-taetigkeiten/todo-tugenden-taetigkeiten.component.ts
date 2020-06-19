@@ -1,3 +1,4 @@
+import { faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,6 +13,9 @@ import {DoUpdateService} from "../../../../services/do-update.service";
   styleUrls: ['./todo-tugenden-taetigkeiten.component.css']
 })
 export class TodoTugendenTaetigkeitenComponent implements OnInit {
+
+  editIcon = faPencilAlt;
+  createIcon = faPlus;
 
   constructor( //private tugendService: TugendService,
               private taetigkeitService: TaetigkeitService,
