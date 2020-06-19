@@ -1,3 +1,5 @@
+import { Bonusprogramm } from './../../../../models/Bonusprogramm';
+import { faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 import { Bonuseintrag } from '../../../../models/Bonuseintrag';
 import { BonusService } from '../../../../services/bonus.service';
@@ -10,11 +12,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErstellteBonusprogrammeComponent implements OnInit {
 
+  eigeneErstellteBonusprogramme: Observable<Bonusprogramm[]>;
+  editIcon = faPencilAlt;
+  createIcon = faPlus;
+
+  zeigeBearbeitenOverlay = false;
+  zeigeErstellenOverlay = false;
+  chosenBonusprogramm: Bonusprogramm;
+  bonusprogrammObservable : Observable<Bonusprogramm>;
+
   constructor(private bonusService: BonusService) { }
 
   erstellteBonusprogramme: Observable<Bonuseintrag[]>;
 
   ngOnInit(): void {
+    this.getEigeneErstellteBonusprogramme();
     this.erstellteBonusprogramme = this.bonusService.getErstellteBonusprogramme();
 
     this.erstellteBonusprogramme.subscribe(data => {
@@ -22,5 +34,33 @@ export class ErstellteBonusprogrammeComponent implements OnInit {
       console.log(this.erstellteBonusprogramme);
   }
 
+  bearbeiten(bonusprogrammID) {
+    console.log("Nutzer will das Bonusprog. " + bonusprogrammID)+ " bearbeiten";
+    this.bonusprogrammObservable = this.bonusService.getBonusprogrammByID(bonusprogrammID);
+    this.bonusprogrammObservable.subscribe(data => {
+      this.chosenBonusprogramm = data;
+      console.dir(this.chosenBonusprogramm);
+      this.zeigeBearbeitenOverlay = true;
+    });
+  }
+
+  neuesBonusprgrammErstellen(){
+    this.zeigeErstellenOverlay = true;
+  }
+
+  private getEigeneErstellteBonusprogramme() {
+    this.eigeneErstellteBonusprogramme = this.bonusService.getSelbstErstellteBonusprogramme();
+
+    this.eigeneErstellteBonusprogramme.subscribe(data => {
+      console.log('Bonusprogramm aus DB in Componente:');
+      console.log(data);
+    });
+  }
+
+  updateBonusprogrammeOnEvent(){
+    this.zeigeBearbeitenOverlay = false;
+    this.zeigeErstellenOverlay = false;
+    this.getEigeneErstellteBonusprogramme();
+  }
 
 }

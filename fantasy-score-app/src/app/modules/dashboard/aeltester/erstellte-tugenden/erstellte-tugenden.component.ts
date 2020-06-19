@@ -36,7 +36,7 @@ export class ErstellteTugendenComponent implements OnInit {
       this.chosenTugend = data;
       console.dir(this.chosenTugend);
       this.zeigeBearbeitenOverlay = true;
-    })
+    });
   }
 
   neueTugendErstellen(){

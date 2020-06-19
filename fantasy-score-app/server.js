@@ -162,9 +162,51 @@ app.get('/bonusprogramme/nutzer', function(req, res) {
     function(error, results, fields) {
       if (error) throw error;
       res.send(results);
-    })
-})
+    });
+});
 
+
+app.get('/bonusByID', function (req, res) {
+  const bonusprogrammID = req.query.bonusprogrammID;
+  const sql = 'SELECT b.id_bonusprogramm, b.titel, b.nachricht, b.frist, b.kategorieID, k.bezeichnung FROM bonusprogramm b  JOIN kategorie k ON b.kategorieID = k.id_kategorie WHERE id_bonusprogramm = ?';
+  const value = [bonusprogrammID];
+  pool.query(sql, value,
+    function (error, results, fields) {
+          if (error) throw error;
+          res.send(results);
+  });
+});
+
+
+app.put('/dashboard/bearbeite-bonusprogramm', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+
+  const sql = " UPDATE bonusprogramm SET titel=?,  nachricht=?, wert=?, frist=?, punkte_in_kategorie=?, kategorieID=? WHERE id_bonusprogramm = ?;";
+  const values = [request.body.titel, request.body.nachricht, request.body.frist, request.body.punkte_in_kategorie, request.body.kategorieID, request.body.id_bonusprogramm];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+
+    });
+});
+
+
+app.post('/newBonusprogramm', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+
+  const sql = "INSERT INTO bonusprogramm (titel, nachricht, frist, punkte_in_kategorie, aeltesterID, kategorieID) " +
+    "VALUES (?, ?, ?, ?, ?, ?)";
+  const values = [request.body.titel, request.body.nachricht, request.body.frist, request.body.punkte_in_kategorie, request.body.aeltesterID, request.body.kategorieID];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+
+    });
+});
 
 
 //##################################Tugenden#############################################
