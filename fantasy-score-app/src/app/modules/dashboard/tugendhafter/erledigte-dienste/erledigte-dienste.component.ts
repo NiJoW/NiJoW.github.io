@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { DienstService } from '../../../../services/dienst.service';
 import { Dienst } from '../../../../models/Dienst';
 import { Component, OnInit } from '@angular/core';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-erledigte-dienste',
@@ -13,7 +14,8 @@ export class ErledigteDiensteComponent implements OnInit {
   constructor(private dienstService: DienstService) { }
 
   erledigteDienste: Observable<Dienst[]>;
-  longFormat: boolean;
+  moreIcon = faAngleDown;
+  id: number;
 
   ngOnInit(): void {
     this.erledigteDienste = this.dienstService.getErledigteDienste();
@@ -21,14 +23,14 @@ export class ErledigteDiensteComponent implements OnInit {
     this.erledigteDienste.subscribe(data => {
       console.log(data);});
       console.log(this.erledigteDienste);
-      this.longFormat = false;
     }
   
-    changeFormat(): void {
-      this.longFormat = !this.longFormat;
-    }
-  
-    isLongFormat(): boolean {
-      return this.longFormat;
+    changeFormat(id: number): void {
+      console.log(id);
+      if(id == this.id) {
+        this.id = -1;
+      } else {
+        this.id = id;
+      }
     }
 }

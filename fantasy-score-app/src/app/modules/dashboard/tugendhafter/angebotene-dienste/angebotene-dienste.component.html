@@ -1,5 +1,4 @@
 <p class="title is-4">Meine angebotenen Dienste</p>
- <!-- <a class="button is-info" (click)="changeFormat()">Beschreibungen anzeigen</a> -->
 <div *ngFor="let dienst of angeboteneDienste | async">
  <div class="card">
    <header class="card-header">
@@ -13,12 +12,13 @@
        {{dienst.beschreibung}}
      </div>
      <footer class="card-footer">
-          <button class="button is-primary card-footer-item is-outlined"
+          <button class="button left is-primary card-footer-item is-outlined"
             (click)=bearbeiten(dienst.id_dienstangebot)>
             <fa-icon [icon]="editIcon"></fa-icon>
           </button>
-       
-       <a class="card-footer-item">Löschen</a>
+          <button class="button right is-danger card-footer-item is-outlined">
+            <fa-icon [icon]="deleteIcon"></fa-icon>
+          </button>
      </footer>
    </div>
  </div>
@@ -28,6 +28,8 @@
  <button class="button is-primary "  (click)=neuenDienstErstellen()>
   <fa-icon [icon]="createIcon"></fa-icon> &nbsp; Neuen Dienst erstellen
 </button>
+
+<div *ngIf="isEmpthy" class="has-text-danger">Noch keine Dienste vorhanden.</div>
 
 <app-bearbeite-dienst [chosenDienst]="chosenDienst" *ngIf="zeigeBearbeitenOverlay" (onCloseEvent)="updateDiensteOnEvent()"></app-bearbeite-dienst>
 <app-erstelle-dienst *ngIf="zeigeErstellenOverlay" (onCloseEvent)="updateDiensteOnEvent()"></app-erstelle-dienst>

@@ -1,21 +1,22 @@
-<div class="box">
-    <h2><strong>Meine angefragten Dienste</strong></h2>
-    <a class="button is-info" (click)="changeFormat()">Informationen anzeigen</a>
-    <div class="content">
-        <div *ngFor="let dienst of angefragteDienste | async">
-        <div class="section is-paddingless-horizontal container-grid" style="padding: 10px 0 10px 0;">
-          <div class="notification media">
-            <div class="media-content">
-              <h3>{{dienst.name}}</h3>
-              <div *ngIf= "isLongFormat()">
-                <h4>{{dienst.beschreibung}}</h4>
-                <h4>angefragt bei: <strong>{{dienst.tugendhafterName}}</strong>
-                <br>
-                für den: <strong>{{dienst.datum | date}}</strong></h4>
-            </div>
-            </div>
-          </div>
-        </div>
+<p class="title is-4">Meine angefragten Dienste</p>
+<div *ngFor="let dienst of angefragteDienste | async">
+ <div class="card">
+   <header class="card-header">
+     <p class="card-header-title">{{dienst.name}}</p>
+     <a class="card-header-icon" aria-label="more options" (click)="changeFormat(dienst.id_dienstvertrag)">
+       <fa-icon [icon]="moreIcon"></fa-icon>
+     </a>
+   </header>
+   <div *ngIf="dienst.id_dienstvertrag === id">
+      <div class="card-content">
+          <p>{{dienst.beschreibung}}</p>
+          <p>angefragt bei: <strong>{{dienst.tugendhafterName}}</strong>
+          <br>
+          für den: <strong>{{dienst.datum | date}}</strong></p>
       </div>
     </div>
   </div>
+  <br>
+</div>
+
+<div *ngIf="isEmpthy" class="has-text-danger">Noch keine Dienste vorhanden.</div>

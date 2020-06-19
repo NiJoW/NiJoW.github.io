@@ -1,4 +1,4 @@
-import { faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faPlus, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit } from '@angular/core';
 import { DienstService } from '../../../../services/dienst.service';
 import { Dienst } from '../../../../models/Dienst';
@@ -14,26 +14,33 @@ export class GebuchteDiensteComponent implements OnInit {
 
   editIcon = faPencilAlt;
   createIcon = faPlus;
+  moreIcon = faAngleDown;
+  id: number;
+  isEmpthy: boolean;
 
   constructor(private dienstService: DienstService) { }
 
   gebuchteDienste: Observable<Dienst[]>;
-  longFormat: boolean;
 
   ngOnInit(): void {
     this.gebuchteDienste = this.dienstService.getGebuchteDienste();
 
     this.gebuchteDienste.subscribe(data => {
+      if(data.length == 0) {
+        this.isEmpthy = true;
+        return;
+      }
       console.log(data);});
       console.log(this.gebuchteDienste);
-      this.longFormat = false;
     }
     
-    changeFormat(): void {
-      this.longFormat = !this.longFormat;
+    changeFormat(id: number): void {
+      console.log(id);
+      if(id == this.id) {
+        this.id = -1;
+      } else {
+        this.id = id;
+      }
     }
-    
-    isLongFormat(): boolean {
-      return this.longFormat;
-    }
+
 }

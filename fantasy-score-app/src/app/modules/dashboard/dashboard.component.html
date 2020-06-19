@@ -25,8 +25,8 @@ Test Observer
 
   <div>
     <div *ngIf="type === 'tugenden'">
-      <app-todo-tugenden-taetigkeiten></app-todo-tugenden-taetigkeiten>
-      <app-erfuellte-tugenden></app-erfuellte-tugenden>
+      <div class="section"><app-todo-tugenden-taetigkeiten></app-todo-tugenden-taetigkeiten></div>
+      <div class="section"><app-erfuellte-tugenden></app-erfuellte-tugenden></div>
     </div>
     <div *ngIf="type === 'dienste'">
       <div class="section"><app-angebotene-dienste></app-angebotene-dienste></div>
@@ -41,13 +41,13 @@ Test Observer
 
 <div *ngIf= "isTyp('Suchender')">
   <button class="button is-danger unlock" (click)="unlockTugendhafter()">Schalte jetzt deinen inneren Tugendhaften frei!</button>
-  <app-gebuchte-dienste></app-gebuchte-dienste>
-  <app-angefragte-dienste></app-angefragte-dienste>
+  <div class="section"><app-gebuchte-dienste></app-gebuchte-dienste></div>  
+  <div class="section"><app-angefragte-dienste></app-angefragte-dienste></div>  
 </div>
 <div *ngIf= "isTyp('Aeltester')" class="section">
-  <!--- <app-erstelle-tugend></app-erstelle-tugend> --->
-  <app-erstellte-bonusprogramme></app-erstellte-bonusprogramme>
-  <app-erstellte-tugenden></app-erstellte-tugenden>
-  <app-liste-aller-tugendhaften></app-liste-aller-tugendhaften>
+  <!--- <app-erstelle-tugend></app-erstelle-tugend> --->  
+  <div class="section"><app-erstellte-bonusprogramme></app-erstellte-bonusprogramme></div>  
+  <div class="section"><app-erstellte-tugenden></app-erstellte-tugenden></div>
+  <div class="section"><app-liste-aller-tugendhaften></app-liste-aller-tugendhaften></div>
 </div>
 

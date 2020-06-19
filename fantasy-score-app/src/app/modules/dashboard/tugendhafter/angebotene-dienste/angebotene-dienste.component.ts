@@ -2,8 +2,7 @@ import { Observable } from 'rxjs';
 import { DienstService } from '../../../../services/dienst.service';
 import { Dienst } from '../../../../models/Dienst';
 import { Component, OnInit } from '@angular/core';
-import { faAngleDown, faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { faAngleUp, faAngleDown, faPencilAlt, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-angebotene-dienste',
@@ -15,6 +14,7 @@ export class AngeboteneDiensteComponent implements OnInit {
   erstellteDienste: Observable<Dienst[]>;
   editIcon = faPencilAlt;
   createIcon = faPlus;
+  deleteIcon = faTrash;
 
   zeigeBearbeitenOverlay = false;
   zeigeErstellenOverlay = false;
@@ -27,13 +27,18 @@ export class AngeboteneDiensteComponent implements OnInit {
   longFormat: boolean;
   moreIcon = faAngleDown;
   id: number;
+  isEmpthy: boolean;
 
   ngOnInit(): void {
     this.getEigeneErstellteDienste();
     this.angeboteneDienste = this.dienstService.getAngeboteneDienste();
-
     this.angeboteneDienste.subscribe(data => {
-      console.log(data);});
+      if(data.length==0) {
+        this.isEmpthy = true;
+        return;
+      }
+      console.log(data);
+    });
       console.log(this.angeboteneDienste);
       this.longFormat = false;
   }
@@ -45,10 +50,6 @@ export class AngeboteneDiensteComponent implements OnInit {
     } else {
       this.id = id;
     }
-  }
-
-  isLongFormat(): boolean {
-    return this.longFormat;
   }
 
   bearbeiten(dienstID) {
