@@ -307,7 +307,7 @@ app.get('/bonusprogramme/nutzer', function(req, res) {
 
       app.get('/dashboard/angebotene-dienste', function (req, res) {
         const buergerID = req.query.buergerID;
-        const sql = 'SELECT da.name, da.beschreibung FROM dienstangebot da WHERE da.tugendhafterID = ?';
+        const sql = 'SELECT da.id_dienstangebot, da.name, da.beschreibung, k.bezeichnung AS kategorieTitel FROM dienstangebot da, kategorie k WHERE da.tugendhafterID = ? AND k.id_kategorie = da.kategorieID';
         const value = [buergerID];
           pool.query(sql, value,
             function (error, results, fields) {
@@ -432,7 +432,7 @@ app.get('/bonusprogramme/nutzer', function(req, res) {
 
 
 
-    app.post('/newDienst', function (request, response) {
+    app.post('/newDienstVertrag', function (request, response) {
       console.log('request body: ');
       console.dir(request.body);
 
@@ -469,6 +469,39 @@ app.get('/bonusprogramme/nutzer', function(req, res) {
 
           });
       });
+
+
+      app.post('/newDienst', function (request, response) {
+        console.log('request body: ');
+        console.dir(request.body);
+  
+        const sql = "INSERT INTO dienstangebot (name, beschreibung, tugendhafterID, kategorieID) " +
+          "VALUES (?, ?, ?, ?)";
+        const values = [request.body.name, request.body.beschreibung, request.body.tugendhafterID, request.body.kategorieID];
+        pool.query( sql, values,
+          function (error, results, fields) {
+            if (error) throw error;
+            response.send(results);
+  
+          });
+      });
+
+    app.put('/dashboard/bearbeite-dienst', function (request, response) {
+      console.log('request body: ');
+      console.dir(request.body);
+
+      const sql = " UPDATE dienstangebot SET name=?, beschreibung=?, kategorieID=? WHERE id_dienstangebot=?;";
+      const values = [request.body.name, request.body.beschreibung, request.body.kategorieID, request.body.id_dienstangebot];
+
+      pool.query( sql, values,
+        function (error, results, fields) {
+          if (error) throw error;
+          response.send(results);
+
+        });
+    });
+
+
 
 
           // bearbeite bestehende Tugend (nicht Tätigkeit) anlegen

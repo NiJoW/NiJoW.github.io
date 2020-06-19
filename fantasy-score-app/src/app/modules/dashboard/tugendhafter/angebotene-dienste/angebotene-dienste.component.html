@@ -1,6 +1,7 @@
 
+<!--
+
 <p class="title is-4">Meine angebotenen Dienste</p>
-<!-- <a class="button is-info" (click)="changeFormat()">Beschreibungen anzeigen</a> -->
 <div class="card" *ngFor="let dienst of angeboteneDienste | async">
   <header class="card-header">
     <p class="card-header-title">{{dienst.name}}</p>
@@ -18,3 +19,40 @@
     </footer>
   </div>
 </div>
+
+-->
+
+<h3>Meine angebotenen Dienste</h3>
+<table class='table'>
+  <thead>
+  <tr>
+    <th>Kategorie</th>
+    <th>Titel</th>
+    <th>Beschreibung</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let dienst of angeboteneDienste | async">
+    <td>{{dienst.kategorieTitel}}</td>
+    <td>{{dienst.name}}</td>
+    <td>{{dienst.beschreibung}}</td>
+    <td> <button class="button is-primary  is-outlined"
+                 (click)=bearbeiten(dienst.id_dienstangebot)
+        >
+      <fa-icon [icon]="editIcon"></fa-icon>
+    </button>
+
+
+
+    </td>
+  </tr>
+  </tbody>
+</table>
+<button class="button is-primary "  (click)=neuenDienstErstellen()>
+  <fa-icon [icon]="createIcon"></fa-icon> &nbsp; Neuen Dienst erstellen
+</button>
+<br>
+<br>
+<app-bearbeite-dienst [chosenDienst]="chosenDienst" *ngIf="zeigeBearbeitenOverlay" (onCloseEvent)="updateDiensteOnEvent()"></app-bearbeite-dienst>
+<app-erstelle-dienst *ngIf="zeigeErstellenOverlay" (onCloseEvent)="updateDiensteOnEvent()"></app-erstelle-dienst>
+

@@ -33,6 +33,6 @@
 </button>
 <br>
 <br>
-<app-bearbeite-tugend [choosenTugend]="choosenTugend" *ngIf="zeigeBearbeitenOverlay" (onCloseEvent)="updateTugendenOnEvent()"></app-bearbeite-tugend>
+<app-bearbeite-tugend [chosenTugend]="chosenTugend" *ngIf="zeigeBearbeitenOverlay" (onCloseEvent)="updateTugendenOnEvent()"></app-bearbeite-tugend>
 <app-erstelle-tugend *ngIf="zeigeErstellenOverlay" (onCloseEvent)="updateTugendenOnEvent()"></app-erstelle-tugend>
 

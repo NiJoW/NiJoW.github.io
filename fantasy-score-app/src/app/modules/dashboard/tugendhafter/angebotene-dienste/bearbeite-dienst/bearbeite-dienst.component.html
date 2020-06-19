@@ -1,0 +1,37 @@
+
+<div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Dienst bearbeiten:</p>
+        <button class="delete" aria-label="close" (click)="cancel()"></button>
+      </header>
+      <form [formGroup]="bearbeiteDienstForm" (ngSubmit)="speichern(bearbeiteDienstForm.value)">
+        <section class="modal-card-body">
+  
+          <label for="kategorie">Kategorie:</label> &nbsp;
+  
+          <select  id="kategorie"  formControlName="kategorie">
+            <option  *ngFor="let kategorie of kategorien | async" value="{{ kategorie.id_kategorie }}">
+              {{ kategorie.bezeichnung }}
+            </option>
+          </select>
+  
+          <br><br>
+  
+          <label for="titel_neuer_dienst">Titel:</label> &nbsp;
+          <input id="titel_neuer_dienst"  type="text" formControlName="titel">
+          <br><br>
+  
+          <label for="beschreibung_neuer_dienst">Beschreibung:</label> &nbsp;
+          <input id="beschreibung_neuer_dienst" type="text" formControlName="beschreibung">
+  
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" type="submit">Speichern</button>
+          <button class="button is-danger" type="reset" (click)="cancel()">Abbrechen</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+  

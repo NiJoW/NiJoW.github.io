@@ -1,6 +1,6 @@
+import { APIConfig } from './../../APIconfig';
 import { Dienst } from './../models/Dienst';
 import { AuthService } from './auth.service';
-import { APIConfig } from '../../APIconfig';
 import { HttpClient , HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -21,9 +21,11 @@ import { Injectable } from '@angular/core';
       private readonly angefragteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/angefragte-dienste';
       private readonly diensteInKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/kategorie/dienste';
       private readonly dienstSuchUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dienste/suche';
-      private readonly newDienstUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newDienst';
+      private readonly newDienstVertragUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newDienstVertrag';
       private readonly angefragenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/anfragenAnTugendhafter';
       private readonly updateVertragsUrl = APIConfig.URL + ':' + APIConfig.PORT + '/updateDienstvertrag';
+      private readonly createNewDienstUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newDienst';
+      private readonly updateDienstUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/bearbeite-dienst';
 
       getDienste(): Observable<Dienst[]> {
         return this.http.get<Dienst[]>(this.diensteUrl);
@@ -83,13 +85,37 @@ import { Injectable } from '@angular/core';
       }
 
       createDiensvertrag(dienstID: number, datum: Date): Observable<Dienst> {
-        return this.http.post<Dienst>(this.newDienstUrl,
+        return this.http.post<Dienst>(this.newDienstVertragUrl,
           {
             "dienstID" : dienstID,
             "suchenderID" : this.authService.getNutzer().id_buerger,
             "datum": datum
           });
       }
+
+      addDienst(dienst: Dienst): Observable<Dienst> {
+        return this.http.post<Dienst>(this.createNewDienstUrl,
+          {
+            "name": dienst.name,
+            "beschreibung": dienst.beschreibung,
+            "tugendhafterID": dienst.tugendhafterID,
+            "kategorieID": dienst.kategorieID
+          });
+      }
+
+
+      updateDienst(dienst: Dienst): Observable<Dienst>
+      {
+        console.log(dienst.name, dienst.beschreibung, dienst.kategorieID, dienst.id_dienstangebot);
+        return this.http.put<Dienst>(this.updateDienstUrl,
+          {
+            "name" : dienst.name,
+            "beschreibung" : dienst.beschreibung,
+            "kategorieID": dienst.kategorieID,
+            "id_dienstangebot": dienst.id_dienstangebot
+          });
+      }
+
     }
 
     

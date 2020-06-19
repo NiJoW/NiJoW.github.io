@@ -36,7 +36,7 @@ export class TugendenComponent implements OnInit {
   kategorienListe: Observable<Kategorie[]>;
   tugenden: Observable<Tugend[]>;
   shownTugenden: Tugend[];
-  choosenTugend: Observable<Tugend>;
+  chosenTugend: Observable<Tugend>;
 
   ngOnInit(): void {
     this.kategorienListe = this.kategorieService.getKategorien();
@@ -86,8 +86,8 @@ export class TugendenComponent implements OnInit {
   
 planen(tugendId: number) {
   console.log("Nutzer will Tugend mit Id: " + tugendId + " planen.");
-  this.choosenTugend = this.tugendService.planeTugend(tugendId);
-  this.choosenTugend.subscribe(data => {
+  this.chosenTugend = this.tugendService.planeTugend(tugendId);
+  this.chosenTugend.subscribe(data => {
     console.log(data);
     this.messageService.setMessage("Die Tugend wurde deinem Dashboard hinzugefügt.");
     //this.notification.showNotification("Die Tugend wurde deinem Dashboard hinzugefügt.");

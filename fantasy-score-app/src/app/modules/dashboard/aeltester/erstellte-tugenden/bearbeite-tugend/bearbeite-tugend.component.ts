@@ -19,7 +19,7 @@ export class BearbeiteTugendComponent implements OnInit {
   tugend: Tugend;
   fehler = false;
   kategorien: Observable<Kategorie[]>;
-  @Input() choosenTugend: Tugend;
+  @Input() chosenTugend: Tugend;
   @Output() onCloseEvent = new EventEmitter();
 
   constructor(private messageService: MessageService,
@@ -30,8 +30,8 @@ export class BearbeiteTugendComponent implements OnInit {
 
   ngOnInit(): void {
     this.getKategorien();
-    console.log(this.choosenTugend);
-    this.tugend = this.choosenTugend[0];
+    console.log(this.chosenTugend);
+    this.tugend = this.chosenTugend[0];
 
     this.bearbeiteTugendForm = this.formBuilder.group({
       kategorie: this.tugend.kategorieID,
