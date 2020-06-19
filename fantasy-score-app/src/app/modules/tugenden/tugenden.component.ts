@@ -9,6 +9,8 @@ import { Tugend } from 'src/app/models/Tugend';
 import { TugendService } from 'src/app/services/tugend.service';
 import { NotificationComponent } from '../notification/notification.component';
 import { MessageService } from 'src/app/services/message.service';
+import { TaetigkeitService } from 'src/app/services/taetigkeit.service';
+import { Taetigkeit } from 'src/app/models/Taetigkeit';
 
 @Component({
   selector: 'app-tugenden',
@@ -21,13 +23,15 @@ export class TugendenComponent implements OnInit {
   kategorieID: number;
   searchInput: string;
   searchText;
+  taetigkeitPruefen: Observable<Taetigkeit[]>;
 
   constructor(private kategorieService: KategorieService, 
     private tugendService: TugendService,
     private messageService: MessageService,
     //private notificationComponent: NotificationComponent,
     private formBuilder: FormBuilder,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private taetigkeitService: TaetigkeitService) {
     this.searchForm = this.formBuilder.group({
       searchInput: ''
     });
@@ -84,17 +88,22 @@ export class TugendenComponent implements OnInit {
   
 
   
-planen(tugendId: number) {
-  console.log("Nutzer will Tugend mit Id: " + tugendId + " planen.");
-  this.chosenTugend = this.tugendService.planeTugend(tugendId);
-  this.chosenTugend.subscribe(data => {
-    console.log(data);
-    this.messageService.setMessage("Die Tugend wurde deinem Dashboard hinzugefügt.");
-    //this.notification.showNotification("Die Tugend wurde deinem Dashboard hinzugefügt.");
-  });
-  
-  //openDashboard();
-}
+  planen(tugendId: number) {
+    console.log("Nutzer will Tugend mit Id: " + tugendId + " planen.");
+    this.taetigkeitPruefen = this.taetigkeitService.getTaetigkeitByTugendIdVonNutzer(tugendId);
+    this.taetigkeitPruefen.subscribe(data => {
+      console.log(data);
+      if(data.length != 0) {
+        this.chosenTugend = this.tugendService.planeTugend(tugendId);
+        this.chosenTugend.subscribe(data => {
+          console.log(data);
+          this.messageService.setMessage("Die Tugend wurde deinem Dashboard hinzugefügt.");
+        });
+      } else {
+        this.messageService.setMessage("Die Tugend ist bereits in deinem Dashboard.");
+      }
+    });    
+  }
 }
 
 

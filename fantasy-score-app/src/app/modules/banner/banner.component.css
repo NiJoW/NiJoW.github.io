@@ -3,3 +3,11 @@
     width: 100%;
     background-color: lightgoldenrodyellow;
 }
+
+.is-overlay {
+    position: fixed;
+    top: 8%;
+    bottom: 85%;
+    left: 60%;
+    z-index: 1;
+}

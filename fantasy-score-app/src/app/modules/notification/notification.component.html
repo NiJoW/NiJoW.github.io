@@ -1,8 +1,13 @@
 
+    <div *ngIf="notifySuccess" class="notification is-success is-message">
+        <button class="delete" (click)="hideNotification()"></button>
+        {{ message }}
+    </div>
 
-<div *ngIf="notify" class="notification is-success is-message">
-    <button class="delete" (click)="hideNotification()"></button>
-    {{ message }}
-</div>
+    <div *ngIf="notifyDanger" class="notification is-danger is-message">
+        <button class="delete" (click)="hideNotification()"></button>
+        {{ message }}
+    </div>
+
 
 

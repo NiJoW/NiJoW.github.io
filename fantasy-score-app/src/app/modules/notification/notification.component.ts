@@ -10,7 +10,8 @@ import { EventEmitter } from 'events';
 export class NotificationComponent implements OnInit {
 
   message: string;
-  notify: boolean;
+  notifySuccess: boolean;
+  notifyDanger: boolean;
   constructor(private messageService: MessageService) {}
    
   
@@ -20,19 +21,25 @@ export class NotificationComponent implements OnInit {
   ngOnInit(): void {
 
 
-    this.notify = false;
+    this.notifySuccess = false;
 
     console.log(this.message);
     this.messageService.currentMessage.subscribe(_message => {
       this.message = _message;
-      if(_message != "")
-        this.notify = true;
+      if(_message != "") {
+        if(_message = "Die Tugend ist bereits in deinem Dashboard.") {
+          this.notifyDanger = true;
+          return;
+        }
+        this.notifySuccess = true;
+      }
     });
 
   }
 
   hideNotification() {
-    this.notify = false;
+    this.notifyDanger = false;
+    this.notifySuccess = false;
   }
 
   /*close(dienstID: number) {

@@ -17,10 +17,17 @@ export class TaetigkeitService {
 
   private readonly todoTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/todo-tugenden';
   private readonly setErfuellteWdhTaetigkeit  = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/set-erfuellte-wdh-taetigkeit';
+  private readonly taetigkeitPruefenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/taetigkeit/nutzer/tugend';
 
   getTaetigkeitByUserID(): Observable<Taetigkeit[]> {
     let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger + "");
     return this.http.get<Taetigkeit[]>(this.todoTugendenUrl, {params: buergerParams});
+  }
+
+  getTaetigkeitByTugendIdVonNutzer(tugendId: number): Observable<Taetigkeit[]> {
+    let tugendParams = new HttpParams().set("tugendId", tugendId + "");
+    let buergerParams = new HttpParams().set("buergerId", this.authService.getNutzer().id_buerger + "");
+    return this.http.get<Taetigkeit[]>(this.taetigkeitPruefenUrl, {params: buergerParams});
   }
 
   increaseErfuellteWdhTaetigkeit(id_taetigkeit, erhoehteWdh) {

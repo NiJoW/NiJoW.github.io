@@ -237,6 +237,18 @@ app.post('/newBonusprogramm', function (request, response) {
 
         });
     });
+
+    app.get('/taetigkeit/nutzer/tugend', function(req, res) {
+      const tugendId = req.query.tugendId;
+      const buergerId = req.query.buergerId;
+      const sql = "SELECT * FROM taetigkeit ta JOIN tugend tu ON tu.id_tugend = ta.tugendId WHERE ta.tugendhafterId = ? AND ta.tugendId = ?  AND ta.erfuellteWdh != tu.benoetigteWdh";
+      const value = [buergerId, tugendId];
+      pool.query(sql, value, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+      });
+    });
+
 // Ältester ###########
 
     app.get('/tugenden/suche', function ( req, res) {
