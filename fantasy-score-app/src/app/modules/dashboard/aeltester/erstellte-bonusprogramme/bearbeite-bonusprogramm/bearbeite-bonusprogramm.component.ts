@@ -37,8 +37,8 @@ export class BearbeiteBonusprogrammComponent implements OnInit {
       kategorie: this.bonusprogramm.kategorieID,
       titel: this.bonusprogramm.titel,
       frist:  this.bonusprogramm.frist,
-      benoetigtePunkte: this.bonusprogramm.punkte_in_kategorie,
-      anforderung: this.bonusprogramm.nachricht
+      punkte_in_kategorie: this.bonusprogramm.punkte_in_kategorie,
+      nachricht: this.bonusprogramm.nachricht
     });
   }
 

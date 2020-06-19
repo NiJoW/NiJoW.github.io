@@ -104,7 +104,7 @@ app.get('/kategorie', function (req, res) {
 
 app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
   const buergerID = req.query.buergerID;
-  const sql = 'SELECT bp.titel, bp.nachricht, bp.frist, bp.punkte_in_kategorie, k.bezeichnung FROM bonusprogramm bp, kategorie k WHERE k.id_kategorie = bp.kategorieID AND aeltesterID = ?;';
+  const sql = 'SELECT bp.id_bonusprogramm, bp.titel, bp.nachricht, bp.frist, bp.punkte_in_kategorie, k.bezeichnung FROM bonusprogramm bp, kategorie k WHERE k.id_kategorie = bp.kategorieID AND aeltesterID = ?;';
   const value = [buergerID];
     pool.query(sql, value,
       function (error, results, fields) {
@@ -168,7 +168,7 @@ app.get('/bonusprogramme/nutzer', function(req, res) {
 
 app.get('/bonusByID', function (req, res) {
   const bonusprogrammID = req.query.bonusprogrammID;
-  const sql = 'SELECT b.id_bonusprogramm, b.titel, b.nachricht, b.frist, b.kategorieID, k.bezeichnung FROM bonusprogramm b  JOIN kategorie k ON b.kategorieID = k.id_kategorie WHERE id_bonusprogramm = ?';
+  const sql = 'SELECT b.id_bonusprogramm, b.titel, b.nachricht, b.frist, b.punkte_in_kategorie, b.kategorieID, k.bezeichnung FROM bonusprogramm b  JOIN kategorie k ON b.kategorieID = k.id_kategorie WHERE id_bonusprogramm = ?';
   const value = [bonusprogrammID];
   pool.query(sql, value,
     function (error, results, fields) {
