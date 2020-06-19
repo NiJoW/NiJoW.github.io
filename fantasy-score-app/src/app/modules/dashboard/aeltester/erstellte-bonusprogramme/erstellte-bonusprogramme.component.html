@@ -1,21 +1,33 @@
 <h3>Meine erstellten Bonusprogramme</h3>
-<table class='table'> 
-    <thead>
-        <tr> 
-            <th>Titel</th>
-            <th>Frist</th>
-            <th>benötigte Punkte in Kategorie</th>
-            <th>Anforderung</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let bonuseintrag of erstellteBonusprogramme | async"> 
-            <td>{{bonuseintrag.titel}}</td> 
-            <td>{{bonuseintrag.first | date}}</td> 
-            <td>{{bonuseintrag.punkte_in_kategorie}} Punkte in Kategorie {{bonuseintrag.bezeichnung}}</td>
-            <td>{{bonuseintrag.nachricht}}</td>
-        </tr>
-    </tbody>
+<table class='table'>
+  <thead>
+  <tr>
+    <th>Titel</th>
+    <th>Frist</th>
+    <th>benötigte Punkte in Kategorie</th>
+    <th>Anforderung</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let bonusprogramm of erstellteBonusprogramme | async"> 
+            <td>{{bonusprogramm.titel}}</td> 
+            <td>{{bonusprogramm.first | date}}</td> 
+            <td>{{bonusprogramm.punkte_in_kategorie}} Punkte in Kategorie {{bonusprogramm.bezeichnung}}</td>
+            <td>{{bonusprogramm.nachricht}}</td>
+            <td> <button class="button is-primary  is-outlined"
+                        (click)=bearbeiten(bonusprogramm.id_bonusprgramm)>
+                        <fa-icon [icon]="editIcon"></fa-icon>
+                </button>
+            </td>
+    </tr>
+  </tbody>
 </table>
+<button class="button is-primary "  (click)=neuesBonusprgrammErstellen()>
+  <fa-icon [icon]="createIcon"></fa-icon> &nbsp; Neues Bonusprogramm erstellen
+</button>
 <br>
 <br>
+<app-bearbeite-bonusprogramm [chosenBonusprogramm]="chosenBonusprogramm" *ngIf="zeigeBearbeitenOverlay" (onCloseEvent)="updateBonusprogrammeOnEvent()"></app-bearbeite-bonusprogramm>
+<app-erstelle-bonusprogramm *ngIf="zeigeErstellenOverlay" (onCloseEvent)="updateBonusprogrammeOnEvent()"></app-erstelle-bonusprogramm>
+
+

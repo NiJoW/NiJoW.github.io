@@ -1,3 +1,4 @@
+import { faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit } from '@angular/core';
 import { DienstService } from '../../../../services/dienst.service';
 import { Dienst } from '../../../../models/Dienst';
@@ -10,6 +11,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./gebuchte-dienste.component.css']
 })
 export class GebuchteDiensteComponent implements OnInit {
+
+  editIcon = faPencilAlt;
+  createIcon = faPlus;
 
   constructor(private dienstService: DienstService) { }
 

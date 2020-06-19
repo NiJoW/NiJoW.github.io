@@ -39,6 +39,10 @@ import { DienstAnfragenComponent } from './modules/dashboard/tugendhafter/dienst
 import { ListeAllerTugendhaftenComponent } from './modules/dashboard/aeltester/liste-aller-tugendhaften/liste-aller-tugendhaften.component';
 import {DoUpdateService} from "./services/do-update.service";
 import { BonusprogrammBenachrichtigungenComponent } from './modules/dashboard/tugendhafter/bonusprogramm-benachrichtigungen/bonusprogramm-benachrichtigungen.component';
+import { BearbeiteDienstComponent } from './modules/dashboard/tugendhafter/angebotene-dienste/bearbeite-dienst/bearbeite-dienst.component';
+import { ErstelleDienstComponent } from './modules/dashboard/tugendhafter/erstelle-dienst/erstelle-dienst.component';
+import { BearbeiteBonusprogrammComponent } from './modules/dashboard/aeltester/erstellte-bonusprogramme/bearbeite-bonusprogramm/bearbeite-bonusprogramm.component';
+import { ErstelleBonusprogrammComponent } from './modules/dashboard/aeltester/erstelle-bonusprogramm/erstelle-bonusprogramm.component';
 
 
 @NgModule({
@@ -71,7 +75,11 @@ import { BonusprogrammBenachrichtigungenComponent } from './modules/dashboard/tu
     BearbeiteTugendComponent,
     DienstAnfragenComponent,
     ListeAllerTugendhaftenComponent,
-    BonusprogrammBenachrichtigungenComponent
+    BonusprogrammBenachrichtigungenComponent,
+    BearbeiteDienstComponent,
+    ErstelleDienstComponent,
+    BearbeiteBonusprogrammComponent,
+    ErstelleBonusprogrammComponent
   ],
   imports: [
     BrowserModule,

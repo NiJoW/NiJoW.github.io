@@ -15,4 +15,13 @@ export class Dienst {
     suchenderGelesen: boolean;
     tugendhafterName: string;
     suchenderName: string;
+    kategorieTitel: string;
+
+    constructor(name: string, beschreibung: string,
+        tugendhafterID: number, kategorieID: number) {
+this.name = name;
+this.beschreibung = beschreibung;
+this.tugendhafterID = tugendhafterID;
+this.kategorieID = kategorieID;
+}
 }

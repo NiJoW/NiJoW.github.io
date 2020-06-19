@@ -19,7 +19,7 @@ export class ErstellteTugendenComponent implements OnInit {
 
   zeigeBearbeitenOverlay = false;
   zeigeErstellenOverlay = false;
-  choosenTugend: Tugend;
+  chosenTugend: Tugend;
   tugendObservable : Observable<Tugend>;
 
 
@@ -33,10 +33,10 @@ export class ErstellteTugendenComponent implements OnInit {
     console.log("Nutzer will die Tugend " + tugendID)+ " bearbeiten";
     this.tugendObservable = this.tugendService.getTugendByID(tugendID);
     this.tugendObservable.subscribe(data => {
-      this.choosenTugend = data;
-      console.dir(this.choosenTugend);
+      this.chosenTugend = data;
+      console.dir(this.chosenTugend);
       this.zeigeBearbeitenOverlay = true;
-    })
+    });
   }
 
   neueTugendErstellen(){

@@ -18,6 +18,9 @@ import { Bonusprogramm } from '../models/Bonusprogramm';
     private readonly erstellteBonusprogrammeUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erstellte-bonusprogramme';
     private readonly bonusSearchUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusprogramme/suche';
     private readonly nutzerProfitiertUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusprogramme/nutzer';
+    private readonly bonusprogrammByIDUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusByID';
+    private readonly updateBonusprogrammUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/bearbeite-bonusprogramm';
+    private readonly createNewBonusprogrammUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newBonusprogramm';
 
     getBonusprogramme(): Observable<Bonusprogramm[]> {
         console.log("Im service");
@@ -32,6 +35,11 @@ import { Bonusprogramm } from '../models/Bonusprogramm';
         return this.http.get<Bonuseintrag[]>(this.erstellteBonusprogrammeUrl, {params: buergerParams});
     }
 
+    getSelbstErstellteBonusprogramme(): Observable<Bonusprogramm[]> {
+      let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
+      return this.http.get<Bonusprogramm[]>(this.erstellteBonusprogrammeUrl, {params: buergerParams});
+  }
+
     getBonusprogrammeLike(searchInput: string): Observable<Bonusprogramm[]> {
         console.log(searchInput);
         let searchParams = new HttpParams().set("suche", searchInput);
@@ -43,5 +51,36 @@ import { Bonusprogramm } from '../models/Bonusprogramm';
         let buergerParams = new HttpParams().set("buerger", this.authService.getNutzer().id_buerger+"");
         return this.http.get<Bonusprogramm[]>(this.nutzerProfitiertUrl, {params: buergerParams});
     }
+
+    getBonusprogrammByID(bonusprogrammID: number): Observable<Bonusprogramm>  {
+        let bonusprogrammParams = new HttpParams().set("bonusprogrammID", bonusprogrammID+"");
+        return this.http.get<Bonusprogramm>(this.bonusprogrammByIDUrl, {params : bonusprogrammParams});
+      }
+
+      updateBonusprogramm(bonusprogramm: Bonusprogramm): Observable<Bonusprogramm>
+    {
+      return this.http.put<Bonusprogramm>(this.updateBonusprogrammUrl,
+        {
+          "name" : bonusprogramm.titel,
+          "frist" : bonusprogramm.frist,
+          "punkte_in_kategorie": bonusprogramm.punkte_in_kategorie,
+          "nachricht": bonusprogramm.nachricht,
+          "kategorieID": bonusprogramm.kategorieID,
+          "id_bonusprogramm": bonusprogramm.id_bonusprogramm
+        });
+    }
+
+    addBonusprogramm(bonusprogramm: Bonusprogramm)
+    {
+        return this.http.post<Bonusprogramm>(this.createNewBonusprogrammUrl,
+          {
+            "titel" : bonusprogramm.titel,
+            "nachricht" : bonusprogramm.nachricht,
+            "frist": bonusprogramm.frist,
+            "punkte_in_kategorie": bonusprogramm.punkte_in_kategorie,
+            "aeltesterID": bonusprogramm.aeltesterID,
+            "kategorieID": bonusprogramm.kategorieID
+          });
+      }
 
   }

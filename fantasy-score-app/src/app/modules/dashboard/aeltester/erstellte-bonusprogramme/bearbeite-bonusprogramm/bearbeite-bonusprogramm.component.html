@@ -1,0 +1,44 @@
+<div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Bonusprogramm bearbeiten:</p>
+        <button class="delete" aria-label="close" (click)="cancel()"></button>
+      </header>
+      <form [formGroup]="bearbeiteBonusprogrammForm" (ngSubmit)="speichern(bearbeiteBonusprogrammForm.value)">
+        <section class="modal-card-body">
+  
+          <label for="kategorie">Kategorie:</label> &nbsp;
+  
+          <select  id="kategorie"  formControlName="kategorie">
+            <option  *ngFor="let kategorie of kategorien | async" value="{{ kategorie.id_kategorie }}">
+              {{ kategorie.bezeichnung }}
+            </option>
+          </select>
+  
+          <br><br>
+  
+          <label for="titel_neues_bonusprogramm">Titel:</label> &nbsp;
+          <input id="titel_neues_bonusprogramm"  type="text" formControlName="titel">
+          <br><br>
+  
+          <label for="frist_neues_bonusprogramm">Frist:</label> &nbsp;
+          <input id="frist_neues_bonusprogramm" type="date" placeholder="Datum" formControlName="frist">
+          <br><br>
+  
+          <label for="punkte_neues_bonusprogramm">Benötigte Punkte in Kategorie:</label> &nbsp;
+          <input id="punkte_neues_bonusprogramm" type="number" formControlName="punkte_in_kategorie">
+          <br><br>
+  
+          <label for="beschreibung_neues_bonusprogramm">Anforderung:</label> &nbsp;
+          <input id="beschreibung_neues_bonusprogramm" type="text" formControlName="nachricht">
+  
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" type="submit">Speichern</button>
+          <button class="button is-danger" type="reset" (click)="cancel()">Abbrechen</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+  

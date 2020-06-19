@@ -32,13 +32,13 @@ export class DienstBuchenComponent implements OnInit {
     }); 
   }
 
-  @Input() choosenDienst: Dienst;
+  @Input() chosenDienst: Dienst;
 
   @Output() onClose = new EventEmitter();
 
   ngOnInit(): void {
-    console.log(this.choosenDienst);
-    this.dienst = this.choosenDienst[0];
+    console.log(this.chosenDienst);
+    this.dienst = this.chosenDienst[0];
   }
 
   buchen() {
@@ -53,7 +53,7 @@ export class DienstBuchenComponent implements OnInit {
       this.fehler = true;
       console.log("show Fehler");
     } else {
-      this.newDienst = this.dienstService.createDiensvertrag(this.choosenDienst[0].id_dienstangebot, this.dienstForm.value.datum);
+      this.newDienst = this.dienstService.createDiensvertrag(this.chosenDienst[0].id_dienstangebot, this.dienstForm.value.datum);
       
       this.newDienst.subscribe(data => {
         console.dir(data);

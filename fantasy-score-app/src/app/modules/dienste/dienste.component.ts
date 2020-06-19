@@ -35,7 +35,7 @@ export class DiensteComponent implements OnInit {
   shownDienste: Dienst[];
 
 
-  choosenDienst: Dienst;
+  chosenDienst: Dienst;
   dienst: Observable<Dienst>;
 
 
@@ -79,8 +79,8 @@ export class DiensteComponent implements OnInit {
     console.log("Nutzer will den Dienst " + dienstID)+ "buchen";
     this.dienst = this.dienstService.getDienstByID(dienstID);
     this.dienst.subscribe(data => {
-      this.choosenDienst = data;
-      console.dir(this.choosenDienst);
+      this.chosenDienst = data;
+      console.dir(this.chosenDienst);
       this.willBuchen = true;
     })
   }
