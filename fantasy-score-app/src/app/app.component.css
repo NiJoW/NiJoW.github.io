@@ -1,0 +1,19 @@
+.badge {
+    background-color: #f14668;
+    border: 2px solid transparent;
+    border-radius: 14px;
+    box-shadow: 0 0 0 2px white;
+    color: white;
+    font-size: 0.65rem;
+    height: 14px;
+    line-height: calc(7px + 1px);
+    min-width: 14px;
+    overflow: hidden;
+    padding: 0.05rem 0.15rem;
+    /* position: absolute; */
+    right: 0;
+    text-overflow: ellipsis;
+    top: 0;
+    transform: translate(50%, -50%);
+    white-space: nowrap;
+  }

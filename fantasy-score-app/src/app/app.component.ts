@@ -3,6 +3,11 @@ import { Buerger } from './models/Buerger';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { DienstService } from './services/dienst.service';
+import { Observable } from 'rxjs';
+import { Dienst } from './models/Dienst';
+import { Bonusprogramm } from './models/Bonusprogramm';
+import { BonusService } from './services/bonus.service';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +20,35 @@ export class AppComponent {
   faCoffee = faCoffee;
   willAnmelden: boolean = false;
   willRegistrieren: boolean = false;
+  hasMessage: boolean = false;
+  messageAnount = 0; //TODO: update nachdem gelesen wurde
+  angefragteDiensteObservable: Observable<Dienst[]>;
+  betroffeneProgramme: Observable<Bonusprogramm[]>;
 
-  constructor(private router: Router, private authService: AuthService) {
+
+  constructor(private router: Router, 
+    private authService: AuthService,
+    private dienstService: DienstService,
+    private bonusService: BonusService) {
     this.getAktuellenNutzer();
+  }
+
+  ngOnInit(): void {
+    this.angefragteDiensteObservable = this.dienstService.getAnfragenAnTugendhaften();
+    this.angefragteDiensteObservable.subscribe(data => {
+      if(data.length != 0 ) {
+        this.messageAnount += data.length;
+        this.hasMessage = true;
+      } 
+    });
+    this.betroffeneProgramme = this.bonusService.getBonusprogrammeVonNutzer(); //TODO: getBonusprogrammeVonNutzer funktioniert noch nicht
+      this.betroffeneProgramme.subscribe(data => {
+        if(data.length != 0 ) {
+          this.messageAnount += data.length;
+          this.hasMessage = true;
+          console.dir(data);
+        }
+    }); 
   }
 
   get isLoggedIn() {
