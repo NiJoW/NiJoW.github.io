@@ -17,6 +17,7 @@ export class AngeboteneDiensteComponent implements OnInit {
   angeboteneDienste: Observable<Dienst[]>;
   longFormat: boolean;
   moreIcon = faAngleDown;
+  id: number;
 
   ngOnInit(): void {
     this.angeboteneDienste = this.dienstService.getAngeboteneDienste();
@@ -27,12 +28,12 @@ export class AngeboteneDiensteComponent implements OnInit {
       this.longFormat = false;
   }
 
-  changeFormat(): void {
-    this.longFormat = !this.longFormat;
-    if(this.longFormat) {
-      this.moreIcon = faAngleUp;
+  changeFormat(id: number): void {
+    console.log(id);
+    if(id == this.id) {
+      this.id = -1;
     } else {
-      this.moreIcon = faAngleDown;
+      this.id = id;
     }
   }
 
