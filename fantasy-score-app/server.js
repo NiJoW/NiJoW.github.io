@@ -182,7 +182,7 @@ app.put('/dashboard/bearbeite-bonusprogramm', function (request, response) {
   console.log('request body: ');
   console.dir(request.body);
 
-  const sql = " UPDATE bonusprogramm SET titel=?,  nachricht=?, wert=?, frist=?, punkte_in_kategorie=?, kategorieID=? WHERE id_bonusprogramm = ?;";
+  const sql = " UPDATE bonusprogramm SET titel=?,  nachricht=?, frist=?, punkte_in_kategorie=?, kategorieID=? WHERE id_bonusprogramm = ?;";
   const values = [request.body.titel, request.body.nachricht, request.body.frist, request.body.punkte_in_kategorie, request.body.kategorieID, request.body.id_bonusprogramm];
   pool.query( sql, values,
     function (error, results, fields) {

@@ -46,7 +46,7 @@ export class BearbeiteBonusprogrammComponent implements OnInit {
 
    //Todo:Validierung der Daten
     this.bonusprogramm.titel = bonusprogrammData.titel;
-    this.bonusprogramm.frist = bonusprogrammData.beschreibung;
+    this.bonusprogramm.frist = bonusprogrammData.frist;
     this.bonusprogramm.punkte_in_kategorie = bonusprogrammData.punkte_in_kategorie;
     this.bonusprogramm.nachricht = bonusprogrammData.nachricht;
     this.bonusprogramm.kategorieID = bonusprogrammData.kategorie;
