@@ -60,12 +60,22 @@ var server = app.listen(SERVER_PORT, function (){
 });
 
 
+
+
+
+
+
 //##############################
 //##############################
 //#################### Sortierung nach Diensten (siehe Ordner 'services')
 //#################### und innerhalb nach 'get', 'post', 'put'
 //##############################
 //##############################
+
+
+
+
+
 
 //##############################
 //#################### auth.service.ts
@@ -76,6 +86,11 @@ var server = app.listen(SERVER_PORT, function (){
 //#################### post
 
 //#################### put
+
+
+
+
+
 
 //##############################
 //#################### bonus.service.ts
@@ -190,6 +205,11 @@ app.put('/dashboard/bearbeite-bonusprogramm', function (request, response) {
     });
 });
 
+
+
+
+
+
 //##############################
 //#################### buerger.service.ts
 //##############################
@@ -298,6 +318,11 @@ app.put('/nutzer/unlockTugendhafter', function (request, response) {
     });
 });
 
+
+
+
+
+
 //##############################
 //#################### dienst.service.ts
 //##############################
@@ -360,7 +385,6 @@ app.get('/dashboard/angebotene-dienste', function (req, res) {
     function (error, results, fields) {
       if (error) throw error;
       res.send(results);
-
     });
 });
 
@@ -370,10 +394,9 @@ app.get('/dashboard/erledigte-dienste', function (req, res) {
   const sql = 'SELECT da.name, da.beschreibung, b.benutzername AS suchenderName, dv.id_dienstvertrag, dv.datum FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = ? AND dv.datum > ? ';
   const value = [buergerID, date+""];
   pool.query(sql, value,
-     function (error, results, fields) {
-    if (error) throw error;
-    res.send(results);
-
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
   });
 });
 
@@ -420,10 +443,10 @@ app.get('/anfragenAnTugendhafter', function(req, res) {
   const sql = "SELECT da.name, da.beschreibung, dv.datum, b.benutzername AS suchenderName, dv.id_dienstvertrag FROM buerger b, dienstangebot da, dienstvertrag dv WHERE da.tugendhafterID = ? AND da.id_dienstangebot = dv.dienstID AND b.id_buerger = dv.suchenderID AND dv.status = 'angefragt';";
   const value = [buergerID];
   pool.query(sql, value,
-     function (error, results, fields) {
+    function (error, results, fields) {
 
-    if (error) throw error;
-    res.send(results);
+      if (error) throw error;
+      res.send(results);
   });
 });
 
@@ -494,6 +517,11 @@ app.put('/updateDienstvertrag', function (request, response) {
     });
 });
 
+
+
+
+
+
 //##############################
 //#################### do-update.service.ts
 //##############################
@@ -504,15 +532,33 @@ app.put('/updateDienstvertrag', function (request, response) {
 
 //#################### put
 
+
+
+
+
+
 //##############################
 //#################### kategorie.service.ts
 //##############################
 
 //#################### get
 
+//getKategorien()
+app.get('/kategorie', function (req, res) {
+  pool.query('SELECT * FROM kategorie', function (error, results, fields) {
+    if (error) throw error;
+    res.send(results);
+  });
+});
+
 //#################### post
 
 //#################### put
+
+
+
+
+
 
 //##############################
 //#################### message.service.ts
@@ -530,9 +576,50 @@ app.put('/updateDienstvertrag', function (request, response) {
 
 //#################### get
 
+//getTaetigkeitByUserID()
+app.get('/dashboard/todo-tugenden', function (req, res) {
+  const buergerID = req.query.buergerID;
+  const sql = 'SELECT tae.id_taetigkeit, tu.name AS tugend_name, tae.erfuellteWdh, tu.benoetigteWdh, tu.wert AS tugend_wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh<tu.benoetigteWdh AND tae.tugendhafterID=?';
+  const value = [buergerID];
+  pool.query(sql, value,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    });
+});
+
+//getTaetigkeitByTugendIdVonNutzer()
+app.get('/taetigkeit/nutzer/tugend', function(req, res) {
+  const tugendId = req.query.tugendId;
+  const buergerId = req.query.buergerId;
+  const sql = "SELECT * FROM taetigkeit ta JOIN tugend tu ON tu.id_tugend = ta.tugendId WHERE ta.tugendhafterId = ? AND ta.tugendId = ?  AND ta.erfuellteWdh != tu.benoetigteWdh";
+  const value = [buergerId, tugendId];
+  pool.query(sql, value, 
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+  });
+});
+
 //#################### post
 
+//increaseErfuellteWdhTaetigkeit()
+app.post('/dashboard/set-erfuellte-wdh-taetigkeit', function (req, res) {
+  const sql = "UPDATE taetigkeit SET erfuellteWdh=? WHERE id_taetigkeit=?";
+  const value = [req.body.erfuellteWdh, req.body.id_taetigkeit];
+  pool.query(sql, value,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    });
+});
+
 //#################### put
+
+
+
+
+
 
 //##############################
 //#################### tugend.service.ts
@@ -540,230 +627,176 @@ app.put('/updateDienstvertrag', function (request, response) {
 
 //#################### get
 
-//#################### post
-
-//#################### put
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//#######################################################################################
-//##################################Kategorie############################################
-//#######################################################################################
-
-app.get('/kategorie', function (req, res) {
-
-  pool.query('SELECT * FROM kategorie', function (error, results, fields) {
-    if (error) throw error;
-    res.send(results);
-
-  });
-});
-
-//#######################################################################################
-//##################################Dashboard############################################
-//#######################################################################################
-
-//##################################Tugenden#############################################
-
-
-    app.get('/dashboard/erfuellte-tugenden', function (req, res) {
-      const buergerID = req.query.buergerID;
-      const sql = 'SELECT tu.name, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh = tu.benoetigteWdh AND tae.tugendhafterID=?';
-      const value = [buergerID];
-        pool.query(sql, value,
-          function (error, results, fields) {
-
-          if (error) throw error;
-          res.send(results);
-
-        });
-    });
-
-    app.get('/dashboard/todo-tugenden', function (req, res) {
-      const buergerID = req.query.buergerID;
-      const sql = 'SELECT tae.id_taetigkeit, tu.name AS tugend_name, tae.erfuellteWdh, tu.benoetigteWdh, tu.wert AS tugend_wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh<tu.benoetigteWdh AND tae.tugendhafterID=?';
-      const value = [buergerID];
-        pool.query(sql, value,
-           function (error, results, fields) {
-
-          if (error) throw error;
-          res.send(results);
-
-        });
-    });
-
-    app.get('/taetigkeit/nutzer/tugend', function(req, res) {
-      const tugendId = req.query.tugendId;
-      const buergerId = req.query.buergerId;
-      const sql = "SELECT * FROM taetigkeit ta JOIN tugend tu ON tu.id_tugend = ta.tugendId WHERE ta.tugendhafterId = ? AND ta.tugendId = ?  AND ta.erfuellteWdh != tu.benoetigteWdh";
-      const value = [buergerId, tugendId];
-      pool.query(sql, value, function (error, results, fields) {
-        if (error) throw error;
-        res.send(results);
-      });
-    });
-
-// Ältester ###########
-
-    app.get('/tugenden/suche', function ( req, res) {
-      const suchInput = '%'+req.query.suche.trim()+'%';
-      const sql = "SELECT *, b.benutzername as aeltesterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger WHERE name LIKE ? OR beschreibung LIKE ?;";
-      const value = [suchInput, suchInput];
-      pool.query(sql, value, function (error, results, fields) {
-        if (error) throw error;
-        res.send(results);
-      });
-    });
-
-
-// Ältester ###########
-
-  app.post('/newTugend', function (request, response) {
-      console.log('request body: ');
-      console.dir(request.body);
-
-      const sql = "INSERT INTO tugend (name, beschreibung, wert, benoetigteWdh, aeltesterID, kategorieID) " +
-        "VALUES (?, ?, ?, ?, ?, ?)";
-      const values = [request.body.name, request.body.beschreibung, request.body.wert, request.body.benoetigteWdh, request.body.aeltesterID, request.body.kategorieID];
-      pool.query( sql, values,
-        function (error, results, fields) {
-          if (error) throw error;
-          response.send(results);
-
-        });
-    });
-
-// get alle Tugenden, die angemeldeter Nutzer erstellt hat
-    app.get('/dashboard/erstellte-tugenden', function (req, res) {
-      const aeltesterID = req.query.aeltesterID;
-      const sql = 'SELECT id_tugend, name, beschreibung, wert, benoetigteWdh,  kategorieID, bezeichnung AS kategorieTitel FROM tugend JOIN kategorie ON kategorieID=id_kategorie WHERE aeltesterID = ?';
-      const value = [aeltesterID];
-      pool.query(sql, value,
-        function (error, results, fields) {
-              if (error) throw error;
-              res.send(results);
-      });
-    });
-
-    // get eine bestimmte Tugend anhand ihrer ID (Tugend, nicht Tätigkeit)
-    app.get('/tugendByID', function (req, res) {
-      const tugendID = req.query.tugendID;
-      const sql = 'SELECT id_tugend, name, beschreibung, wert, benoetigteWdh,  kategorieID, bezeichnung AS kategorieTitel FROM tugend JOIN kategorie ON kategorieID=id_kategorie WHERE id_tugend = ?';
-      const value = [tugendID];
-      pool.query(sql, value,
-        function (error, results, fields) {
-              if (error) throw error;
-              res.send(results);
-      });
-    });
-
-    // bearbeite bestehende Tugend (nicht Tätigkeit) anlegen
-    app.put('/dashboard/bearbeite-tugend', function (request, response) {
-      console.log('request body: ');
-      console.dir(request.body);
-
-      const sql = " UPDATE tugend SET name=?,  beschreibung=?, wert=?, benoetigteWdh=?, kategorieID=? WHERE id_tugend=?;";
-      const values = [request.body.name, request.body.beschreibung, request.body.wert, request.body.benoetigteWdh, request.body.kategorieID, request.body.id_tugend];
-      //[name, beschreibung, wert, benoetigteWdh, kategorieID, id_tugend];
-      pool.query( sql, values,
-        function (error, results, fields) {
-          if (error) throw error;
-          response.send(results);
-
-        });
-    });
-
-
-
-
-    //##########################Tätigkeit##############################################
-
-
-    app.post('/newTaetigkeit', function (req, res) {
-      const erfuellteWdh = 0;
-      const tugendID = req.body.tugendID;
-      const tugendhafterID = req.body.tugendhafterID;
-
-      const sql = "INSERT INTO taetigkeit (erfuellteWdh, tugendID, tugendhafterID) " +
-        "VALUES (?, ?, ?)";
-      const value = [erfuellteWdh, tugendID, tugendhafterID];
-      pool.query(sql, value,
-        function (error, results, fields) {
-
-          if (error) throw error;
-          res.send(results);
-
-        });
-    });
-
-
-    app.post('/dashboard/set-erfuellte-wdh-taetigkeit', function (req, res) {
-      const sql = "UPDATE taetigkeit SET erfuellteWdh=? WHERE id_taetigkeit=?";
-      const value = [req.body.erfuellteWdh, req.body.id_taetigkeit];
-      pool.query(sql, value,
-        function (error, results, fields) {
-
-          if (error) throw error;
-          res.send(results);
-
-        });
-    });
-
-
-
-
-
-//#######################################################################################
-//#################################################################################
-//#######################################################################################
-
+//getTugenden()
 app.get('/tugend', function (req, res) {
-
   pool.query('SELECT *, b.benutzername as aeltersterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger', function (error, results, fields) {
     if (error) throw error;
     res.send(results);
-
   });
 });
+
+//getTugendByID()
+app.get('/tugendByID', function (req, res) {
+  const tugendID = req.query.tugendID;
+  const sql = 'SELECT id_tugend, name, beschreibung, wert, benoetigteWdh,  kategorieID, bezeichnung AS kategorieTitel FROM tugend JOIN kategorie ON kategorieID=id_kategorie WHERE id_tugend = ?';
+  const value = [tugendID];
+  pool.query(sql, value,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+  });
+}); 
+
+//getTugendenLike()
+app.get('/tugenden/suche', function ( req, res) {
+  const suchInput = '%'+req.query.suche.trim()+'%';
+  const sql = "SELECT *, b.benutzername as aeltesterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger WHERE name LIKE ? OR beschreibung LIKE ?;";
+  const value = [suchInput, suchInput];
+  pool.query(sql, value, function (error, results, fields) {
+    if (error) throw error;
+    res.send(results);
+  });
+});
+
+//getErfuellteTugenden()
+app.get('/dashboard/erfuellte-tugenden', function (req, res) {
+  const buergerID = req.query.buergerID;
+  const sql = 'SELECT tu.name, tu.wert FROM taetigkeit tae, tugend tu WHERE tae.tugendID = tu.id_tugend AND tae.erfuellteWdh = tu.benoetigteWdh AND tae.tugendhafterID=?';
+  const value = [buergerID];
+  pool.query(sql, value,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    });
+});
+
+//getTugendVonKategorie()
+app.get('/kategorie/tugenden', function (request, response) {
+  const kategorieID = request.query.kategorieID;
+  const sql = "SELECT *, b.benutzername as aeltesterName FROM tugend t JOIN buerger b ON t.aeltesterID=b.id_buerger WHERE kategorieID=?";
+  const values = [kategorieID];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      console.log(request.query);
+      if (error) throw error;
+      response.send(results);
+    });
+});
+
+//getErstellteTugenden()
+app.get('/dashboard/erstellte-tugenden', function (req, res) {
+  const aeltesterID = req.query.aeltesterID;
+  const sql = 'SELECT id_tugend, name, beschreibung, wert, benoetigteWdh,  kategorieID, bezeichnung AS kategorieTitel FROM tugend JOIN kategorie ON kategorieID=id_kategorie WHERE aeltesterID = ?';
+  const value = [aeltesterID];
+  pool.query(sql, value,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+  });
+});
+
+//#################### post
+
+//planeTugend()
+app.post('/newTaetigkeit', function (req, res) {
+  const erfuellteWdh = 0;
+  const tugendID = req.body.tugendID;
+  const tugendhafterID = req.body.tugendhafterID;
+  const sql = "INSERT INTO taetigkeit (erfuellteWdh, tugendID, tugendhafterID) " +
+    "VALUES (?, ?, ?)";
+  const value = [erfuellteWdh, tugendID, tugendhafterID];
+  pool.query(sql, value,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+
+    });
+});
+
+
+//addTugend()
+app.post('/newTugend', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+  const sql = "INSERT INTO tugend (name, beschreibung, wert, benoetigteWdh, aeltesterID, kategorieID) " +
+    "VALUES (?, ?, ?, ?, ?, ?)";
+  const values = [request.body.name, request.body.beschreibung, request.body.wert, request.body.benoetigteWdh, request.body.aeltesterID, request.body.kategorieID];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+    });
+});
+
+//#################### put
+
+//updateTugend()
+app.put('/dashboard/bearbeite-tugend', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+  const sql = " UPDATE tugend SET name=?,  beschreibung=?, wert=?, benoetigteWdh=?, kategorieID=? WHERE id_tugend=?;";
+  const values = [request.body.name, request.body.beschreibung, request.body.wert, request.body.benoetigteWdh, request.body.kategorieID, request.body.id_tugend];
+  //[name, beschreibung, wert, benoetigteWdh, kategorieID, id_tugend];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+    });
+});
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*app.get('/p/:tagId', function(req, res) {
   res.send("tagId is set to " + req.params.tagId);
@@ -788,55 +821,10 @@ app.get('/tugenden', function (request, response) {
 });
 
 
-
-//#######################################################################################
-//#################################################################################
-//#######################################################################################
-
-
-
-
-    app.get('/tugend', function (req, res) {
-
-      pool.query('SELECT * FROM tugend', function (error, results, fields) {
-        if (error) throw error;
-        res.send(results);
-
-      });
-    });
-
-    /*app.get('/p/:tagId', function(req, res) {
-      res.send("tagId is set to " + req.params.tagId);
-    });*/
-    //TODO: url in /tugenden?kategorieID=3 umändern -> request.query
-    app.get('/kategorie/tugenden', function (request, response) {
-      //console.log(request.query);
-      //console.log('Tugend request body: ');
-       //requerst.params
-      //console.log(request.params);
-      const kategorieID = request.query.kategorieID;
-
-      const sql = "SELECT *, b.benutzername as aeltesterName FROM tugend t JOIN buerger b ON t.aeltesterID=b.id_buerger WHERE kategorieID=?";
-      const values = [kategorieID];
-      pool.query( sql, values,
-        function (error, results, fields) {
-          console.log(request.query);
-          if (error) throw error;
-          response.send(results);
-
-        });
-    });
-
-
-
-//#######################################################################################
-//##################################Login################################################
-//#######################################################################################
-
-
-
-
-
+/*app.get('/p/:tagId', function(req, res) {
+  res.send("tagId is set to " + req.params.tagId);
+});*/
+//TODO: url in /tugenden?kategorieID=3 umändern -> request.query
  
 
 

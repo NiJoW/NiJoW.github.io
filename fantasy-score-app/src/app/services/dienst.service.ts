@@ -95,7 +95,6 @@ import { Injectable } from '@angular/core';
           });
       }
 
-
       updateDienst(dienst: Dienst): Observable<Dienst>
       {
         console.log(dienst.name, dienst.beschreibung, dienst.kategorieID, dienst.id_dienstangebot);
