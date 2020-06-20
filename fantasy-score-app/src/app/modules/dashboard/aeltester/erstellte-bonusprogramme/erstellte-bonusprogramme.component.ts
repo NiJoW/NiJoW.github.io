@@ -1,5 +1,5 @@
 import { Bonusprogramm } from './../../../../models/Bonusprogramm';
-import { faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faPlus, faAngleDown, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 import { Bonuseintrag } from '../../../../models/Bonuseintrag';
 import { BonusService } from '../../../../services/bonus.service';
@@ -15,11 +15,14 @@ export class ErstellteBonusprogrammeComponent implements OnInit {
   eigeneErstellteBonusprogramme: Observable<Bonusprogramm[]>;
   editIcon = faPencilAlt;
   createIcon = faPlus;
+  moreIcon = faAngleDown;
+  deleteIcon = faTrash;
 
   zeigeBearbeitenOverlay = false;
   zeigeErstellenOverlay = false;
   chosenBonusprogramm: Bonusprogramm;
   bonusprogrammObservable : Observable<Bonusprogramm>;
+  id: number;
 
   constructor(private bonusService: BonusService) { }
 
@@ -61,6 +64,15 @@ export class ErstellteBonusprogrammeComponent implements OnInit {
     this.zeigeBearbeitenOverlay = false;
     this.zeigeErstellenOverlay = false;
     this.getEigeneErstellteBonusprogramme();
+  }
+
+  changeFormat(id) {
+    console.log(id);
+    if(id == this.id) {
+      this.id = -1;
+    } else {
+      this.id = id;
+    }
   }
 
 }

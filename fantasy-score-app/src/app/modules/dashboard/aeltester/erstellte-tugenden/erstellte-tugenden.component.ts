@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs";
 import {TugendService} from "../../../../services/tugend.service";
 import {Tugend} from "../../../../models/Tugend";
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faTrash, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -16,6 +16,10 @@ export class ErstellteTugendenComponent implements OnInit {
   erstellteTugenden: Observable<Tugend[]>;
   editIcon = faPencilAlt;
   createIcon = faPlus;
+  deleteIcon = faTrash;
+  moreIcon = faAngleDown;
+  id: number;
+
 
   zeigeBearbeitenOverlay = false;
   zeigeErstellenOverlay = false;
@@ -56,6 +60,15 @@ export class ErstellteTugendenComponent implements OnInit {
     this.zeigeBearbeitenOverlay = false;
     this.zeigeErstellenOverlay = false;
     this.getEigeneErstellteTugenden();
+  }
+
+  changeFormat(id) {
+    console.log(id);
+    if(id == this.id) {
+      this.id = -1;
+    } else {
+      this.id = id;
+    }
   }
 
 }

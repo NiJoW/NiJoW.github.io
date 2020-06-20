@@ -1,29 +1,32 @@
-<h3>Meine erstellten Tugenden</h3>
-<table class='table'>
-  <thead>
-  <tr>
-    <th>Kategorie</th>
-    <th>Titel</th>
-    <th>Beschreibung</th>
-    <th>Punkte</th>
-    <th>Benötigte Wiederholungen</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let tugend of erstellteTugenden | async">
-    <td>{{tugend.kategorieTitel}}</td>
-    <td>{{tugend.name}}</td>
-    <td>{{tugend.beschreibung}}</td>
-    <td>{{tugend.wert}}</td>
-    <td>{{tugend.benoetigteWdh}}</td>
-    <td> <button class="button is-primary  is-outlined"
-                 (click)=bearbeiten(tugend.id_tugend)>
-                 <fa-icon [icon]="editIcon"></fa-icon>
+<p class="title is-4">Meine erstellten Tugenden</p>
+<div *ngFor="let tugend of erstellteTugenden | async">
+ <div class="card">
+   <header class="card-header">
+    <p class="card-header-title">{{tugend.name}}</p>
+    <a class="card-header-icon" aria-label="more options" (click)="changeFormat(tugend.id_tugend)">
+      <fa-icon [icon]="moreIcon"></fa-icon>
+    </a>
+  </header>
+  <div *ngIf="tugend.id_tugend === id">
+    <div class="card-content">
+      <p>Beschreibung: {{tugend.beschreibung}}</p>
+      <p>Belohnung: {{tugend.wert}} Social Points</p>
+      <p>Benötigte Wiederholungen: {{tugend.benoetigteWdh}}</p>
+    </div>
+    <footer class="card-footer">
+         <button class="button left is-primary card-footer-item is-outlined"
+           (click)=bearbeiten(tugend.id_tugend)>
+           <fa-icon [icon]="editIcon"></fa-icon>
          </button>
-    </td>
-  </tr>
-  </tbody>
-</table>
+         <button class="button right is-danger card-footer-item is-outlined">
+           <fa-icon [icon]="deleteIcon"></fa-icon>
+         </button>
+    </footer>
+  </div>
+</div>
+<br>
+</div>
+
 <button class="button is-primary "  (click)=neueTugendErstellen()>
   <fa-icon [icon]="createIcon"></fa-icon> &nbsp; Neue Tugend erstellen
 </button>
