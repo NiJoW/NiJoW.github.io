@@ -16,11 +16,15 @@ export class ErledigteDiensteComponent implements OnInit {
   erledigteDienste: Observable<Dienst[]>;
   moreIcon = faAngleDown;
   id: number;
+  isEmpthy = false;
 
   ngOnInit(): void {
     this.erledigteDienste = this.dienstService.getErledigteDienste();
 
     this.erledigteDienste.subscribe(data => {
+      if(data.length == 0) {
+        this.isEmpthy = true;
+      }
       console.log(data);});
       console.log(this.erledigteDienste);
     }

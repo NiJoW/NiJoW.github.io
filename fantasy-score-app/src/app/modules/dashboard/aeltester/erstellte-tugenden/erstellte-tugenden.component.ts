@@ -19,6 +19,7 @@ export class ErstellteTugendenComponent implements OnInit {
   deleteIcon = faTrash;
   moreIcon = faAngleDown;
   id: number;
+  isEmpthy = false;
 
 
   zeigeBearbeitenOverlay = false;
@@ -37,6 +38,10 @@ export class ErstellteTugendenComponent implements OnInit {
     console.log("Nutzer will die Tugend " + tugendID)+ " bearbeiten";
     this.tugendObservable = this.tugendService.getTugendByID(tugendID);
     this.tugendObservable.subscribe(data => {
+      if(data == null) {
+        this.isEmpthy = true;
+        return;
+      }
       this.chosenTugend = data;
       console.dir(this.chosenTugend);
       this.zeigeBearbeitenOverlay = true;

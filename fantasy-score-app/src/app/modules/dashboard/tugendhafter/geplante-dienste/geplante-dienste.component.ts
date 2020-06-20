@@ -17,11 +17,15 @@ export class GeplanteDiensteComponent implements OnInit {
   longFormat: boolean;
   moreIcon = faAngleDown;
   id: number;
+  isEmpthy = false;
 
   ngOnInit(): void {
     this.geplanteDienste = this.dienstService.getGeplanteDienste();
 
     this.geplanteDienste.subscribe(data => {
+      if(data.length == 0) {
+        this.isEmpthy = true;
+      }
       console.log(data);});
       console.log(this.geplanteDienste);
       this.longFormat = false;

@@ -12,3 +12,9 @@
 .box {
     margin-bottom: 5px;
 }
+
+.container{ 
+    height: 300px; 
+    width: 100%; 
+    overflow-y: scroll;
+}
