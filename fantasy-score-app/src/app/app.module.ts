@@ -43,7 +43,8 @@ import { BearbeiteDienstComponent } from './modules/dashboard/tugendhafter/angeb
 import { ErstelleDienstComponent } from './modules/dashboard/tugendhafter/erstelle-dienst/erstelle-dienst.component';
 import { BearbeiteBonusprogrammComponent } from './modules/dashboard/aeltester/erstellte-bonusprogramme/bearbeite-bonusprogramm/bearbeite-bonusprogramm.component';
 import { ErstelleBonusprogrammComponent } from './modules/dashboard/aeltester/erstelle-bonusprogramm/erstelle-bonusprogramm.component';
-
+import {WebsocketService} from "./services/websocket.service";
+import {CommunicationService} from "./services/communication.service";
 
 @NgModule({
   declarations: [
@@ -93,7 +94,9 @@ import { ErstelleBonusprogrammComponent } from './modules/dashboard/aeltester/er
   providers: [
     AuthService,
     MessageService,
-    DoUpdateService
+    DoUpdateService,
+    CommunicationService,
+    WebsocketService
   ],
   bootstrap: [AppComponent]
 })

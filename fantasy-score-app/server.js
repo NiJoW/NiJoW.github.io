@@ -1,5 +1,5 @@
 //server.js
-    const SERVER_PORT = 8080;
+    const SERVER_PORT = 4200; //8080;
 
     var express = require('express');
     var path = require('path');
@@ -9,6 +9,33 @@
     var bodyParser = require('body-parser');
     const { response } = require('express');
     var app = express();
+    ///////
+    let http = require("http").Server(app);
+    let io = require("socket.io")(http);
+    // let io = require('socket.io')(server, { origins: '*:*'});
+   // io.set('origins', '*:*');
+    //io.origins('*:*');
+    //io.set('origins', 'http://localhost:8080'); //https://127.0.0.1:1443
+
+    io.on("connection", socket => {
+      // Log whenever a user connects
+      console.log("user connected");
+
+      // Log whenever a client disconnects from our websocket server
+      socket.on("disconnect", function() {
+        console.log("user disconnected");
+      });
+
+      // When we receive a 'message' event from our client, print out
+      // the contents of that message and then echo it back to our client
+      // using `io.emit()`
+      socket.on("message", message => {
+        console.log("Message Received: " + message);
+        io.emit("message", { type: "new-message", text: message });
+      });
+    });
+    /////
+
     var index;
 
     var pad = function(num) { return ('00'+num).slice(-2) };
@@ -49,6 +76,24 @@
 
             console.log("Fantasy app listening at http://%s:%s", host, port)
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //#######################################################################################
 //##################################Buerger##############################################
@@ -158,7 +203,7 @@ app.get('/bonusprogramme/nutzer', function(req, res) {
   + " WHERE tu.kategorieID = b.kategorieID AND tae.tugendhafterID = ?"
   + " AND tae.erfuellteWdh = tu.benoetigteWdh) >= bo.punkte_in_kategorie;";
   const value = [buerger];
-  pool.query(sql, value, 
+  pool.query(sql, value,
     function(error, results, fields) {
       if (error) throw error;
       res.send(results);
@@ -361,7 +406,7 @@ app.post('/newBonusprogramm', function (request, response) {
 
       app.get('/dashboard/angebotene-dienste', function (req, res) {
         const buergerID = req.query.buergerID;
-        
+
         const sql = 'SELECT da.id_dienstangebot, da.name, da.beschreibung, k.bezeichnung AS kategorieTitel FROM dienstangebot da, kategorie k WHERE da.tugendhafterID = ? AND k.id_kategorie = da.kategorieID';
 
         const value = [buergerID];
@@ -530,7 +575,7 @@ app.post('/newBonusprogramm', function (request, response) {
       app.post('/newDienst', function (request, response) {
         console.log('request body: ');
         console.dir(request.body);
-  
+
         const sql = "INSERT INTO dienstangebot (name, beschreibung, tugendhafterID, kategorieID) " +
           "VALUES (?, ?, ?, ?)";
         const values = [request.body.name, request.body.beschreibung, request.body.tugendhafterID, request.body.kategorieID];
@@ -538,7 +583,7 @@ app.post('/newBonusprogramm', function (request, response) {
           function (error, results, fields) {
             if (error) throw error;
             response.send(results);
-  
+
           });
       });
 
