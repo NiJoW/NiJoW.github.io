@@ -76,14 +76,6 @@ import { Injectable } from '@angular/core';
         return this.http.get<Dienst[]>(this.angefragenUrl, {params : buergerParams});
       }
 
-      bestaetigeVertrag(dienstID: number, status: string ): Observable<Dienst> {
-        return this.http.put<Dienst>(this.updateVertragsUrl,
-          {
-            "dienstID" : dienstID,
-            "status" : status
-          });
-      }
-
       createDiensvertrag(dienstID: number, datum: Date): Observable<Dienst> {
         return this.http.post<Dienst>(this.newDienstVertragUrl,
           {
@@ -103,7 +95,6 @@ import { Injectable } from '@angular/core';
           });
       }
 
-
       updateDienst(dienst: Dienst): Observable<Dienst>
       {
         console.log(dienst.name, dienst.beschreibung, dienst.kategorieID, dienst.id_dienstangebot);
@@ -113,6 +104,14 @@ import { Injectable } from '@angular/core';
             "beschreibung" : dienst.beschreibung,
             "kategorieID": dienst.kategorieID,
             "id_dienstangebot": dienst.id_dienstangebot
+          });
+      }
+
+      bestaetigeVertrag(dienstID: number, status: string ): Observable<Dienst> {
+        return this.http.put<Dienst>(this.updateVertragsUrl,
+          {
+            "dienstID" : dienstID,
+            "status" : status
           });
       }
 
