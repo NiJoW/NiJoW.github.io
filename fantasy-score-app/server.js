@@ -1,54 +1,303 @@
-//server.js
-    const SERVER_PORT = 8080;
+//##############################
+//#################### Server.js Variablen und Requirements
+//##############################
+const SERVER_PORT = 8080;
 
-    var express = require('express');
-    var path = require('path');
-    var mysql = require('mysql');
-    var cors = require('cors');
+var express = require('express');
+var path = require('path');
+var mysql = require('mysql');
+var cors = require('cors');
 
-    var bodyParser = require('body-parser');
-    const { response } = require('express');
-    var app = express();
-    var index;
+var bodyParser = require('body-parser');
+const { response } = require('express');
+var app = express();
+var index;
 
-    var pad = function(num) { return ('00'+num).slice(-2) };
-      var date;
-      date = new Date();
-      date = date.getUTCFullYear()        + '-' +
+//##############################
+//#################### aktuelles Datum
+//##############################
+var pad = function(num) { return ('00'+num).slice(-2) };
+var date;
+date = new Date();
+date = date.getUTCFullYear()        + '-' +
         pad(date.getUTCMonth() + 1) + '-' +
         pad(date.getUTCDate())       + ' ';
 
 
-    app.use(cors());
-    // parse application/x-www-form-urlencoded
-    app.use(bodyParser.urlencoded({ extended: false }))
-    // parse application/json
-    app.use(bodyParser.json())
+
+//##############################
+//#################### Pool, Listen, Definitionen, Use
+//##############################
+app.use(cors());
+
+//parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+//parse application/json
+app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, '/dist/fantasy-score-app')));
+
+app.get('/', function(req, res)
+{
+    res.sendFile('index.html', {root:__dirname+'/dist/fantasy-score-app'});
+});
+
+//Datenbank auf Hochschulserver
+const pool = mysql.createPool({
+    host: "195.37.176.178",
+    port: "20133",
+    user: "Gruppe4",
+    password: ',O64*.dnm/yKH%BpvJcNqq~k"WX\\O:kJ',
+    database: "20_Gruppe4_DB"
+});
+
+var server = app.listen(SERVER_PORT, function (){
+    let host = server.address().address,
+        port = server.address().port;
+
+        console.log("Fantasy app listening at http://%s:%s", host, port)
+});
 
 
-    app.use(express.static(path.join(__dirname, '/dist/fantasy-score-app'))); //'/dist'
+//##############################
+//##############################
+//#################### Sortierung nach Diensten (siehe Ordner 'services')
+//#################### und innerhalb nach 'get', 'post', 'put'
+//##############################
+//##############################
 
-    app.get('/', function(req, res)
-    {
-        res.sendFile('index.html', {root:__dirname+'/dist/fantasy-score-app'}); //'/dist'
+//##############################
+//#################### auth.service.ts
+//##############################
+
+//#################### get
+
+//#################### post
+
+//#################### put
+
+//##############################
+//#################### bonus.service.ts
+//##############################
+
+//#################### get
+
+//getBonusprogramme()
+app.get('/bonusprogramme', function(req, res) {
+  pool.query('SELECT *, b.benutzername as aeltersterName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger', function (error, results, fields) {
+    if (error) throw error;
+    res.send(results);
+  });
+});
+
+//getBonusprogrammeVonKategorie()
+app.get('/kategorie/bonusprogramme', function(req, res) {
+  const kategorieID = req.query.kategorieID;
+  const sql = 'SELECT *, b.benutzername as aeltersterName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger WHERE kategorieID = ?;';
+  const value = [kategorieID];
+    pool.query(sql, value,
+      function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+  });
+});
+
+//getErstellteBonusprogramme()
+//getSelbstErstellteBonusprogramme()
+app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
+  const buergerID = req.query.buergerID;
+  const sql = 'SELECT bp.id_bonusprogramm, bp.titel, bp.nachricht, bp.frist, bp.punkte_in_kategorie, k.bezeichnung FROM bonusprogramm bp, kategorie k WHERE k.id_kategorie = bp.kategorieID AND aeltesterID = ?;';
+  const value = [buergerID];
+    pool.query(sql, value,
+      function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
     });
+});
 
-    //db on hochschul server
-    const pool = mysql.createPool({
-        host: "195.37.176.178",
-        port: "20133",
-        user: "Gruppe4",
-        password: ',O64*.dnm/yKH%BpvJcNqq~k"WX\\O:kJ',
-        database: "20_Gruppe4_DB"
+//getBonusprogrammeLike()
+app.get('/bonusprogramme/suche', function(req, res) {
+  const searchInput = '%'+req.query.suche.trim()+'%';
+  console.log(searchInput);
+  const sql = "SELECT *, b.benutzername as aeltersterName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger WHERE titel LIKE ? OR nachricht LIKE ?;";
+  const value = [searchInput, searchInput]; // 2 mal searchInput!!!
+    pool.query(sql, value,
+      function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+  });
+});
+
+//getBonusprogrammeVonNutzer()
+app.get('/bonusprogramme/nutzer', function(req, res) {
+  const buerger = req.query.buerger;
+  const sql = "SELECT distinct bo.id_bonusprogramm, bo.titel, bo.nachricht, k.bezeichnung AS kategorieName FROM bonusprogramm bo"
+  + " JOIN kategorie k ON k.id_kategorie = bo.kategorieID"
+  + " WHERE (SELECT sum(tu.wert) AS kategorieScore FROM taetigkeit tae"
+  + " JOIN tugend tu ON tae.tugendID = tu.id_tugend"
+  + " JOIN bonusprogramm b ON b.kategorieID = tu.kategorieID"
+  + " WHERE tu.kategorieID = b.kategorieID AND tae.tugendhafterID = ?"
+  + " AND tae.erfuellteWdh = tu.benoetigteWdh) >= bo.punkte_in_kategorie;";
+  const value = [buerger];
+  pool.query(sql, value, 
+    function(error, results, fields) {
+      if (error) throw error;
+      res.send(results);
     });
+});
 
+//getBonusprogrammByID()
+app.get('/bonusByID', function (req, res) {
+  const bonusprogrammID = req.query.bonusprogrammID;
+  const sql = 'SELECT b.id_bonusprogramm, b.titel, b.nachricht, b.frist, b.punkte_in_kategorie, b.kategorieID, k.bezeichnung FROM bonusprogramm b  JOIN kategorie k ON b.kategorieID = k.id_kategorie WHERE id_bonusprogramm = ?';
+  const value = [bonusprogrammID];
+  pool.query(sql, value,
+    function (error, results, fields) {
+          if (error) throw error;
+          res.send(results);
+  });
+});
 
-    var server = app.listen(SERVER_PORT, function (){
-        let host = server.address().address,
-            port = server.address().port;
+//#################### post
 
-            console.log("Fantasy app listening at http://%s:%s", host, port)
+//addBonusprogramm
+app.post('/newBonusprogramm', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+  const sql = "INSERT INTO bonusprogramm (titel, nachricht, frist, punkte_in_kategorie, aeltesterID, kategorieID) " +
+    "VALUES (?, ?, ?, ?, ?, ?)";
+  const values = [request.body.titel, request.body.nachricht, request.body.frist, request.body.punkte_in_kategorie, request.body.aeltesterID, request.body.kategorieID];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
     });
+});
+
+//#################### put
+
+//updateBonusprogramm
+app.put('/dashboard/bearbeite-bonusprogramm', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+  const sql = " UPDATE bonusprogramm SET titel=?,  nachricht=?, frist=?, punkte_in_kategorie=?, kategorieID=? WHERE id_bonusprogramm = ?;";
+  const values = [request.body.titel, request.body.nachricht, request.body.frist, request.body.punkte_in_kategorie, request.body.kategorieID, request.body.id_bonusprogramm];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+    });
+});
+
+//##############################
+//#################### buerger.service.ts
+//##############################
+
+//#################### get
+
+//#################### post
+
+//#################### put
+
+//##############################
+//#################### dienst.service.ts
+//##############################
+
+//#################### get
+
+//#################### post
+
+//#################### put
+
+//##############################
+//#################### do-update.service.ts
+//##############################
+
+//#################### get
+
+//#################### post
+
+//#################### put
+
+//##############################
+//#################### kategorie.service.ts
+//##############################
+
+//#################### get
+
+//#################### post
+
+//#################### put
+
+//##############################
+//#################### message.service.ts
+//##############################
+
+//#################### get
+
+//#################### post
+
+//#################### put
+
+//##############################
+//#################### taetigkeit.service.ts
+//##############################
+
+//#################### get
+
+//#################### post
+
+//#################### put
+
+//##############################
+//#################### tugend.service.ts
+//##############################
+
+//#################### get
+
+//#################### post
+
+//#################### put
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //#######################################################################################
 //##################################Buerger##############################################
@@ -98,116 +347,6 @@ app.get('/kategorie', function (req, res) {
 //#######################################################################################
 //##################################Dashboard############################################
 //#######################################################################################
-
-
-//##################################Bonusprogramme#######################################
-
-app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
-  const buergerID = req.query.buergerID;
-  const sql = 'SELECT bp.id_bonusprogramm, bp.titel, bp.nachricht, bp.frist, bp.punkte_in_kategorie, k.bezeichnung FROM bonusprogramm bp, kategorie k WHERE k.id_kategorie = bp.kategorieID AND aeltesterID = ?;';
-  const value = [buergerID];
-    pool.query(sql, value,
-      function (error, results, fields) {
-
-      if (error) throw error;
-      res.send(results);
-
-    });
-});
-
-app.get('/bonusprogramme', function(req, res) {
-
-  pool.query('SELECT *, b.benutzername as aeltersterName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger', function (error, results, fields) {
-    if (error) throw error;
-    res.send(results);
-
-  });
-});
-
-app.get('/kategorie/bonusprogramme', function(req, res) {
-
-  const kategorieID = req.query.kategorieID;
-  const sql = 'SELECT *, b.benutzername as aeltersterName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger WHERE kategorieID = ?;';
-  const value = [kategorieID];
-    pool.query(sql, value,
-      function (error, results, fields) {
-      if (error) throw error;
-      res.send(results);
-  });
-});
-
-app.get('/bonusprogramme/suche', function(req, res) {
-  const searchInput = '%'+req.query.suche.trim()+'%';
-  console.log(searchInput);
-  const sql = "SELECT *, b.benutzername as aeltersterName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger WHERE titel LIKE ? OR nachricht LIKE ?;";
-  const value = [searchInput, searchInput]; // 2 mal searchInput!!!
-    pool.query(sql, value,
-      function (error, results, fields) {
-      if (error) throw error;
-      res.send(results);
-  });
-});
-
-app.get('/bonusprogramme/nutzer', function(req, res) {
-  const buerger = req.query.buerger;
-  const sql = "SELECT distinct bo.id_bonusprogramm, bo.titel, bo.nachricht, k.bezeichnung AS kategorieName FROM bonusprogramm bo"
-  + " JOIN kategorie k ON k.id_kategorie = bo.kategorieID"
-  + " WHERE (SELECT sum(tu.wert) AS kategorieScore FROM taetigkeit tae"
-  + " JOIN tugend tu ON tae.tugendID = tu.id_tugend"
-  + " JOIN bonusprogramm b ON b.kategorieID = tu.kategorieID"
-  + " WHERE tu.kategorieID = b.kategorieID AND tae.tugendhafterID = ?"
-  + " AND tae.erfuellteWdh = tu.benoetigteWdh) >= bo.punkte_in_kategorie;";
-  const value = [buerger];
-  pool.query(sql, value, 
-    function(error, results, fields) {
-      if (error) throw error;
-      res.send(results);
-    });
-});
-
-
-app.get('/bonusByID', function (req, res) {
-  const bonusprogrammID = req.query.bonusprogrammID;
-  const sql = 'SELECT b.id_bonusprogramm, b.titel, b.nachricht, b.frist, b.punkte_in_kategorie, b.kategorieID, k.bezeichnung FROM bonusprogramm b  JOIN kategorie k ON b.kategorieID = k.id_kategorie WHERE id_bonusprogramm = ?';
-  const value = [bonusprogrammID];
-  pool.query(sql, value,
-    function (error, results, fields) {
-          if (error) throw error;
-          res.send(results);
-  });
-});
-
-
-app.put('/dashboard/bearbeite-bonusprogramm', function (request, response) {
-  console.log('request body: ');
-  console.dir(request.body);
-
-  const sql = " UPDATE bonusprogramm SET titel=?,  nachricht=?, frist=?, punkte_in_kategorie=?, kategorieID=? WHERE id_bonusprogramm = ?;";
-  const values = [request.body.titel, request.body.nachricht, request.body.frist, request.body.punkte_in_kategorie, request.body.kategorieID, request.body.id_bonusprogramm];
-  pool.query( sql, values,
-    function (error, results, fields) {
-      if (error) throw error;
-      response.send(results);
-
-    });
-});
-
-
-app.post('/newBonusprogramm', function (request, response) {
-  console.log('request body: ');
-  console.dir(request.body);
-
-  const sql = "INSERT INTO bonusprogramm (titel, nachricht, frist, punkte_in_kategorie, aeltesterID, kategorieID) " +
-    "VALUES (?, ?, ?, ?, ?, ?)";
-  const values = [request.body.titel, request.body.nachricht, request.body.frist, request.body.punkte_in_kategorie, request.body.aeltesterID, request.body.kategorieID];
-  pool.query( sql, values,
-    function (error, results, fields) {
-      if (error) throw error;
-      response.send(results);
-
-    });
-});
-
 
 //##################################Tugenden#############################################
 
