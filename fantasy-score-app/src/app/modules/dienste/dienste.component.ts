@@ -59,6 +59,10 @@ export class DiensteComponent implements OnInit {
     return this.authService.getNutzer().typ+"" == typ;
   }
 
+  isDienstVon(name: string): boolean {
+    return this.authService.getNutzer().benutzername == name;
+  }
+
   onKategorieSelected(kategorieID):void {
     if(kategorieID == "-1") { // Alle anzeigen
       this.dienste = this.dienstService.getDienste();
