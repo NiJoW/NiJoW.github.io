@@ -122,7 +122,7 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
 //getSelbstErstellteBonusprogramme()
 app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
   const buergerID = req.query.buergerID;
-  const sql = 'SELECT bp.id_bonusprogramm, bp.titel, bp.nachricht, bp.frist, bp.punkte_in_kategorie, k.bezeichnung FROM bonusprogramm bp, kategorie k WHERE k.id_kategorie = bp.kategorieID AND aeltesterID = ?;';
+  const sql = 'SELECT bp.id_bonusprogramm, bp.titel, bp.nachricht, bp.punkte_in_kategorie, k.bezeichnung FROM bonusprogramm bp, kategorie k WHERE k.id_kategorie = bp.kategorieID AND aeltesterID = ?;';
   const value = [buergerID];
     pool.query(sql, value,
       function (error, results, fields) {
@@ -157,7 +157,7 @@ app.get('/bonusprogramme/nutzer', function(req, res) {
   const value = [buerger];
   pool.query(sql, value, 
     function(error, results, fields) {
-      if (error) throw error;
+      if (error) throw error
       res.send(results);
     });
 });
@@ -165,7 +165,7 @@ app.get('/bonusprogramme/nutzer', function(req, res) {
 //getBonusprogrammByID()
 app.get('/bonusByID', function (req, res) {
   const bonusprogrammID = req.query.bonusprogrammID;
-  const sql = 'SELECT b.id_bonusprogramm, b.titel, b.nachricht, b.frist, b.punkte_in_kategorie, b.kategorieID, k.bezeichnung FROM bonusprogramm b  JOIN kategorie k ON b.kategorieID = k.id_kategorie WHERE id_bonusprogramm = ?';
+  const sql = 'SELECT b.id_bonusprogramm, b.titel, b.nachricht, b.punkte_in_kategorie, b.kategorieID, k.bezeichnung FROM bonusprogramm b  JOIN kategorie k ON b.kategorieID = k.id_kategorie WHERE id_bonusprogramm = ?';
   const value = [bonusprogrammID];
   pool.query(sql, value,
     function (error, results, fields) {
@@ -180,9 +180,9 @@ app.get('/bonusByID', function (req, res) {
 app.post('/newBonusprogramm', function (request, response) {
   console.log('request body: ');
   console.dir(request.body);
-  const sql = "INSERT INTO bonusprogramm (titel, nachricht, frist, punkte_in_kategorie, aeltesterID, kategorieID) " +
-    "VALUES (?, ?, ?, ?, ?, ?)";
-  const values = [request.body.titel, request.body.nachricht, request.body.frist, request.body.punkte_in_kategorie, request.body.aeltesterID, request.body.kategorieID];
+  const sql = "INSERT INTO bonusprogramm (titel, nachricht, punkte_in_kategorie, aeltesterID, kategorieID) " +
+    "VALUES (?, ?, ?, ?, ?)";
+  const values = [request.body.titel, request.body.nachricht, request.body.punkte_in_kategorie, request.body.aeltesterID, request.body.kategorieID];
   pool.query( sql, values,
     function (error, results, fields) {
       if (error) throw error;
@@ -196,8 +196,8 @@ app.post('/newBonusprogramm', function (request, response) {
 app.put('/dashboard/bearbeite-bonusprogramm', function (request, response) {
   console.log('request body: ');
   console.dir(request.body);
-  const sql = " UPDATE bonusprogramm SET titel=?,  nachricht=?, frist=?, punkte_in_kategorie=?, kategorieID=? WHERE id_bonusprogramm = ?;";
-  const values = [request.body.titel, request.body.nachricht, request.body.frist, request.body.punkte_in_kategorie, request.body.kategorieID, request.body.id_bonusprogramm];
+  const sql = " UPDATE bonusprogramm SET titel=?,  nachricht=?, punkte_in_kategorie=?, kategorieID=? WHERE id_bonusprogramm = ?;";
+  const values = [request.body.titel, request.body.nachricht, request.body.punkte_in_kategorie, request.body.kategorieID, request.body.id_bonusprogramm];
   pool.query( sql, values,
     function (error, results, fields) {
       if (error) throw error;
@@ -570,6 +570,11 @@ app.get('/kategorie', function (req, res) {
 
 //#################### put
 
+
+
+
+
+
 //##############################
 //#################### taetigkeit.service.ts
 //##############################
@@ -588,20 +593,19 @@ app.get('/dashboard/todo-tugenden', function (req, res) {
     });
 });
 
+//#################### post
+
 //getTaetigkeitByTugendIdVonNutzer()
-app.get('/taetigkeit/nutzer/tugend', function(req, res) {
-  const tugendId = req.query.tugendId;
-  const buergerId = req.query.buergerId;
+app.post('/taetigkeit/nutzer/tugend', function(req, res) {
   const sql = "SELECT * FROM taetigkeit ta JOIN tugend tu ON tu.id_tugend = ta.tugendId WHERE ta.tugendhafterId = ? AND ta.tugendId = ?  AND ta.erfuellteWdh != tu.benoetigteWdh";
-  const value = [buergerId, tugendId];
+  const value = [req.body.buergerId, req.body.tugendId];
+  console.log(value);
   pool.query(sql, value, 
     function (error, results, fields) {
       if (error) throw error;
       res.send(results);
   });
 });
-
-//#################### post
 
 //increaseErfuellteWdhTaetigkeit()
 app.post('/dashboard/set-erfuellte-wdh-taetigkeit', function (req, res) {
@@ -629,7 +633,7 @@ app.post('/dashboard/set-erfuellte-wdh-taetigkeit', function (req, res) {
 
 //getTugenden()
 app.get('/tugend', function (req, res) {
-  pool.query('SELECT *, b.benutzername as aeltersterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger', function (error, results, fields) {
+  pool.query('SELECT *, b.benutzername as aeltesterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger', function (error, results, fields) {
     if (error) throw error;
     res.send(results);
   });

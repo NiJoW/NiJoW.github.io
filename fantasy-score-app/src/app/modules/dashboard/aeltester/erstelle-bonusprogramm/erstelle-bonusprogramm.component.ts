@@ -30,7 +30,6 @@ export class ErstelleBonusprogrammComponent implements OnInit {
     this.neueBonusprogrammForm = this.formBuilder.group({
       kategorie: 1,
       titel: '',
-      frist: '',
       punkte_in_kategorie: '',
       nachricht: ''
 
@@ -49,7 +48,7 @@ export class ErstelleBonusprogrammComponent implements OnInit {
     //Todo:Validierung der Daten
 
     const aeltesterID  = this.nutzer.id_buerger;
-    const newBonusprogramm =  new Bonusprogramm(bonusprogrammData.titel, bonusprogrammData.nachricht, bonusprogrammData.frist, bonusprogrammData.punkte_in_kategorie,
+    const newBonusprogramm =  new Bonusprogramm(bonusprogrammData.titel, bonusprogrammData.nachricht, bonusprogrammData.punkte_in_kategorie,
       aeltesterID, bonusprogrammData.kategorie);
     this.neueBonusprogrammForm.reset();
     console.log('Your data has been submitted', newBonusprogramm);

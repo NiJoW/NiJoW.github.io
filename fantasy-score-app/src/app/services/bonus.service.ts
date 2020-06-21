@@ -65,7 +65,6 @@ import { Bonusprogramm } from '../models/Bonusprogramm';
             {
               "titel" : bonusprogramm.titel,
               "nachricht" : bonusprogramm.nachricht,
-              "frist": bonusprogramm.frist,
               "punkte_in_kategorie": bonusprogramm.punkte_in_kategorie,
               "aeltesterID": bonusprogramm.aeltesterID,
               "kategorieID": bonusprogramm.kategorieID
@@ -77,7 +76,6 @@ import { Bonusprogramm } from '../models/Bonusprogramm';
       return this.http.put<Bonusprogramm>(this.updateBonusprogrammUrl,
         {
           "titel" : bonusprogramm.titel,
-          "frist" : bonusprogramm.frist,
           "punkte_in_kategorie": bonusprogramm.punkte_in_kategorie,
           "nachricht": bonusprogramm.nachricht,
           "kategorieID": bonusprogramm.kategorieID,

@@ -51,10 +51,10 @@ import {Taetigkeit} from "../models/Taetigkeit";
         });
     }
 
-      getErfuellteTugenden(): Observable<Tugend[]> {
-        let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
-          return this.http.get<Tugend[]>(this.erfuellteTugendenUrl, {params : buergerParams});
-      }
+    getErfuellteTugenden(): Observable<Tugend[]> {
+      let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
+        return this.http.get<Tugend[]>(this.erfuellteTugendenUrl, {params : buergerParams});
+    }
 
      getTugendVonKategorie(kategorieID: number): Observable<Tugend[]> {
       console.log('in service get Tugenden');

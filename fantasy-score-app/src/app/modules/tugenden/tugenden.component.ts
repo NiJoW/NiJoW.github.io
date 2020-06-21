@@ -93,7 +93,7 @@ export class TugendenComponent implements OnInit {
     this.taetigkeitPruefen = this.taetigkeitService.getTaetigkeitByTugendIdVonNutzer(tugendId);
     this.taetigkeitPruefen.subscribe(data => {
       console.log(data);
-      if(data.length != 0) {
+      if(data.length === 0) {
         this.chosenTugend = this.tugendService.planeTugend(tugendId);
         this.chosenTugend.subscribe(data => {
           console.log(data);
