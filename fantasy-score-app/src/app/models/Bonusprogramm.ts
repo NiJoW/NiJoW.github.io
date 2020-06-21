@@ -10,10 +10,9 @@ export class Bonusprogramm {
     kategorieName: string;
     bezeichnung: string;
 
-    constructor(titel: string, nachricht: string, frist: Date, punkte_in_kategorie: number,
+    constructor(titel: string, nachricht: string, punkte_in_kategorie: number,
         aeltesterID: number, kategorieID: number) {
     this.titel = titel;
-    this.frist = frist;
     this.punkte_in_kategorie = punkte_in_kategorie;
     this.nachricht = nachricht;
     this.aeltesterID = aeltesterID;

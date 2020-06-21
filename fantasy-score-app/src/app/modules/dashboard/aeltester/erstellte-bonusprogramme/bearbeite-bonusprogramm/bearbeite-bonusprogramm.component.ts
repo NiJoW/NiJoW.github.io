@@ -36,7 +36,6 @@ export class BearbeiteBonusprogrammComponent implements OnInit {
     this.bearbeiteBonusprogrammForm = this.formBuilder.group({
       kategorie: this.bonusprogramm.kategorieID,
       titel: this.bonusprogramm.titel,
-      frist:  this.bonusprogramm.frist,
       punkte_in_kategorie: this.bonusprogramm.punkte_in_kategorie,
       nachricht: this.bonusprogramm.nachricht
     });
@@ -46,7 +45,6 @@ export class BearbeiteBonusprogrammComponent implements OnInit {
 
    //Todo:Validierung der Daten
     this.bonusprogramm.titel = bonusprogrammData.titel;
-    this.bonusprogramm.frist = bonusprogrammData.frist;
     this.bonusprogramm.punkte_in_kategorie = bonusprogrammData.punkte_in_kategorie;
     this.bonusprogramm.nachricht = bonusprogrammData.nachricht;
     this.bonusprogramm.kategorieID = bonusprogrammData.kategorie;
