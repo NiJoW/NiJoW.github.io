@@ -17,3 +17,13 @@
     transform: translate(50%, -50%);
     white-space: nowrap;
   }
+
+  .icon {
+    padding-left: 2%;
+  }
+
+ /*  .footer {
+    background-image: url(../assets/Pictures/teamworkfooter.jpeg);
+    background-repeat: space;
+    background-position: center;
+  } */

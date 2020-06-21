@@ -11,3 +11,31 @@
     left: 60%;
     z-index: 1;
 }
+
+.box {
+    width: 50%;
+}
+
+.media {
+    width: 70%;
+}
+
+.hero-body {
+    background-image: url(../../../assets/Pictures/teamworkBanner.png);
+    background-position: right;
+    background-size: cover;
+
+}
+
+.hero.is-medium .hero-body {
+    /* padding: 12rem 1.5rem 2rem 1.5rem; */
+}
+/* 
+.icon {
+    margin-right: 2%;
+} */
+
+/* .hero-body,
+.hero.is-medium {
+    padding: 9rem 1.5rem 2rem 1.5rem;
+} */
