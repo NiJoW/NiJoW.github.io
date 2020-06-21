@@ -593,20 +593,19 @@ app.get('/dashboard/todo-tugenden', function (req, res) {
     });
 });
 
+//#################### post
+
 //getTaetigkeitByTugendIdVonNutzer()
-app.get('/taetigkeit/nutzer/tugend', function(req, res) {
-  const tugendId = req.query.tugendId;
-  const buergerId = req.query.buergerId;
+app.post('/taetigkeit/nutzer/tugend', function(req, res) {
   const sql = "SELECT * FROM taetigkeit ta JOIN tugend tu ON tu.id_tugend = ta.tugendId WHERE ta.tugendhafterId = ? AND ta.tugendId = ?  AND ta.erfuellteWdh != tu.benoetigteWdh";
-  const value = [buergerId, tugendId];
+  const value = [req.body.buergerId, req.body.tugendId];
+  console.log(value);
   pool.query(sql, value, 
     function (error, results, fields) {
       if (error) throw error;
       res.send(results);
   });
 });
-
-//#################### post
 
 //increaseErfuellteWdhTaetigkeit()
 app.post('/dashboard/set-erfuellte-wdh-taetigkeit', function (req, res) {

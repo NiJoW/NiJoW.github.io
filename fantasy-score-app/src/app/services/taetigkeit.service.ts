@@ -25,9 +25,14 @@ export class TaetigkeitService {
   }
 
   getTaetigkeitByTugendIdVonNutzer(tugendId: number): Observable<Taetigkeit[]> {
-    let tugendParams = new HttpParams().set("tugendId", tugendId + "");
-    let buergerParams = new HttpParams().set("buergerId", this.authService.getNutzer().id_buerger + "");
-    return this.http.get<Taetigkeit[]>(this.taetigkeitPruefenUrl, {params: buergerParams});
+    //let tugendParams = new HttpParams().set("tugendId", tugendId + "");
+    //let buergerParams = new HttpParams().set("buergerId", this.authService.getNutzer().id_buerger + "");s
+
+    return this.http.post<Taetigkeit[]>(this.taetigkeitPruefenUrl, 
+      {
+        "tugendId": tugendId,
+        "buergerId": this.authService.getNutzer().id_buerger
+      });
   }
 
   increaseErfuellteWdhTaetigkeit(id_taetigkeit, erhoehteWdh) {
