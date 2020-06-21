@@ -634,7 +634,7 @@ app.post('/dashboard/set-erfuellte-wdh-taetigkeit', function (req, res) {
 
 //getTugenden()
 app.get('/tugend', function (req, res) {
-  pool.query('SELECT *, b.benutzername as aeltersterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger', function (error, results, fields) {
+  pool.query('SELECT *, b.benutzername as aeltesterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger', function (error, results, fields) {
     if (error) throw error;
     res.send(results);
   });
