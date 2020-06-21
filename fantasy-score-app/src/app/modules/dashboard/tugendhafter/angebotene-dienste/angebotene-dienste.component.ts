@@ -27,7 +27,7 @@ export class AngeboteneDiensteComponent implements OnInit {
   longFormat: boolean;
   moreIcon = faAngleDown;
   id: number;
-  isEmpthy: boolean;
+  isEmpty: boolean;
 
   ngOnInit(): void {
     this.getEigeneErstellteDienste();
@@ -40,7 +40,7 @@ export class AngeboteneDiensteComponent implements OnInit {
   this.angeboteneDienste = this.dienstService.getAngeboteneDienste();
     this.angeboteneDienste.subscribe(data => {
       if(data.length==0) {
-        this.isEmpthy = true;
+        this.isEmpty = true;
         return;
       }
       console.log(data);

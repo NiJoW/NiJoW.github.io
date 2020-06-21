@@ -16,7 +16,7 @@ export class GebuchteDiensteComponent implements OnInit {
   createIcon = faPlus;
   moreIcon = faAngleDown;
   id: number;
-  isEmpthy: boolean;
+  isEmpty: boolean;
 
   constructor(private dienstService: DienstService) { }
 
@@ -30,7 +30,7 @@ export class GebuchteDiensteComponent implements OnInit {
       this.gebuchteDienste = this.dienstService.getGebuchteDienste();
       this.gebuchteDienste.subscribe(data => {
         if(data.length == 0) {
-          this.isEmpthy = true;
+          this.isEmpty = true;
           return;
         }
         console.log(data);});

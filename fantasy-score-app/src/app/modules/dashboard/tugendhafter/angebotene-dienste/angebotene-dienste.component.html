@@ -25,7 +25,7 @@
  <br>
 </div>
 
-<div *ngIf="isEmpthy" class="has-text-danger">Noch keine Dienste vorhanden.</div>
+<div *ngIf="isEmpty" class="has-text-danger">Noch keine Dienste vorhanden.</div>
 
  <button class="button is-primary "  (click)=neuenDienstErstellen()>
   <fa-icon [icon]="createIcon"></fa-icon> &nbsp; Neuen Dienst erstellen

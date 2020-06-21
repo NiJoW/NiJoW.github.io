@@ -27,7 +27,7 @@
 <br>
 </div>
 
-<div *ngIf="isEmpthy" class="has-text-danger">Noch keine Tugenden erstellt.</div>
+<div *ngIf="isEmpty" class="has-text-danger">Noch keine Tugenden erstellt.</div>
 
 <button class="button is-primary "  (click)=neueTugendErstellen()>
   <fa-icon [icon]="createIcon"></fa-icon> &nbsp; Neue Tugend erstellen

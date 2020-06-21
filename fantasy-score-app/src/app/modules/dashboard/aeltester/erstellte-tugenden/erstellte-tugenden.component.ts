@@ -19,7 +19,7 @@ export class ErstellteTugendenComponent implements OnInit {
   deleteIcon = faTrash;
   moreIcon = faAngleDown;
   id: number;
-  isEmpthy = false;
+  isEmpty = false;
 
 
   zeigeBearbeitenOverlay = false;
@@ -39,7 +39,7 @@ export class ErstellteTugendenComponent implements OnInit {
     this.tugendObservable = this.tugendService.getTugendByID(tugendID);
     this.tugendObservable.subscribe(data => {
       if(data == null) {
-        this.isEmpthy = true;
+        this.isEmpty = true;
         return;
       }
       this.chosenTugend = data;
