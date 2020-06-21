@@ -20,6 +20,9 @@ Test Observer
       <li [ngClass]="{'is-active' : type == 'dienste'}">
         <a (click)="changeType('dienste')">Dienste</a>
       </li>
+      <li [ngClass]="{'is-active' : type == 'bonus'}">
+        <a (click)="changeType('bonus')">Bonusprogramme</a>
+      </li>
     </ul>
   </div>
 
@@ -34,6 +37,9 @@ Test Observer
       <div class="section"><app-erledigte-dienste></app-erledigte-dienste></div>
       <div class="section"><app-gebuchte-dienste></app-gebuchte-dienste></div>
       <div class="section"><app-angefragte-dienste></app-angefragte-dienste></div>
+    </div>
+    <div *ngIf="type === 'bonus'">
+      <div class="section"><app-gewonnene-bonusprogramme></app-gewonnene-bonusprogramme></div>
     </div>
   </div>
 </div>
