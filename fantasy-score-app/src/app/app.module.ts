@@ -43,6 +43,7 @@ import { BearbeiteDienstComponent } from './modules/dashboard/tugendhafter/angeb
 import { ErstelleDienstComponent } from './modules/dashboard/tugendhafter/erstelle-dienst/erstelle-dienst.component';
 import { BearbeiteBonusprogrammComponent } from './modules/dashboard/aeltester/erstellte-bonusprogramme/bearbeite-bonusprogramm/bearbeite-bonusprogramm.component';
 import { ErstelleBonusprogrammComponent } from './modules/dashboard/aeltester/erstelle-bonusprogramm/erstelle-bonusprogramm.component';
+import { GewonneneBonusprogrammeComponent } from './modules/dashboard/tugendhafter/gewonnene-bonusprogramme/gewonnene-bonusprogramme.component';
 
 
 @NgModule({
@@ -79,7 +80,8 @@ import { ErstelleBonusprogrammComponent } from './modules/dashboard/aeltester/er
     BearbeiteDienstComponent,
     ErstelleDienstComponent,
     BearbeiteBonusprogrammComponent,
-    ErstelleBonusprogrammComponent
+    ErstelleBonusprogrammComponent,
+    GewonneneBonusprogrammeComponent
   ],
   imports: [
     BrowserModule,

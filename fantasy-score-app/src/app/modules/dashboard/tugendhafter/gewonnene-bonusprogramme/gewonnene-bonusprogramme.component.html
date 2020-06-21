@@ -1,0 +1,19 @@
+<div class="box">
+    <p class="title is-4">Gewonnene Bonusprogramme</p>
+    <div class="content">
+        <table class='table is-striped'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Preis</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bonusprogramm of bonusprogramme | async">
+                    <td>{{bonusprogramm.titel}}</td>
+                    <td>{{bonusprogramm.nachricht}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

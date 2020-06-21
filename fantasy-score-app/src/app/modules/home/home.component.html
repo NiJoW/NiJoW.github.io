@@ -1,23 +1,26 @@
 <div class="home">
     <div  *ngIf='nutzer !== undefined' >
         <div *ngIf="isTyp('Tugendhafter')">
-        <div class="homeContent">
-            <h2>Hallo, Tugendhafter {{nutzer.benutzername}}</h2>
-            <div class="leftContent box">
-                
-                <p>Bist du es leid dich mit kleinen Punkten zu vergnügen?
+          <p class="title is-1">Hallo, Tugendhafter {{nutzer.benutzername}}</p>
+        <div class="homeContent media">
+            <div class="media-left">
+                <div class="box">
+                    <p class="title is-6">Bist du es leid dich mit kleinen Punkten zu vergnügen?
                     Dann verpasse diese <a routerLink="/bonusprogramme">Bonusprogramme</a> nicht! </p>
                     <figure class="image first">
                         <img src="https://bulma.io/images/placeholders/640x320.png">
                     </figure>
-                <p>Täglich finden hier 1000 hilfsbereite Nutzer ihre Bestimmung.
+                </div>
+                <div class="box">
+                    <p class="title is-6">Täglich finden hier 1000 hilfsbereite Nutzer ihre Bestimmung.
                     Vielleicht ist ja eines dieser <a routerLink="/dienste">Dienste</a> auch was für dich?</p>
                     <figure class="image">
                         <img src="https://bulma.io/images/placeholders/640x320.png">
                     </figure>
+                </div>
 
             </div>
-            <div class="rightContent box">
+            <div class="box media-rigth">
                 <app-bestenliste></app-bestenliste>
             </div>
         </div>
@@ -28,21 +31,25 @@
 
 <div  *ngIf='nutzer !== undefined' >
     <div *ngIf= "isTyp('Suchender')">
-        <div class="homeContent">
-            <h2>Hallo, Suchender {{nutzer.benutzername}}</h2>
-            <div class="leftContent">
-                <p>Suchst du verzweifelt nach Hilfe? Dann sehe dir doch diese <a routerLink="/dienste">Dienste</a> an!
+        <p class="title is-1">Hallo, Suchender {{nutzer.benutzername}}</p>
+        <div class="homeContent media">
+            <div class="media-left">
+                <div class="box">
+                <p class="title is-6">Suchst du verzweifelt nach Hilfe? Dann sehe dir doch diese <a routerLink="/dienste">Dienste</a> an!
                     Sie haben anderen Suchenden schon zu einer vollkommenen Verbindung mit einem Tugendhaften verholfen.</p>
                     <figure class="image  first">
                         <img src="https://bulma.io/images/placeholders/640x320.png">
                     </figure>
-                <p>Sieh dir jetzt die 1000 fantastischen Vorteilen eines Tugendhaften an!
+                </div>
+                <div class="box">
+                <p class="title is-6">Sieh dir jetzt die 1000 fantastischen Vorteilen eines Tugendhaften an!
                     Willst nicht auch DU dein inneren Tugendhaften freischalten?</p>
-                    <figure class="image ">
+                    <figure class="image">
                         <img src="https://bulma.io/images/placeholders/640x320.png">
                     </figure>
+                </div>
             </div>
-            <div class="rightContent">
+            <div class="box media-rigth">
                 <app-bestenliste></app-bestenliste>
             </div>
         </div>
@@ -53,21 +60,25 @@
 
 <div  *ngIf='nutzer !== undefined' >
     <div *ngIf= "isTyp('Aeltester')">
-        <div class="homeContent">
-            <h2>Hallo, Ältester {{nutzer.benutzername}}</h2>
-            <div class="leftContent">
+        <p class="title is-1">Hallo, Ältester {{nutzer.benutzername}}</p>
+        <div class="homeContent media">
+            <div class="media-left">
+                <div class="box">
                 <p>Hast du schon die neusten Statistiken gesehen?
                     Sieh dir die Früchte deiner Arbeit an!</p>
                     <figure class="image  first">
                         <img src="https://bulma.io/images/placeholders/640x320.png">
                     </figure>
+                </div>
+                <div class="box">
                 <p>Anregungen für gute <a routerLink="/tugenden">Tugenden</a> und <a routerLink="/dienste">Dienste</a> sind schnell gefunden.
                     Nicht lange suchen, hier gefunden!</p>
                     <figure class="image ">
                         <img src="https://bulma.io/images/placeholders/640x320.png">
                     </figure>
+                </div>
             </div>
-            <div class="rightContent">
+            <div class="box media-rigth">
                 <app-bestenliste></app-bestenliste>
             </div>
         </div>

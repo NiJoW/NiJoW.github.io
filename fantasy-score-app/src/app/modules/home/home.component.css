@@ -1,4 +1,7 @@
-.home {}
+.media-left {
+    width: 60%;
+}
+/* .home {}
     
 .homeContent { width: 100%; margin-top: 30px;}
         
@@ -22,3 +25,4 @@
 .first{ margin-bottom: 50px; }
 
 .message { width: 75%; word-break: normal;}
+ */
