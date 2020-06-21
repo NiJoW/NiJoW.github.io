@@ -30,6 +30,10 @@ export class ErstellteBonusprogrammeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEigeneErstellteBonusprogramme();
+    this.getErstelteBonusprogramme();
+  }
+
+  getErstelteBonusprogramme() {
     this.erstellteBonusprogramme = this.bonusService.getErstellteBonusprogramme();
 
     this.erstellteBonusprogramme.subscribe(data => {
