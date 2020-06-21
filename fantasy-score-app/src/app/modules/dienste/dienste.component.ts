@@ -80,7 +80,7 @@ export class DiensteComponent implements OnInit {
   }
 
   buchen(dienstID) {
-    console.log("Nutzer will den Dienst " + dienstID)+ "buchen";
+    console.log("Nutzer will den Dienst " + dienstID+ "buchen");
     this.dienst = this.dienstService.getDienstByID(dienstID);
     this.dienst.subscribe(data => {
       this.chosenDienst = data;

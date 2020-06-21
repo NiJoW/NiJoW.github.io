@@ -23,15 +23,18 @@ export class GebuchteDiensteComponent implements OnInit {
   gebuchteDienste: Observable<Dienst[]>;
 
   ngOnInit(): void {
-    this.gebuchteDienste = this.dienstService.getGebuchteDienste();
+    this.getGebuchteDienste();
+    }
 
-    this.gebuchteDienste.subscribe(data => {
-      if(data.length == 0) {
-        this.isEmpthy = true;
-        return;
-      }
-      console.log(data);});
-      console.log(this.gebuchteDienste);
+    getGebuchteDienste() {
+      this.gebuchteDienste = this.dienstService.getGebuchteDienste();
+      this.gebuchteDienste.subscribe(data => {
+        if(data.length == 0) {
+          this.isEmpthy = true;
+          return;
+        }
+        console.log(data);});
+        console.log(this.gebuchteDienste);
     }
     
     changeFormat(id: number): void {

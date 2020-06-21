@@ -11,19 +11,23 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 })
 export class AngefragteDiensteComponent implements OnInit {
 
-  constructor(private dienstService: DienstService) { }
-
   angefragteDienste: Observable<Dienst[]>;
   id: number;
   moreIcon = faAngleDown;
-  isEmpthy = false;
+  isEmpty = false;
+
+  constructor(private dienstService: DienstService) { }
 
   ngOnInit(): void {
-    this.angefragteDienste = this.dienstService.getAngefragteDienste();
+    this.getAngefragteDienste();
+    }
 
+    getAngefragteDienste() {
+      this.angefragteDienste = this.dienstService.getAngefragteDienste();
     this.angefragteDienste.subscribe(data => {
-      if(data.length == 0) {
-        this.isEmpthy = true;
+      console.dir(data);
+      if(data.length === 0) {
+        this.isEmpty = true;
         return;
       }
       console.log(data);});
