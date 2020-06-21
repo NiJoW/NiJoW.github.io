@@ -1,3 +1,4 @@
+import { AngeboteneDiensteComponent } from './../angebotene-dienste/angebotene-dienste.component';
 import { Dienst } from './../../../../models/Dienst';
 import { Kategorie } from './../../../../models/Kategorie';
 import { KategorieService } from './../../../../services/kategorie.service';
@@ -25,7 +26,8 @@ export class ErstelleDienstComponent implements OnInit {
               private dienstService: DienstService,
               private formBuilder: FormBuilder,
               private authService: AuthService,
-              private messageService: MessageService) { 
+              private messageService: MessageService,
+              private angeboteneDiensteComponent: AngeboteneDiensteComponent) { 
                 this.neuerDienstForm = this.formBuilder.group({
                   kategorie: 1,
                   titel: '',
@@ -49,6 +51,7 @@ export class ErstelleDienstComponent implements OnInit {
     // Overlay schließen, Erfolgsmeldung anzeigen
     this.onCloseEvent.emit(null);
     this.messageService.setMessage("Der Dienst wurde erfolgreich bearbeitet.");
+    this.angeboteneDiensteComponent.getAngeboteneDienste();
   }
 
   private getKategorien() {

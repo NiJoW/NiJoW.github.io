@@ -1,3 +1,4 @@
+import { AngeboteneDiensteComponent } from './../angebotene-dienste.component';
 import { DienstService } from '../../../../../services/dienst.service';
 import { KategorieService } from '../../../../../services/kategorie.service';
 import { FormBuilder } from '@angular/forms';
@@ -26,7 +27,8 @@ export class BearbeiteDienstComponent implements OnInit {
               private authService: AuthService,
               private formBuilder: FormBuilder,
               private dienstService: DienstService,
-              private kategorienService: KategorieService,) { }
+              private kategorienService: KategorieService,
+              private angeboteneDiensteComponent: AngeboteneDiensteComponent) { }
 
   ngOnInit(): void {
     this.getKategorien();
@@ -54,6 +56,7 @@ export class BearbeiteDienstComponent implements OnInit {
     // Overlay schließen, Erfolgsmeldung anzeigen
     this.onCloseEvent.emit(null);
     this.messageService.setMessage("Die Tugend wurde erfolgreich bearbeitet.");
+    this.angeboteneDiensteComponent.getAngeboteneDienste();
   }
 
   cancel() {

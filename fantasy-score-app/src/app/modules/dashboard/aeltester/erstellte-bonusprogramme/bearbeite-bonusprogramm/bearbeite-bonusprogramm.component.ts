@@ -1,3 +1,4 @@
+import { ErstellteBonusprogrammeComponent } from './../erstellte-bonusprogramme.component';
 import { KategorieService } from './../../../../../services/kategorie.service';
 import { BonusService } from './../../../../../services/bonus.service';
 import { FormBuilder } from '@angular/forms';
@@ -26,7 +27,8 @@ export class BearbeiteBonusprogrammComponent implements OnInit {
               private authService: AuthService,
               private formBuilder: FormBuilder,
               private bonusprogrammService: BonusService,
-              private kategorienService: KategorieService,) { }
+              private kategorienService: KategorieService,
+              private erstellteBonusprogrammeComponent: ErstellteBonusprogrammeComponent) { }
 
   ngOnInit(): void {
     this.getKategorien();
@@ -55,6 +57,7 @@ export class BearbeiteBonusprogrammComponent implements OnInit {
     // Overlay schließen, Erfolgsmeldung anzeigen
     this.onCloseEvent.emit(null);
     this.messageService.setMessage("Die Bonusprogramm wurde erfolgreich bearbeitet.");
+    this.erstellteBonusprogrammeComponent.getErstelteBonusprogramme();
   }
 
   cancel() {

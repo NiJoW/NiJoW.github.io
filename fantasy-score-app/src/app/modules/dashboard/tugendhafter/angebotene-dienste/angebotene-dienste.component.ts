@@ -31,7 +31,13 @@ export class AngeboteneDiensteComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEigeneErstellteDienste();
-    this.angeboteneDienste = this.dienstService.getAngeboteneDienste();
+    this.getAngeboteneDienste();
+      console.log(this.angeboteneDienste);
+      this.longFormat = false;
+  }
+
+  getAngeboteneDienste() {
+  this.angeboteneDienste = this.dienstService.getAngeboteneDienste();
     this.angeboteneDienste.subscribe(data => {
       if(data.length==0) {
         this.isEmpthy = true;
@@ -39,8 +45,6 @@ export class AngeboteneDiensteComponent implements OnInit {
       }
       console.log(data);
     });
-      console.log(this.angeboteneDienste);
-      this.longFormat = false;
   }
 
   changeFormat(id: number): void {

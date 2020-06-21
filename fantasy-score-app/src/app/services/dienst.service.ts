@@ -77,6 +77,7 @@ import { Injectable } from '@angular/core';
       }
 
       createDiensvertrag(dienstID: number, datum: Date): Observable<Dienst> {
+        console.log(datum);
         return this.http.post<Dienst>(this.newDienstVertragUrl,
           {
             "dienstID" : dienstID,
