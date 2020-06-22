@@ -26,9 +26,22 @@ import { Injectable } from '@angular/core';
       private readonly updateVertragsUrl = APIConfig.URL + ':' + APIConfig.PORT + '/updateDienstvertrag';
       private readonly createNewDienstUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newDienst';
       private readonly updateDienstUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/bearbeite-dienst';
+      private readonly nichtArchivierteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nichtArchivierteDienste';
+      private readonly archivierteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/archivierteDienste';
+
+      private readonly archiviereUrl = APIConfig.URL + ':' + APIConfig.PORT + '/archiviereDienst'
+      private readonly stelleHerUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dienstWiederherstellen';
 
       getDienste(): Observable<Dienst[]> {
         return this.http.get<Dienst[]>(this.diensteUrl);
+      }
+
+      getNichtArchivierteDienste(): Observable<Dienst[]> {
+        return this.http.get<Dienst[]>(this.nichtArchivierteDiensteUrl);
+      }
+
+      getArchivierteDienste(): Observable<Dienst[]> {
+        return this.http.get<Dienst[]>(this.archivierteDiensteUrl);
       }
 
       getDienstByID(id: number): Observable<Dienst> {
@@ -115,6 +128,21 @@ import { Injectable } from '@angular/core';
             "status" : status
           });
       }
+
+      
+      archiviereDienst(id_dienstangebot: number) :Observable<Dienst> {
+      return this.http.put<Dienst>(this.archiviereUrl,
+        {
+          "id_dienstangebot": id_dienstangebot
+        });
+    }
+
+    stelleDienstWiederHer(id_dienstangebot: number) :Observable<Dienst> {
+      return this.http.put<Dienst>(this.stelleHerUrl,
+        {
+          "id_dienstangebot": id_dienstangebot
+        });
+    }
 
     }
 

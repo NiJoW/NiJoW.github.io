@@ -18,7 +18,8 @@
            (click)=bearbeiten(tugend.id_tugend)>
            <fa-icon [icon]="editIcon"></fa-icon>
          </button>
-         <button class="button right is-danger card-footer-item is-outlined">
+         <button class="button right is-danger card-footer-item is-outlined"
+           (click)=archivieren(tugend.id_tugend)>
            <fa-icon [icon]="deleteIcon"></fa-icon>
          </button>
     </footer>

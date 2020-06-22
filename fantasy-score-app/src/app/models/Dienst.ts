@@ -16,6 +16,7 @@ export class Dienst {
     tugendhafterName: string;
     suchenderName: string;
     kategorieTitel: string;
+    archiviert: number;
 
     constructor(name: string, beschreibung: string,
         tugendhafterID: number, kategorieID: number) {

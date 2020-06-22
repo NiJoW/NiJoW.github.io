@@ -1,0 +1,28 @@
+<p class="title is-4">Archivierte Tugenden</p>
+<div *ngFor="let tugend of erstellteTugenden | async">
+ <div class="card">
+   <header class="card-header">
+    <p class="card-header-title">{{tugend.name}}</p>
+    <a class="card-header-icon" aria-label="more options" (click)="changeFormat(tugend.id_tugend)">
+      <fa-icon [icon]="moreIcon"></fa-icon>
+    </a>
+  </header>
+  <div *ngIf="tugend.id_tugend === id">
+    <div class="card-content">
+      <p>Beschreibung: {{tugend.beschreibung}}</p>
+      <p>Belohnung: {{tugend.wert}} Social Points</p>
+      <p>Benötigte Wiederholungen: {{tugend.benoetigteWdh}}</p>
+    </div>
+    <footer class="card-footer">
+         <button class="button left is-primary card-footer-item is-outlined"
+           (click)=wiederherstellen(tugend.id_tugend)>
+           <fa-icon [icon]="editIcon"></fa-icon>
+         </button>
+    </footer>
+  </div>
+</div>
+<br>
+</div>
+
+<div *ngIf="isEmpty" class="has-text-danger">Es gibt keine archivierten Tugenden</div>
+

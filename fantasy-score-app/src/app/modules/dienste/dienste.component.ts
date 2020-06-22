@@ -47,7 +47,7 @@ export class DiensteComponent implements OnInit {
       console.log(this.kategorienListe);
     });
 
-    this.dienste = this.dienstService.getDienste();
+    this.dienste = this.dienstService.getNichtArchivierteDienste();
     this.dienste.subscribe(data => {
       console.log("Dienste: ");
       console.log(data);
@@ -65,7 +65,7 @@ export class DiensteComponent implements OnInit {
 
   onKategorieSelected(kategorieID):void {
     if(kategorieID == "-1") { // Alle anzeigen
-      this.dienste = this.dienstService.getDienste();
+      this.dienste = this.dienstService.getNichtArchivierteDienste();
       this.dienste.subscribe(data => {
         console.log(data);
         this.shownDienste = data;

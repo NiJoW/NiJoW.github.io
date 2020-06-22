@@ -16,7 +16,8 @@
             (click)=bearbeiten(dienst.id_dienstangebot)>
             <fa-icon [icon]="editIcon"></fa-icon>
           </button>
-          <button class="button right is-danger card-footer-item is-outlined">
+          <button class="button right is-danger card-footer-item is-outlined"
+            (click)=archivieren(dienst.id_dienstangebot)>
             <fa-icon [icon]="deleteIcon"></fa-icon>
           </button>
      </footer>

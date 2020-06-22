@@ -17,6 +17,8 @@ import {Taetigkeit} from "../models/Taetigkeit";
       constructor(private http: HttpClient, private authService: AuthService) {}
 
   private readonly tugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugend';
+  private readonly tugendenNichtArchiviertUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugendNichtArchiviert';
+  private readonly tugendenArchiviertUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugendArchiviert';
   private readonly tugendByIDUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugendByID';
   private readonly newTaetigkeitUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newTaetigkeit'; // (vorher planeTugendUrl)
   private readonly tugendVonKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/kategorie/tugenden';
@@ -27,8 +29,19 @@ import {Taetigkeit} from "../models/Taetigkeit";
   private readonly erstellteTugendenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erstellte-tugenden';
   private readonly updateTugendUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/bearbeite-tugend';
 
+  private readonly archiviereUrl = APIConfig.URL + ':' + APIConfig.PORT + '/archiviereTugend'
+  private readonly stelleHerUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugendWiederherstellen';
+
     getTugenden(): Observable<Tugend[]> {
       return this.http.get<Tugend[]>(this.tugendenUrl)
+    }
+
+    getNichtArchivierteTugenden():Observable<Tugend[]> {
+      return this.http.get<Tugend[]>(this.tugendenNichtArchiviertUrl)
+    }
+
+    getArchivierteTugenden(): Observable<Tugend[]> {
+      return this.http.get<Tugend[]>(this.tugendenArchiviertUrl)
     }
 
   // get eine bestimmte Tugend anhand ihrer ID (Tugend, nicht Tätigkeit)
@@ -93,6 +106,20 @@ import {Taetigkeit} from "../models/Taetigkeit";
           "benoetigteWdh": tugend.benoetigteWdh,
           "kategorieID": tugend.kategorieID,
           "id_tugend": tugend.id_tugend
+        });
+    }
+
+    archiviereTugend(id_tugend: number) :Observable<Tugend> {
+      return this.http.put<Tugend>(this.archiviereUrl,
+        {
+          "id_tugend": id_tugend
+        });
+    }
+
+    stelleTugendWiederHer(id_tugend: number) :Observable<Tugend> {
+      return this.http.put<Tugend>(this.stelleHerUrl,
+        {
+          "id_tugend": id_tugend
         });
     }
 

@@ -48,6 +48,8 @@ import { TugendhaftenFreischaltenComponent } from './modules/dashboard/suchender
 import { ErstellteKategorienComponent } from './modules/dashboard/aeltester/erstellte-kategorien/erstellte-kategorien.component';
 import { ErstelleKategorieComponent } from './modules/dashboard/aeltester/erstelle-kategorie/erstelle-kategorie.component';
 import { BearbeiteKategorieComponent } from './modules/dashboard/aeltester/erstellte-kategorien/bearbeite-kategorie/bearbeite-kategorie.component';
+import { ArchivierteTugendenComponent } from './modules/dashboard/aeltester/archivierte-tugenden/archivierte-tugenden.component';
+import { ArchivierteDiensteComponent } from './modules/dashboard/aeltester/archivierte-dienste/archivierte-dienste.component';
 
 
 @NgModule({
@@ -89,7 +91,9 @@ import { BearbeiteKategorieComponent } from './modules/dashboard/aeltester/erste
     TugendhaftenFreischaltenComponent,
     ErstellteKategorienComponent,
     ErstelleKategorieComponent,
-    BearbeiteKategorieComponent
+    BearbeiteKategorieComponent,
+    ArchivierteTugendenComponent,
+    ArchivierteDiensteComponent
   ],
   imports: [
     BrowserModule,
