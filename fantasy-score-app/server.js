@@ -122,7 +122,7 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
 //getSelbstErstellteBonusprogramme()
 app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
   const buergerID = req.query.buergerID;
-  const sql = 'SELECT bp.id_bonusprogramm, bp.titel, bp.nachricht, bp.punkte_in_kategorie, k.bezeichnung FROM bonusprogramm bp, kategorie k WHERE k.id_kategorie = bp.kategorieID AND aeltesterID = ?;';
+  const sql = 'SELECT bp.id_bonusprogramm, bp.titel, bp.nachricht, bp.punkte_in_kategorie, k.bezeichnung FROM bonusprogramm bp, kategorie k WHERE k.id_kategorie = bp.kategorieID AND bp.aeltesterID = ?;';
   const value = [buergerID];
     pool.query(sql, value,
       function (error, results, fields) {
@@ -338,6 +338,24 @@ app.get('/dienste', function (req, res) {
   });
 });
 
+//getArchivierteDienste() 
+app.get('/archivierteDienste', function (req, res) {
+  pool.query('SELECT d.*, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger AND d.archiviert = 1',
+  function (error, results, fields) {
+    if (error) throw error;
+    res.send(results);
+  });
+});
+
+//getNichtArchivierteDienste() 
+app.get('/nichtArchivierteDienste', function (req, res) {
+  pool.query('SELECT d.*, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger AND archiviert = 0',
+  function (error, results, fields) {
+    if (error) throw error;
+    res.send(results);
+  });
+});
+
 //getDienstByID()
 app.get('/dienst', function (req, res) {
   console.log(req.query.dienstID);
@@ -367,7 +385,7 @@ app.get('/kategorie/dienste', function (request, response) {
 //getDiensteLike()
 app.get('/dienste/suche', function (req, res) {
   const searchInput = '%'+req.query.suche.trim()+'%';
-  const sql = "SELECT *, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger WHERE name LIKE ? OR beschreibung LIKE ?;";
+  const sql = "SELECT *, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger WHERE name LIKE ? OR beschreibung LIKE ? AND archiviert = 0;";
   const value = [searchInput, searchInput];
   pool.query(sql, value,
     function(error, results, fields) {
@@ -379,7 +397,7 @@ app.get('/dienste/suche', function (req, res) {
 //getAngeboteneDienste()
 app.get('/dashboard/angebotene-dienste', function (req, res) {
   const buergerID = req.query.buergerID;
-  const sql = 'SELECT da.id_dienstangebot, da.name, da.beschreibung, k.bezeichnung AS kategorieTitel FROM dienstangebot da, kategorie k WHERE da.tugendhafterID = ? AND k.id_kategorie = da.kategorieID';
+  const sql = 'SELECT da.id_dienstangebot, da.name, da.beschreibung, k.bezeichnung AS kategorieTitel FROM dienstangebot da, kategorie k WHERE da.tugendhafterID = ? AND k.id_kategorie = da.kategorieID AND archiviert = 0';
   const value = [buergerID];
   pool.query(sql, value,
     function (error, results, fields) {
@@ -519,6 +537,32 @@ app.put('/updateDienstvertrag', function (request, response) {
     });
 });
 
+//archiviereDienst()
+app.put('/archiviereDienst', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+  const sql = " UPDATE dienstangebot SET archiviert = 1 WHERE id_dienstangebot=?;";
+  const values = [request.body.id_dienstangebot];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+    });
+});
+
+//stelleDienstWiederHer()
+app.put('/dienstWiederherstellen', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+  const sql = " UPDATE dienstangebot SET archiviert = 0 WHERE id_dienstangebot=?;";
+  const values = [request.body.id_dienstangebot];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+    });
+});
+
 
 
 
@@ -553,9 +597,61 @@ app.get('/kategorie', function (req, res) {
   });
 });
 
+//getKategorieByID()
+app.get('/kategorieByID', function (req, res) {
+  const kategorieID = req.query.kategorieID;
+  const sql = 'SELECT id_kategorie, bezeichnung FROM kategorie WHERE id_kategorie = ?';
+  const value = [kategorieID];
+  pool.query(sql, value,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+  });
+}); 
+
+//getErstellteKategorien()
+app.get('/erstellteKategorien', function (req, res) {
+  const aeltesterID = req.query.aeltesterID;
+  const sql = 'SELECT id_kategorie, bezeichnung FROM kategorie WHERE aeltesterID = ?';
+  const value = [aeltesterID];
+  pool.query(sql, value,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+  });
+});
+
 //#################### post
 
+//addKategorie()
+app.post('/addKategorie', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+  const sql = "INSERT INTO kategorie (bezeichnung, aeltesterID) " +
+    "VALUES (?, ?)";
+  const values = [request.body.bezeichnung ,request.body.aeltesterID];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+    });
+});
+
 //#################### put
+
+//updateKategorie()
+app.put('/updateKategorie', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+  const sql = " UPDATE kategorie SET bezeichnung = ? WHERE id_kategorie=?;";
+  const values = [request.body.bezeichnung, request.body.id_kategorie];
+  //[name, beschreibung, wert, benoetigteWdh, kategorieID, id_tugend];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+    });
+});
 
 
 
@@ -641,10 +737,26 @@ app.get('/tugend', function (req, res) {
   });
 });
 
+//getNichtArchivierteTugenden()
+app.get('/tugendNichtArchiviert', function (req, res) {
+  pool.query('SELECT *, b.benutzername as aeltesterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger WHERE archiviert = 0', function (error, results, fields) {
+    if (error) throw error;
+    res.send(results);
+  });
+});
+
+//getArchivierteTugenden()
+app.get('/tugendArchiviert', function (req, res) {
+  pool.query('SELECT *, b.benutzername as aeltesterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger WHERE archiviert = 1', function (error, results, fields) {
+    if (error) throw error;
+    res.send(results);
+  });
+});
+
 //getTugendByID()
 app.get('/tugendByID', function (req, res) {
   const tugendID = req.query.tugendID;
-  const sql = 'SELECT id_tugend, name, beschreibung, wert, benoetigteWdh,  kategorieID, bezeichnung AS kategorieTitel FROM tugend JOIN kategorie ON kategorieID=id_kategorie WHERE id_tugend = ?';
+  const sql = 'SELECT id_tugend, name, beschreibung, wert, benoetigteWdh,  kategorieID, bezeichnung AS kategorieTitel FROM tugend JOIN kategorie ON kategorieID=id_kategorie WHERE id_tugend = ? AND archiviert = 0';
   const value = [tugendID];
   pool.query(sql, value,
     function (error, results, fields) {
@@ -656,7 +768,7 @@ app.get('/tugendByID', function (req, res) {
 //getTugendenLike()
 app.get('/tugenden/suche', function ( req, res) {
   const suchInput = '%'+req.query.suche.trim()+'%';
-  const sql = "SELECT *, b.benutzername as aeltesterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger WHERE name LIKE ? OR beschreibung LIKE ?;";
+  const sql = "SELECT *, b.benutzername as aeltesterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger WHERE name LIKE ? OR beschreibung LIKE ? AND archiviert = 0;";
   const value = [suchInput, suchInput];
   pool.query(sql, value, function (error, results, fields) {
     if (error) throw error;
@@ -679,7 +791,7 @@ app.get('/dashboard/erfuellte-tugenden', function (req, res) {
 //getTugendVonKategorie()
 app.get('/kategorie/tugenden', function (request, response) {
   const kategorieID = request.query.kategorieID;
-  const sql = "SELECT *, b.benutzername as aeltesterName FROM tugend t JOIN buerger b ON t.aeltesterID=b.id_buerger WHERE kategorieID=?";
+  const sql = "SELECT *, b.benutzername as aeltesterName FROM tugend t JOIN buerger b ON t.aeltesterID=b.id_buerger WHERE kategorieID=? AND archiviert = 0";
   const values = [kategorieID];
   pool.query( sql, values,
     function (error, results, fields) {
@@ -692,7 +804,7 @@ app.get('/kategorie/tugenden', function (request, response) {
 //getErstellteTugenden()
 app.get('/dashboard/erstellte-tugenden', function (req, res) {
   const aeltesterID = req.query.aeltesterID;
-  const sql = 'SELECT id_tugend, name, beschreibung, wert, benoetigteWdh,  kategorieID, bezeichnung AS kategorieTitel FROM tugend JOIN kategorie ON kategorieID=id_kategorie WHERE aeltesterID = ?';
+  const sql = 'SELECT id_tugend, name, beschreibung, wert, benoetigteWdh,  kategorieID, bezeichnung AS kategorieTitel FROM tugend t JOIN kategorie ON kategorieID=id_kategorie WHERE t.aeltesterID = ? AND archiviert = 0';
   const value = [aeltesterID];
   pool.query(sql, value,
     function (error, results, fields) {
@@ -724,8 +836,8 @@ app.post('/newTaetigkeit', function (req, res) {
 app.post('/newTugend', function (request, response) {
   console.log('request body: ');
   console.dir(request.body);
-  const sql = "INSERT INTO tugend (name, beschreibung, wert, benoetigteWdh, aeltesterID, kategorieID) " +
-    "VALUES (?, ?, ?, ?, ?, ?)";
+  const sql = "INSERT INTO tugend (name, beschreibung, wert, benoetigteWdh, aeltesterID, kategorieID, archiviert) " +
+    "VALUES (?, ?, ?, ?, ?, ?, 0)";
   const values = [request.body.name, request.body.beschreibung, request.body.wert, request.body.benoetigteWdh, request.body.aeltesterID, request.body.kategorieID];
   pool.query( sql, values,
     function (error, results, fields) {
@@ -743,6 +855,32 @@ app.put('/dashboard/bearbeite-tugend', function (request, response) {
   const sql = " UPDATE tugend SET name=?,  beschreibung=?, wert=?, benoetigteWdh=?, kategorieID=? WHERE id_tugend=?;";
   const values = [request.body.name, request.body.beschreibung, request.body.wert, request.body.benoetigteWdh, request.body.kategorieID, request.body.id_tugend];
   //[name, beschreibung, wert, benoetigteWdh, kategorieID, id_tugend];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+    });
+});
+
+//archiviereTugend()
+app.put('/archiviereTugend', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+  const sql = " UPDATE tugend SET archiviert = 1 WHERE id_tugend=?;";
+  const values = [request.body.id_tugend];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+    });
+});
+
+//stelleTugendWiederHer()
+app.put('/tugendWiederherstellen', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+  const sql = " UPDATE tugend SET archiviert = 0 WHERE id_tugend=?;";
+  const values = [request.body.id_tugend];
   pool.query( sql, values,
     function (error, results, fields) {
       if (error) throw error;

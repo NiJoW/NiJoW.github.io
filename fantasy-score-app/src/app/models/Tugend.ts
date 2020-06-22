@@ -10,6 +10,7 @@ export class Tugend{
     kategorieTitel: string;
     kategorieID: number;
     aeltesterName: string;
+    archiviert: number;
 
   constructor(name: string, beschreibung: string, wert: number, benoetigteWdh: number,
               aeltesterID: number, kategorieID: number) {

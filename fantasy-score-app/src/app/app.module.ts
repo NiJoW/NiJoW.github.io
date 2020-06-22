@@ -45,6 +45,11 @@ import { BearbeiteBonusprogrammComponent } from './modules/dashboard/aeltester/e
 import { ErstelleBonusprogrammComponent } from './modules/dashboard/aeltester/erstelle-bonusprogramm/erstelle-bonusprogramm.component';
 import { GewonneneBonusprogrammeComponent } from './modules/dashboard/tugendhafter/gewonnene-bonusprogramme/gewonnene-bonusprogramme.component';
 import { TugendhaftenFreischaltenComponent } from './modules/dashboard/suchender/tugendhaften-freischalten/tugendhaften-freischalten.component';
+import { ErstellteKategorienComponent } from './modules/dashboard/aeltester/erstellte-kategorien/erstellte-kategorien.component';
+import { ErstelleKategorieComponent } from './modules/dashboard/aeltester/erstelle-kategorie/erstelle-kategorie.component';
+import { BearbeiteKategorieComponent } from './modules/dashboard/aeltester/erstellte-kategorien/bearbeite-kategorie/bearbeite-kategorie.component';
+import { ArchivierteTugendenComponent } from './modules/dashboard/aeltester/archivierte-tugenden/archivierte-tugenden.component';
+import { ArchivierteDiensteComponent } from './modules/dashboard/aeltester/archivierte-dienste/archivierte-dienste.component';
 
 
 @NgModule({
@@ -83,7 +88,12 @@ import { TugendhaftenFreischaltenComponent } from './modules/dashboard/suchender
     BearbeiteBonusprogrammComponent,
     ErstelleBonusprogrammComponent,
     GewonneneBonusprogrammeComponent,
-    TugendhaftenFreischaltenComponent
+    TugendhaftenFreischaltenComponent,
+    ErstellteKategorienComponent,
+    ErstelleKategorieComponent,
+    BearbeiteKategorieComponent,
+    ArchivierteTugendenComponent,
+    ArchivierteDiensteComponent
   ],
   imports: [
     BrowserModule,

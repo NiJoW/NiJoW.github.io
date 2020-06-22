@@ -48,6 +48,14 @@ export class ErstellteTugendenComponent implements OnInit {
     });
   }
 
+  archivieren(tugendID) {
+    console.log("Nutzer will die Tugend " + tugendID + " wiederherstellen");
+    this.tugendObservable = this.tugendService.archiviereTugend(tugendID);
+    this.tugendObservable.subscribe(data => {
+    });
+    this.updateTugendenOnEvent();
+  }
+
   neueTugendErstellen(){
     this.zeigeErstellenOverlay = true;
   }

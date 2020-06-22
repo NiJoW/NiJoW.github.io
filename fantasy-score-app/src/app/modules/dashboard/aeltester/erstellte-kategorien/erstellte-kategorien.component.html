@@ -1,0 +1,34 @@
+<p class="title is-4">Meine erstellten Kategorien</p>
+<div *ngFor="let kategorie of erstellteKategorien | async">
+ <div class="card">
+   <header class="card-header">
+    <p class="card-header-title">{{kategorie.bezeichnung}}</p>
+    <a class="card-header-icon" aria-label="more options" (click)="changeFormat(kategorie.id_kategorie)">
+      <fa-icon [icon]="moreIcon"></fa-icon>
+    </a>
+  </header>
+  <div *ngIf="kategorie.id_kategorie === id">
+    <footer class="card-footer">
+         <button class="button left is-primary card-footer-item is-outlined"
+           (click)=bearbeiten(kategorie.id_kategorie)>
+           <fa-icon [icon]="editIcon"></fa-icon>
+         </button>
+         <button class="button right is-danger card-footer-item is-outlined">
+           <fa-icon [icon]="deleteIcon"></fa-icon>
+         </button>
+    </footer>
+  </div>
+</div>
+<br>
+</div>
+
+<div *ngIf="isEmpty" class="has-text-danger">Noch keine Kategorien erstellt.</div>
+
+<button class="button is-primary "  (click)=neueKategorieErstellen()>
+  <fa-icon [icon]="createIcon"></fa-icon> &nbsp; Neue Kategorie erstellen
+</button>
+<br>
+<br>
+<app-bearbeite-kategorie [chosenKategorie]="chosenKategorie" *ngIf="zeigeBearbeitenOverlay" (onCloseEvent)="updateKategorienOnEvent()"></app-bearbeite-kategorie>
+<app-erstelle-kategorie *ngIf="zeigeErstellenOverlay" (onCloseEvent)="updateKategorienOnEvent()"></app-erstelle-kategorie>
+

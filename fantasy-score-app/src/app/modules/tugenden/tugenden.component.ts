@@ -49,7 +49,7 @@ export class TugendenComponent implements OnInit {
       console.log(data);
       console.log(this.kategorienListe);
     });
-    this.tugenden = this.tugendService.getTugenden();
+    this.tugenden = this.tugendService.getNichtArchivierteTugenden();
     this.tugenden.subscribe(data => {
       console.log(data);
       this.shownTugenden = data;
@@ -62,7 +62,7 @@ export class TugendenComponent implements OnInit {
 
   onKategorieSelected(kategorieID):void {
     if(kategorieID == "-1") { // Alle anzeigen
-      this.tugenden = this.tugendService.getTugenden();
+      this.tugenden = this.tugendService.getNichtArchivierteTugenden();
       this.tugenden.subscribe(data => {
         console.log(data);
         this.shownTugenden = data;

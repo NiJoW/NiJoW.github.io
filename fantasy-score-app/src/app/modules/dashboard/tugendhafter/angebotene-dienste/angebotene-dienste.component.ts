@@ -66,6 +66,15 @@ export class AngeboteneDiensteComponent implements OnInit {
     })
   }
 
+
+  archivieren(dienstID) {
+    console.log("Nutzer will die Tugend " + dienstID + " archivieren");
+    this.dienstObservable = this.dienstService.archiviereDienst(dienstID);
+    this.dienstObservable.subscribe(data => {
+    });
+    this.updateDiensteOnEvent();
+  }
+
   neuenDienstErstellen(){
     this.zeigeErstellenOverlay = true;
   }
