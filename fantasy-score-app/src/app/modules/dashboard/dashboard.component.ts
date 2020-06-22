@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
   betroffeneProgramme: Observable<Bonusprogramm[]>;
   erhaeltBonus: boolean = false;
   unlockIcon = faLock;
+  willFreischalten = false;
 
 
   constructor(private kategorienService: KategorieService, 
@@ -99,7 +100,8 @@ export class DashboardComponent implements OnInit {
   }
 
   unlockTugendhafter() {
-    if (confirm("Bist du dir sicher, dass du ein Tugendhafter werden möchtest?")) {
+    this.willFreischalten = true;
+    /* if (confirm("Bist du dir sicher, dass du ein Tugendhafter werden möchtest?")) {
       this.buergerService.unlockTugendhafter(this.nutzer.id_buerger).subscribe(data => {
         console.log(data);
       });
@@ -111,15 +113,9 @@ export class DashboardComponent implements OnInit {
       
     } else {
       
-    }
+    } */
   }
 
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/']);
-    window.location.reload();
-
-  }
 }
 
 

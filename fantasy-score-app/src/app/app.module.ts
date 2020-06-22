@@ -44,6 +44,7 @@ import { ErstelleDienstComponent } from './modules/dashboard/tugendhafter/erstel
 import { BearbeiteBonusprogrammComponent } from './modules/dashboard/aeltester/erstellte-bonusprogramme/bearbeite-bonusprogramm/bearbeite-bonusprogramm.component';
 import { ErstelleBonusprogrammComponent } from './modules/dashboard/aeltester/erstelle-bonusprogramm/erstelle-bonusprogramm.component';
 import { GewonneneBonusprogrammeComponent } from './modules/dashboard/tugendhafter/gewonnene-bonusprogramme/gewonnene-bonusprogramme.component';
+import { TugendhaftenFreischaltenComponent } from './modules/dashboard/suchender/tugendhaften-freischalten/tugendhaften-freischalten.component';
 
 
 @NgModule({
@@ -81,7 +82,8 @@ import { GewonneneBonusprogrammeComponent } from './modules/dashboard/tugendhaft
     ErstelleDienstComponent,
     BearbeiteBonusprogrammComponent,
     ErstelleBonusprogrammComponent,
-    GewonneneBonusprogrammeComponent
+    GewonneneBonusprogrammeComponent,
+    TugendhaftenFreischaltenComponent
   ],
   imports: [
     BrowserModule,
