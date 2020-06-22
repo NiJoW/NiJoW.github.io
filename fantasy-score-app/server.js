@@ -122,7 +122,7 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
 //getSelbstErstellteBonusprogramme()
 app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
   const buergerID = req.query.buergerID;
-  const sql = 'SELECT bp.id_bonusprogramm, bp.titel, bp.nachricht, bp.punkte_in_kategorie, k.bezeichnung FROM bonusprogramm bp, kategorie k WHERE k.id_kategorie = bp.kategorieID AND aeltesterID = ?;';
+  const sql = 'SELECT bp.id_bonusprogramm, bp.titel, bp.nachricht, bp.punkte_in_kategorie, k.bezeichnung FROM bonusprogramm bp, kategorie k WHERE k.id_kategorie = bp.kategorieID AND bp.aeltesterID = ?;';
   const value = [buergerID];
     pool.query(sql, value,
       function (error, results, fields) {
@@ -553,9 +553,61 @@ app.get('/kategorie', function (req, res) {
   });
 });
 
+//getKategorieByID()
+app.get('/kategorieByID', function (req, res) {
+  const kategorieID = req.query.kategorieID;
+  const sql = 'SELECT id_kategorie, bezeichnung FROM kategorie WHERE id_kategorie = ?';
+  const value = [kategorieID];
+  pool.query(sql, value,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+  });
+}); 
+
+//getErstellteKategorien()
+app.get('/erstellteKategorien', function (req, res) {
+  const aeltesterID = req.query.aeltesterID;
+  const sql = 'SELECT id_kategorie, bezeichnung FROM kategorie WHERE aeltesterID = ?';
+  const value = [aeltesterID];
+  pool.query(sql, value,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+  });
+});
+
 //#################### post
 
+//addKategorie()
+app.post('/addKategorie', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+  const sql = "INSERT INTO kategorie (bezeichnung, aeltesterID) " +
+    "VALUES (?, ?)";
+  const values = [request.body.bezeichnung ,request.body.aeltesterID];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+    });
+});
+
 //#################### put
+
+//updateKategorie()
+app.put('/updateKategorie', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+  const sql = " UPDATE kategorie SET bezeichnung = ? WHERE id_kategorie=?;";
+  const values = [request.body.bezeichnung, request.body.id_kategorie];
+  //[name, beschreibung, wert, benoetigteWdh, kategorieID, id_tugend];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+    });
+});
 
 
 
@@ -692,7 +744,7 @@ app.get('/kategorie/tugenden', function (request, response) {
 //getErstellteTugenden()
 app.get('/dashboard/erstellte-tugenden', function (req, res) {
   const aeltesterID = req.query.aeltesterID;
-  const sql = 'SELECT id_tugend, name, beschreibung, wert, benoetigteWdh,  kategorieID, bezeichnung AS kategorieTitel FROM tugend JOIN kategorie ON kategorieID=id_kategorie WHERE aeltesterID = ?';
+  const sql = 'SELECT id_tugend, name, beschreibung, wert, benoetigteWdh,  kategorieID, bezeichnung AS kategorieTitel FROM tugend t JOIN kategorie ON kategorieID=id_kategorie WHERE t.aeltesterID = ?';
   const value = [aeltesterID];
   pool.query(sql, value,
     function (error, results, fields) {

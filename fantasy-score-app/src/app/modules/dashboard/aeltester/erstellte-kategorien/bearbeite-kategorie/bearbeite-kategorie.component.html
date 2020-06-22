@@ -1,0 +1,22 @@
+<div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Kategorie bearbeiten:</p>
+        <button class="delete" aria-label="close" (click)="cancel()"></button>
+      </header>
+      <form [formGroup]="bearbeiteKategorieForm" (ngSubmit)="speichern(bearbeiteKategorieForm.value)">
+        <section class="modal-card-body">
+  
+          <label for="bezeichnung_neue_kategorie">Bezeichnung:</label> &nbsp;
+          <input id="bezeichnung_neue_kategorie" type="text" formControlName="bezeichnung">
+  
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" type="submit">Speichern</button>
+          <button class="button is-danger" type="reset" (click)="cancel()">Abbrechen</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+  
