@@ -1,12 +1,11 @@
-<section class="hero is-medium is-bold">
+<section class="hero is-dark is-medium is-bold">
   <div class="hero-body">
     <div class="container">
-     <!--  <div class="box"> -->
-       <div *ngIf="!isLoggedIn()">
+      <div *ngIf="!isLoggedIn()">
         <p class="title">Willkommen Bürger</p>
-       </div>
+      </div>
 
-       <div *ngIf="isLoggedIn()">
+      <div *ngIf="isLoggedIn()">
         <p class="title">Willkommen {{nutzer.benutzername}}</p>
         
         <div *ngIf="nutzer.typ === 'Tugendhafter'" class="section media" style="padding-bottom: 0;">
@@ -20,7 +19,6 @@
           <div class="media-right title is-4">{{nutzer.social_score}} Punkte</div>
         </div>
       </div>
-     <!--  </div> -->
     </div>
   </div>
 </section>
