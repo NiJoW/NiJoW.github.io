@@ -16,9 +16,6 @@ export class AuthService {
   private benutzerObservable: Observable<Buerger[]>;
   private scoreObservable: Observable<Buerger[]>;
 
-
-
-
   constructor(private buergerService: BuergerService) {
     // console.log('authService: isLoggedIn():');
     // console.log(this.isLoggedIn());
@@ -26,6 +23,7 @@ export class AuthService {
       this.nutzer  = JSON.parse(sessionStorage.loggedInUser);
     }
   }
+
 
   isLoggedIn() {
     if(sessionStorage.getItem('loggedInUser')!=undefined){

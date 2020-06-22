@@ -12,6 +12,7 @@ import { DienstService } from 'src/app/services/dienst.service';
 import { Dienst } from 'src/app/models/Dienst';
 import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
 import { BonusService } from 'src/app/services/bonus.service';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class DashboardComponent implements OnInit {
   unlockClicked = false;
   betroffeneProgramme: Observable<Bonusprogramm[]>;
   erhaeltBonus: boolean = false;
+  unlockIcon = faLock;
 
 
   constructor(private kategorienService: KategorieService, 

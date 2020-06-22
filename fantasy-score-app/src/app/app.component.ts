@@ -2,7 +2,7 @@ import { AuthService } from './services/auth.service';
 import { Buerger } from './models/Buerger';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { DienstService } from './services/dienst.service';
 import { Observable } from 'rxjs';
 import { Dienst } from './models/Dienst';
@@ -17,13 +17,13 @@ import { BonusService } from './services/bonus.service';
 export class AppComponent {
   title = 'fantasy-score-app';
   nutzer: Buerger;
-  faCoffee = faCoffee;
   willAnmelden: boolean = false;
   willRegistrieren: boolean = false;
   hasMessage: boolean = false;
   messageAnount = 0; //TODO: update nachdem gelesen wurde
   angefragteDiensteObservable: Observable<Dienst[]>;
   betroffeneProgramme: Observable<Bonusprogramm[]>;
+  homeIcon = faHome;
 
 
   constructor(private router: Router, 

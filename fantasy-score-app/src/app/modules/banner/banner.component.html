@@ -1,8 +1,24 @@
 <section class="hero is-dark is-medium is-bold">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title">Willkommen auf deinem Dashboard (Name)</h1>
-      <h2 class="subtitle">Dein Social Score: 440 Punkte</h2>
+      <div *ngIf="!isLoggedIn()">
+        <p class="title">Willkommen Bürger</p>
+      </div>
+
+      <div *ngIf="isLoggedIn()">
+        <p class="title">Willkommen {{nutzer.benutzername}}</p>
+        
+        <div *ngIf="nutzer.typ === 'Tugendhafter'" class="section media" style="padding-bottom: 0;">
+          <div class="media-left">
+            <p class="title is-4"><fa-icon class="icon" [icon]="trophyIcon"></fa-icon>
+            Novize</p>
+          </div>
+          <div class="media-content">
+            <progress class="progress is-small" value="15" max="100" style="margin-top: 2%;">15%</progress>
+          </div>
+          <div class="media-right title is-4">{{nutzer.social_score}} Punkte</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

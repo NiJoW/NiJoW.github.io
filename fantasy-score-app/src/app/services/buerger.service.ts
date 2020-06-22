@@ -2,9 +2,10 @@ import { Observable } from 'rxjs';
 import { Bester } from './../models/Bester';
 import { APIConfig } from './../../APIconfig';
 import { Buerger } from './../models/Buerger';
-import { HttpClient , HttpHeaders } from '@angular/common/http';
+import { HttpClient , HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Tugend} from "../models/Tugend";
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +22,16 @@ export class BuergerService {
     private readonly nutzerNameUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/name';
     private readonly newSocialScoreEintragUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/socialScoreEintrag';
     private readonly unlockTugendhafterUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/unlockTugendhafter';
-
+    private readonly socialScoreUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/socialScore';
 
     getBuerger(): Observable<Buerger[]> {
         return this.http.get<Buerger[]>(this.buergerUrl)
     }
+
+   /*  getSocialScoreFromId(id: number): Observable<Buerger> {
+      let buergerParams =  new HttpParams().set("buergerID", id+"");
+      return this.http.get<Buerger>(this.socialScoreUrl, {params: buergerParams})
+    } */
 
     getBestenliste(): Observable<Bester[]> {
         return this.http.get<Bester[]>(this.bestenlisteUrl)
