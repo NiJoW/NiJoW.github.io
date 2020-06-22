@@ -50,7 +50,10 @@ Test Observer
     <fa-icon class="lock" [icon]="unlockIcon"></fa-icon> Schalte jetzt deinen inneren Tugendhaften frei!
   </button>
   <div class="section"><app-gebuchte-dienste></app-gebuchte-dienste></div>  
-  <div class="section"><app-angefragte-dienste></app-angefragte-dienste></div>  
+  <div class="section"><app-angefragte-dienste></app-angefragte-dienste></div> 
+  
+  <app-tugendhaften-freischalten *ngIf="willFreischalten" (onClose)="willFreischalten = false"></app-tugendhaften-freischalten>
+  
 </div>
 <div *ngIf= "isTyp('Aeltester')" class="section">
   <!--- <app-erstelle-tugend></app-erstelle-tugend> --->  
