@@ -38,3 +38,5 @@
 <app-bearbeite-tugend [chosenTugend]="chosenTugend" *ngIf="zeigeBearbeitenOverlay" (onCloseEvent)="updateTugendenOnEvent()"></app-bearbeite-tugend>
 <app-erstelle-tugend *ngIf="zeigeErstellenOverlay" (onCloseEvent)="updateTugendenOnEvent()"></app-erstelle-tugend>
 
+<app-tugend-loeschen (onDone)="recieveDone($event)" [message]="message" *ngIf="willTugendLoeschen" (onClose)="willTugendLoeschen = false"></app-tugend-loeschen>
+

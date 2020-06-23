@@ -26,3 +26,4 @@
 
 <div *ngIf="isEmpty" class="has-text-danger">Es gibt keine archivierten Tugenden</div>
 
+<app-tugend-wiederherstellen (onDone)="recieveDone($event)" [message]="message" *ngIf="willTugendWiederherstellen" (onClose)="willTugendWiederherstellen = false"></app-tugend-wiederherstellen>

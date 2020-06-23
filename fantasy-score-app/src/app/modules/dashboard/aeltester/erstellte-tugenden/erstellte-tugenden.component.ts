@@ -27,6 +27,9 @@ export class ErstellteTugendenComponent implements OnInit {
   chosenTugend: Tugend;
   tugendObservable : Observable<Tugend>;
 
+  willTugendLoeschen = false;
+  message: number;
+
 
   constructor(private tugendService: TugendService) { }
 
@@ -49,10 +52,11 @@ export class ErstellteTugendenComponent implements OnInit {
   }
 
   archivieren(tugendID) {
-    console.log("Nutzer will die Tugend " + tugendID + " wiederherstellen");
-    this.tugendObservable = this.tugendService.archiviereTugend(tugendID);
-    this.tugendObservable.subscribe(data => {
-    });
+    this.willTugendLoeschen = true;
+    this.message = tugendID;
+  }
+
+  recieveDone($event) {
     this.updateTugendenOnEvent();
   }
 
