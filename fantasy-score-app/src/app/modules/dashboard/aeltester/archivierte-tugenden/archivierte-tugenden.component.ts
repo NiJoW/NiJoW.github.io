@@ -1,7 +1,7 @@
 import { TugendService } from 'src/app/services/tugend.service';
 import { Tugend } from 'src/app/models/Tugend';
 import { Observable } from 'rxjs';
-import { faPencilAlt, faPlus, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faPlus, faAngleDown, faTrashRestore } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -17,6 +17,7 @@ export class ArchivierteTugendenComponent implements OnInit {
   moreIcon = faAngleDown;
   id: number;
   isEmpty = false;
+  restoreIcon = faTrashRestore;
 
 
   zeigeBearbeitenOverlay = false;

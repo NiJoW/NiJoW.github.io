@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BuergerTyp } from './../../models/BuergerTyp.enum';
 import { AuthService } from './../../services/auth.service';
 import { FormBuilder } from '@angular/forms';
+import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-anmelden',
@@ -14,6 +15,8 @@ export class AnmeldenComponent implements OnInit {
   anmeldenForm;
   Typ = BuergerTyp;
   message = " ";
+  passwordIcon = faKey;
+  userIcon = faUser;
 
   @Output() onClose = new EventEmitter();
 

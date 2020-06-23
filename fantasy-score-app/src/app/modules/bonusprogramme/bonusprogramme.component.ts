@@ -5,6 +5,7 @@ import { KategorieService } from 'src/app/services/kategorie.service';
 import { Kategorie } from 'src/app/models/Kategorie';
 import { Observable } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-bonusprogramme',
@@ -18,6 +19,7 @@ export class BonusprogrammeComponent implements OnInit {
   bonusprogramme: Observable<Bonusprogramm[]>;
   shownProgramme: Bonusprogramm[];
   kategorieID: number;
+  searchIcon = faSearch;
 
   constructor(private kategorieService: KategorieService, 
     private bonusService: BonusService,

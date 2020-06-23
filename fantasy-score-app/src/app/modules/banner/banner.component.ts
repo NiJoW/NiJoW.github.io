@@ -3,7 +3,7 @@ import { BuergerService } from './../../services/buerger.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faAward } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-banner',
@@ -16,7 +16,7 @@ export class BannerComponent implements OnInit {
     private authService: AuthService) { }
 
   nutzer:Buerger;
-  trophyIcon = faTrophy;
+  awardIcon = faAward;
 
   ngOnInit(): void {
     this.nutzer = this.authService.getNutzer();

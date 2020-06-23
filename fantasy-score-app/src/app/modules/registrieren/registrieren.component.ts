@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { FormBuilder } from '@angular/forms';
 import { BuergerService } from 'src/app/services/buerger.service';
+import { faKey, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-registrieren',
@@ -19,6 +20,9 @@ export class RegistrierenComponent implements OnInit {
   passwort;
   code;
   requestedType: BuergerTyp;
+  passwordIcon = faKey;
+  userIcon = faUser;
+  emailIcon = faEnvelope;
 
   
   @Output() onClose = new EventEmitter();

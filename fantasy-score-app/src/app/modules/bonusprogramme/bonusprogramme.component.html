@@ -13,9 +13,9 @@
 
   <form [formGroup]="searchForm" (ngSubmit)="suchen(searchForm.value)">
     <div class="field has-addons">
-      <div class="control">
-        <input class="form-control input media-content" type="text" placeholder="Suchen" formControlName="searchInput">
-      </div>
+      <p class="control">
+        <input class="form-control input media-content" type="text" placeholder="Suchen..." formControlName="searchInput">
+      </p>
       <div class="control">
         <button class="button is-info" type="submit">Suchen</button>
       </div>

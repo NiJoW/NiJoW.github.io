@@ -2,7 +2,7 @@ import { DienstService } from 'src/app/services/dienst.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Dienst } from 'src/app/models/Dienst';
-import { faPencilAlt, faPlus, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faPlus, faAngleDown, faTrashRestore } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-archivierte-dienste',
@@ -17,6 +17,7 @@ export class ArchivierteDiensteComponent implements OnInit {
   moreIcon = faAngleDown;
   id: number;
   isEmpty = false;
+  restoreIcon = faTrashRestore;
 
 
   zeigeBearbeitenOverlay = false;
