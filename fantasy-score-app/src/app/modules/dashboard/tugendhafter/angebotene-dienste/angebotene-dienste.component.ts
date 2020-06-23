@@ -23,6 +23,8 @@ export class AngeboteneDiensteComponent implements OnInit {
 
   willDienstLoeschen = false;
 
+  message: number;
+
   constructor(private dienstService: DienstService) { }
 
   angeboteneDienste: Observable<Dienst[]>;
@@ -71,6 +73,11 @@ export class AngeboteneDiensteComponent implements OnInit {
 
   archivieren(dienstID) {
     this.willDienstLoeschen = true;
+    this.message = dienstID;
+  }
+
+  recieveDone($event) {
+    this.updateDiensteOnEvent();
   }
 
   neuenDienstErstellen(){

@@ -1,5 +1,5 @@
 import { TugendService } from './../../../../services/tugend.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Tugend } from 'src/app/models/Tugend';
 
@@ -15,18 +15,20 @@ export class TugendLoeschenComponent implements OnInit {
 
   constructor(private tugendService: TugendService) { }
 
+  @Input() message: number;
+  done: boolean = false;
+  @Output() onDone = new EventEmitter();
+
   ngOnInit(): void {
   }
 
-  tugendLoeschen(/*tugendID*/) {
-    var tugendID = 0;
+  tugendLoeschen(tugendID) {
     console.log("Nutzer will die Tugend " + tugendID + " löschen");
     this.tugendObservable = this.tugendService.archiviereTugend(tugendID);
     this.tugendObservable.subscribe(data => {
     });
-    /*
-    this.erstellteTugendenComponent.updateTugendenOnEvent();
-    */
+   this.onDone.emit(true);
+   this.onClose.emit(null); 
   }
 
   cancel() {

@@ -1,7 +1,7 @@
 import { Dienst } from 'src/app/models/Dienst';
 import { Observable } from 'rxjs';
 import { DienstService } from './../../../../services/dienst.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 
 @Component({
@@ -13,6 +13,11 @@ export class DienstLoeschenComponent implements OnInit {
 
   @Output() onClose = new EventEmitter();
   dienstObservable: Observable<Dienst>;
+  
+  @Input() message: number;
+  done: boolean = false;
+  @Output() onDone = new EventEmitter();
+  
 
   constructor(private dienstService: DienstService) { }
 
@@ -20,13 +25,13 @@ export class DienstLoeschenComponent implements OnInit {
 
   }
 
-  dienstLoeschen(/*dienstID*/) {
-    var dienstID = 0;
+  dienstLoeschen(dienstID) {
     console.log("Nutzer will die Tugend " + dienstID + " archivieren");
     this.dienstObservable = this.dienstService.archiviereDienst(dienstID);
     this.dienstObservable.subscribe(data => {
     });
-    /*this.updateDiensteOnEvent();*/
+    this.onDone.emit(true);
+    this.onClose.emit(null); 
   }
 
   cancel() {

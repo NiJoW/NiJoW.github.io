@@ -28,6 +28,7 @@ export class ErstellteTugendenComponent implements OnInit {
   tugendObservable : Observable<Tugend>;
 
   willTugendLoeschen = false;
+  message: number;
 
 
   constructor(private tugendService: TugendService) { }
@@ -52,6 +53,11 @@ export class ErstellteTugendenComponent implements OnInit {
 
   archivieren(tugendID) {
     this.willTugendLoeschen = true;
+    this.message = tugendID;
+  }
+
+  recieveDone($event) {
+    this.updateTugendenOnEvent();
   }
 
   neueTugendErstellen(){

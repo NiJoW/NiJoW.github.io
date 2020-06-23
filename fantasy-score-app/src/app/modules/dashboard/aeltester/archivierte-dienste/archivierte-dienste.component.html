@@ -24,4 +24,4 @@
 
 <div *ngIf="isEmpty" class="has-text-danger">Es gibt keine archivierten Dienste</div>
 
-<app-dienst-wiederherstellen *ngIf="willDienstWiederherstellen" (onClose)="willDienstWiederherstellen = false"></app-dienst-wiederherstellen>
+<app-dienst-wiederherstellen (onDone)="recieveDone($event)" [message]="message" *ngIf="willDienstWiederherstellen" (onClose)="willDienstWiederherstellen = false"></app-dienst-wiederherstellen>

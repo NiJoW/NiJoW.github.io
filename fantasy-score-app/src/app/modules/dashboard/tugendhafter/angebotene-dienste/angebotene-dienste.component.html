@@ -35,4 +35,4 @@
 <app-bearbeite-dienst [chosenDienst]="chosenDienst" *ngIf="zeigeBearbeitenOverlay" (onCloseEvent)="updateDiensteOnEvent()"></app-bearbeite-dienst>
 <app-erstelle-dienst *ngIf="zeigeErstellenOverlay" (onCloseEvent)="updateDiensteOnEvent()"></app-erstelle-dienst>
 
-<app-dienst-loeschen *ngIf="willDienstLoeschen" (onClose)="willDienstLoeschen = false"></app-dienst-loeschen>
+<app-dienst-loeschen (onDone)="recieveDone($event)" [message]="message" *ngIf="willDienstLoeschen" (onClose)="willDienstLoeschen = false"></app-dienst-loeschen>
