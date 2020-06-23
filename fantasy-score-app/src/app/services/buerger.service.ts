@@ -28,10 +28,10 @@ export class BuergerService {
         return this.http.get<Buerger[]>(this.buergerUrl)
     }
 
-   /*  getSocialScoreFromId(id: number): Observable<Buerger> {
+    getSocialScoreFromId(id: number): Observable<number> {
       let buergerParams =  new HttpParams().set("buergerID", id+"");
-      return this.http.get<Buerger>(this.socialScoreUrl, {params: buergerParams})
-    } */
+      return this.http.get<number>(this.socialScoreUrl, {params: buergerParams})
+    } 
 
     getBestenliste(): Observable<Bester[]> {
         return this.http.get<Bester[]>(this.bestenlisteUrl)
@@ -98,3 +98,4 @@ export class BuergerService {
     //         .subscribe(data => console.log(data));
 
 }
+ 

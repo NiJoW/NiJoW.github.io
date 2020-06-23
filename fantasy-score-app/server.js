@@ -267,6 +267,18 @@ app.get('/buerger', function (req, res) {
   });
 });
 
+//getSocialScoreFromId(id)
+app.get('/nutzer/socialScore', function (req, res) {
+  const buergerID = req.query.buergerID;
+  const sql = 'SELECT social_score FROM hat_social_score WHERE tugendhafterID = ?';
+  const value = [buergerID] 
+  pool.query(sql, value, 
+    function (error, results, fields) {
+    if (error) throw error;
+    res.send(results);
+  });
+})
+
 //getBestenliste()
 app.get('/bestenliste', function (req, res) {
   pool.query('SELECT benutzername, social_score FROM buerger b JOIN hat_social_score hss ON b.id_buerger = hss.tugendhafterID ORDER BY social_score DESC limit 10', function (error, results, fields) {

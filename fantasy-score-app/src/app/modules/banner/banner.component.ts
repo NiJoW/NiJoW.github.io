@@ -16,13 +16,18 @@ export class BannerComponent implements OnInit {
     private authService: AuthService) { }
 
   nutzer:Buerger;
+  socialScore: Observable<number>;
   awardIcon = faAward;
 
   ngOnInit(): void {
     this.nutzer = this.authService.getNutzer();
-    /* if(this.nutzer.typ == "Tugendhafter") {
-      this.buergerService.getSocialScoreFromId(this.nutzer.id_buerger);
-    } */
+     if(this.nutzer != null && this.nutzer.typ == "Tugendhafter") {
+      this.socialScore = this.buergerService.getSocialScoreFromId(this.nutzer.id_buerger);
+      this.socialScore.subscribe(data =>{
+        console.log(data);
+        this.nutzer.social_score = data;
+      })
+    } 
   }
 
   isLoggedIn(): boolean {
