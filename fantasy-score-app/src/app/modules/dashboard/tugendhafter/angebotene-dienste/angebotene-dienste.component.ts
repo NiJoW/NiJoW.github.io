@@ -80,9 +80,8 @@ export class AngeboteneDiensteComponent implements OnInit {
   }
 
   private getEigeneErstellteDienste() {
-    this.erstellteDienste = this.dienstService.getAngeboteneDienste();
-
-    this.erstellteDienste.subscribe(data => {
+    this.angeboteneDienste = this.dienstService.getAngeboteneDienste();
+    this.angeboteneDienste.subscribe(data => {
       console.log('Dienst aus DB in Componente:');
       console.log(data);
     });
