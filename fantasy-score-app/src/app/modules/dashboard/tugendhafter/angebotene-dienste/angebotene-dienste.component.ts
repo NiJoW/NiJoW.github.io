@@ -21,6 +21,8 @@ export class AngeboteneDiensteComponent implements OnInit {
   chosenDienst: Dienst;
   dienstObservable : Observable<Dienst>;
 
+  willDienstLoeschen = false;
+
   constructor(private dienstService: DienstService) { }
 
   angeboteneDienste: Observable<Dienst[]>;
@@ -68,11 +70,7 @@ export class AngeboteneDiensteComponent implements OnInit {
 
 
   archivieren(dienstID) {
-    console.log("Nutzer will die Tugend " + dienstID + " archivieren");
-    this.dienstObservable = this.dienstService.archiviereDienst(dienstID);
-    this.dienstObservable.subscribe(data => {
-    });
-    this.updateDiensteOnEvent();
+    this.willDienstLoeschen = true;
   }
 
   neuenDienstErstellen(){

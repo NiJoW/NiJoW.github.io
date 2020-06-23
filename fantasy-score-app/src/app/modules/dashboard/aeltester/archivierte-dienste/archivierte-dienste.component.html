@@ -24,3 +24,4 @@
 
 <div *ngIf="isEmpty" class="has-text-danger">Es gibt keine archivierten Dienste</div>
 
+<app-dienst-wiederherstellen *ngIf="willDienstWiederherstellen" (onClose)="willDienstWiederherstellen = false"></app-dienst-wiederherstellen>

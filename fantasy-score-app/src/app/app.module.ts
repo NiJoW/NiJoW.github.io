@@ -50,6 +50,10 @@ import { ErstelleKategorieComponent } from './modules/dashboard/aeltester/erstel
 import { BearbeiteKategorieComponent } from './modules/dashboard/aeltester/erstellte-kategorien/bearbeite-kategorie/bearbeite-kategorie.component';
 import { ArchivierteTugendenComponent } from './modules/dashboard/aeltester/archivierte-tugenden/archivierte-tugenden.component';
 import { ArchivierteDiensteComponent } from './modules/dashboard/aeltester/archivierte-dienste/archivierte-dienste.component';
+import { DienstWiederherstellenComponent } from './modules/dashboard/aeltester/dienst-wiederherstellen/dienst-wiederherstellen.component';
+import { TugendWiederherstellenComponent } from './modules/dashboard/aeltester/tugend-wiederherstellen/tugend-wiederherstellen.component';
+import { TugendLoeschenComponent } from './modules/dashboard/aeltester/tugend-loeschen/tugend-loeschen.component';
+import { DienstLoeschenComponent } from './modules/dashboard/tugendhafter/dienst-loeschen/dienst-loeschen.component';
 
 
 @NgModule({
@@ -93,7 +97,11 @@ import { ArchivierteDiensteComponent } from './modules/dashboard/aeltester/archi
     ErstelleKategorieComponent,
     BearbeiteKategorieComponent,
     ArchivierteTugendenComponent,
-    ArchivierteDiensteComponent
+    ArchivierteDiensteComponent,
+    DienstWiederherstellenComponent,
+    TugendWiederherstellenComponent,
+    TugendLoeschenComponent,
+    DienstLoeschenComponent
   ],
   imports: [
     BrowserModule,

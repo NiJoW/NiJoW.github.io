@@ -24,6 +24,8 @@ export class ArchivierteDiensteComponent implements OnInit {
   chosenDienst: Dienst;
   dienstObservable : Observable<Dienst>;
 
+  willDienstWiederherstellen = false;
+
 
   constructor(private dienstService: DienstService) { }
 
@@ -32,11 +34,7 @@ export class ArchivierteDiensteComponent implements OnInit {
   }
 
   wiederherstellen(dienstID) {
-    console.log("Nutzer will die Dienst " + dienstID + " wiederherstellen");
-    this.dienstObservable = this.dienstService.stelleDienstWiederHer(dienstID);
-    this.dienstObservable.subscribe(data => {
-    });
-    this.updateDiensteOnEvent();
+    this.willDienstWiederherstellen = true;
   }
 
   neueDienstErstellen(){

@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
 
   kategorien: Observable<Kategorie[]>;
   type = "tugenden";
+  typeAeltester = "aktuell";
   typeUser: BuergerTyp;
   aktuellerNutzer: Buerger;
   nutzer: Buerger;
@@ -34,6 +35,7 @@ export class DashboardComponent implements OnInit {
   betroffeneProgramme: Observable<Bonusprogramm[]>;
   erhaeltBonus: boolean = false;
   unlockIcon = faLock;
+
   willFreischalten = false;
 
 
@@ -80,6 +82,10 @@ export class DashboardComponent implements OnInit {
     return this.authService.getNutzer().typ+"" == typ;
   }
 
+  changeTypeAeltester(typ: string){
+    this.typeAeltester = typ;
+  }
+
 
   getAktuellenNutzer(){
     this.nutzer = this.authService.getNutzer();
@@ -115,6 +121,8 @@ export class DashboardComponent implements OnInit {
       
     } */
   }
+
+  
 
 }
 
