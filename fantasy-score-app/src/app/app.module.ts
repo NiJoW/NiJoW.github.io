@@ -54,6 +54,7 @@ import { DienstWiederherstellenComponent } from './modules/dashboard/aeltester/d
 import { TugendWiederherstellenComponent } from './modules/dashboard/aeltester/tugend-wiederherstellen/tugend-wiederherstellen.component';
 import { TugendLoeschenComponent } from './modules/dashboard/aeltester/tugend-loeschen/tugend-loeschen.component';
 import { DienstLoeschenComponent } from './modules/dashboard/tugendhafter/dienst-loeschen/dienst-loeschen.component';
+import { ProfilBearbeitenComponent } from './modules/banner/profil-bearbeiten/profil-bearbeiten.component';
 
 
 @NgModule({
@@ -101,7 +102,8 @@ import { DienstLoeschenComponent } from './modules/dashboard/tugendhafter/dienst
     DienstWiederherstellenComponent,
     TugendWiederherstellenComponent,
     TugendLoeschenComponent,
-    DienstLoeschenComponent
+    DienstLoeschenComponent,
+    ProfilBearbeitenComponent
   ],
   imports: [
     BrowserModule,

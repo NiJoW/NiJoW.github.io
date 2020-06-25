@@ -15,6 +15,7 @@ export class AuthService {
   private nutzer: Buerger;
   private benutzerObservable: Observable<Buerger[]>;
   private scoreObservable: Observable<Buerger[]>;
+  private socialScore: Observable<number>;
 
   constructor(private buergerService: BuergerService) {
     // console.log('authService: isLoggedIn():');
@@ -47,6 +48,8 @@ export class AuthService {
         komponent.cancel();
         this.nutzer = data[0];
         console.dir(data[0]);
+
+        
 
         sessionStorage.setItem('loggedInUser', JSON.stringify(data[0]));
         console.log(sessionStorage.getItem('loggedInUser'));

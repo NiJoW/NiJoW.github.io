@@ -406,6 +406,20 @@ app.put('/nutzer/unlockTugendhafter', function (request, response) {
     });
 });
 
+//updateNutzer()
+app.put('/nutzer/updateDaten', function (req, res) {
+  const email = req.body.email;
+  const passwort = req.body.passwort;
+  const buergerID = req.body.buergerID;
+  const sql = "UPDATE buerger SET email_adresse=?, passwort=? WHERE id_buerger=?;";
+  const values = [email, passwort, buergerID];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    });
+});
+
 
 
 

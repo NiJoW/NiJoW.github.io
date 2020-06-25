@@ -1,27 +1,65 @@
-<section class="hero is-dark is-medium is-bold">
+<section class="hero is-info is-medium is-bold">
   <div class="hero-body">
     <div class="container">
       <div *ngIf="!isLoggedIn()">
         <p class="title">Willkommen Bürger</p>
       </div>
 
-      <div *ngIf="isLoggedIn()">
-        <p class="title">Willkommen {{nutzer.benutzername}}</p>
+      
+      <div class="columns" *ngIf="isLoggedIn()">
         
-        <div *ngIf="nutzer.typ === 'Tugendhafter'" class="section media" style="padding-bottom: 0;">
-          <div class="media-left">
-            <p class="title is-4"><fa-icon class="icon" [icon]="awardIcon"></fa-icon>
-            Novize</p>
+        <div class="column is-3">
+          <div class="box">
+            <p class="title is-3">{{nutzer.benutzername}}</p>
+            <p class="subtitle is-6"><i>{{nutzer.email_adresse}}</i></p>
+            <button class="button left is-light is-outlined"
+            (click)=bearbeiten()>
+            <fa-icon class="editIcon" [icon]="editIcon"></fa-icon> Profil bearbeiten
+          </button>
           </div>
-          <div class="media-content">
-            <progress class="progress is-small is-danger" value="15" max="100" style="margin-top: 2%;">15%</progress>
+        </div>
+        <div class="column is-3"></div>
+        <div class="column is-2">
+          <div class="box">
+            <div class="container">
+              <fa-icon class="icon fa-5x has-text-dark" [icon]="piggyIcon"></fa-icon>
+              <p class="title-1"><strong>{{nutzer.social_score}}</strong></p>
+              <p class="has-text-light subtitle-5">Social Score</p>
+            </div>
           </div>
-          <div class="media-right title is-4">{{nutzer.social_score}} Punkte</div>
+        </div>
+        <div class="column is-2">
+          <div class="box">
+            <div class="container">
+                <fa-icon class="icon fa-5x has-text-dark" [icon]="handshakeIcon"></fa-icon>
+                <p class="title-1"><strong>{{dienstAnzahl}}</strong></p>
+                <p class="has-text-light subtitle-5">erfüllte Dienste</p>
+            </div>
+          </div>
+        </div>
+        <div class="column is-2">
+          <div class="box">
+            <div class="container">
+              <fa-icon class="icon fa-5x has-text-dark" [icon]="trophyIcon"></fa-icon>
+              <p class="title-1"><strong>{{boniAnzahl}}</strong></p>
+              <p class="has-text-light subtitle-5">erhaltene Boni</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+      
+  <div class="hero-foot">
+    <div class="content media is-center">
+      <p class="media-left subtitle">Novize</p>
+      <progress class="media-content progress is-small is-danger" value="15" max="100" style="margin-top: 1%;">15%</progress>
+      <br>
+    </div>
+  </div>
 </section>
+
+<app-profil-bearbeiten *ngIf="willBearbeiten" (onClose)="willBearbeiten = false"></app-profil-bearbeiten>
 
 <div class="is-overlay">
   <app-notification></app-notification>

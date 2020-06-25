@@ -4,8 +4,6 @@ import { APIConfig } from './../../APIconfig';
 import { Buerger } from './../models/Buerger';
 import { HttpClient , HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Tugend} from "../models/Tugend";
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +21,7 @@ export class BuergerService {
     private readonly newSocialScoreEintragUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/socialScoreEintrag';
     private readonly unlockTugendhafterUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/unlockTugendhafter';
     private readonly socialScoreUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/socialScore';
+    private readonly updateNutzerUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/updateDaten';
 
     getBuerger(): Observable<Buerger[]> {
         return this.http.get<Buerger[]>(this.buergerUrl)
@@ -70,22 +69,31 @@ export class BuergerService {
     }
 
     newSocialScoreAnlegen(id: number): Observable<Buerger[]> {
-      const httpOptions = null;
-      console.log('In buerger.service.ts newSocialScoreAnlegen');
-      console.log("InsertID in newSocialScoreAnlegen" + id);
-      return this.http.post<Buerger[]>(this.newSocialScoreEintragUrl,
-        {
-          "tugendhafterID" : id,
-        });
-      }
+    const httpOptions = null;
+    console.log('In buerger.service.ts newSocialScoreAnlegen');
+    console.log("InsertID in newSocialScoreAnlegen" + id);
+    return this.http.post<Buerger[]>(this.newSocialScoreEintragUrl,
+      {
+        "tugendhafterID" : id,
+      });
+    }
 
-      unlockTugendhafter(id: number): Observable<Buerger> {
-        const httpOptions = null;
-        return this.http.put<Buerger>(this.unlockTugendhafterUrl,
-          {
-            "id_buerger": id
-          });
-      }
+    unlockTugendhafter(id: number): Observable<Buerger> {
+      const httpOptions = null;
+      return this.http.put<Buerger>(this.unlockTugendhafterUrl,
+        {
+          "id_buerger": id
+        });
+    }
+
+    updateNutzer(email: string, passwort:string, id:number): Observable<Buerger> {
+      return this.http.put<Buerger>(this.updateNutzerUrl, 
+        {
+          "email": email,
+          "passwort": passwort,
+          "buergerID": id
+        });
+    }
 
 
 

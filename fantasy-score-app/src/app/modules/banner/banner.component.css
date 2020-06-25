@@ -12,30 +12,59 @@
     z-index: 1;
 }
 
-.box {
-    width: 50%;
-}
-
-.media {
+.is-center {
+    align-items: center;
+    margin: 0;
     width: 70%;
 }
 
-.hero-body {
-    background-image: url(../../../assets/Pictures/teamworkBanner1.png);
-    background-position: right;
-    background-size: cover;
-
+.hero-foot {
+    text-align: -webkit-center;
 }
 
-.hero.is-medium .hero-body {
-    /* padding: 12rem 1.5rem 2rem 1.5rem; */
+@media screen and (min-width: 769px), print {
+    .hero.is-medium .hero-body {
+        padding: 9rem 1.5rem 3rem 1.5rem;
+    }
+  }
+
+.box {
+    background-color: #2e87c2;
+    height: 100%;
 }
-/* 
+
+.box svg circle {
+    stroke-width: 1%;
+}
+
 .icon {
-    margin-right: 2%;
-} */
+    /*padding: 5%;*/
+    align-items: baseline;
+}
 
-/* .hero-body,
-.hero.is-medium {
-    padding: 9rem 1.5rem 2rem 1.5rem;
-} */
+.editIcon {
+    margin-right: 3%;
+}
+
+.container {
+    text-align: center;
+}
+
+.ausgrauen {
+    color: lightgray;
+}
+
+strong {
+    color: white;
+    font-size: 200%;
+}
+
+.media {
+}
+
+/* .hero-body {
+    /* background-image: url(../../../assets/Pictures/teamworkBanner1.png); */
+    /* background-position: right;
+    background-size: cover;
+    padding: 9rem 1.5rem 3rem 1.5rem;
+} */ 
