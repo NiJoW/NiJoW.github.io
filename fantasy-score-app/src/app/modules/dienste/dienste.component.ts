@@ -6,6 +6,7 @@ import { Dienst } from 'src/app/models/Dienst';
 import { KategorieService } from 'src/app/services/kategorie.service';
 import { FormBuilder } from '@angular/forms';
 import { Kategorie } from 'src/app/models/Kategorie';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dienste',
@@ -33,7 +34,7 @@ export class DiensteComponent implements OnInit {
   kategorienListe: Observable<Kategorie[]>;
   dienste: Observable<Dienst[]>;
   shownDienste: Dienst[];
-
+  searchIcon = faSearch;
 
   chosenDienst: Dienst;
   dienst: Observable<Dienst>;

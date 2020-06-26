@@ -3,7 +3,7 @@ import { BuergerService } from './../../services/buerger.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { faAward, faPiggyBank, faPencilAlt, faHandshake, faTrophy, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faAward, faPiggyBank, faPencilAlt, faHandshake, faTrophy, faUser, faCrown } from '@fortawesome/free-solid-svg-icons';
 import { DoUpdateService } from 'src/app/services/do-update.service';
 import { Dienst } from 'src/app/models/Dienst';
 import { DienstService } from 'src/app/services/dienst.service';
@@ -60,6 +60,7 @@ export class BannerComponent implements OnInit {
         this.boniAnzahl = data.length;
       });
     } else if(this.nutzer.typ == "Aeltester") {
+      this.userIcon = faCrown;
       this.doUpdateService.currentDoUpdateState_AnzahlErstellteTugenden.subscribe(data => { 
         this.getErstelleTugenden();
       });

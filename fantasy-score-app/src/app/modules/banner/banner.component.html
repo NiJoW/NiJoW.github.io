@@ -8,9 +8,14 @@
       <div *ngIf="isLoggedIn()">
         <div class="columns">
           
+          <div class="column is-1" *ngIf="nutzer.typ === 'Suchender' || nutzer.typ === 'Aeltester'"></div>
+
           <div class="column is-3">
             <div class="box">
-              <p class="title is-3">{{nutzer.benutzername}}</p>
+              <p class="title is-3">
+                <fa-icon class="editIcon" [icon]="userIcon"></fa-icon>
+                {{nutzer.benutzername}}
+              </p>
               <p class="subtitle is-6"><i>{{nutzer.email_adresse}}</i></p>
               <button class="button left is-light is-outlined"
               (click)=bearbeiten()>
@@ -49,7 +54,7 @@
           </div>
           
           
-          <div class="column is-2" *ngIf="nutzer.typ === 'Aeltester'"></div>
+          <div class="column is-1" *ngIf="nutzer.typ === 'Aeltester'"></div>
           <div class="column is-2" *ngIf="nutzer.typ === 'Aeltester'">
             <div class="box">
               <div class="container">
@@ -70,7 +75,7 @@
           </div>
 
 
-          <div class="column is-2" *ngIf="nutzer.typ === 'Suchender'"></div>
+          <div class="column is-1" *ngIf="nutzer.typ === 'Suchender'"></div>
           <div class="column is-2" *ngIf="nutzer.typ === 'Suchender'">
             <div class="box">
               <div class="container">

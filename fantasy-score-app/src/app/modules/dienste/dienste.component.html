@@ -17,7 +17,7 @@
       </div>
       <div class="control">
         <button class="button is-info" type="submit">
-          Suchen
+          <fa-icon class="editIcon" [icon]="searchIcon"></fa-icon>
         </button>
       </div>
     </div>
@@ -37,7 +37,7 @@
         <h4>Beschreibung: {{dienst.beschreibung}}</h4>
       </div>
       <div *ngIf= "!isTyp('Aeltester')" [hidden]="isDienstVon(dienst.tugendhafterName)" class="media-right">
-        <button class="button is-primary" (click)=buchen(dienst.id_dienstangebot)>Buchen</button> 
+        <button class="button is-primary" (click)=buchen(dienst.id_dienstangebot)>Anfragen</button> 
       </div>
     </div>
   </div>

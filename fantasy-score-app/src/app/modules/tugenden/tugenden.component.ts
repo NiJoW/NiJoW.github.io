@@ -11,6 +11,7 @@ import { NotificationComponent } from '../notification/notification.component';
 import { MessageService } from 'src/app/services/message.service';
 import { TaetigkeitService } from 'src/app/services/taetigkeit.service';
 import { Taetigkeit } from 'src/app/models/Taetigkeit';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-tugenden',
@@ -20,6 +21,7 @@ import { Taetigkeit } from 'src/app/models/Taetigkeit';
 export class TugendenComponent implements OnInit {
 
   searchForm;
+  searchIcon = faSearch;
   kategorieID: number;
   searchInput: string;
   searchText;
