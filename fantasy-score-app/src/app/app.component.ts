@@ -57,6 +57,9 @@ export class AppComponent {
     amountMessagesBonus = this.bonusService.getBonusBenachrichtigungenUngelesen();
     amountMessagesBonus.subscribe(data => {
       this.messageAmount += data[0].anzahl_ungelesen;
+      if(data[0].anzahl_ungelesen>0) {
+        this.hasMessage = true;
+      }
     });
   }
 
