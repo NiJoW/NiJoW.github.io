@@ -2,6 +2,7 @@ import { TugendService } from './../../../../services/tugend.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Tugend } from 'src/app/models/Tugend';
+import { DoUpdateService } from 'src/app/services/do-update.service';
 
 @Component({
   selector: 'app-tugend-loeschen',
@@ -13,7 +14,8 @@ export class TugendLoeschenComponent implements OnInit {
   @Output() onClose = new EventEmitter();
   tugendObservable : Observable<Tugend>;
 
-  constructor(private tugendService: TugendService) { }
+  constructor(private tugendService: TugendService,
+    private doUpdateService: DoUpdateService) { }
 
   @Input() message: number;
   done: boolean = false;
@@ -26,6 +28,7 @@ export class TugendLoeschenComponent implements OnInit {
     console.log("Nutzer will die Tugend " + tugendID + " löschen");
     this.tugendObservable = this.tugendService.archiviereTugend(tugendID);
     this.tugendObservable.subscribe(data => {
+      this.doUpdateService.doViewUpdate_AnzahlErstellteTugenden(true);
     });
    this.onDone.emit(true);
    this.onClose.emit(null); 

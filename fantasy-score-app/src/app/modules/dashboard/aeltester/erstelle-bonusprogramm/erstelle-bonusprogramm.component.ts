@@ -9,6 +9,7 @@ import { Kategorie } from './../../../../models/Kategorie';
 import { Observable } from 'rxjs';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
+import { DoUpdateService } from 'src/app/services/do-update.service';
 
 @Component({
   selector: 'app-erstelle-bonusprogramm',
@@ -27,7 +28,8 @@ export class ErstelleBonusprogrammComponent implements OnInit {
               private formBuilder: FormBuilder,
               private authService: AuthService,
               private messageService: MessageService,
-              private erstellteBonusprogrammeComponent: ErstellteBonusprogrammeComponent)
+              private erstellteBonusprogrammeComponent: ErstellteBonusprogrammeComponent,
+              private doUpdataService: DoUpdateService)
   {
     this.neueBonusprogrammForm = this.formBuilder.group({
       kategorie: 1,
@@ -61,6 +63,7 @@ export class ErstelleBonusprogrammComponent implements OnInit {
     this.onCloseEvent.emit(null);
     this.messageService.setMessage("Die Bonusprogramm wurde erfolgreich bearbeitet.", true);
     this.erstellteBonusprogrammeComponent.getErstellteBonusprogramme(); 
+    this.doUpdataService.doViewUpdate_AnzahlErstellteBonis(true);
   }
 
   private getKategorien() {

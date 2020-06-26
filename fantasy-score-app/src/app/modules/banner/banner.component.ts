@@ -9,6 +9,9 @@ import { Dienst } from 'src/app/models/Dienst';
 import { DienstService } from 'src/app/services/dienst.service';
 import { BonusService } from 'src/app/services/bonus.service';
 import { BonusBenachrichtigung } from 'src/app/models/BonusBenachrichtigung';
+import { Tugend } from 'src/app/models/Tugend';
+import { TugendService } from 'src/app/services/tugend.service';
+import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
 
 @Component({
   selector: 'app-banner',
@@ -21,7 +24,8 @@ export class BannerComponent implements OnInit {
     private authService: AuthService,
     private doUpdateService: DoUpdateService,
     private dienstService: DienstService,
-    private bonusService: BonusService) { }
+    private bonusService: BonusService, 
+    private tugendService: TugendService) { }
 
   nutzer:Buerger;
   socialScore: Observable<number>;
@@ -39,25 +43,52 @@ export class BannerComponent implements OnInit {
 
   ngOnInit(): void {
     this.nutzer = this.authService.getNutzer();
-    if(this.nutzer != null && this.nutzer.typ == "Tugendhafter") {
+    if(this.nutzer == null) {
+      return;
+    }
+    if(this.nutzer.typ == "Tugendhafter") {
       this.doUpdateService.currentDoUpdateState_SocialScore.subscribe(message =>
         {this.getSocialScore(); }
       );
       this.doUpdateService.currentDoUpdateState_AnzahlErfuellteDienste.subscribe(data => {
         this.getErfuellteDienstAnzahl();
       });
-      this.doUpdateService.currentDoUpdateState_AnzahlErfuellteDienste.subscribe(data => {
-        this.getErhalteneBonis();
-      })
+
+      let bonusObservable: Observable<BonusBenachrichtigung[]>;
+      bonusObservable = this.bonusService.getBonusBenachrichtigungAlleFuerNutzer();
+      bonusObservable.subscribe(data => {
+        this.boniAnzahl = data.length;
+      });
+    } else if(this.nutzer.typ == "Aeltester") {
+      this.doUpdateService.currentDoUpdateState_AnzahlErstellteTugenden.subscribe(data => { 
+        this.getErstelleTugenden();
+      });
+      this.doUpdateService.currentDoUpdateState_AnzahlErstellteBonis.subscribe(data => {
+        this.getErstellteBonis();
+      });
+    } else {
+      let dienstObservable: Observable<Dienst[]>;
+      dienstObservable = this.dienstService.getGebuchteDienste();
+      dienstObservable.subscribe(data => {
+        this.gebuchteDienstAnzahl = data.length;
+      });
     }
   }
 
-  getErhalteneBonis() {
-    let bonusObservable: Observable<BonusBenachrichtigung[]>;
-    bonusObservable = this.bonusService.getBonusBenachrichtigungAlleFuerNutzer();
-    bonusObservable.subscribe(data => {
+  getErstellteBonis() {
+    let boniObservable: Observable<Bonusprogramm[]>;
+    boniObservable = this.bonusService.getSelbstErstellteBonusprogramme();
+    boniObservable.subscribe(data => {
       this.boniAnzahl = data.length;
-    });
+    })
+  }
+
+  getErstelleTugenden() {
+    let tugendObservable: Observable<Tugend[]>;
+    tugendObservable = this.tugendService.getErstellteTugenden();
+    tugendObservable.subscribe(data => {
+      this.tugendAnzahl = data.length;
+    })
   }
 
   getErfuellteDienstAnzahl() {

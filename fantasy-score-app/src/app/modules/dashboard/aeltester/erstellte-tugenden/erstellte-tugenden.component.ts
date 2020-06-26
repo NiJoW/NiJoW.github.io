@@ -4,6 +4,7 @@ import {TugendService} from "../../../../services/tugend.service";
 import {Tugend} from "../../../../models/Tugend";
 import { faPencilAlt, faTrash, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { DoUpdateService } from 'src/app/services/do-update.service';
 
 
 @Component({

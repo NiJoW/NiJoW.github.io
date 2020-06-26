@@ -2,6 +2,7 @@ import { Tugend } from './../../../../models/Tugend';
 import { Observable } from 'rxjs';
 import { TugendService } from './../../../../services/tugend.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { DoUpdateService } from 'src/app/services/do-update.service';
 
 @Component({
   selector: 'app-tugend-wiederherstellen',
@@ -17,7 +18,8 @@ export class TugendWiederherstellenComponent implements OnInit {
   done: boolean = false;
   @Output() onDone = new EventEmitter();
 
-  constructor(private tugendService: TugendService) { }
+  constructor(private tugendService: TugendService,
+    private doUpdateService: DoUpdateService) { }
 
   ngOnInit(): void {
   }
@@ -26,6 +28,7 @@ export class TugendWiederherstellenComponent implements OnInit {
     console.log("Nutzer will die Tugend " + tugendID + " wiederherstellen");
     this.tugendObservable = this.tugendService.stelleTugendWiederHer(tugendID);
     this.tugendObservable.subscribe(data => {
+      this.doUpdateService.doViewUpdate_AnzahlErstellteTugenden(true);
     });
     this.onDone.emit(true);
     this.onClose.emit(null); 

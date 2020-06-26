@@ -8,6 +8,7 @@ import {TugendService} from '../../../../services/tugend.service';
 import {AuthService} from "../../../../services/auth.service";
 import {Buerger} from "../../../../models/Buerger";
 import {MessageService} from "../../../../services/message.service";
+import { DoUpdateService } from 'src/app/services/do-update.service';
 
 @Component({
   selector: 'app-erstelle-tugend',
@@ -25,7 +26,8 @@ export class ErstelleTugendComponent implements OnInit {
               private tugendService: TugendService,
               private formBuilder: FormBuilder,
               private authService: AuthService,
-              private messageService: MessageService)
+              private messageService: MessageService,
+              private doUpdateService: DoUpdateService)
   {
     this.neueTugendForm = this.formBuilder.group({
       kategorie: 1,
@@ -59,6 +61,7 @@ export class ErstelleTugendComponent implements OnInit {
     // Overlay schließen, Erfolgsmeldung anzeigen
     this.onCloseEvent.emit(null);
     this.messageService.setMessage("Die Tugend wurde erfolgreich bearbeitet.", true);
+    this.doUpdateService.doViewUpdate_AnzahlErstellteTugenden(true);
   }
 
   private getKategorien() {

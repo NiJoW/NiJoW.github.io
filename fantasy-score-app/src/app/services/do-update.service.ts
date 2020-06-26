@@ -15,6 +15,12 @@ export class DoUpdateService {
   
   private doUpdateSource_AnzahlErfuellteDienste = new BehaviorSubject(false);
   currentDoUpdateState_AnzahlErfuellteDienste = this.doUpdateSource_AnzahlErfuellteDienste.asObservable();
+  
+  private doUpdateSource_AnzahlErstellteTugenden = new BehaviorSubject(false);
+  currentDoUpdateState_AnzahlErstellteTugenden = this.doUpdateSource_AnzahlErstellteTugenden.asObservable();
+
+  private doUpdateSource_AnzahlErstellteBonis = new BehaviorSubject(false);
+  currentDoUpdateState_AnzahlErstellteBonis = this.doUpdateSource_AnzahlErstellteBonis.asObservable();
 
   constructor() { }
 
@@ -32,6 +38,14 @@ export class DoUpdateService {
 
   doViewUpdate_AnzahlErfuellteDienste(doUpdate: boolean) {
     this.doUpdateSource_AnzahlErfuellteDienste.next(doUpdate)
+  }
+
+  doViewUpdate_AnzahlErstellteTugenden(doUpdate: boolean) {
+    this.doUpdateSource_AnzahlErstellteTugenden.next(doUpdate)
+  }
+
+  doViewUpdate_AnzahlErstellteBonis(doUpdate: boolean) {
+    this.doUpdateSource_AnzahlErstellteBonis.next(doUpdate)
   }
 
  // resetUpdateStatus(resetUpdate: boolean) {
