@@ -16,6 +16,8 @@ import {BonusBenachrichtigung} from "../models/BonusBenachrichtigung";
     constructor(private http: HttpClient, private authService: AuthService) {}
 
     private readonly bonusprogrammeUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusprogramme';
+    private readonly bonusprogrammeNichtArchiviertUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusprogrammNichtArchiviert';
+    private readonly bonusprogrammeArchiviertUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusprogrammArchiviert';
     private readonly programmeVonKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/kategorie/bonusprogramme';
     private readonly erstellteBonusprogrammeUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erstellte-bonusprogramme';
     private readonly bonusSearchUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusprogramme/suche';
@@ -28,10 +30,20 @@ import {BonusBenachrichtigung} from "../models/BonusBenachrichtigung";
     private readonly newProfitiertVonBonusprogrammUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newProfitiertVonBonusprogramm';
     private readonly setBenachrichtigungBonusGelesenUrl  = APIConfig.URL + ':' + APIConfig.PORT + '/setBenachrichtigungBonusGelesen';
     private readonly getBonusAnzahlUngelesenenBenachrichtigungenUrl  = APIConfig.URL + ':' + APIConfig.PORT + '/getBonusAnzahlUngelesenenBenachrichtigungen';
+    private readonly archiviereUrl = APIConfig.URL + ':' + APIConfig.PORT + '/archiviereBonusprogramm'
+    private readonly stelleHerUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusprogrammWiederherstellen';
 
     getBonusprogramme(): Observable<Bonusprogramm[]> {
         console.log("Im service");
         return this.http.get<Bonusprogramm[]>(this.bonusprogrammeUrl);
+    }
+    
+    getNichtArchivierteBonusprogramme():Observable<Bonusprogramm[]> {
+      return this.http.get<Bonusprogramm[]>(this.bonusprogrammeNichtArchiviertUrl)
+    }
+
+    getArchivierteBonusprogramme(): Observable<Bonusprogramm[]> {
+      return this.http.get<Bonusprogramm[]>(this.bonusprogrammeArchiviertUrl)
     }
 
     getBonusprogrammeVonKategorie(kategorieID: number): Observable<Bonusprogramm[]> {
@@ -119,6 +131,20 @@ import {BonusBenachrichtigung} from "../models/BonusBenachrichtigung";
           "nachricht": bonusprogramm.nachricht,
           "kategorieID": bonusprogramm.kategorieID,
           "id_bonusprogramm": bonusprogramm.id_bonusprogramm
+        });
+    }
+
+    archiviereBonusprogramm(id_bonusprogramm: number) :Observable<Bonusprogramm> {
+      return this.http.put<Bonusprogramm>(this.archiviereUrl,
+        {
+          "id_bonusprogramm": id_bonusprogramm
+        });
+    }
+
+    stelleBonusprogrammWiederHer(id_bonusprogramm: number) :Observable<Bonusprogramm> {
+      return this.http.put<Bonusprogramm>(this.stelleHerUrl,
+        {
+          "id_bonusprogramm": id_bonusprogramm
         });
     }
   }

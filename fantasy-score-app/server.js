@@ -106,10 +106,26 @@ app.get('/bonusprogramme', function(req, res) {
   });
 });
 
+//getNichtArchivierteBonusprogramme()
+app.get('/bonusprogrammNichtArchiviert', function (req, res) {
+  pool.query('SELECT *, b.benutzername as aeltersterName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger AND archiviert = 0', function (error, results, fields) {
+    if (error) throw error;
+    res.send(results);
+  });
+});
+
+//getArchivierteBonusprogramme()
+app.get('/bonusprogrammArchiviert', function (req, res) {
+  pool.query('SELECT *, b.benutzername as aeltersterName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger AND archiviert = 1', function (error, results, fields) {
+    if (error) throw error;
+    res.send(results);
+  });
+});
+
 //getBonusprogrammeVonKategorie()
 app.get('/kategorie/bonusprogramme', function(req, res) {
   const kategorieID = req.query.kategorieID;
-  const sql = 'SELECT *, b.benutzername as aeltersterName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger WHERE kategorieID = ?;';
+  const sql = 'SELECT *, b.benutzername as aeltersterName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger WHERE kategorieID = ? AND archiviert = 0;';
   const value = [kategorieID];
     pool.query(sql, value,
       function (error, results, fields) {
@@ -122,7 +138,7 @@ app.get('/kategorie/bonusprogramme', function(req, res) {
 //getSelbstErstellteBonusprogramme()
 app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
   const buergerID = req.query.buergerID;
-  const sql = 'SELECT bp.id_bonusprogramm, bp.titel, bp.nachricht, bp.punkte_in_kategorie, k.bezeichnung FROM bonusprogramm bp, kategorie k WHERE k.id_kategorie = bp.kategorieID AND bp.aeltesterID = ?;';
+  const sql = 'SELECT bp.id_bonusprogramm, bp.titel, bp.nachricht, bp.punkte_in_kategorie, k.bezeichnung FROM bonusprogramm bp, kategorie k WHERE k.id_kategorie = bp.kategorieID AND bp.aeltesterID = ? AND archiviert = 0;';
   const value = [buergerID];
     pool.query(sql, value,
       function (error, results, fields) {
@@ -135,7 +151,7 @@ app.get('/dashboard/erstellte-bonusprogramme', function (req, res) {
 app.get('/bonusprogramme/suche', function(req, res) {
   const searchInput = '%'+req.query.suche.trim()+'%';
   console.log(searchInput);
-  const sql = "SELECT *, b.benutzername as aeltersterName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger WHERE titel LIKE ? OR nachricht LIKE ?;";
+  const sql = "SELECT *, b.benutzername as aeltersterName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger WHERE titel LIKE ? OR nachricht LIKE ? AND archiviert = 0;";
   const value = [searchInput, searchInput]; // 2 mal searchInput!!!
     pool.query(sql, value,
       function (error, results, fields) {
@@ -161,7 +177,7 @@ app.get('/bonusNachricht/all/nutzer', function(req, res) {
     });
 });
 
-//getBonusBenachrichtigungFuerNutzer()
+//getBonusBenachrichtigungUngelesenFuerNutzer()
 app.get('/bonusNachricht/ungelesen/nutzer', function(req, res) {
   const buerger_id = req.query.buerger;
   const sql = "SELECT distinct pvb.* ,  bo.id_bonusprogramm, bo.titel AS titel_bonusprogramm, bo.nachricht, k.bezeichnung AS kategorieName \n" +
@@ -241,6 +257,32 @@ app.put('/dashboard/bearbeite-bonusprogramm', function (request, response) {
   console.dir(request.body);
   const sql = " UPDATE bonusprogramm SET titel=?,  nachricht=?, punkte_in_kategorie=?, kategorieID=? WHERE id_bonusprogramm = ?;";
   const values = [request.body.titel, request.body.nachricht, request.body.punkte_in_kategorie, request.body.kategorieID, request.body.id_bonusprogramm];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+    });
+});
+
+//archiviereBonusprogramm()
+app.put('/archiviereBonusprogramm', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+  const sql = " UPDATE bonusprogramm SET archiviert = 1 WHERE id_bonusprogramm=?;";
+  const values = [request.body.id_bonusprogramm];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+    });
+});
+
+//stelleBonusprogrammWiederHer()
+app.put('/bonusprogrammWiederherstellen', function (request, response) {
+  console.log('request body: ');
+  console.dir(request.body);
+  const sql = " UPDATE bonusprogramm SET archiviert = 0 WHERE id_bonusprogramm=?;";
+  const values = [request.body.id_bonusprogramm];
   pool.query( sql, values,
     function (error, results, fields) {
       if (error) throw error;
