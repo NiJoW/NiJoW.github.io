@@ -21,7 +21,8 @@
               (click)=ausschuetten(bonusprogramm.id_bonusprogramm)>
        ausschütten
       </button>
-         <button class="button right is-danger card-footer-item is-outlined">
+         <button class="button right is-danger card-footer-item is-outlined"
+          (click)=archivieren(bonusprogramm.id_bonusprogramm)>
            <fa-icon [icon]="deleteIcon"></fa-icon>
          </button>
     </footer>
@@ -29,6 +30,8 @@
 </div>
 <br>
 </div>
+
+<div *ngIf="isEmpty" class="has-text-danger">Noch kein Bonusprogramm erstellt.</div>
 
 <button class="button is-primary "  (click)=neuesBonusprgrammErstellen()>
   <fa-icon [icon]="createIcon"></fa-icon> &nbsp; Neues Bonusprogramm erstellen
@@ -38,4 +41,4 @@
 <app-bearbeite-bonusprogramm [chosenBonusprogramm]="chosenBonusprogramm" *ngIf="zeigeBearbeitenOverlay" (onCloseEvent)="updateBonusprogrammeOnEvent()"></app-bearbeite-bonusprogramm>
 <app-erstelle-bonusprogramm *ngIf="zeigeErstellenOverlay" (onCloseEvent)="updateBonusprogrammeOnEvent()"></app-erstelle-bonusprogramm>
 
-
+<app-bonusprogramm-loeschen (onDone)="recieveDone($event)" [message]="message" *ngIf="willBonusprogrammLoeschen" (onClose)="willBonusprogrammLoeschen = false"></app-bonusprogramm-loeschen>

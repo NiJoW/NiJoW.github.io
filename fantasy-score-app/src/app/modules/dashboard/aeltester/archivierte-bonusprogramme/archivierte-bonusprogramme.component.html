@@ -1,0 +1,28 @@
+<p class="title is-4">Archivierte Bonusprogramme</p>
+<div *ngFor="let bonusprogramm of erstellteBonusprogramme | async">
+ <div class="card">
+   <header class="card-header">
+    <p class="card-header-title">{{bonusprogramm.titel}}</p>
+    <a class="card-header-icon" aria-label="more options" (click)="changeFormat(bonusprogramm.id_bonusprogramm)">
+      <fa-icon [icon]="moreIcon"></fa-icon>
+    </a>
+  </header>
+  <div *ngIf="bonusprogramm.id_bonusprogramm === id">
+    <div class="card-content">
+        <p>Anforderung: {{bonusprogramm.punkte_in_kategorie}} Punkte in Kategorie {{bonusprogramm.bezeichnung}}</p>
+        <p>Belohnung: {{bonusprogramm.nachricht}}</p>
+      </div>
+    <footer class="card-footer">
+         <button class="button left is-primary card-footer-item is-outlined"
+           (click)=wiederherstellen(bonusprogramm.id_bonusprogramm)>
+           <fa-icon [icon]="restoreIcon"></fa-icon>
+         </button>
+    </footer>
+  </div>
+</div>
+<br>
+</div>
+
+<div *ngIf="isEmpty" class="has-text-danger">Es gibt keine archivierten Bonusprogramme</div>
+
+<app-bonusprogramm-wiederherstellen (onDone)="recieveDone($event)" [message]="message" *ngIf="willBonusprogrammWiederherstellen" (onClose)="willBonusprogrammWiederherstellen = false"></app-bonusprogramm-wiederherstellen>

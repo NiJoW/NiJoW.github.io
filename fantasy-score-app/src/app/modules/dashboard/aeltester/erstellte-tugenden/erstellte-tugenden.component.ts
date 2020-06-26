@@ -44,6 +44,8 @@ export class ErstellteTugendenComponent implements OnInit {
       if(data == null) {
         this.isEmpty = true;
         return;
+      }else {
+        this.isEmpty = false;
       }
       this.chosenTugend = data;
       console.dir(this.chosenTugend);
