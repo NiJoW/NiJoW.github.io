@@ -39,7 +39,7 @@
         <h4>Beschreibung: {{tugend.beschreibung}}</h4>
         <h4>Erstellt von: {{tugend.aeltesterName}}</h4>
       </div>
-      <div *ngIf= "!isTyp('Aeltester')" class="media-right">
+      <div *ngIf= "isTyp('Tugendhafter')" class="media-right">
         <button class="button is-primary" (click)=planen(tugend.id_tugend)>Challenge annehmen</button>
       </div>
     </div>
