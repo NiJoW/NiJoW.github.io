@@ -58,7 +58,7 @@ export class BearbeiteTugendComponent implements OnInit {
     } );
     // Overlay schließen, Erfolgsmeldung anzeigen
     this.onCloseEvent.emit(null);
-    this.messageService.setMessage("Die Tugend wurde erfolgreich bearbeitet.");
+    this.messageService.setMessage("Die Tugend wurde erfolgreich bearbeitet.", true);
   }
 
   cancel() {

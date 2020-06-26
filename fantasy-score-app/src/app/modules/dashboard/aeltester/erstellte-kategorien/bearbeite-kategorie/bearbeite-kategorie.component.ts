@@ -47,7 +47,7 @@ export class BearbeiteKategorieComponent implements OnInit {
     } );
     // Overlay schließen, Erfolgsmeldung anzeigen
     this.onCloseEvent.emit(null);
-    this.messageService.setMessage("Die Kategorie wurde erfolgreich bearbeitet.");
+    this.messageService.setMessage("Die Kategorie wurde erfolgreich bearbeitet.", true);
   }
 
   cancel() {

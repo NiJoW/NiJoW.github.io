@@ -55,7 +55,7 @@ export class BearbeiteDienstComponent implements OnInit {
     } );
     // Overlay schließen, Erfolgsmeldung anzeigen
     this.onCloseEvent.emit(null);
-    this.messageService.setMessage("Der Dienst wurde erfolgreich bearbeitet.");
+    this.messageService.setMessage("Die Tugend wurde erfolgreich bearbeitet.", true);
     this.angeboteneDiensteComponent.getAngeboteneDienste();
   }
 

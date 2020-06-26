@@ -97,10 +97,10 @@ export class TugendenComponent implements OnInit {
         this.chosenTugend = this.tugendService.planeTugend(tugendId);
         this.chosenTugend.subscribe(data => {
           console.log(data);
-          this.messageService.setMessage("Die Tugend wurde deinem Dashboard hinzugefügt.");
+          this.messageService.setMessage("Die Tugend wurde deinem Dashboard hinzugefügt.", true);
         });
       } else {
-        this.messageService.setMessage("Die Tugend ist bereits in deinem Dashboard.");
+        this.messageService.setMessage("Die Tugend ist bereits in deinem Dashboard.", false);
       }
     });    
   }

@@ -26,6 +26,8 @@ export class BannerComponent implements OnInit {
   editIcon = faPencilAlt;
   dienstAnzahl = 0;
   boniAnzahl = 0;
+  tugendAnzahl = 0;
+  gebuchteDienstAnzahl = 0;
 
   ngOnInit(): void {
     this.nutzer = this.authService.getNutzer();

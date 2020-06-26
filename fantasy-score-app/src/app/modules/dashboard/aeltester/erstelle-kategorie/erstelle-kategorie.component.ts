@@ -49,7 +49,7 @@ export class ErstelleKategorieComponent implements OnInit {
       console.log(data); } );
     // Overlay schließen, Erfolgsmeldung anzeigen
     this.onCloseEvent.emit(null);
-    this.messageService.setMessage("Die Kategorie wurde erfolgreich erstellt.");
+    this.messageService.setMessage("Die Kategorie wurde erfolgreich erstellt.", true);
   }
 
   private getKategorien() {

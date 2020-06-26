@@ -50,7 +50,7 @@ export class ErstelleDienstComponent implements OnInit {
       console.log(data); } );
     // Overlay schließen, Erfolgsmeldung anzeigen
     this.onCloseEvent.emit(null);
-    this.messageService.setMessage("Der Dienst wurde erfolgreich hinzugefügt.");
+    this.messageService.setMessage("Der Dienst wurde erfolgreich bearbeitet.", true);
     this.angeboteneDiensteComponent.getAngeboteneDienste();
   }
 

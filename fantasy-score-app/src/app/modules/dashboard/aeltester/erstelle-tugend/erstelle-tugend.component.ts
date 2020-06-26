@@ -58,7 +58,7 @@ export class ErstelleTugendComponent implements OnInit {
       console.log(data); } );
     // Overlay schließen, Erfolgsmeldung anzeigen
     this.onCloseEvent.emit(null);
-    this.messageService.setMessage("Die Tugend wurde erfolgreich bearbeitet.");
+    this.messageService.setMessage("Die Tugend wurde erfolgreich bearbeitet.", true);
   }
 
   private getKategorien() {

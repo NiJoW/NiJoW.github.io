@@ -55,7 +55,7 @@ export class TodoTugendenTaetigkeitenComponent implements OnInit {
   }
 
   updateViews() {
-    this.messageService.setMessage("Juhu, du hast eine tugendhafte Aufgabe erfüllt!");
+    this.messageService.setMessage("Juhu, du hast eine tugendhafte Aufgabe erfüllt!", true);
     this.getTaetigkeitenForActiveUser();
     this.data.doViewUpdate(true);
   }

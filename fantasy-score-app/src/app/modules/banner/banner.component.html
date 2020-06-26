@@ -5,52 +5,92 @@
         <p class="title">Willkommen Bürger</p>
       </div>
 
-      
-      <div class="columns" *ngIf="isLoggedIn()">
-        
-        <div class="column is-3">
-          <div class="box">
-            <p class="title is-3">{{nutzer.benutzername}}</p>
-            <p class="subtitle is-6"><i>{{nutzer.email_adresse}}</i></p>
-            <button class="button left is-light is-outlined"
-            (click)=bearbeiten()>
-            <fa-icon class="editIcon" [icon]="editIcon"></fa-icon> Profil bearbeiten
-          </button>
-          </div>
-        </div>
-        <div class="column is-3"></div>
-        <div class="column is-2">
-          <div class="box">
-            <div class="container">
-              <fa-icon class="icon fa-5x has-text-dark" [icon]="piggyIcon"></fa-icon>
-              <p class="title-1"><strong>{{nutzer.social_score}}</strong></p>
-              <p class="has-text-light subtitle-5">Social Score</p>
+      <div *ngIf="isLoggedIn()">
+        <div class="columns">
+          
+          <div class="column is-3">
+            <div class="box">
+              <p class="title is-3">{{nutzer.benutzername}}</p>
+              <p class="subtitle is-6"><i>{{nutzer.email_adresse}}</i></p>
+              <button class="button left is-light is-outlined"
+              (click)=bearbeiten()>
+              <fa-icon class="editIcon" [icon]="editIcon"></fa-icon> Profil bearbeiten
+            </button>
             </div>
           </div>
-        </div>
-        <div class="column is-2">
-          <div class="box">
-            <div class="container">
+          <div class="column is-3"></div>
+
+          <div class="column is-2" *ngIf="nutzer.typ === 'Tugendhafter'">
+            <div class="box">
+              <div class="container">
+                <fa-icon class="icon fa-5x has-text-dark" [icon]="piggyIcon"></fa-icon>
+                <p class="title-1"><strong>{{nutzer.social_score}}</strong></p>
+                <p class="has-text-light subtitle-5">Social Score</p>
+              </div>
+            </div>
+          </div>
+          <div class="column is-2" *ngIf="nutzer.typ === 'Tugendhafter'">
+            <div class="box">
+              <div class="container">
+                  <fa-icon class="icon fa-5x has-text-dark" [icon]="handshakeIcon"></fa-icon>
+                  <p class="title-1"><strong>{{dienstAnzahl}}</strong></p>
+                  <p class="has-text-light subtitle-5">erfüllte Dienste</p>
+              </div>
+            </div>
+          </div>
+          <div class="column is-2" *ngIf="nutzer.typ === 'Tugendhafter'">
+            <div class="box">
+              <div class="container">
+                <fa-icon class="icon fa-5x has-text-dark" [icon]="trophyIcon"></fa-icon>
+                <p class="title-1"><strong>{{boniAnzahl}}</strong></p>
+                <p class="has-text-light subtitle-5">erhaltene Boni</p>
+              </div>
+            </div>
+          </div>
+          
+          
+          <div class="column is-2" *ngIf="nutzer.typ === 'Aeltester'"></div>
+          <div class="column is-2" *ngIf="nutzer.typ === 'Aeltester'">
+            <div class="box">
+              <div class="container">
+                <fa-icon class="icon fa-5x has-text-dark" [icon]="trophyIcon"></fa-icon>
+                <p class="title-1"><strong>{{tugendAnzahl}}</strong></p>
+                <p class="has-text-light subtitle-5">erstellte Tugenden</p>
+              </div>
+            </div>
+          </div>
+          <div class="column is-2" *ngIf="nutzer.typ === 'Aeltester'">
+            <div class="box">
+              <div class="container">
+                <fa-icon class="icon fa-5x has-text-dark" [icon]="trophyIcon"></fa-icon>
+                <p class="title-1"><strong>{{boniAnzahl}}</strong></p>
+                <p class="has-text-light subtitle-5">erstellte Bonusprogramme</p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="column is-2" *ngIf="nutzer.typ === 'Suchender'"></div>
+          <div class="column is-2" *ngIf="nutzer.typ === 'Suchender'">
+            <div class="box">
+              <div class="container">
                 <fa-icon class="icon fa-5x has-text-dark" [icon]="handshakeIcon"></fa-icon>
-                <p class="title-1"><strong>{{dienstAnzahl}}</strong></p>
-                <p class="has-text-light subtitle-5">erfüllte Dienste</p>
+                <p class="title-1"><strong>{{gebuchteDienstAnzahl}}</strong></p>
+                <p class="has-text-light subtitle-5">gebuchte Dienste</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="column is-2">
-          <div class="box">
-            <div class="container">
-              <fa-icon class="icon fa-5x has-text-dark" [icon]="trophyIcon"></fa-icon>
-              <p class="title-1"><strong>{{boniAnzahl}}</strong></p>
-              <p class="has-text-light subtitle-5">erhaltene Boni</p>
-            </div>
-          </div>
+
+
+
+
+
         </div>
       </div>
     </div>
   </div>
-      
-  <div class="hero-foot">
+        
+  <div class="hero-foot" *ngIf="isLoggedIn() && nutzer.typ === 'Tugendhafter'">
     <div class="content media is-center">
       <p class="media-left subtitle">Novize</p>
       <progress class="media-content progress is-small is-danger" value="15" max="100" style="margin-top: 1%;">15%</progress>

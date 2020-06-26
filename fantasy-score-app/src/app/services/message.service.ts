@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class MessageService {
   
-  private messageSource = new BehaviorSubject<string>("");
+  private messageSource = new BehaviorSubject([]);
   currentMessage = this.messageSource.asObservable();
 
   message:string;
@@ -15,9 +15,9 @@ export class MessageService {
   constructor() { }
 
 
-  setMessage(message:string) {
+  setMessage(message:string, typ: boolean) {
     console.log(message);
-    this.messageSource.next(message);
+    this.messageSource.next([message, typ]);
   }
 
 }

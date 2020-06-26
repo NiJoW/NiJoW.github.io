@@ -58,7 +58,7 @@ export class DienstBuchenComponent implements OnInit {
       this.newDienst.subscribe(data => {
         console.dir(data);
         this.onClose.emit(null); 
-        this.messageService.setMessage("Der Dienst wurde deinem Dashboard hinzugefügt.");
+        this.messageService.setMessage("Der Dienst wurde deinem Dashboard hinzugefügt.", true);
       });
   
     }
