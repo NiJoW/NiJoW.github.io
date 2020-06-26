@@ -55,6 +55,9 @@ import { TugendWiederherstellenComponent } from './modules/dashboard/aeltester/t
 import { TugendLoeschenComponent } from './modules/dashboard/aeltester/tugend-loeschen/tugend-loeschen.component';
 import { DienstLoeschenComponent } from './modules/dashboard/tugendhafter/dienst-loeschen/dienst-loeschen.component';
 import { ProfilBearbeitenComponent } from './modules/banner/profil-bearbeiten/profil-bearbeiten.component';
+import { ArchivierteBonusprogrammeComponent } from './modules/dashboard/aeltester/archivierte-bonusprogramme/archivierte-bonusprogramme.component';
+import { BonusprogrammWiederherstellenComponent } from './modules/dashboard/aeltester/bonusprogramm-wiederherstellen/bonusprogramm-wiederherstellen.component';
+import { BonusprogrammLoeschenComponent } from './modules/dashboard/aeltester/bonusprogramm-loeschen/bonusprogramm-loeschen.component';
 
 
 @NgModule({
@@ -103,7 +106,10 @@ import { ProfilBearbeitenComponent } from './modules/banner/profil-bearbeiten/pr
     TugendWiederherstellenComponent,
     TugendLoeschenComponent,
     DienstLoeschenComponent,
-    ProfilBearbeitenComponent
+    ProfilBearbeitenComponent,
+    ArchivierteBonusprogrammeComponent,
+    BonusprogrammWiederherstellenComponent,
+    BonusprogrammLoeschenComponent
   ],
   imports: [
     BrowserModule,

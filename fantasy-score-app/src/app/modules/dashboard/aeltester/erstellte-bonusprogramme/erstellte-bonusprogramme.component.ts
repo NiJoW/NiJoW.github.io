@@ -25,6 +25,10 @@ export class ErstellteBonusprogrammeComponent implements OnInit {
   chosenBonusprogramm: Bonusprogramm;
   bonusprogrammObservable : Observable<Bonusprogramm>;
   id: number;
+  isEmpty = false;
+
+  willBonusprogrammLoeschen = false;
+  message: number;
 
   constructor(private bonusService: BonusService,
               private messageService: MessageService) { }
@@ -48,10 +52,25 @@ export class ErstellteBonusprogrammeComponent implements OnInit {
     console.log("Nutzer will das Bonusprog. " + bonusprogrammID)+ " bearbeiten";
     this.bonusprogrammObservable = this.bonusService.getBonusprogrammByID(bonusprogrammID);
     this.bonusprogrammObservable.subscribe(data => {
+      if(data == null) {
+        this.isEmpty = true;
+        return;
+      } else {
+        this.isEmpty = false;
+      }
       this.chosenBonusprogramm = data;
       console.dir(this.chosenBonusprogramm);
       this.zeigeBearbeitenOverlay = true;
     });
+  }
+
+  archivieren(bonusprogrammID) {
+    this.willBonusprogrammLoeschen = true;
+    this.message = bonusprogrammID;
+  }
+
+  recieveDone($event) {
+    this.updateBonusprogrammeOnEvent();
   }
 
   ausschuetten(bonusprogrammID) {
@@ -95,7 +114,6 @@ export class ErstellteBonusprogrammeComponent implements OnInit {
 
   private getEigeneErstellteBonusprogramme() {
     this.eigeneErstellteBonusprogramme = this.bonusService.getSelbstErstellteBonusprogramme();
-
     this.eigeneErstellteBonusprogramme.subscribe(data => {
       console.log('Bonusprogramm aus DB in Componente:');
       console.log(data);
