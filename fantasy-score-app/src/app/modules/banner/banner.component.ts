@@ -31,7 +31,7 @@ export class BannerComponent implements OnInit {
 
   ngOnInit(): void {
     this.nutzer = this.authService.getNutzer();
-    if(this.nutzer != null && this.nutzer.typ == "Tugendhafter") {
+    if(this.nutzer.typ == "Tugendhafter") {
       this.socialScore = this.buergerService.getSocialScoreFromId(this.nutzer.id_buerger);
       this.socialScore.subscribe(data =>{
         this.nutzer.social_score = data[0].social_score;
