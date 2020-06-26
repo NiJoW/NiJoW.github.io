@@ -20,19 +20,15 @@ export class NotificationComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-    this.notify = false;
-
-    console.log(this.message);
     this.messageService.currentMessage.subscribe(data => {
-      if(data[0] != "") {
-        console.log(data);
-        this.message = data[0];
-        this.typ = data[1];
-        this.notify = true;
-      } else {
-        this.notify = false;
+      this.notify = false;
+      if(data[0] == undefined) {
+        return;
       }
+      this.message = data[0];
+      this.typ = data[1];
+      this.notify = true;
+     
       
     });
 

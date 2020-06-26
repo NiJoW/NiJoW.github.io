@@ -15,7 +15,6 @@ export class AuthService {
   private nutzer: Buerger;
   private benutzerObservable: Observable<Buerger[]>;
   private scoreObservable: Observable<Buerger[]>;
-  private socialScore: Observable<number>;
 
   constructor(private buergerService: BuergerService) {
     // console.log('authService: isLoggedIn():');
