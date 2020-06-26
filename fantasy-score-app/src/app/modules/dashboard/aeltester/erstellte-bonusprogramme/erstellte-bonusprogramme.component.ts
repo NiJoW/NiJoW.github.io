@@ -83,7 +83,7 @@ export class ErstellteBonusprogrammeComponent implements OnInit {
      // console.log("in set profitiert"+value.tugendhafterID);
       observable = bonusService.newProfitiertVonBonusprogrammEintragen(value.tugendhafterID, bonusprogrammID);
       observable.subscribe(data =>{ console.dir(data);
-        messageService.setMessage("Bonus wurde an Tugendhafte ausgeschüttet");
+        messageService.setMessage("Bonus wurde an Tugendhafte ausgeschüttet", true);
       });
     });
   }
