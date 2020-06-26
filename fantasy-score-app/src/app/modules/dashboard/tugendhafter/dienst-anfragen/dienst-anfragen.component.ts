@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Observable } from 'rxjs';
 import { Dienst } from 'src/app/models/Dienst';
 import { DienstService } from 'src/app/services/dienst.service';
@@ -11,14 +11,15 @@ import { DienstService } from 'src/app/services/dienst.service';
 export class DienstAnfragenComponent implements OnInit {
 
   @Input() angefragteDienste: Observable<Dienst[]>;
-  
+  @Output() onCloseEvent = new EventEmitter();
+
   dienstAngefragt: boolean;
   dienstObservable: Observable<Dienst>;
 
   constructor(private dienstService: DienstService) { }
 
   ngOnInit(): void {
-    
+
     if(this.angefragteDienste != undefined) {
       console.dir(this.angefragteDienste);
     }
@@ -29,7 +30,8 @@ export class DienstAnfragenComponent implements OnInit {
     this.dienstObservable = this.dienstService.bestaetigeVertrag(dienstID, 'bestätigt');
     this.dienstObservable.subscribe(data => {
       console.dir(data);
-      window.location.reload(); //TODO: find ich nicht so gut
+      this.onCloseEvent.emit(null);
+      //window.location.reload(); //TODO: find ich nicht so gut
     })
   }
 
@@ -38,7 +40,8 @@ export class DienstAnfragenComponent implements OnInit {
     this.dienstObservable = this.dienstService.bestaetigeVertrag(dienstID, 'abgelehnt');
     this.dienstObservable.subscribe(data => {
       console.dir(data);
-      window.location.reload(); //TODO: find ich nicht so gut
+      this.onCloseEvent.emit(null);
+      //window.location.reload(); //TODO: find ich nicht so gut
     })
   }
 }

@@ -13,6 +13,7 @@ import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
 import { BonusService } from 'src/app/services/bonus.service';
 import {BonusBenachrichtigung} from "../../models/BonusBenachrichtigung";
 import { faLock } from '@fortawesome/free-solid-svg-icons';
+import {DoUpdateService} from "../../services/do-update.service";
 
 
 @Component({
@@ -44,7 +45,8 @@ export class DashboardComponent implements OnInit {
     private bonusService: BonusService,
     private authService: AuthService,
     private buergerService: BuergerService,
-    private router: Router) {
+    private router: Router,
+    private updateService: DoUpdateService) {
 
      this.getAktuellenNutzer();
      // console.log('dashboard: logged in?');
@@ -55,20 +57,37 @@ export class DashboardComponent implements OnInit {
     this.getKategorien();
     this.typeUser = this.authService.getNutzer().typ;
 
+    this.setUpBonus();
+    this.setUpAngefragteDienste();
+  }
+
+  private setUpAngefragteDienste(){
+    this.getAngefragteDienste();
+    this.updateService.currentDoUpdateState_Anzeige_DienstanfrageBenachrichtigungen.subscribe(message =>
+      {this.getAngefragteDienste();}
+    );
+  }
+
+  private setUpBonus(){
+    this.getBonusBenachrichtigungUngelesenFuerNutzer();
+    this.updateService.currentDoUpdateState_Anzeige_BonusBenachrichtigungen.subscribe(message =>
+      {this.getBonusBenachrichtigungUngelesenFuerNutzer();}
+    );
+  }
+
+  getAngefragteDienste(){
     this.hatAngefragteDienste = false;
     this.angefragteDiensteObservable = this.dienstService.getAnfragenAnTugendhaften();
     this.angefragteDiensteObservable.subscribe(data => {
       if(data.length != 0 ) {
         this.angefragteDienste = data;
         this.hatAngefragteDienste = true;
-       // console.dir(data);
+        // console.dir(data);
       }
     });
-
-    this.getBonusBenachrichtigungUngelesenFuerNutzer();
   }
 
-  private getBonusBenachrichtigungUngelesenFuerNutzer(){
+  getBonusBenachrichtigungUngelesenFuerNutzer(){
     this.betroffeneProgramme = new Observable<BonusBenachrichtigung[]>();
     this.betroffeneProgramme = this.bonusService.getBonusBenachrichtigungUngelesenFuerNutzer();
     this.betroffeneProgramme.subscribe(data => {
@@ -128,7 +147,7 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  updateViewBonusNachrichtGeschlossen() {
+  updateViewBonusNachricht() {
     //console.log("updateViewBonusNachrichtGeschlossen");
     this.getBonusBenachrichtigungUngelesenFuerNutzer();
   }
