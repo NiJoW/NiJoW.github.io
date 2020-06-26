@@ -17,6 +17,10 @@
            (click)=bearbeiten(bonusprogramm.id_bonusprogramm)>
            <fa-icon [icon]="editIcon"></fa-icon>
          </button>
+      <button class="button left is-link card-footer-item is-outlined"
+              (click)=ausschuetten(bonusprogramm.id_bonusprogramm)>
+       ausschütten
+      </button>
          <button class="button right is-danger card-footer-item is-outlined">
            <fa-icon [icon]="deleteIcon"></fa-icon>
          </button>

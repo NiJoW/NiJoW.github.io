@@ -5,6 +5,8 @@ import { HttpClient , HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Bonusprogramm } from '../models/Bonusprogramm';
+import {Buerger} from "../models/Buerger";
+import {BonusBenachrichtigung} from "../models/BonusBenachrichtigung";
 
 @Injectable({
     providedIn: 'root'
@@ -17,10 +19,15 @@ import { Bonusprogramm } from '../models/Bonusprogramm';
     private readonly programmeVonKategorieUrl = APIConfig.URL + ':' + APIConfig.PORT + '/kategorie/bonusprogramme';
     private readonly erstellteBonusprogrammeUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/erstellte-bonusprogramme';
     private readonly bonusSearchUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusprogramme/suche';
-    private readonly nutzerProfitiertUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusprogramme/nutzer';
+    private readonly nutzerBenachrichtigungBonusprogUngelesenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusNachricht/ungelesen/nutzer';
+    private readonly nutzerBenachrichtigungBonusprogAlleUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusNachricht/all/nutzer';
     private readonly bonusprogrammByIDUrl = APIConfig.URL + ':' + APIConfig.PORT + '/bonusByID';
     private readonly createNewBonusprogrammUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newBonusprogramm';
     private readonly updateBonusprogrammUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/bearbeite-bonusprogramm';
+    private readonly tugendhafteErfuellenBonusprogrammUrl = APIConfig.URL + ':' + APIConfig.PORT + '/tugendhafteErfuellenBonusprogramm';
+    private readonly newProfitiertVonBonusprogrammUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newProfitiertVonBonusprogramm';
+    private readonly setBenachrichtigungBonusGelesenUrl  = APIConfig.URL + ':' + APIConfig.PORT + '/setBenachrichtigungBonusGelesen';
+    private readonly getBonusAnzahlUngelesenenBenachrichtigungenUrl  = APIConfig.URL + ':' + APIConfig.PORT + '/getBonusAnzahlUngelesenenBenachrichtigungen';
 
     getBonusprogramme(): Observable<Bonusprogramm[]> {
         console.log("Im service");
@@ -31,7 +38,7 @@ import { Bonusprogramm } from '../models/Bonusprogramm';
         let kategorieParams = new HttpParams().set("kategorieID", kategorieID+"");
         return this.http.get<Bonusprogramm[]>(this.programmeVonKategorieUrl, {params: kategorieParams});
     }
-    
+
     getErstellteBonusprogramme(): Observable<Bonuseintrag[]> {
         let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
         return this.http.get<Bonuseintrag[]>(this.erstellteBonusprogrammeUrl, {params: buergerParams});
@@ -43,17 +50,49 @@ import { Bonusprogramm } from '../models/Bonusprogramm';
     }
 
     getBonusprogrammeLike(searchInput: string): Observable<Bonusprogramm[]> {
-        console.log(searchInput);
+       // console.log(searchInput);
         let searchParams = new HttpParams().set("suche", searchInput);
         return this.http.get<Bonusprogramm[]>(this.bonusSearchUrl, {params: searchParams});
     }
 
-    getBonusprogrammeVonNutzer(): Observable<Bonusprogramm[]> {
-        console.log("Profitiere Ich?");
+    getBonusBenachrichtigungUngelesenFuerNutzer(): Observable<BonusBenachrichtigung[]> {
+        console.log("Profitiere Ich? id_buerger: "+this.authService.getNutzer().id_buerger);
+
         let buergerParams = new HttpParams().set("buerger", this.authService.getNutzer().id_buerger+"");
-        return this.http.get<Bonusprogramm[]>(this.nutzerProfitiertUrl, {params: buergerParams});
+        return this.http.get<BonusBenachrichtigung[]>(this.nutzerBenachrichtigungBonusprogUngelesenUrl, {params: buergerParams});
     }
 
+    getBonusBenachrichtigungAlleFuerNutzer(): Observable<BonusBenachrichtigung[]> {
+      console.log("Profitiere Ich? id_buerger: "+this.authService.getNutzer().id_buerger);
+
+      let buergerParams = new HttpParams().set("buerger", this.authService.getNutzer().id_buerger+"");
+      return this.http.get<BonusBenachrichtigung[]>(this.nutzerBenachrichtigungBonusprogAlleUrl, {params: buergerParams});
+    }
+
+    setBonusBenachrichtigungBonusGelesen(benachrichtigungs_id): Observable<BonusBenachrichtigung> {
+      return this.http.put<BonusBenachrichtigung>(this.setBenachrichtigungBonusGelesenUrl, {
+        "id_profitiert_von_bonusprogramm" : benachrichtigungs_id
+      });
+    }
+
+    getBonusBenachrichtigungenUngelesen(): Observable<number> {
+      let buergerParams = new HttpParams().set("buerger", this.authService.getNutzer().id_buerger+"");
+      return this.http.get<number>(this.getBonusAnzahlUngelesenenBenachrichtigungenUrl, {params: buergerParams});
+    }
+
+  getTugendhafteErfuellenBonusprogramm(kategorie_id, min_punkte): Observable<Buerger[]> {
+    let httpParams = new HttpParams().set("kategorie_id", kategorie_id+"").set("min_punkte", min_punkte+"");
+    return this.http.get<Buerger[]>(this.tugendhafteErfuellenBonusprogrammUrl, {params : httpParams});
+  }
+
+  newProfitiertVonBonusprogrammEintragen(tugendhafte_id : number, bonusprogramm_id: number): Observable<any[]> {
+    console.log('in bonusservice ' +tugendhafte_id + ' ' + bonusprogramm_id);
+    return this.http.post<any[]>(this.newProfitiertVonBonusprogrammUrl,
+      {
+        "fk_buerger_id" : tugendhafte_id,
+        "fk_bonusprogramm_id" : bonusprogramm_id
+      });
+  }
     getBonusprogrammByID(bonusprogrammID: number): Observable<Bonusprogramm>  {
         let bonusprogrammParams = new HttpParams().set("bonusprogrammID", bonusprogrammID+"");
         return this.http.get<Bonusprogramm>(this.bonusprogrammByIDUrl, {params : bonusprogrammParams});

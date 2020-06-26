@@ -38,15 +38,17 @@ export class TodoTugendenTaetigkeitenComponent implements OnInit {
     this.Taetigkeiten = this.taetigkeitService.getTaetigkeitByUserID();
 
     this.Taetigkeiten.subscribe(data => {
-      console.log(data);});
-    console.log(this.Taetigkeiten);
+      //   console.log(data);
+    });
+   // console.log(this.Taetigkeiten);
   }
 
   checkmarkTaetigkeitErfuellt(e, id_taetigkeit, bisherigeWdh){
     // Erhöhte Anzahl an erfüllten Wiederholungen in DB speichern
     let erhoehteWdh = bisherigeWdh + 1;
     this.taetigkeitService.increaseErfuellteWdhTaetigkeit(id_taetigkeit, erhoehteWdh)
-      .subscribe(data => { console.log(data); } );
+      .subscribe(data => { //console.log(data);
+                               } );
 
     // Erfolgmitteilung + Update des Views
     this.updateViews();

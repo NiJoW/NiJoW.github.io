@@ -1,17 +1,17 @@
 import { Router } from '@angular/router';
 import { BuergerService } from './../../services/buerger.service';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BuergerTyp } from './../../models/BuergerTyp.enum';
 import { Buerger } from './../../models/Buerger';
 import { AuthService } from './../../services/auth.service';
 import {KategorieService} from '../../services/kategorie.service';
 import {Kategorie} from '../../models/Kategorie';
 import {Observable} from 'rxjs';
-import { NgIf } from '@angular/common';
 import { DienstService } from 'src/app/services/dienst.service';
 import { Dienst } from 'src/app/models/Dienst';
 import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
 import { BonusService } from 'src/app/services/bonus.service';
+import {BonusBenachrichtigung} from "../../models/BonusBenachrichtigung";
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -32,20 +32,20 @@ export class DashboardComponent implements OnInit {
   angefragteDiensteObservable: Observable<Dienst[]>;
   angefragteDienste: Dienst[];
   unlockClicked = false;
-  betroffeneProgramme: Observable<Bonusprogramm[]>;
+  betroffeneProgramme: Observable<BonusBenachrichtigung[]>;
   erhaeltBonus: boolean = false;
   unlockIcon = faLock;
 
   willFreischalten = false;
 
 
-  constructor(private kategorienService: KategorieService, 
-    private dienstService: DienstService, 
+  constructor(private kategorienService: KategorieService,
+    private dienstService: DienstService,
     private bonusService: BonusService,
-    private authService: AuthService, 
+    private authService: AuthService,
     private buergerService: BuergerService,
     private router: Router) {
-    
+
      this.getAktuellenNutzer();
      // console.log('dashboard: logged in?');
      // console.log(this.authService.isLoggedIn());
@@ -61,15 +61,20 @@ export class DashboardComponent implements OnInit {
       if(data.length != 0 ) {
         this.angefragteDienste = data;
         this.hatAngefragteDienste = true;
-        console.dir(data);
+       // console.dir(data);
       }
     });
 
-    this.betroffeneProgramme = this.bonusService.getBonusprogrammeVonNutzer(); //TODO: getBonusprogrammeVonNutzer funktioniert noch nicht
+    this.getBonusBenachrichtigungUngelesenFuerNutzer();
+  }
+
+  private getBonusBenachrichtigungUngelesenFuerNutzer(){
+    this.betroffeneProgramme = new Observable<BonusBenachrichtigung[]>();
+    this.betroffeneProgramme = this.bonusService.getBonusBenachrichtigungUngelesenFuerNutzer();
     this.betroffeneProgramme.subscribe(data => {
       if(data.length != 0 ) {
         this.erhaeltBonus = true;
-        console.dir(data);
+      //  console.dir(data);
       }
     })
   }
@@ -116,14 +121,17 @@ export class DashboardComponent implements OnInit {
       });
       alert("Sie müssen sich erneut einloggen!");
       this.logout();
-      
+
     } else {
-      
+
     } */
   }
 
-  
 
+  updateViewBonusNachrichtGeschlossen() {
+    //console.log("updateViewBonusNachrichtGeschlossen");
+    this.getBonusBenachrichtigungUngelesenFuerNutzer();
+  }
 }
 
 

@@ -57,7 +57,7 @@ export class BearbeiteBonusprogrammComponent implements OnInit {
     // Overlay schließen, Erfolgsmeldung anzeigen
     this.onCloseEvent.emit(null);
     this.messageService.setMessage("Die Bonusprogramm wurde erfolgreich bearbeitet.");
-    this.erstellteBonusprogrammeComponent.getErstelteBonusprogramme();
+    this.erstellteBonusprogrammeComponent.getErstellteBonusprogramme();
   }
 
   cancel() {

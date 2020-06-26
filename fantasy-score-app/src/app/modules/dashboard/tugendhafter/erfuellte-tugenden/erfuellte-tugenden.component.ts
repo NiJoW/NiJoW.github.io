@@ -20,7 +20,7 @@ export class ErfuellteTugendenComponent implements OnInit {
   ngOnInit(): void {
     this.getErfuellteTugenden();
     this.data.currentDoUpdateState.subscribe(message =>
-    {this.getErfuellteTugenden(); this.getErfuellteTugenden(); }
+    {this.getErfuellteTugenden(); }
     );
   }
 
@@ -28,7 +28,8 @@ export class ErfuellteTugendenComponent implements OnInit {
     this.erfuellteTugenden = this.tugendService.getErfuellteTugenden();
 
     this.erfuellteTugenden.subscribe(data => {
-      console.log(data);});
+      //console.log(data);
+    });
   }
 
 
