@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
 import { BonusService } from 'src/app/services/bonus.service';
+import {BonusBenachrichtigung} from "../../../../models/BonusBenachrichtigung";
 
 @Component({
   selector: 'app-gewonnene-bonusprogramme',
@@ -10,13 +11,13 @@ import { BonusService } from 'src/app/services/bonus.service';
 })
 export class GewonneneBonusprogrammeComponent implements OnInit {
 
-  bonusprogramme: Observable<Bonusprogramm[]>
+  bonusBenachrichtigung: Observable<BonusBenachrichtigung[]>;
 
   constructor(private bonusService: BonusService) { }
 
   ngOnInit(): void {
-    this.bonusprogramme = this.bonusService.getBonusprogrammeVonNutzer();
-    this.bonusprogramme.subscribe(data => {
+    this.bonusBenachrichtigung = this.bonusService.getBonusBenachrichtigungAlleFuerNutzer();
+    this.bonusBenachrichtigung.subscribe(data => {
       console.log(data);
     })
   }

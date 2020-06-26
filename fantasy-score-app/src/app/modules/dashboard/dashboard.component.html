@@ -9,7 +9,8 @@ Test Observer
 
 <!---  --->
 <div *ngIf="isTyp('Tugendhafter')">
-  <app-bonusprogramm-benachrichtigungen class="section" *ngIf="erhaeltBonus" [bonusProgramme] = betroffeneProgramme></app-bonusprogramm-benachrichtigungen>
+  <app-bonusprogramm-benachrichtigungen class="section" *ngIf="erhaeltBonus"
+             (onCloseEvent)="updateViewBonusNachrichtGeschlossen()"                           [bonusBenachrichtigungen]="betroffeneProgramme"></app-bonusprogramm-benachrichtigungen>
   <app-dienst-anfragen class="section" *ngIf="hatAngefragteDienste" [angefragteDienste] = angefragteDiensteObservable></app-dienst-anfragen>
 
   <div class="tabs is-boxed is-centered is-medium">

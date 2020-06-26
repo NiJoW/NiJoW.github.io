@@ -27,7 +27,7 @@ export class ErstelleDienstComponent implements OnInit {
               private formBuilder: FormBuilder,
               private authService: AuthService,
               private messageService: MessageService,
-              private angeboteneDiensteComponent: AngeboteneDiensteComponent) { 
+              private angeboteneDiensteComponent: AngeboteneDiensteComponent) {
                 this.neuerDienstForm = this.formBuilder.group({
                   kategorie: 1,
                   titel: '',
@@ -50,7 +50,7 @@ export class ErstelleDienstComponent implements OnInit {
       console.log(data); } );
     // Overlay schließen, Erfolgsmeldung anzeigen
     this.onCloseEvent.emit(null);
-    this.messageService.setMessage("Der Dienst wurde erfolgreich bearbeitet.");
+    this.messageService.setMessage("Der Dienst wurde erfolgreich hinzugefügt.");
     this.angeboteneDiensteComponent.getAngeboteneDienste();
   }
 

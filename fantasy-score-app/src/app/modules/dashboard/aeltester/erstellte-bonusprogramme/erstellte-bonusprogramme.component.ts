@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Bonuseintrag } from '../../../../models/Bonuseintrag';
 import { BonusService } from '../../../../services/bonus.service';
 import { Component, OnInit } from '@angular/core';
+import {Buerger} from "../../../../models/Buerger";
+import {MessageService} from "../../../../services/message.service";
 
 @Component({
   selector: 'app-erstellte-bonusprogramme',
@@ -24,16 +26,17 @@ export class ErstellteBonusprogrammeComponent implements OnInit {
   bonusprogrammObservable : Observable<Bonusprogramm>;
   id: number;
 
-  constructor(private bonusService: BonusService) { }
+  constructor(private bonusService: BonusService,
+              private messageService: MessageService) { }
 
   erstellteBonusprogramme: Observable<Bonuseintrag[]>;
 
   ngOnInit(): void {
     this.getEigeneErstellteBonusprogramme();
-    this.getErstelteBonusprogramme();
+    this.getErstellteBonusprogramme();
   }
 
-  getErstelteBonusprogramme() {
+  getErstellteBonusprogramme() {
     this.erstellteBonusprogramme = this.bonusService.getErstellteBonusprogramme();
 
     this.erstellteBonusprogramme.subscribe(data => {
@@ -50,6 +53,41 @@ export class ErstellteBonusprogrammeComponent implements OnInit {
       this.zeigeBearbeitenOverlay = true;
     });
   }
+
+  ausschuetten(bonusprogrammID) {
+    console.log("Nutzer will das Bonusprog. " + bonusprogrammID)+ " ausschutten";
+    let newBonusprogrammObservable : Observable<Bonusprogramm>;
+    newBonusprogrammObservable = this.bonusService.getBonusprogrammByID(3);
+    newBonusprogrammObservable.subscribe(data => {
+      this.fuerZutreffendeNutzer_InsertProfitiertVonBonusprogramm( data[0].kategorieID, data[0].punkte_in_kategorie, bonusprogrammID );
+    });
+  }
+
+  private fuerZutreffendeNutzer_InsertProfitiertVonBonusprogramm(kategorie: any, min_punkte: number, bonusprogrammID: number) {
+    // zuerst get zutreffende Nutzer
+    let tugendhafteObservable : Observable<Buerger[]>;
+    tugendhafteObservable = this.bonusService.getTugendhafteErfuellenBonusprogramm(kategorie, min_punkte);
+    tugendhafteObservable.subscribe(data => {
+      // console.log("Tugendhafte, die Bonusprogramm erfüllen:");
+      // console.dir(data);
+      this.insertProfitiertVonBonusProgramm(data, bonusprogrammID);
+    });
+  }
+
+  private insertProfitiertVonBonusProgramm(tugendhafte_ids, bonusprogrammID: number){
+    let bonusService = this.bonusService;
+    let messageService = this.messageService;
+    let observable  : Observable<any[]>;
+
+    tugendhafte_ids.forEach(function (value) {
+     // console.log("in set profitiert"+value.tugendhafterID);
+      observable = bonusService.newProfitiertVonBonusprogrammEintragen(value.tugendhafterID, bonusprogrammID);
+      observable.subscribe(data =>{ console.dir(data);
+        messageService.setMessage("Bonus wurde an Tugendhafte ausgeschüttet");
+      });
+    });
+  }
+
 
   neuesBonusprgrammErstellen(){
     this.zeigeErstellenOverlay = true;
@@ -78,5 +116,6 @@ export class ErstellteBonusprogrammeComponent implements OnInit {
       this.id = id;
     }
   }
+
 
 }

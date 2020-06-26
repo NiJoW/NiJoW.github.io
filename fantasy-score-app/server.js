@@ -144,23 +144,66 @@ app.get('/bonusprogramme/suche', function(req, res) {
   });
 });
 
-//getBonusprogrammeVonNutzer()
-app.get('/bonusprogramme/nutzer', function(req, res) {
-  const buerger = req.query.buerger;
-  const sql = "SELECT distinct bo.id_bonusprogramm, bo.titel, bo.nachricht, k.bezeichnung AS kategorieName FROM bonusprogramm bo"
-  + " JOIN kategorie k ON k.id_kategorie = bo.kategorieID"
-  + " WHERE (SELECT sum(tu.wert) AS kategorieScore FROM taetigkeit tae"
-  + " JOIN tugend tu ON tae.tugendID = tu.id_tugend"
-  + " JOIN bonusprogramm b ON b.kategorieID = tu.kategorieID"
-  + " WHERE tu.kategorieID = b.kategorieID AND tae.tugendhafterID = ?"
-  + " AND tae.erfuellteWdh = tu.benoetigteWdh) >= bo.punkte_in_kategorie;";
-  const value = [buerger];
-  pool.query(sql, value, 
+//getBonusBenachrichtigungFuerNutzer()
+app.get('/bonusNachricht/all/nutzer', function(req, res) {
+  const buerger_id = req.query.buerger;
+  const sql = "SELECT distinct pvb.* ,  bo.id_bonusprogramm, bo.titel  AS titel_bonusprogramm, bo.nachricht, k.bezeichnung AS kategorieName \n" +
+    "FROM profitiert_von_bonusprogramm pvb \n" +
+    "JOIN bonusprogramm bo ON bo.id_bonusprogramm = pvb.fk_bonusprogramm_id \n" +
+    "JOIN kategorie k ON k.id_kategorie = bo.kategorieID \n" +
+    "WHERE fk_buerger_id=?; \n";
+
+  const value = [buerger_id];
+  pool.query(sql, value,
     function(error, results, fields) {
       if (error) throw error
       res.send(results);
     });
 });
+
+//getBonusBenachrichtigungFuerNutzer()
+app.get('/bonusNachricht/ungelesen/nutzer', function(req, res) {
+  const buerger_id = req.query.buerger;
+  const sql = "SELECT distinct pvb.* ,  bo.id_bonusprogramm, bo.titel AS titel_bonusprogramm, bo.nachricht, k.bezeichnung AS kategorieName \n" +
+    "FROM profitiert_von_bonusprogramm pvb \n" +
+    "JOIN bonusprogramm bo ON bo.id_bonusprogramm = pvb.fk_bonusprogramm_id \n" +
+    "JOIN kategorie k ON k.id_kategorie = bo.kategorieID \n" +
+    "WHERE fk_buerger_id=? AND gelesen=false; \n";
+
+  const value = [buerger_id];
+  pool.query(sql, value,
+    function(error, results, fields) {
+      if (error) throw error
+      res.send(results);
+    });
+});
+
+///setBenachrichtigungBonusGelesen
+app.put('/setBenachrichtigungBonusGelesen', function (req, res) {
+  const id_profitiert_von_bonusprogramm = req.body.id_profitiert_von_bonusprogramm;
+  const sql = 'UPDATE profitiert_von_bonusprogramm SET gelesen=true WHERE id_profitiert_von_bonusprogramm= ?';
+  const value = [id_profitiert_von_bonusprogramm];
+  pool.query(sql, value,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    });
+});
+
+//Anzahl neue Bonus-Nachrichten für user
+app.get('/getBonusAnzahlUngelesenenBenachrichtigungen', function (req, res) {
+    const buerger_id = req.query.buerger;
+    const sql = "SELECT COUNT(id_profitiert_von_bonusprogramm) AS anzahl_ungelesen\n" +
+      "FROM profitiert_von_bonusprogramm \n" +
+      "WHERE fk_buerger_id=? AND gelesen=false;";
+
+    const value = [buerger_id];
+    pool.query(sql, value,
+      function(error, results, fields) {
+        if (error) throw error
+        res.send(results);
+      });
+  });
 
 //getBonusprogrammByID()
 app.get('/bonusByID', function (req, res) {
@@ -240,6 +283,24 @@ app.get('/aeltester', function (req, res) {
   });
 });
 
+//getTugendhafteErfuellenBonusprogramm(kategorie_id, min_punkte)
+app.get('/tugendhafteErfuellenBonusprogramm', function (req, res) {
+  const kategorie_id = req.query.kategorie_id;
+  const min_punkte = req.query.min_punkte;
+  console.log("in serverja getTugendh Bonus "+kategorie_id + " " + min_punkte);
+  const sql = 'SELECT tae.tugendhafterID FROM taetigkeit tae \n' +
+    'JOIN tugend tu ON tu.id_tugend = tae.tugendID \n' +
+    'WHERE tae.tugendID IN ( SELECT tug.id_tugend FROM tugend tug WHERE tug.kategorieID=?) \n' +
+    'AND tae.erfuellteWdh = tu.benoetigteWdh \n' +
+    'GROUP BY tae.tugendhafterID HAVING  SUM(tu.wert) > ?;';
+  const value = [kategorie_id,min_punkte];
+  pool.query(sql, value,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    });
+});
+
 //#################### post
 
 //getBuergerByLoginData()
@@ -255,7 +316,7 @@ app.post('/nutzer/login', function (request, response) {
     });
 });
 
-//getBuergerByBenutzername()
+//getBuergerByBenutzername() //Anmerkung: Als Post, da Login-Daten in Body etwas besser geschuetzt als in Request-URL
 app.post('/nutzer/name', function (request, response) {
   const benutzername = request.body.benutzername;
   const sql = "SELECT * FROM buerger WHERE benutzername=?";
@@ -303,6 +364,21 @@ app.post('/nutzer/socialScoreEintrag', function(request, response) {
     });
 });
 
+//newProfitiertVonBonusprogramm
+app.post('/newProfitiertVonBonusprogramm', function(request, response) {
+  const fk_buerger_id = request.body.fk_buerger_id;
+  const fk_bonusprogramm_id = request.body.fk_bonusprogramm_id;
+  const sql = "insert into profitiert_von_bonusprogramm (fk_buerger_id, fk_bonusprogramm_id, gelesen) " +
+    " Select ?, ?, '0'  Where not exists(select * from profitiert_von_bonusprogramm " +
+    " where fk_buerger_id=? AND fk_bonusprogramm_id=?)";
+  const values = [fk_buerger_id, fk_bonusprogramm_id, fk_buerger_id, fk_bonusprogramm_id];
+  pool.query(sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+    });
+});
+
 //#################### put
 
 //unlockTugendhafter()
@@ -338,7 +414,7 @@ app.get('/dienste', function (req, res) {
   });
 });
 
-//getArchivierteDienste() 
+//getArchivierteDienste()
 app.get('/archivierteDienste', function (req, res) {
   pool.query('SELECT d.*, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger AND d.archiviert = 1',
   function (error, results, fields) {
@@ -347,7 +423,7 @@ app.get('/archivierteDienste', function (req, res) {
   });
 });
 
-//getNichtArchivierteDienste() 
+//getNichtArchivierteDienste()
 app.get('/nichtArchivierteDienste', function (req, res) {
   pool.query('SELECT d.*, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger AND archiviert = 0',
   function (error, results, fields) {
@@ -607,7 +683,7 @@ app.get('/kategorieByID', function (req, res) {
       if (error) throw error;
       res.send(results);
   });
-}); 
+});
 
 //getErstellteKategorien()
 app.get('/erstellteKategorien', function (req, res) {
@@ -698,7 +774,7 @@ app.post('/taetigkeit/nutzer/tugend', function(req, res) {
   const sql = "SELECT * FROM taetigkeit ta JOIN tugend tu ON tu.id_tugend = ta.tugendId WHERE ta.tugendhafterId = ? AND ta.tugendId = ?  AND ta.erfuellteWdh != tu.benoetigteWdh";
   const value = [req.body.buergerId, req.body.tugendId];
   console.log(value);
-  pool.query(sql, value, 
+  pool.query(sql, value,
     function (error, results, fields) {
       if (error) throw error;
       res.send(results);
@@ -763,7 +839,7 @@ app.get('/tugendByID', function (req, res) {
       if (error) throw error;
       res.send(results);
   });
-}); 
+});
 
 //getTugendenLike()
 app.get('/tugenden/suche', function ( req, res) {
@@ -890,7 +966,7 @@ app.put('/tugendWiederherstellen', function (request, response) {
 
 
 
- 
+
 
 
 
@@ -969,9 +1045,9 @@ app.get('/tugenden', function (request, response) {
   res.send("tagId is set to " + req.params.tagId);
 });*/
 //TODO: url in /tugenden?kategorieID=3 umändern -> request.query
- 
 
 
 
-    
+
+
 

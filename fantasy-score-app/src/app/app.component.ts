@@ -6,8 +6,8 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { DienstService } from './services/dienst.service';
 import { Observable } from 'rxjs';
 import { Dienst } from './models/Dienst';
-import { Bonusprogramm } from './models/Bonusprogramm';
 import { BonusService } from './services/bonus.service';
+import {DoUpdateService} from "./services/do-update.service";
 
 @Component({
   selector: 'app-root',
@@ -20,35 +20,44 @@ export class AppComponent {
   willAnmelden: boolean = false;
   willRegistrieren: boolean = false;
   hasMessage: boolean = false;
-  messageAnount = 0; //TODO: update nachdem gelesen wurde
+  messageAmount = 0;
   angefragteDiensteObservable: Observable<Dienst[]>;
-  betroffeneProgramme: Observable<Bonusprogramm[]>;
   homeIcon = faHome;
 
 
-  constructor(private router: Router, 
+  constructor(private router: Router,
     private authService: AuthService,
     private dienstService: DienstService,
-    private bonusService: BonusService) {
+    private bonusService: BonusService,
+    private updateService: DoUpdateService) {
     this.getAktuellenNutzer();
   }
 
   ngOnInit(): void {
+  //  this.getAnzahlBenachrichtigungen();
+   // console.log(' amount '+this.messageAmount);
+    this.updateService.currentDoUpdateState_AnzahlBenachrichtigungen.subscribe(message =>
+      {this.getAnzahlBenachrichtigungen(); }
+    );
+  }
+
+
+  getAnzahlBenachrichtigungen(){
+    this.messageAmount = 0; // zurück auf 0 setzen, für erneute Aufrufe bei Update
+    // Benachrichtungen zu angefragten Diensten
     this.angefragteDiensteObservable = this.dienstService.getAnfragenAnTugendhaften();
     this.angefragteDiensteObservable.subscribe(data => {
       if(data.length != 0 ) {
-        this.messageAnount += data.length;
+        this.messageAmount += data.length;
         this.hasMessage = true;
-      } 
+      }
     });
-    this.betroffeneProgramme = this.bonusService.getBonusprogrammeVonNutzer(); //TODO: getBonusprogrammeVonNutzer funktioniert noch nicht
-      this.betroffeneProgramme.subscribe(data => {
-        if(data.length != 0 ) {
-          this.messageAnount += data.length;
-          this.hasMessage = true;
-          console.dir(data);
-        }
-    }); 
+    // Benachrichtungen zu neuen Bonusprogrammen, von denen User profitiert
+    let amountMessagesBonus : Observable<number>;
+    amountMessagesBonus = this.bonusService.getBonusBenachrichtigungenUngelesen();
+    amountMessagesBonus.subscribe(data => {
+      this.messageAmount += data[0].anzahl_ungelesen;
+    });
   }
 
   get isLoggedIn() {
