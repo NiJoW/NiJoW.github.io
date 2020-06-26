@@ -4,6 +4,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { faAward, faPiggyBank, faPencilAlt, faHandshake, faTrophy, faUser } from '@fortawesome/free-solid-svg-icons';
+import { DoUpdateService } from 'src/app/services/do-update.service';
+import { Dienst } from 'src/app/models/Dienst';
+import { DienstService } from 'src/app/services/dienst.service';
+import { BonusService } from 'src/app/services/bonus.service';
+import { BonusBenachrichtigung } from 'src/app/models/BonusBenachrichtigung';
 
 @Component({
   selector: 'app-banner',
@@ -13,7 +18,10 @@ import { faAward, faPiggyBank, faPencilAlt, faHandshake, faTrophy, faUser } from
 export class BannerComponent implements OnInit {
 
   constructor(private buergerService: BuergerService, 
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private doUpdateService: DoUpdateService,
+    private dienstService: DienstService,
+    private bonusService: BonusService) { }
 
   nutzer:Buerger;
   socialScore: Observable<number>;
@@ -32,12 +40,39 @@ export class BannerComponent implements OnInit {
   ngOnInit(): void {
     this.nutzer = this.authService.getNutzer();
     if(this.nutzer != null && this.nutzer.typ == "Tugendhafter") {
-      this.socialScore = this.buergerService.getSocialScoreFromId(this.nutzer.id_buerger);
+      this.doUpdateService.currentDoUpdateState_SocialScore.subscribe(message =>
+        {this.getSocialScore(); }
+      );
+      this.doUpdateService.currentDoUpdateState_AnzahlErfuellteDienste.subscribe(data => {
+        this.getErfuellteDienstAnzahl();
+      });
+      this.doUpdateService.currentDoUpdateState_AnzahlErfuellteDienste.subscribe(data => {
+        this.getErhalteneBonis();
+      })
+    }
+  }
+
+  getErhalteneBonis() {
+    let bonusObservable: Observable<BonusBenachrichtigung[]>;
+    bonusObservable = this.bonusService.getBonusBenachrichtigungAlleFuerNutzer();
+    bonusObservable.subscribe(data => {
+      this.boniAnzahl = data.length;
+    });
+  }
+
+  getErfuellteDienstAnzahl() {
+    let dienstObservable: Observable<Dienst[]>;
+    dienstObservable = this.dienstService.getErledigteDienste();
+    dienstObservable.subscribe(data => {
+      this.dienstAnzahl = data.length;
+    });
+  }
+
+  getSocialScore() {
+    this.socialScore = this.buergerService.getSocialScoreFromId(this.nutzer.id_buerger);
       this.socialScore.subscribe(data =>{
         this.nutzer.social_score = data[0].social_score;
-        console.dir(this.nutzer);
       });
-    }
   }
 
   isLoggedIn(): boolean {
