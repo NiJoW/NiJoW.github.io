@@ -1,8 +1,9 @@
 import { TugendService } from 'src/app/services/tugend.service';
 import { Tugend } from 'src/app/models/Tugend';
-import { Observable } from 'rxjs';
+import { Observable, interval } from 'rxjs';
 import { faPencilAlt, faPlus, faAngleDown, faTrashRestore } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit } from '@angular/core';
+import { startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-archivierte-tugenden',
@@ -48,12 +49,18 @@ export class ArchivierteTugendenComponent implements OnInit {
   }
 
   private getArchivierteTugenden() {
-    this.erstellteTugenden = this.tugendService.getArchivierteTugenden();
+    interval(30000)
+      .pipe(
+        startWith(0),
+        switchMap(() => this.erstellteTugenden = this.tugendService.getArchivierteTugenden())
+      )
+      .subscribe(data => {});
+    /*this.erstellteTugenden = this.tugendService.getArchivierteTugenden();
 
     this.erstellteTugenden.subscribe(data => {
       console.log('Tugend aus DB in Componente:');
       console.log(data);
-    });
+    });*/
   }
 
   updateTugendenOnEvent(){

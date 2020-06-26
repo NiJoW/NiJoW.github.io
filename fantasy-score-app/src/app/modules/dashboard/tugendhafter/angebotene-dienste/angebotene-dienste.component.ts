@@ -1,8 +1,9 @@
-import { Observable } from 'rxjs';
+import { Observable, interval } from 'rxjs';
 import { DienstService } from '../../../../services/dienst.service';
 import { Dienst } from '../../../../models/Dienst';
 import { Component, OnInit } from '@angular/core';
 import { faAngleUp, faAngleDown, faPencilAlt, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-angebotene-dienste',
@@ -36,19 +37,29 @@ export class AngeboteneDiensteComponent implements OnInit {
   ngOnInit(): void {
     this.getEigeneErstellteDienste();
     this.getAngeboteneDienste();
-      console.log(this.angeboteneDienste);
-      this.longFormat = false;
+    this.longFormat = false;
   }
 
   getAngeboteneDienste() {
-  this.angeboteneDienste = this.dienstService.getAngeboteneDienste();
+  /*this.angeboteneDienste = this.dienstService.getAngeboteneDienste();
     this.angeboteneDienste.subscribe(data => {
       if(data.length==0) {
         this.isEmpty = true;
         return;
       }
       console.log(data);
-    });
+    });*/
+    interval(30000)
+      .pipe(
+        startWith(0),
+        switchMap(() =>  this.angeboteneDienste = this.dienstService.getAngeboteneDienste())
+      )
+      .subscribe(data => {
+        if(data.length==0) {
+          this.isEmpty = true;
+          return;
+        }
+      });
   }
 
   changeFormat(id: number): void {

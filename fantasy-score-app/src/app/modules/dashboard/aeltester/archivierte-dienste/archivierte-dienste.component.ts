@@ -1,8 +1,9 @@
 import { DienstService } from 'src/app/services/dienst.service';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, interval } from 'rxjs';
 import { Dienst } from 'src/app/models/Dienst';
 import { faPencilAlt, faPlus, faAngleDown, faTrashRestore } from '@fortawesome/free-solid-svg-icons';
+import { startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-archivierte-dienste',
@@ -49,12 +50,18 @@ export class ArchivierteDiensteComponent implements OnInit {
   }
 
   private getArchivierteDienste() {
-    this.archivierteDienste = this.dienstService.getArchivierteDienste();
+    interval(30000)
+      .pipe(
+        startWith(0),
+        switchMap(() => this.archivierteDienste = this.dienstService.getArchivierteDienste())
+      )
+      .subscribe(data => {});
 
+    /*this.archivierteDienste = this.dienstService.getArchivierteDienste();
     this.archivierteDienste.subscribe(data => {
       console.log('Dienst aus DB in Componente:');
       console.log(data);
-    });
+    });*/
   }
 
   updateDiensteOnEvent(){

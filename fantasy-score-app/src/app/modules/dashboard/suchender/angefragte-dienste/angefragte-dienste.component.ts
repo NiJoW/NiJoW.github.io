@@ -1,8 +1,9 @@
 import { Dienst } from '../../../../models/Dienst';
-import { Observable } from 'rxjs';
+import { Observable, interval } from 'rxjs';
 import { DienstService } from '../../../../services/dienst.service';
 import { Component, OnInit } from '@angular/core';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-angefragte-dienste',
@@ -23,15 +24,26 @@ export class AngefragteDiensteComponent implements OnInit {
     }
 
     getAngefragteDienste() {
-      this.angefragteDienste = this.dienstService.getAngefragteDienste();
+    /*this.angefragteDienste = this.dienstService.getAngefragteDienste();
     this.angefragteDienste.subscribe(data => {
       console.dir(data);
-      if(data.length === 0) {
-        this.isEmpty = true;
-        return;
-      }
-      console.log(data);});
-      console.log(this.angefragteDienste);
+        if(data.length === 0) {
+          this.isEmpty = true;
+          return;
+        }
+      console.log(data);
+      });*/
+      interval(30000)
+      .pipe(
+        startWith(0),
+        switchMap(() => this.angefragteDienste = this.dienstService.getAngefragteDienste())
+      )
+      .subscribe(data => {
+        if(data.length === 0) {
+          this.isEmpty = true;
+          return;
+        }
+      });
     }
     
     changeFormat(id: number): void {

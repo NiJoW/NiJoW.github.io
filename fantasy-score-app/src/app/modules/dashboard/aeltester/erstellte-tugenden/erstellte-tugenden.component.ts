@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, interval} from "rxjs";
 import {TugendService} from "../../../../services/tugend.service";
 import {Tugend} from "../../../../models/Tugend";
 import { faPencilAlt, faTrash, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { startWith, switchMap } from 'rxjs/operators';
 
 
 @Component({
@@ -65,12 +66,18 @@ export class ErstellteTugendenComponent implements OnInit {
   }
 
   private getEigeneErstellteTugenden() {
-    this.erstellteTugenden = this.tugendService.getErstellteTugenden();
+    /*this.erstellteTugenden = this.tugendService.getErstellteTugenden();
 
     this.erstellteTugenden.subscribe(data => {
       console.log('Tugend aus DB in Componente:');
       console.log(data);
-    });
+    });*/
+    interval(30000)
+      .pipe(
+        startWith(0),
+        switchMap(() => this.erstellteTugenden = this.tugendService.getErstellteTugenden())
+      )
+      .subscribe(data => {});
   }
 
   updateTugendenOnEvent(){
