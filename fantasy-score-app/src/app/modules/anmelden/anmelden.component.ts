@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { BuergerTyp } from './../../models/BuergerTyp.enum';
 import { AuthService } from './../../services/auth.service';
 import { FormBuilder } from '@angular/forms';
-import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faKey, faUser, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-anmelden',
@@ -17,6 +17,8 @@ export class AnmeldenComponent implements OnInit {
   message = " ";
   passwordIcon = faKey;
   userIcon = faUser;
+  eyeIcon = faEyeSlash;
+  fieldTextType = false;
 
   @Output() onClose = new EventEmitter();
 
@@ -29,6 +31,15 @@ export class AnmeldenComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  togglePasswort() {
+    this.fieldTextType = !this.fieldTextType;
+    if(this.fieldTextType) {
+      this.eyeIcon = faEye;
+    } else {
+      this.eyeIcon = faEyeSlash;
+    }
   }
 
   login(anmeldenDaten) {

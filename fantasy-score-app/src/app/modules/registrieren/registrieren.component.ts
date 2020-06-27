@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { FormBuilder } from '@angular/forms';
 import { BuergerService } from 'src/app/services/buerger.service';
-import { faKey, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faKey, faUser, faEnvelope, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-registrieren',
@@ -23,6 +23,8 @@ export class RegistrierenComponent implements OnInit {
   passwordIcon = faKey;
   userIcon = faUser;
   emailIcon = faEnvelope;
+  eyeIcon = faEyeSlash;
+  fieldTextType = false;
 
   
   @Output() onClose = new EventEmitter();
@@ -97,6 +99,16 @@ export class RegistrierenComponent implements OnInit {
       console.log("passwort falsch");
     }
     return false;
+  }
+
+
+  togglePasswort() {
+    this.fieldTextType = !this.fieldTextType;
+    if(this.fieldTextType) {
+      this.eyeIcon = faEye;
+    } else {
+      this.eyeIcon = faEyeSlash;
+    }
   }
 
   navigiere(){

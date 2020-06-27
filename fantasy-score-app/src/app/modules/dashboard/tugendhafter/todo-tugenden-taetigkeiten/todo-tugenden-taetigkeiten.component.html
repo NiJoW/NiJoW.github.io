@@ -1,7 +1,7 @@
 
 <div class="box">
     <p class="title is-4">Todo - Tugenden</p>
-    <div class="outer">
+    <div class="content">
         <table class='table is-striped'>
             <thead>
                 <tr>
@@ -16,7 +16,7 @@
                     <td>{{taetigkeit.tugend_wert}}</td>
                  <td>
                     <input class="myCheckbox" *ngFor="let i of ArrDone(taetigkeit.erfuellteWdh).fill(1)" type="checkbox" checked="checked" disabled>
-                    <input class="myCheckbox" (change)="checkmarkTaetigkeitErfuellt($event, taetigkeit.id_taetigkeit, taetigkeit.erfuellteWdh)"
+                    <input class="myCheckbox" (change)="checkmarkTaetigkeitErfuellt($event, taetigkeit.id_taetigkeit, taetigkeit.erfuellteWdh, taetigkeit.benoetigteWdh, taetigkeit.tugend_wert)"
                            *ngFor="let i of ArrDo(taetigkeit.benoetigteWdh - taetigkeit.erfuellteWdh).fill(1)" type="checkbox">
                  </td>
                 </tr>
