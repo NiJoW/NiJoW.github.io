@@ -46,9 +46,6 @@ export class AuthService {
       if (data != null  && !(data.length === 0)){
         komponent.cancel();
         this.nutzer = data[0];
-        console.dir(data[0]);
-
-        
 
         sessionStorage.setItem('loggedInUser', JSON.stringify(data[0]));
         console.log(sessionStorage.getItem('loggedInUser'));
@@ -60,11 +57,19 @@ export class AuthService {
     } );
   }
 
+
   logout() {
     this.nutzer = null;
     sessionStorage.removeItem('loggedInUser');
   }
 
+  updateAktuellerNutzer() {
+    this.benutzerObservable = this.buergerService.getBuergerByBenutzername(this.nutzer.benutzername);
+    this.benutzerObservable.subscribe(data => {
+      this.nutzer = data[0];
+      sessionStorage.setItem('loggedInUser', JSON.stringify(data[0]));
+    })
+  }
 
 
   registrieren(komponent: RegistrierenComponent, benutzername: string, passwort: string, email: string, typ: BuergerTyp) {

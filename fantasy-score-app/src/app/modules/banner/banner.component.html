@@ -97,14 +97,14 @@
         
   <div class="hero-foot" *ngIf="isLoggedIn() && nutzer.typ === 'Tugendhafter'">
     <div class="content media is-center">
-      <p class="media-left subtitle">Novize</p>
-      <progress class="media-content progress is-small is-danger" value="15" max="100" style="margin-top: 1%;">15%</progress>
+      <p class="media-left subtitle">{{nutzer.status}}</p>
+      <progress class="media-content progress is-small is-danger" value="{{value}}" max="{{gesamt}}" style="margin-top: 1%;">15%</progress>
       <br>
     </div>
   </div>
 </section>
 
-<app-profil-bearbeiten *ngIf="willBearbeiten" (onClose)="willBearbeiten = false"></app-profil-bearbeiten>
+<app-profil-bearbeiten *ngIf="willBearbeiten" (onClose)="updateBanner()"></app-profil-bearbeiten>
 
 <div class="is-overlay">
   <app-notification></app-notification>

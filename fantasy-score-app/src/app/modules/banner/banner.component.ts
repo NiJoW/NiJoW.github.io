@@ -40,6 +40,8 @@ export class BannerComponent implements OnInit {
   boniAnzahl = 0;
   tugendAnzahl = 0;
   gebuchteDienstAnzahl = 0;
+  value: number;
+  gesamt = 0;
 
   ngOnInit(): void {
     this.nutzer = this.authService.getNutzer();
@@ -104,7 +106,13 @@ export class BannerComponent implements OnInit {
     this.socialScore = this.buergerService.getSocialScoreFromId(this.nutzer.id_buerger);
       this.socialScore.subscribe(data =>{
         this.nutzer.social_score = data[0].social_score;
+        this.berechneStatus(data[0].social_score);
+        this.berechneProcessbarAnzeige();
       });
+  }
+
+  berechneProcessbarAnzeige() {
+    this.value = 100*this.nutzer.social_score/this.gesamt;
   }
 
   isLoggedIn(): boolean {
@@ -114,6 +122,33 @@ export class BannerComponent implements OnInit {
   bearbeiten(): void {
     //TODO: Email, Passwort aendern
     this.willBearbeiten = true;
+  }
+
+  updateBanner() {
+    this.willBearbeiten = false;
+    this.nutzer = this.authService.getNutzer();
+  }
+
+  berechneStatus(socialScore: number) {
+    if(socialScore<30) {
+      this.nutzer.status = "Anwärter";
+      this.gesamt = 30;
+    } else if (socialScore<80) {
+      this.nutzer.status = "Novize";
+      this.gesamt = 80;
+    } else if (socialScore<150) {
+      this.nutzer.status = "Adept";
+      this.gesamt = 150;
+    } else if (socialScore<210) {
+      this.nutzer.status = "Magista";
+      this.gesamt = 210;
+    } else if (socialScore<300) {
+      this.nutzer.status = "Großmeister";
+      this.gesamt = 300;
+    }  else {
+      this.nutzer.status = "Erzmeister";
+      this.gesamt = 500;
+    }
   }
 
 }
