@@ -40,7 +40,7 @@ export class ProfilBearbeitenComponent implements OnInit {
     console.dir(bearbeitungsDaten);
     this.buergerObservable = this.buergerService.updateNutzer(bearbeitungsDaten.email, bearbeitungsDaten.passwort, this.nutzer.id_buerger)
     this.buergerObservable.subscribe(data => {
-      this.authService.updateAktuellerNutzer();
+      this.authService.updateEmail();
       this.nutzer = data[0];
       this.cancel();
     })

@@ -72,6 +72,17 @@ export class AuthService {
       console.log(this.nutzer);
       sessionStorage.removeItem('loggedInUser');
       sessionStorage.setItem('loggedInUser', JSON.stringify(data[0]));
+      window.location.reload();
+    })
+  }
+
+  updateEmail() {
+    this.benutzerObservable = this.buergerService.getBuergerByBenutzername(this.nutzer.benutzername);
+    this.benutzerObservable.subscribe(data => {
+      this.nutzer = data[0];
+      console.log(this.nutzer);
+      sessionStorage.removeItem('loggedInUser');
+      sessionStorage.setItem('loggedInUser', JSON.stringify(data[0]));
       this.doUpdateService.doViewUpdate_Email(true);
     })
   }

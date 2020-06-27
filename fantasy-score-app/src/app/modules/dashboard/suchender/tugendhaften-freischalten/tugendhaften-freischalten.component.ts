@@ -24,13 +24,14 @@ export class TugendhaftenFreischaltenComponent implements OnInit {
 
   tugendhaftenFreischalten() {
     this.buergerService.unlockTugendhafter(this.nutzer.id_buerger).subscribe(data => {
+      this.authService.updateAktuellerNutzer();
       console.log(data);
     });
     this.buergerService.newSocialScoreAnlegen(this.nutzer.id_buerger).subscribe(data => {
       console.log(data);
     });
-    alert("Sie müssen sich erneut einloggen!");
-    this.logout();
+    /* alert("Sie müssen sich erneut einloggen!");
+    this.logout(); */
   }
 
   cancel() {
