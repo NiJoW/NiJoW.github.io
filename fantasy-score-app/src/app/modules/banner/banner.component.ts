@@ -1,7 +1,7 @@
 import { Buerger } from './../../models/Buerger';
 import { BuergerService } from './../../services/buerger.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, interval } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { faAward, faPiggyBank, faPencilAlt, faHandshake, faTrophy, faUser, faCrown } from '@fortawesome/free-solid-svg-icons';
 import { DoUpdateService } from 'src/app/services/do-update.service';
@@ -21,7 +21,7 @@ import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
 export class BannerComponent implements OnInit {
 
   constructor(private buergerService: BuergerService, 
-    private authService: AuthService,
+    public authService: AuthService,
     private doUpdateService: DoUpdateService,
     private dienstService: DienstService,
     private bonusService: BonusService, 
@@ -114,12 +114,20 @@ export class BannerComponent implements OnInit {
   }
 
   bearbeiten(): void {
-    //TODO: Email, Passwort aendern
     this.willBearbeiten = true;
   }
 
   updateBanner() {
     this.willBearbeiten = false;
+    /*setTimeout(function() {                          //TODO:
+      this.nutzer = this.authService.getNutzer();
+      console.log(this.nutzer);
+    }.bind(this.authService), 5000) */
+    this.nutzer = this.authService.getNutzer();
+    window.location.reload(); 
+  }
+
+  getNutzer() {
     this.nutzer = this.authService.getNutzer();
   }
 
