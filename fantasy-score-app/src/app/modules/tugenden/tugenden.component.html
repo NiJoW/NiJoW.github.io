@@ -35,8 +35,9 @@
       </figure>
       <div class="media-content">
         <h3><strong>TUGEND:</strong> {{tugend.name}}</h3>
-        <h4>Deine Belohung sind {{tugend.wert}} Social Score Punkte!</h4>
+        <h4>Für nur {{tugend.benoetigteWdh}} Wiederholungen gehören dir {{tugend.wert}} Social Score Punkte mehr!</h4>
         <h4>Beschreibung: {{tugend.beschreibung}}</h4>
+        <h4>Kategorie: {{tugend.kategorieName}}</h4>
         <h4>Erstellt von: {{tugend.aeltesterName}}</h4>
       </div>
       <div *ngIf= "isTyp('Tugendhafter')" class="media-right">

@@ -905,7 +905,7 @@ app.get('/tugend', function (req, res) {
 
 //getNichtArchivierteTugenden()
 app.get('/tugendNichtArchiviert', function (req, res) {
-  pool.query('SELECT *, b.benutzername as aeltesterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger WHERE archiviert = 0', function (error, results, fields) {
+  pool.query('SELECT *, b.benutzername as aeltesterName, k.bezeichnung as kategorieName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger JOIN kategorie k ON id_kategorie = t.kategorieID WHERE archiviert = 0', function (error, results, fields) {
     if (error) throw error;
     res.send(results);
   });
@@ -957,7 +957,7 @@ app.get('/dashboard/erfuellte-tugenden', function (req, res) {
 //getTugendVonKategorie()
 app.get('/kategorie/tugenden', function (request, response) {
   const kategorieID = request.query.kategorieID;
-  const sql = "SELECT *, b.benutzername as aeltesterName FROM tugend t JOIN buerger b ON t.aeltesterID=b.id_buerger WHERE kategorieID=? AND archiviert = 0";
+  const sql = "SELECT *, b.benutzername as aeltesterName, k.bezeichnung as kategorieName FROM tugend t JOIN buerger b ON t.aeltesterID=b.id_buerger JOIN kategorie k ON id_kategorie = t.kategorieID WHERE kategorieID=? AND archiviert = 0";
   const values = [kategorieID];
   pool.query( sql, values,
     function (error, results, fields) {
