@@ -1,17 +1,8 @@
-<!--
-<hr>
-Test Observer
-  <div  *ngIf='nutzer !== undefined' >
-    <div >{{  nutzer.benutzername }} </div>
-  </div>
-<hr>
--->
-
-<!---  --->
 <div *ngIf="isTyp('Tugendhafter')">
   <app-bonusprogramm-benachrichtigungen class="section" *ngIf="erhaeltBonus"
-             (onCloseEvent)="updateViewBonusNachrichtGeschlossen()"                           [bonusBenachrichtigungen]="betroffeneProgramme"></app-bonusprogramm-benachrichtigungen>
-  <app-dienst-anfragen class="section" *ngIf="hatAngefragteDienste" [angefragteDienste] = angefragteDiensteObservable></app-dienst-anfragen>
+                                        (onCloseEvent)="getBonusBenachrichtigungUngelesenFuerNutzer()" [bonusBenachrichtigungen]="betroffeneProgramme"></app-bonusprogramm-benachrichtigungen>
+  <app-dienst-anfragen class="section" *ngIf="hatAngefragteDienste"
+                       (onCloseEvent)="getAngefragteDienste()"   [angefragteDienste] = angefragteDiensteObservable></app-dienst-anfragen>
 
   <div class="tabs is-boxed is-centered is-medium">
     <ul>
@@ -50,11 +41,11 @@ Test Observer
   <button class="button is-danger unlock" (click)="unlockTugendhafter()">
     <fa-icon class="lock" [icon]="unlockIcon"></fa-icon> Schalte jetzt deinen inneren Tugendhaften frei!
   </button>
-  <div class="section"><app-gebuchte-dienste></app-gebuchte-dienste></div>  
-  <div class="section"><app-angefragte-dienste></app-angefragte-dienste></div> 
-  
+  <div class="section"><app-gebuchte-dienste></app-gebuchte-dienste></div>
+  <div class="section"><app-angefragte-dienste></app-angefragte-dienste></div>
+
   <app-tugendhaften-freischalten *ngIf="willFreischalten" (onClose)="willFreischalten = false"></app-tugendhaften-freischalten>
-  
+
 </div>
 <div *ngIf= "isTyp('Aeltester')" class="section">
   <div class="tabs is-boxed is-centered is-medium">
@@ -68,7 +59,7 @@ Test Observer
     </ul>
   </div>
   <div *ngIf="typeAeltester === 'aktuell'">
-    <div class="section"><app-erstellte-bonusprogramme></app-erstellte-bonusprogramme></div>  
+    <div class="section"><app-erstellte-bonusprogramme></app-erstellte-bonusprogramme></div>
     <div class="section"><app-erstellte-tugenden></app-erstellte-tugenden></div>
     <div class="section"><app-erstellte-kategorien></app-erstellte-kategorien></div>
     <div class="section"><app-liste-aller-tugendhaften></app-liste-aller-tugendhaften></div>

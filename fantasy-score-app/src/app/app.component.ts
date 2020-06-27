@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Dienst } from './models/Dienst';
 import { BonusService } from './services/bonus.service';
 import {DoUpdateService} from "./services/do-update.service";
+import {WebsocketService} from "./services/websocket.service";
 
 @Component({
   selector: 'app-root',
@@ -29,7 +30,9 @@ export class AppComponent {
     private authService: AuthService,
     private dienstService: DienstService,
     private bonusService: BonusService,
-    private updateService: DoUpdateService) {
+    private updateService: DoUpdateService,
+    private websocketService: WebsocketService //nicht rausnehmen, wird genutzt, auch wenn unten ggf. nicht nochmal aufgerufen
+  ) {
     this.getAktuellenNutzer();
   }
 

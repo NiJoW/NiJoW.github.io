@@ -6,6 +6,7 @@ import { BonusService } from '../../../../services/bonus.service';
 import { Component, OnInit } from '@angular/core';
 import {Buerger} from "../../../../models/Buerger";
 import {MessageService} from "../../../../services/message.service";
+import {WebsocketService} from "../../../../services/websocket.service";
 
 @Component({
   selector: 'app-erstellte-bonusprogramme',
@@ -31,7 +32,8 @@ export class ErstellteBonusprogrammeComponent implements OnInit {
   message: number;
 
   constructor(private bonusService: BonusService,
-              private messageService: MessageService) { }
+              private messageService: MessageService,
+              private websocketService: WebsocketService) { }
 
   erstellteBonusprogramme: Observable<Bonuseintrag[]>;
 
@@ -96,13 +98,14 @@ export class ErstellteBonusprogrammeComponent implements OnInit {
   private insertProfitiertVonBonusProgramm(tugendhafte_ids, bonusprogrammID: number){
     let bonusService = this.bonusService;
     let messageService = this.messageService;
+    let websocketService = this.websocketService;
     let observable  : Observable<any[]>;
-
     tugendhafte_ids.forEach(function (value) {
      // console.log("in set profitiert"+value.tugendhafterID);
       observable = bonusService.newProfitiertVonBonusprogrammEintragen(value.tugendhafterID, bonusprogrammID);
       observable.subscribe(data =>{ console.dir(data);
         messageService.setMessage("Bonus wurde an Tugendhafte ausgeschüttet", true);
+        websocketService.SendNeueBeachrichtigung(value.tugendhafterID);
       });
     });
   }

@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
 import { MessageService } from 'src/app/services/message.service';
+import {WebsocketService} from "../../../services/websocket.service";
 
 @Component({
   selector: 'app-dienst-buchen',
@@ -21,15 +22,16 @@ export class DienstBuchenComponent implements OnInit {
   fehler = false;
   newDienst: Observable<Dienst>;
 
-  
+
 
   constructor(private dienstService: DienstService,
     private messageService: MessageService,
     private authService: AuthService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private websocketService : WebsocketService) {
     this.dienstForm = this.formBuilder.group({
       datum: [new Date()]
-    }); 
+    });
   }
 
   @Input() chosenDienst: Dienst;
@@ -42,9 +44,9 @@ export class DienstBuchenComponent implements OnInit {
   }
 
   buchen() {
-    
+
     console.log(this.dienstForm.value.datum);
-    
+
     /*console.log(datum+"");
     console.log(datum.toString);
     console.log(datum.toDateString);*/
@@ -54,19 +56,20 @@ export class DienstBuchenComponent implements OnInit {
       console.log("show Fehler");
     } else {
       this.newDienst = this.dienstService.createDiensvertrag(this.chosenDienst[0].id_dienstangebot, this.dienstForm.value.datum);
-      
+
       this.newDienst.subscribe(data => {
         console.dir(data);
-        this.onClose.emit(null); 
+        this.onClose.emit(null);
         this.messageService.setMessage("Der Dienst wurde deinem Dashboard hinzugefügt.", true);
+        this.websocketService.SendNeueDienstanfrageBeachrichtigung(this.dienst.tugendhafterID);
       });
-  
+
     }
   }
 
   cancel() {
     console.log("close Modal");
-    this.onClose.emit(null); 
+    this.onClose.emit(null);
   }
 
 }

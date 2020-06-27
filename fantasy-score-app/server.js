@@ -7,28 +7,30 @@ var express = require('express');
 var path = require('path');
 var mysql = require('mysql');
 var cors = require('cors');
+// Whitelist erstellen, um bei Cross-Origin-Restritionen unsere Port zu erlauben
+const whitelist = ['http://localhost:4200'];
+const corsOptions = {
+  credentials: true, // This is important.
+  origin: (origin, callback) => {
+    if(whitelist.includes(origin))
+      return callback(null, true)
+
+    callback(new Error('Not allowed by CORS'));
+  }
+};
 
 var bodyParser = require('body-parser');
 const { response } = require('express');
 var app = express();
 var index;
 
-//##############################
-//#################### aktuelles Datum
-//##############################
-var pad = function(num) { return ('00'+num).slice(-2) };
-var date;
-date = new Date();
-date = date.getUTCFullYear()        + '-' +
-        pad(date.getUTCMonth() + 1) + '-' +
-        pad(date.getUTCDate())       + ' ';
-
 
 
 //##############################
 //#################### Pool, Listen, Definitionen, Use
 //##############################
-app.use(cors());
+//app.use(cors());
+app.use(cors(corsOptions))
 
 //parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -59,8 +61,32 @@ var server = app.listen(SERVER_PORT, function (){
         console.log("Fantasy app listening at http://%s:%s", host, port)
 });
 
+// importiere socket.io, listen
+var io = require('socket.io').listen(server);
+
+// Socketes: Server schickt eingehende Nachrichten per Broadcast an verbundene Clients weiter
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('neueBenachrichtigung', (msg) => {
+    console.log(msg);
+    socket.broadcast.emit('neueBenachrichtigung-broadcast', msg);
+  });
+  socket.on('neueDienstanfrageBenachrichtigung', (msg) => {
+    console.log(msg);
+    socket.broadcast.emit('neueDienstanfrageBenachrichtigung-broadcast', msg);
+  });
+});
 
 
+//##############################
+//#################### aktuelles Datum
+//##############################
+var pad = function(num) { return ('00'+num).slice(-2) };
+var date;
+date = new Date();
+date = date.getUTCFullYear()        + '-' +
+  pad(date.getUTCMonth() + 1) + '-' +
+  pad(date.getUTCDate())       + ' ';
 
 
 
@@ -313,8 +339,8 @@ app.get('/buerger', function (req, res) {
 app.get('/nutzer/socialScore', function (req, res) {
   const buergerID = req.query.buergerID;
   const sql = 'SELECT social_score FROM hat_social_score WHERE tugendhafterID = ?';
-  const value = [buergerID] 
-  pool.query(sql, value, 
+  const value = [buergerID]
+  pool.query(sql, value,
     function (error, results, fields) {
     if (error) throw error;
     res.send(results);
@@ -341,7 +367,6 @@ app.get('/aeltester', function (req, res) {
 app.get('/tugendhafteErfuellenBonusprogramm', function (req, res) {
   const kategorie_id = req.query.kategorie_id;
   const min_punkte = req.query.min_punkte;
-  console.log("in serverja getTugendh Bonus "+kategorie_id + " " + min_punkte);
   const sql = 'SELECT tae.tugendhafterID FROM taetigkeit tae \n' +
     'JOIN tugend tu ON tu.id_tugend = tae.tugendID \n' +
     'WHERE tae.tugendID IN ( SELECT tug.id_tugend FROM tugend tug WHERE tug.kategorieID=?) \n' +
@@ -384,9 +409,6 @@ app.post('/nutzer/name', function (request, response) {
 
 //addBuerger()
 app.post('/nutzer/registrieren', function (request, response) {
-  console.log("In server.js -> post /nutzer/registrieren");
-  console.log('request body: ');
-  console.dir(request.body);
   const benutzername = request.body.benutzername;
   const passwort = request.body.passwort;
   const email_adresse = request.body.email_adresse;
@@ -403,11 +425,7 @@ app.post('/nutzer/registrieren', function (request, response) {
 
 //newSocialScoreAnlegen()
 app.post('/nutzer/socialScoreEintrag', function(request, response) {
-  console.log("In server.js -> post /nutzer/socialScoreEintrag");
-  console.log('request body: ');
-  console.dir(request.body);
   const tugendhafterID = request.body.tugendhafterID;
-  console.log(tugendhafterID);
   const sql = "INSERT INTO hat_social_score (tugendhafterID, social_score)" +
     "VALUES (? , 0)";
     const values = [tugendhafterID];
@@ -437,8 +455,6 @@ app.post('/newProfitiertVonBonusprogramm', function(request, response) {
 
 //unlockTugendhafter()
 app.put('/nutzer/unlockTugendhafter', function (request, response) {
-  console.log('request body: ');
-  console.dir(request.body);
   const sql = " UPDATE buerger SET typ='Tugendhafter' WHERE id_buerger=?;";
   const values = [request.body.id_buerger];
   pool.query( sql, values,
@@ -514,7 +530,6 @@ app.get('/nichtArchivierteDienste', function (req, res) {
 
 //getDienstByID()
 app.get('/dienst', function (req, res) {
-  console.log(req.query.dienstID);
   const dienstID = req.query.dienstID;
   pool.query('SELECT *, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger WHERE id_dienstangebot=?', [dienstID],
     function (error, results, fields) {
@@ -525,14 +540,11 @@ app.get('/dienst', function (req, res) {
 
 //getDiensteInKategorie()
 app.get('/kategorie/dienste', function (request, response) {
-  console.log(request.query);
-  console.log(request.params);
   const kategorieID = request.query.kategorieID;
   const sql = "SELECT *, b.benutzername as tugendhafterName FROM dienstangebot d JOIN buerger b ON d.tugendhafterID = b.id_buerger WHERE kategorieID=?";
   const values = [kategorieID];
   pool.query( sql, values,
     function (error, results, fields) {
-      console.log(request.query);
       if (error) throw error;
       response.send(results);
     });
@@ -602,10 +614,8 @@ pool.query(sql, value,
 //getAngefragteDienste()
 app.get('/dashboard/angefragte-dienste', function (req, res) {
   const buergerID = req.query.buergerID;
-  console.log("IngetANgfrgteDnste: " + buergerID);
   const sql = 'SELECT da.name, da.beschreibung, b.benutzername AS tugendhafterName, dv.datum, dv.id_dienstvertrag FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND da.tugendhafterID = b.id_buerger AND dv.status = "angefragt" AND dv.suchenderID = ? AND dv.datum >= ?';
   const value = [buergerID, date+""];
-  console.log(value);
   pool.query(sql, value,
     function (error, results, fields) {
       if (error) throw error;

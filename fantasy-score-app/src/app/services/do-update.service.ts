@@ -10,12 +10,21 @@ export class DoUpdateService {
   private doUpdateSource_AnzahlBenachrichtigungen = new BehaviorSubject(false);
   currentDoUpdateState_AnzahlBenachrichtigungen = this.doUpdateSource_AnzahlBenachrichtigungen.asObservable();
 
+  private doUpdateSource_Anzeige_BonusBenachrichtigungen = new BehaviorSubject(false);
+  currentDoUpdateState_Anzeige_BonusBenachrichtigungen = this.doUpdateSource_Anzeige_BonusBenachrichtigungen.asObservable();
+
+  private doUpdateSource_Anzeige_DienstanfrageBenachrichtigungen = new BehaviorSubject(false);
+  currentDoUpdateState_Anzeige_DienstanfrageBenachrichtigungen = this.doUpdateSource_Anzeige_DienstanfrageBenachrichtigungen.asObservable();
+
+
+
   private doUpdateSource_SocialScore = new BehaviorSubject(false);
   currentDoUpdateState_SocialScore = this.doUpdateSource_SocialScore.asObservable();
-  
+
   private doUpdateSource_AnzahlErfuellteDienste = new BehaviorSubject(false);
   currentDoUpdateState_AnzahlErfuellteDienste = this.doUpdateSource_AnzahlErfuellteDienste.asObservable();
-  
+
+
   private doUpdateSource_AnzahlErstellteTugenden = new BehaviorSubject(false);
   currentDoUpdateState_AnzahlErstellteTugenden = this.doUpdateSource_AnzahlErstellteTugenden.asObservable();
 
@@ -33,6 +42,14 @@ export class DoUpdateService {
 
   doViewUpdate_AnzahlBenachrichtigungen(doUpdate: boolean) {
     this.doUpdateSource_AnzahlBenachrichtigungen.next(doUpdate)
+  }
+
+  doViewUpdate_Anzeige_BonusBenachrichtigungen(doUpdate: boolean) {
+    this.doUpdateSource_Anzeige_BonusBenachrichtigungen.next(doUpdate)
+  }
+
+  doViewUpdate_DienstanfrageBenachrichtigungen(doUpdate: boolean) {
+    this.doUpdateSource_Anzeige_DienstanfrageBenachrichtigungen.next(doUpdate)
   }
 
   doViewUpdate_SocialScore(doUpdate: boolean) {
