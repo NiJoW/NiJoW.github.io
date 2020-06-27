@@ -22,6 +22,9 @@ export class DoUpdateService {
   private doUpdateSource_AnzahlErstellteBonis = new BehaviorSubject(false);
   currentDoUpdateState_AnzahlErstellteBonis = this.doUpdateSource_AnzahlErstellteBonis.asObservable();
 
+  private doUpdateSource_Email = new BehaviorSubject(false);
+  currentDoUpdateState_Email = this.doUpdateSource_Email.asObservable();
+
   constructor() { }
 
   doViewUpdate(doUpdate: boolean) {
@@ -46,6 +49,10 @@ export class DoUpdateService {
 
   doViewUpdate_AnzahlErstellteBonis(doUpdate: boolean) {
     this.doUpdateSource_AnzahlErstellteBonis.next(doUpdate)
+  }
+
+  doViewUpdate_Email(doUpdate: boolean) {
+    this.doUpdateSource_Email.next(doUpdate);
   }
 
  // resetUpdateStatus(resetUpdate: boolean) {

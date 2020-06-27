@@ -6,6 +6,7 @@ import { BuergerService} from './buerger.service';
 import {AnmeldenComponent} from "../modules/anmelden/anmelden.component";
 import { RegistrierenComponent } from '../modules/registrieren/registrieren.component';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { DoUpdateService } from './do-update.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class AuthService {
   private benutzerObservable: Observable<Buerger[]>;
   private scoreObservable: Observable<Buerger[]>;
 
-  constructor(private buergerService: BuergerService) {
+  constructor(private buergerService: BuergerService,
+    private doUpdateService: DoUpdateService) {
     // console.log('authService: isLoggedIn():');
     // console.log(this.isLoggedIn());
     if(this.isLoggedIn()){
@@ -70,6 +72,7 @@ export class AuthService {
       console.log(this.nutzer);
       sessionStorage.removeItem('loggedInUser');
       sessionStorage.setItem('loggedInUser', JSON.stringify(data[0]));
+      this.doUpdateService.doViewUpdate_Email(true);
     })
   }
 

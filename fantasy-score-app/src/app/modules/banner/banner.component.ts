@@ -43,7 +43,9 @@ export class BannerComponent implements OnInit {
   gesamt = 0;
 
   ngOnInit(): void {
-    this.nutzer = this.authService.getNutzer();
+    this.doUpdateService.currentDoUpdateState_Email.subscribe(message =>
+      {this.getNutzer(); }
+    );
     if(this.nutzer == null) {
       return;
     }
@@ -115,16 +117,6 @@ export class BannerComponent implements OnInit {
 
   bearbeiten(): void {
     this.willBearbeiten = true;
-  }
-
-  updateBanner() {
-    this.willBearbeiten = false;
-    /*setTimeout(function() {                          //TODO:
-      this.nutzer = this.authService.getNutzer();
-      console.log(this.nutzer);
-    }.bind(this.authService), 5000) */
-    this.nutzer = this.authService.getNutzer();
-    window.location.reload(); 
   }
 
   getNutzer() {
