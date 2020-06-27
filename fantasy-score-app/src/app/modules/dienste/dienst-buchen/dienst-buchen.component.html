@@ -12,7 +12,7 @@
           <h3>Beschreibung: {{dienst.beschreibung}}</h3>
           <br>
           <label>Schlage ein Tag vor, an dem du den Dienst in Anspruch nehmen willst:</label><br>
-          <input id="datumInput" type="date" placeholder="Datum" formControlName="datum" required>
+          <input id="datumInput" type="date" placeholder="Datum" formControlName="datum" [min]=today>
           <div id='fehlermeldungAnmeldung' [hidden]="!fehler">
             <br>Bitte gib ein korrektes Datum ein.</div>
         </section>

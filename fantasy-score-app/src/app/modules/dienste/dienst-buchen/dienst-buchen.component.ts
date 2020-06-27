@@ -21,8 +21,7 @@ export class DienstBuchenComponent implements OnInit {
   dienst: Dienst;
   fehler = false;
   newDienst: Observable<Dienst>;
-
-
+  today = new Date();
 
   constructor(private dienstService: DienstService,
     private messageService: MessageService,
@@ -46,10 +45,6 @@ export class DienstBuchenComponent implements OnInit {
   buchen() {
 
     console.log(this.dienstForm.value.datum);
-
-    /*console.log(datum+"");
-    console.log(datum.toString);
-    console.log(datum.toDateString);*/
 
     if(this.dienstForm.value.datum == null) { //TODO funktioniert nicht + nur dates nach heute akzeptieren
       this.fehler = true;
