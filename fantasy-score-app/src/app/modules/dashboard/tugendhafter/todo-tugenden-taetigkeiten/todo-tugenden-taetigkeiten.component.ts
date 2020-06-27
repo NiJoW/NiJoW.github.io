@@ -25,7 +25,7 @@ export class TodoTugendenTaetigkeitenComponent implements OnInit {
               private authService: AuthService,
               private data: DoUpdateService,
               private buergerService: BuergerService,
-              private bannerComponent: BannerComponent
+              private doUpdateService: DoUpdateService
   ) { }
 
   Taetigkeiten: Observable<Taetigkeit[]>;
@@ -70,7 +70,7 @@ if(erhoehteWdh === benoetigteWdh) {
   updateViews(message: string) {
     this.messageService.setMessage(message, true);
     this.getTaetigkeitenForActiveUser();
-    this.data.doViewUpdate(true);
+    this.data.doViewUpdate_SocialScore(true);
   }
 
 }

@@ -52,6 +52,7 @@ export class AppComponent {
         this.hasMessage = true;
       }
     });
+    
     // Benachrichtungen zu neuen Bonusprogrammen, von denen User profitiert
     let amountMessagesBonus : Observable<number>;
     amountMessagesBonus = this.bonusService.getBonusBenachrichtigungenUngelesen();
