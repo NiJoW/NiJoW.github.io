@@ -1,7 +1,7 @@
 import { Buerger } from './../../models/Buerger';
 import { BuergerService } from './../../services/buerger.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, interval } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { faAward, faPiggyBank, faPencilAlt, faHandshake, faTrophy, faUser, faCrown } from '@fortawesome/free-solid-svg-icons';
 import { DoUpdateService } from 'src/app/services/do-update.service';
@@ -21,7 +21,7 @@ import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
 export class BannerComponent implements OnInit {
 
   constructor(private buergerService: BuergerService, 
-    private authService: AuthService,
+    public authService: AuthService,
     private doUpdateService: DoUpdateService,
     private dienstService: DienstService,
     private bonusService: BonusService, 
@@ -40,6 +40,7 @@ export class BannerComponent implements OnInit {
   boniAnzahl = 0;
   tugendAnzahl = 0;
   gebuchteDienstAnzahl = 0;
+  gesamt = 0;
 
   ngOnInit(): void {
     this.nutzer = this.authService.getNutzer();
@@ -104,6 +105,7 @@ export class BannerComponent implements OnInit {
     this.socialScore = this.buergerService.getSocialScoreFromId(this.nutzer.id_buerger);
       this.socialScore.subscribe(data =>{
         this.nutzer.social_score = data[0].social_score;
+        this.berechneStatus(data[0].social_score);
       });
   }
 
@@ -112,8 +114,43 @@ export class BannerComponent implements OnInit {
   }
 
   bearbeiten(): void {
-    //TODO: Email, Passwort aendern
     this.willBearbeiten = true;
+  }
+
+  updateBanner() {
+    this.willBearbeiten = false;
+    /*setTimeout(function() {                          //TODO:
+      this.nutzer = this.authService.getNutzer();
+      console.log(this.nutzer);
+    }.bind(this.authService), 5000) */
+    this.nutzer = this.authService.getNutzer();
+    window.location.reload(); 
+  }
+
+  getNutzer() {
+    this.nutzer = this.authService.getNutzer();
+  }
+
+  berechneStatus(socialScore: number) {
+    if(socialScore<30) {
+      this.nutzer.status = "Anwärter";
+      this.gesamt = 30;
+    } else if (socialScore<80) {
+      this.nutzer.status = "Novize";
+      this.gesamt = 80;
+    } else if (socialScore<150) {
+      this.nutzer.status = "Adept";
+      this.gesamt = 150;
+    } else if (socialScore<210) {
+      this.nutzer.status = "Magista";
+      this.gesamt = 210;
+    } else if (socialScore<300) {
+      this.nutzer.status = "Großmeister";
+      this.gesamt = 300;
+    }  else {
+      this.nutzer.status = "Erzmeister";
+      this.gesamt = 500;
+    }
   }
 
 }

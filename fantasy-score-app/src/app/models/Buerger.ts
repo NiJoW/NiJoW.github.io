@@ -8,6 +8,7 @@ export class Buerger {
     email_adresse: string;
     typ: BuergerTyp;
     social_score: number;
+    status: string;
 
     constructor(name: string, passwort: string, email: string, typ: BuergerTyp) {
         this.benutzername = name;
