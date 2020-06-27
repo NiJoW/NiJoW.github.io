@@ -462,6 +462,18 @@ app.put('/nutzer/updateDaten', function (req, res) {
     });
 });
 
+//erhoeheSocialScore()
+app.put('/nutzer/updateSocialScore', function (req, res) {
+  const tugendhafterID = req.body.tugendhafterID;
+  const wert = req.body.wert;
+  const sql = "UPDATE hat_social_score SET social_score = social_score + ? WHERE tugendhafterID=?;";
+  const values = [wert, tugendhafterID];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    });
+});
 
 
 

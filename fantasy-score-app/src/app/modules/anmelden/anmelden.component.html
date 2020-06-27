@@ -7,17 +7,20 @@
     </header>
     <form [formGroup]="anmeldenForm" (ngSubmit)="login(anmeldenForm.value)">
       <section class="modal-card-body">
-        <div class="field">
+        <div class="field has-addons">
           <p class="control has-icons-left has-icons-right">
             <fa-icon class="icon" [icon]="userIcon"></fa-icon>
             <input id="benutzernameInput" class="input" type="text" placeholder="Benutzername" formControlName="benutzername">
           </p>
         </div>
-        <div class="field">
+        <div class="field has-addons">
           <p class="control has-icons-left">
             <fa-icon class="icon" [icon]="passwordIcon"></fa-icon>
-            <input class="input passwortInput" type="password" placeholder="Passwort" formControlName="passwort">
+            <input class="input passwortInput" [type]="fieldTextType ? 'text' : 'password'" type="password" placeholder="Passwort" formControlName="passwort">
           </p>
+          <div class="control">
+            <fa-icon class="button" [icon]="eyeIcon" (click)="togglePasswort()"></fa-icon>
+        </div>
         </div>
         <div class="field has-text-danger">{{message}}</div>
       </section>

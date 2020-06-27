@@ -1,3 +1,5 @@
+import { BannerComponent } from './../../../banner/banner.component';
+import { BuergerService } from 'src/app/services/buerger.service';
 import { faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -21,13 +23,16 @@ export class TodoTugendenTaetigkeitenComponent implements OnInit {
               private taetigkeitService: TaetigkeitService,
               private messageService: MessageService,
               private authService: AuthService,
-              private data: DoUpdateService
+              private data: DoUpdateService,
+              private buergerService: BuergerService,
+              private bannerComponent: BannerComponent
   ) { }
 
   Taetigkeiten: Observable<Taetigkeit[]>;
 
   ArrDo = Array; //Array type captured in a variable
   ArrDone = Array;
+  message: string;
 
   ngOnInit(): void {
     this.getTaetigkeitenForActiveUser();
@@ -43,19 +48,27 @@ export class TodoTugendenTaetigkeitenComponent implements OnInit {
    // console.log(this.Taetigkeiten);
   }
 
-  checkmarkTaetigkeitErfuellt(e, id_taetigkeit, bisherigeWdh){
+  checkmarkTaetigkeitErfuellt(e, id_taetigkeit, bisherigeWdh, benoetigteWdh, wert){
     // Erhöhte Anzahl an erfüllten Wiederholungen in DB speichern
     let erhoehteWdh = bisherigeWdh + 1;
     this.taetigkeitService.increaseErfuellteWdhTaetigkeit(id_taetigkeit, erhoehteWdh)
       .subscribe(data => { //console.log(data);
-                               } );
+      });
+       
+if(erhoehteWdh === benoetigteWdh) {
+  this.buergerService.erhoeheSocialScore(this.authService.getNutzer().id_buerger ,wert)
+    .subscribe(data => {});
+  this.message = "Juhu, du hast eine tugendhafte Aufgabe beendet!"
+} else {
+  this.message = "Fleißig! Du hast eine tugendhafte Aufgabe angekreuzt!"
+}
 
     // Erfolgmitteilung + Update des Views
-    this.updateViews();
+    this.updateViews(this.message);
   }
 
-  updateViews() {
-    this.messageService.setMessage("Juhu, du hast eine tugendhafte Aufgabe erfüllt!", true);
+  updateViews(message: string) {
+    this.messageService.setMessage(message, true);
     this.getTaetigkeitenForActiveUser();
     this.data.doViewUpdate(true);
   }
