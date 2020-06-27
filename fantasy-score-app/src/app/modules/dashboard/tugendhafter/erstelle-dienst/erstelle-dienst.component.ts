@@ -20,6 +20,7 @@ export class ErstelleDienstComponent implements OnInit {
   neuerDienstForm;
   kategorien: Observable<Kategorie[]>;
   nutzer: Buerger;
+  fehler = " ";
   @Output() onCloseEvent = new EventEmitter();
 
   constructor(private kategorienService: KategorieService,
@@ -43,6 +44,7 @@ export class ErstelleDienstComponent implements OnInit {
   speichern(diensteData) {
     const tugendhafterID = this.nutzer.id_buerger;
     if(diensteData.titel != '' && diensteData.beschreibung !='') {
+      this.fehler = " ";
       const newDienst = new Dienst(diensteData.titel, diensteData.beschreibung, tugendhafterID, diensteData.kategorie);
       this.neuerDienstForm.reset();
       console.log('Your data has been submitted', newDienst);
@@ -53,6 +55,8 @@ export class ErstelleDienstComponent implements OnInit {
       this.onCloseEvent.emit(null);
       this.messageService.setMessage("Der Dienst wurde erfolgreich bearbeitet.", true);
       this.angeboteneDiensteComponent.getAngeboteneDienste();
+    } else {
+      this.fehler = "Bitte alle Felder ausfüllen!";
     }
   }
 

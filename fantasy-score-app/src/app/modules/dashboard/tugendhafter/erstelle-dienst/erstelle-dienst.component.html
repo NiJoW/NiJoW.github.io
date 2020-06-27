@@ -29,8 +29,8 @@
   
     <label for="beschreibung_neuer_dienst">Beschreibung:</label> &nbsp;
     <textarea class="textarea" id="beschreibung_neuer_dienst" type="text" formControlName="beschreibung"></textarea>
-    <br><br>
-  
+      <br>
+      <p class="has-text-danger">{{fehler}}</p>
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success" type="submit">Speichern</button>
