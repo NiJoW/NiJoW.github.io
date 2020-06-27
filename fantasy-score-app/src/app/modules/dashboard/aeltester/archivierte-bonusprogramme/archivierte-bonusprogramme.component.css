@@ -1,6 +1,3 @@
-::-webkit-scrollbar {
-    width: 0px;  /* Remove scrollbar space */
-    background: transparent;  /* Optional: just make scrollbar invisible */
-}
+/*css*/
 
 .outer {padding: 3px 3px 3px 3px; max-height: 350px; overflow-y: scroll;}

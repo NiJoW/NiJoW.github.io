@@ -20,6 +20,7 @@ export class ErstelleTugendComponent implements OnInit {
   neueTugendForm;
   kategorien: Observable<Kategorie[]>;
   nutzer: Buerger;
+  fehler: string = " ";
   @Output() onCloseEvent = new EventEmitter();
 
   constructor(private kategorienService: KategorieService,
@@ -62,6 +63,8 @@ export class ErstelleTugendComponent implements OnInit {
       this.onCloseEvent.emit(null);
       this.messageService.setMessage("Die Tugend wurde erfolgreich bearbeitet.", true);
       this.doUpdateService.doViewUpdate_AnzahlErstellteTugenden(true);
+    } else {
+      this.fehler = "Bitte alle Felder ausfüllen!";
     }
   }
 

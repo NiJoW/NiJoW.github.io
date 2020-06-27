@@ -21,6 +21,7 @@ export class ErstelleBonusprogrammComponent implements OnInit {
   neueBonusprogrammForm;
   kategorien: Observable<Kategorie[]>;
   nutzer: Buerger;
+  fehler: string = " ";
   @Output() onCloseEvent = new EventEmitter();
 
   constructor(private kategorienService: KategorieService,
@@ -63,6 +64,8 @@ export class ErstelleBonusprogrammComponent implements OnInit {
       this.messageService.setMessage("Die Bonusprogramm wurde erfolgreich bearbeitet.", true);
       this.erstellteBonusprogrammeComponent.getErstellteBonusprogramme(); 
       this.doUpdataService.doViewUpdate_AnzahlErstellteBonis(true);
+    }else {
+      this.fehler = "Bitte alle Felder ausfüllen!";
     }
   }
 
