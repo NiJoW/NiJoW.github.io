@@ -40,7 +40,6 @@ export class BannerComponent implements OnInit {
   boniAnzahl = 0;
   tugendAnzahl = 0;
   gebuchteDienstAnzahl = 0;
-  value: number;
   gesamt = 0;
 
   ngOnInit(): void {
@@ -107,12 +106,7 @@ export class BannerComponent implements OnInit {
       this.socialScore.subscribe(data =>{
         this.nutzer.social_score = data[0].social_score;
         this.berechneStatus(data[0].social_score);
-        this.berechneProcessbarAnzeige();
       });
-  }
-
-  berechneProcessbarAnzeige() {
-    this.value = 100*this.nutzer.social_score/this.gesamt;
   }
 
   isLoggedIn(): boolean {

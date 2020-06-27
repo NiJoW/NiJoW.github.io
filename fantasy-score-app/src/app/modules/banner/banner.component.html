@@ -97,8 +97,9 @@
         
   <div class="hero-foot" *ngIf="isLoggedIn() && nutzer.typ === 'Tugendhafter'">
     <div class="content media is-center">
-      <p class="media-left subtitle">{{nutzer.status}}</p>
-      <progress class="media-content progress is-small is-danger" value="{{value}}" max="{{gesamt}}" style="margin-top: 1%;">15%</progress>
+      <p class="media-left subtitle"><fa-icon class="icon" [icon]="awardIcon"></fa-icon>{{nutzer.status}}</p>
+      <progress class="media-content progress is-small is-danger" value="{{nutzer.social_score}}" max="{{gesamt}}" style="margin-top: 1%;">15%</progress>
+      <p class="media-right subtitle">/{{gesamt}}</p>
       <br>
     </div>
   </div>
