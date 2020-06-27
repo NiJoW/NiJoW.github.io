@@ -105,7 +105,7 @@
   </div>
 </section>
 
-<app-profil-bearbeiten *ngIf="willBearbeiten" (onClose)="updateBanner()"></app-profil-bearbeiten>
+<app-profil-bearbeiten *ngIf="willBearbeiten" (onClose)="this.willBearbeiten = false"></app-profil-bearbeiten>
 
 <div class="is-overlay">
   <app-notification></app-notification>
