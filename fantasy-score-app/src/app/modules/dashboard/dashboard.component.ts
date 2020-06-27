@@ -35,6 +35,9 @@ export class DashboardComponent implements OnInit {
   unlockClicked = false;
   betroffeneProgramme: Observable<BonusBenachrichtigung[]>;
   erhaeltBonus: boolean = false;
+  hatAntwortAufDienstanfrage: boolean = false;
+  antwortenAufDienstanfragenObservable: Observable<Dienst[]>;
+  antwortenAufDienstanfragen: Dienst[];
   unlockIcon = faLock;
 
   willFreischalten = false;
@@ -59,6 +62,7 @@ export class DashboardComponent implements OnInit {
 
     this.setUpBonus();
     this.setUpAngefragteDienste();
+    this.setUpAntwortenDienstanfragen();
   }
 
   private setUpAngefragteDienste(){
@@ -72,6 +76,13 @@ export class DashboardComponent implements OnInit {
     this.getBonusBenachrichtigungUngelesenFuerNutzer();
     this.updateService.currentDoUpdateState_Anzeige_BonusBenachrichtigungen.subscribe(message =>
       {this.getBonusBenachrichtigungUngelesenFuerNutzer();}
+    );
+  }
+
+  private setUpAntwortenDienstanfragen(){
+    this.getAntwortenDienstanfragen();
+    this.updateService.currentDoUpdateState_Anzeige_AntwortDienstanfrage.subscribe(message =>
+      {this.getAntwortenDienstanfragen();}
     );
   }
 
@@ -98,6 +109,18 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  getAntwortenDienstanfragen(){
+    this.hatAntwortAufDienstanfrage = false;
+    this.antwortenAufDienstanfragenObservable = this.dienstService.getAntwortAufDienstanfrage();
+    this.antwortenAufDienstanfragenObservable.subscribe(data => {
+      if(data.length != 0 ) {
+        this.antwortenAufDienstanfragen = data;
+        this.hatAntwortAufDienstanfrage = true;
+        // console.dir(data);
+      }
+    });
+  }
+
   changeType(typ: string){
     this.type = typ;
   }
@@ -119,10 +142,6 @@ export class DashboardComponent implements OnInit {
     this.kategorien = this.kategorienService.getKategorien();
 
     this.kategorien.subscribe(data => { });
-   // this.kategorien.subscribe(data => {
-   //   console.log(data); });
-   // console.log('Test, this.kategorien: ');
-   // console.log(this.kategorien);
   }
 
   closeAnfrage(dienstID) {
@@ -131,26 +150,8 @@ export class DashboardComponent implements OnInit {
 
   unlockTugendhafter() {
     this.willFreischalten = true;
-    /* if (confirm("Bist du dir sicher, dass du ein Tugendhafter werden möchtest?")) {
-      this.buergerService.unlockTugendhafter(this.nutzer.id_buerger).subscribe(data => {
-        console.log(data);
-      });
-      this.buergerService.newSocialScoreAnlegen(this.nutzer.id_buerger).subscribe(data => {
-        console.log(data);
-      });
-      alert("Sie müssen sich erneut einloggen!");
-      this.logout();
-
-    } else {
-
-    } */
   }
 
-
-  updateViewBonusNachricht() {
-    //console.log("updateViewBonusNachrichtGeschlossen");
-    this.getBonusBenachrichtigungUngelesenFuerNutzer();
-  }
 }
 
 

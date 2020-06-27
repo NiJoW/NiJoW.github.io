@@ -20,11 +20,11 @@ import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
 })
 export class BannerComponent implements OnInit {
 
-  constructor(private buergerService: BuergerService, 
+  constructor(private buergerService: BuergerService,
     public authService: AuthService,
     private doUpdateService: DoUpdateService,
     private dienstService: DienstService,
-    private bonusService: BonusService, 
+    private bonusService: BonusService,
     private tugendService: TugendService) { }
 
   nutzer:Buerger;
@@ -56,15 +56,12 @@ export class BannerComponent implements OnInit {
       this.doUpdateService.currentDoUpdateState_AnzahlErfuellteDienste.subscribe(data => {
         this.getErfuellteDienstAnzahl();
       });
-
-      let bonusObservable: Observable<BonusBenachrichtigung[]>;
-      bonusObservable = this.bonusService.getBonusBenachrichtigungAlleFuerNutzer();
-      bonusObservable.subscribe(data => {
-        this.boniAnzahl = data.length;
+      this.doUpdateService.currentDoUpdateState_AnzahlErhaltenBoni.subscribe(data => {
+        this.getAnzahlErhalteneBoni();
       });
     } else if(this.nutzer.typ == "Aeltester") {
       this.userIcon = faCrown;
-      this.doUpdateService.currentDoUpdateState_AnzahlErstellteTugenden.subscribe(data => { 
+      this.doUpdateService.currentDoUpdateState_AnzahlErstellteTugenden.subscribe(data => {
         this.getErstelleTugenden();
       });
       this.doUpdateService.currentDoUpdateState_AnzahlErstellteBonis.subscribe(data => {
@@ -111,6 +108,14 @@ export class BannerComponent implements OnInit {
       });
   }
 
+  getAnzahlErhalteneBoni(){
+    let bonusObservable: Observable<BonusBenachrichtigung[]>;
+    bonusObservable = this.bonusService.getBonusBenachrichtigungAlleFuerNutzer();
+    bonusObservable.subscribe(data => {
+      this.boniAnzahl = data.length;
+    });
+  }
+
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
@@ -124,7 +129,7 @@ export class BannerComponent implements OnInit {
     if(this.nutzer.typ == "Tugendhafter") {
       this.getSocialScore();
     }
-    
+
   }
 
   berechneStatus(socialScore: number) {

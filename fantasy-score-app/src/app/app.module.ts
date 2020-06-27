@@ -58,6 +58,7 @@ import { ProfilBearbeitenComponent } from './modules/banner/profil-bearbeiten/pr
 import { ArchivierteBonusprogrammeComponent } from './modules/dashboard/aeltester/archivierte-bonusprogramme/archivierte-bonusprogramme.component';
 import { BonusprogrammWiederherstellenComponent } from './modules/dashboard/aeltester/bonusprogramm-wiederherstellen/bonusprogramm-wiederherstellen.component';
 import { BonusprogrammLoeschenComponent } from './modules/dashboard/aeltester/bonusprogramm-loeschen/bonusprogramm-loeschen.component';
+import { AntwortDienstanfrageComponent } from './modules/dashboard/suchender/antwort-dienstanfrage/antwort-dienstanfrage.component';
 
 
 @NgModule({
@@ -109,7 +110,8 @@ import { BonusprogrammLoeschenComponent } from './modules/dashboard/aeltester/bo
     ProfilBearbeitenComponent,
     ArchivierteBonusprogrammeComponent,
     BonusprogrammWiederherstellenComponent,
-    BonusprogrammLoeschenComponent
+    BonusprogrammLoeschenComponent,
+    AntwortDienstanfrageComponent
   ],
   imports: [
     BrowserModule,

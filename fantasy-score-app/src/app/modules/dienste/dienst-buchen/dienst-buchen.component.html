@@ -2,7 +2,7 @@
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Dienst buchen:</p>
+      <p class="modal-card-title">Dienst anfragen:</p>
       <button class="delete" aria-label="close" (click)="cancel()"></button>
     </header>
       <form [formGroup]="dienstForm" (ngSubmit)="buchen(dienstForm.value)">
@@ -19,7 +19,7 @@
         </section>
         <footer class="modal-card-foot">
           <button class="button is-success has-icon-left" type="submit">
-            Buchen
+            Anfragen
           </button>
           <button class="button is-danger" type="reset" (click)="cancel()">Abbrechen</button>
         </footer>

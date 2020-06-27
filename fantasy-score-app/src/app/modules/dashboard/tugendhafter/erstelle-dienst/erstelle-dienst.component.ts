@@ -9,6 +9,8 @@ import { DienstService } from 'src/app/services/dienst.service';
 import { Buerger } from './../../../../models/Buerger';
 import { Observable } from 'rxjs';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {DoUpdateService} from "../../../../services/do-update.service";
+import {WebsocketService} from "../../../../services/websocket.service";
 
 @Component({
   selector: 'app-erstelle-dienst',
@@ -28,7 +30,9 @@ export class ErstelleDienstComponent implements OnInit {
               private formBuilder: FormBuilder,
               private authService: AuthService,
               private messageService: MessageService,
-              private angeboteneDiensteComponent: AngeboteneDiensteComponent) {
+              private angeboteneDiensteComponent: AngeboteneDiensteComponent,
+              private updateService: DoUpdateService,
+              private websocketService: WebsocketService) {
                 this.neuerDienstForm = this.formBuilder.group({
                   kategorie: 1,
                   titel: '',
@@ -47,14 +51,17 @@ export class ErstelleDienstComponent implements OnInit {
       this.fehler = " ";
       const newDienst = new Dienst(diensteData.titel, diensteData.beschreibung, tugendhafterID, diensteData.kategorie);
       this.neuerDienstForm.reset();
-      console.log('Your data has been submitted', newDienst);
+
       // neue Tugend in DB eintragen
       this.dienstService.addDienst(newDienst).subscribe(data => {
-        console.log(data); } );
-      // Overlay schließen, Erfolgsmeldung anzeigen
-      this.onCloseEvent.emit(null);
-      this.messageService.setMessage("Der Dienst wurde erfolgreich bearbeitet.", true);
-      this.angeboteneDiensteComponent.getAngeboteneDienste();
+        // Overlay schließen, Erfolgsmeldung anzeigen, Views updaten
+        this.onCloseEvent.emit(null);
+        this.messageService.setMessage("Der Dienst wurde erfolgreich erstellt.", true);
+        this.angeboteneDiensteComponent.getAngeboteneDienste();
+        this.updateService.doViewUpdate_Anzeige_DienstSuche(true);
+        this.websocketService.SendUpdateDienstSuche();
+      } );
+
     } else {
       this.fehler = "Bitte alle Felder ausfüllen!";
     }

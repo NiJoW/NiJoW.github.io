@@ -3,6 +3,8 @@
                                         (onCloseEvent)="getBonusBenachrichtigungUngelesenFuerNutzer()" [bonusBenachrichtigungen]="betroffeneProgramme"></app-bonusprogramm-benachrichtigungen>
   <app-dienst-anfragen class="section" *ngIf="hatAngefragteDienste"
                        (onCloseEvent)="getAngefragteDienste()"   [angefragteDienste] = angefragteDiensteObservable></app-dienst-anfragen>
+  <app-antwort-dienstanfrage class="section" *ngIf="hatAntwortAufDienstanfrage"
+                             (onCloseEvent)="getAntwortenDienstanfragen()"   [antwortenAufDienstanfragen] = antwortenAufDienstanfragenObservable> </app-antwort-dienstanfrage>
 
   <div class="tabs is-boxed is-centered is-medium">
     <ul>
@@ -41,6 +43,8 @@
   <button class="button is-danger unlock" (click)="unlockTugendhafter()">
     <fa-icon class="lock" [icon]="unlockIcon"></fa-icon> Schalte jetzt deinen inneren Tugendhaften frei!
   </button>
+  <app-antwort-dienstanfrage class="section" *ngIf="hatAntwortAufDienstanfrage"
+            (onCloseEvent)="getAntwortenDienstanfragen()"   [antwortenAufDienstanfragen] = antwortenAufDienstanfragenObservable> </app-antwort-dienstanfrage>
   <div class="section"><app-gebuchte-dienste></app-gebuchte-dienste></div>
   <div class="section"><app-angefragte-dienste></app-angefragte-dienste></div>
 

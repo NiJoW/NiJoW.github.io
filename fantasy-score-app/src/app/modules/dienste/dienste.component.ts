@@ -7,6 +7,7 @@ import { KategorieService } from 'src/app/services/kategorie.service';
 import { FormBuilder } from '@angular/forms';
 import { Kategorie } from 'src/app/models/Kategorie';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import {DoUpdateService} from "../../services/do-update.service";
 
 @Component({
   selector: 'app-dienste',
@@ -19,13 +20,14 @@ export class DiensteComponent implements OnInit {
   searchInput: string;
   searchForm;
   searchText;
-  
+
   willBuchen = false;
 
-  constructor(private kategorieService: KategorieService, 
+  constructor(private kategorieService: KategorieService,
     private dienstService: DienstService,
     private formBuilder: FormBuilder,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private updateService: DoUpdateService) {
     this.searchForm = this.formBuilder.group({
       searchInput: ''
     });
@@ -48,6 +50,13 @@ export class DiensteComponent implements OnInit {
       console.log(this.kategorienListe);
     });
 
+    this.getNichtArchivierteDienste();
+    this.updateService.currentDoUpdateState_Anzeige_DienstSuche.subscribe(message =>
+      {this.getNichtArchivierteDienste();}
+    );
+  }
+
+  private getNichtArchivierteDienste(){
     this.dienste = this.dienstService.getNichtArchivierteDienste();
     this.dienste.subscribe(data => {
       this.shownDienste = data;
