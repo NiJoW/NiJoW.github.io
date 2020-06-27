@@ -13,10 +13,6 @@ export class NotificationComponent implements OnInit {
   typ: boolean;
   notify: boolean;
   constructor(private messageService: MessageService) {}
-   
-  
-
-  //@Output() onClose = new EventEmitter();
 
   ngOnInit(): void {
 
@@ -27,9 +23,7 @@ export class NotificationComponent implements OnInit {
       }
       this.message = data[0];
       this.typ = data[1];
-      this.notify = true;
-     
-      
+      this.notify = true;      
     });
 
   }
@@ -37,10 +31,5 @@ export class NotificationComponent implements OnInit {
   hideNotification() {
     this.notify = false;
   }
-
-  /*close(dienstID: number) {
-    this.onClose.emit(null);
-  }*/
-
 
 }
