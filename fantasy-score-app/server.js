@@ -100,7 +100,7 @@ var server = app.listen(SERVER_PORT, function (){
 
 //getBonusprogramme()
 app.get('/bonusprogramme', function(req, res) {
-  pool.query('SELECT *, b.benutzername as aeltersterName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger', function (error, results, fields) {
+  pool.query('SELECT *, b.benutzername as aeltersterName, k.bezeichnung AS kategorieName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger JOIN kategorie k ON k.id_kategorie = bo.kategorieID', function (error, results, fields) {
     if (error) throw error;
     res.send(results);
   });
@@ -462,6 +462,18 @@ app.put('/nutzer/updateDaten', function (req, res) {
     });
 });
 
+//erhoeheSocialScore()
+app.put('/nutzer/updateSocialScore', function (req, res) {
+  const tugendhafterID = req.body.tugendhafterID;
+  const wert = req.body.wert;
+  const sql = "UPDATE hat_social_score SET social_score = social_score + ? WHERE tugendhafterID=?;";
+  const values = [wert, tugendhafterID];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    });
+});
 
 
 
@@ -591,7 +603,7 @@ pool.query(sql, value,
 app.get('/dashboard/angefragte-dienste', function (req, res) {
   const buergerID = req.query.buergerID;
   console.log("IngetANgfrgteDnste: " + buergerID);
-  const sql = 'SELECT da.name, da.beschreibung, b.benutzername AS tugendhafterName, dv.datum, dv.id_dienstvertrag FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND da.tugendhafterID = b.id_buerger AND dv.status = "angefragt" AND dv.suchenderID = ? AND dv.datum > ?';
+  const sql = 'SELECT da.name, da.beschreibung, b.benutzername AS tugendhafterName, dv.datum, dv.id_dienstvertrag FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND da.tugendhafterID = b.id_buerger AND dv.status = "angefragt" AND dv.suchenderID = ? AND dv.datum >= ?';
   const value = [buergerID, date+""];
   console.log(value);
   pool.query(sql, value,

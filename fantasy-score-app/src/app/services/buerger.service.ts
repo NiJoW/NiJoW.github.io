@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { Bester } from './../models/Bester';
 import { APIConfig } from './../../APIconfig';
@@ -22,6 +23,7 @@ export class BuergerService {
     private readonly unlockTugendhafterUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/unlockTugendhafter';
     private readonly socialScoreUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/socialScore';
     private readonly updateNutzerUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/updateDaten';
+    private readonly increaseSocialScoreUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nutzer/updateSocialScore';
 
     getBuerger(): Observable<Buerger[]> {
         return this.http.get<Buerger[]>(this.buergerUrl)
@@ -95,6 +97,13 @@ export class BuergerService {
         });
     }
 
+    erhoeheSocialScore(id: number, wert: number) :Observable<Buerger> {
+      return this.http.put<Buerger>(this.increaseSocialScoreUrl,
+        {
+          "tugendhafterID": id,
+          "wert": wert
+        });
+    }
 
 
 
