@@ -38,18 +38,18 @@ export class ErstelleKategorieComponent implements OnInit {
 
 
   speichern(kategorieData) {
-    //Todo:Validierung der Daten
-
     const aeltestenID  = this.nutzer.id_buerger;
-    const newKategorie =  new Kategorie(kategorieData.bezeichnung, aeltestenID);
-    this.neueKategorieForm.reset();
-    console.log('Your data has been submitted', newKategorie);
-    // neue Kategorie in DB eintragen
-    this.kategorieService.addKategorie(newKategorie).subscribe(data => {
-      console.log(data); } );
-    // Overlay schließen, Erfolgsmeldung anzeigen
-    this.onCloseEvent.emit(null);
-    this.messageService.setMessage("Die Kategorie wurde erfolgreich erstellt.", true);
+    if(kategorieData.bezeichnung != ''){
+      const newKategorie =  new Kategorie(kategorieData.bezeichnung, aeltestenID);
+      this.neueKategorieForm.reset();
+      console.log('Your data has been submitted', newKategorie);
+      // neue Kategorie in DB eintragen
+      this.kategorieService.addKategorie(newKategorie).subscribe(data => {
+        console.log(data); } );
+      // Overlay schließen, Erfolgsmeldung anzeigen
+      this.onCloseEvent.emit(null);
+      this.messageService.setMessage("Die Kategorie wurde erfolgreich erstellt.", true);
+    }
   }
 
   private getKategorien() {
