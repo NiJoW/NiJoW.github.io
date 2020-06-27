@@ -12,8 +12,9 @@
     
     <label for="bezeichnung_neue_kategorie">Titel:</label> &nbsp;
     <input id="bezeichnung_neue_kategorie"  type="text" formControlName="bezeichnung">
-    <br><br>
-  
+    <br>
+    <p class="has-text-danger">{{fehler}}</p>
+    <br>
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success" type="submit">Speichern</button>
