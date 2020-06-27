@@ -1,4 +1,5 @@
 <p class="title is-4">Meine erstellten Kategorien</p>
+<div class="outer">
 <div *ngFor="let kategorie of erstellteKategorien | async">
  <div class="card">
    <header class="card-header">
@@ -20,6 +21,7 @@
   </div>
 </div>
 <br>
+</div>
 </div>
 
 <div *ngIf="isEmpty" class="has-text-danger">Noch keine Kategorien erstellt.</div>

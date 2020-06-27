@@ -1,3 +1,8 @@
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
 .box {
     margin-bottom: 5px;
 }
@@ -7,3 +12,5 @@
     max-height: 250px;
     overflow-y: scroll;
 }
+
+.outer {padding: 3px 3px 3px 3px; max-height: 350px; overflow-y: scroll;}

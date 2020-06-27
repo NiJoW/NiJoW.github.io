@@ -1,4 +1,5 @@
 <p class="title is-4">Archivierte Bonusprogramme</p>
+<div class="outer">
 <div *ngFor="let bonusprogramm of erstellteBonusprogramme | async">
  <div class="card">
    <header class="card-header">
@@ -21,6 +22,7 @@
   </div>
 </div>
 <br>
+</div>
 </div>
 
 <div *ngIf="isEmpty" class="has-text-danger">Es gibt keine archivierten Bonusprogramme</div>

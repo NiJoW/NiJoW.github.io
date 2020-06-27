@@ -100,7 +100,7 @@ var server = app.listen(SERVER_PORT, function (){
 
 //getBonusprogramme()
 app.get('/bonusprogramme', function(req, res) {
-  pool.query('SELECT *, b.benutzername as aeltersterName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger', function (error, results, fields) {
+  pool.query('SELECT *, b.benutzername as aeltersterName, k.bezeichnung AS kategorieName FROM bonusprogramm bo JOIN buerger b ON bo.aeltesterID = b.id_buerger JOIN kategorie k ON k.id_kategorie = bo.kategorieID', function (error, results, fields) {
     if (error) throw error;
     res.send(results);
   });
