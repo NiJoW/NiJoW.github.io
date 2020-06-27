@@ -1,4 +1,5 @@
 <p class="title is-4">Meine erledigten Dienste</p>
+<div class="outer">
 <div *ngFor="let dienst of erledigteDienste | async">
  <div class="card">
     <header class="card-header">
@@ -16,5 +17,6 @@
     </div>
   </div>
   <br>
+</div>
 </div>
 <div *ngIf="isEmpty" class="has-text-danger">Noch keine Dienst angeschlossen.</div>

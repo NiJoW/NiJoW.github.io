@@ -1,9 +1,16 @@
-.content {
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+/*.content {
     max-height: 300px;
     min-height: 150px;
     overflow-y: scroll;
     margin: 10px 0 30px 0;
-}
+}*/
+
+.outer {padding: 3px 3px 3px 3px; max-height: 350px; overflow-y: scroll;}
 
 .button {
     margin-top: 10px;

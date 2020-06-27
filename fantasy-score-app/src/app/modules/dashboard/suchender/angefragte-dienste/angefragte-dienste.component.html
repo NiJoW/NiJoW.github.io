@@ -1,4 +1,5 @@
 <p class="title is-4">Meine angefragten Dienste</p>
+<div class="outer">
 <div *ngFor="let dienst of angefragteDienste | async">
  <div class="card">
    <header class="card-header">
@@ -17,6 +18,7 @@
     </div>
   </div>
   <br>
+</div>
 </div>
 
 <div *ngIf="isEmpty" class="has-text-danger">Noch keine Dienste vorhanden.</div>
