@@ -17,6 +17,7 @@ export class ErstelleKategorieComponent implements OnInit {
   neueKategorieForm;
   kategorien: Observable<Kategorie[]>;
   nutzer: Buerger;
+  fehler: string = " ";
   @Output() onCloseEvent = new EventEmitter();
 
   constructor(private kategorieService: KategorieService,
@@ -49,6 +50,8 @@ export class ErstelleKategorieComponent implements OnInit {
       // Overlay schließen, Erfolgsmeldung anzeigen
       this.onCloseEvent.emit(null);
       this.messageService.setMessage("Die Kategorie wurde erfolgreich erstellt.", true);
+    }else {
+      this.fehler = "Bitte alle Felder ausfüllen!";
     }
   }
 
