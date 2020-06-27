@@ -42,16 +42,18 @@ export class ErstelleDienstComponent implements OnInit {
 
   speichern(diensteData) {
     const tugendhafterID = this.nutzer.id_buerger;
-    const newDienst = new Dienst(diensteData.titel, diensteData.beschreibung, tugendhafterID, diensteData.kategorie);
-    this.neuerDienstForm.reset();
-    console.log('Your data has been submitted', newDienst);
-    // neue Tugend in DB eintragen
-    this.dienstService.addDienst(newDienst).subscribe(data => {
-      console.log(data); } );
-    // Overlay schließen, Erfolgsmeldung anzeigen
-    this.onCloseEvent.emit(null);
-    this.messageService.setMessage("Der Dienst wurde erfolgreich bearbeitet.", true);
-    this.angeboteneDiensteComponent.getAngeboteneDienste();
+    if(diensteData.titel != '' && diensteData.beschreibung !='') {
+      const newDienst = new Dienst(diensteData.titel, diensteData.beschreibung, tugendhafterID, diensteData.kategorie);
+      this.neuerDienstForm.reset();
+      console.log('Your data has been submitted', newDienst);
+      // neue Tugend in DB eintragen
+      this.dienstService.addDienst(newDienst).subscribe(data => {
+        console.log(data); } );
+      // Overlay schließen, Erfolgsmeldung anzeigen
+      this.onCloseEvent.emit(null);
+      this.messageService.setMessage("Der Dienst wurde erfolgreich bearbeitet.", true);
+      this.angeboteneDiensteComponent.getAngeboteneDienste();
+    }
   }
 
   private getKategorien() {

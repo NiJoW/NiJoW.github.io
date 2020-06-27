@@ -49,19 +49,20 @@ export class ErstelleTugendComponent implements OnInit {
 
   speichern(tugendData) {
     //Todo:Validierung der Daten
-
     const aeltestenID  = this.nutzer.id_buerger;
-    const newTugend =  new Tugend(tugendData.titel, tugendData.beschreibung, tugendData.punkte, tugendData.benoetigteWiederholungen,
-      aeltestenID, tugendData.kategorie);
-    this.neueTugendForm.reset();
-    console.log('Your data has been submitted', newTugend);
-    // neue Tugend in DB eintragen
-    this.tugendService.addTugend(newTugend).subscribe(data => {
-      console.log(data); } );
-    // Overlay schließen, Erfolgsmeldung anzeigen
-    this.onCloseEvent.emit(null);
-    this.messageService.setMessage("Die Tugend wurde erfolgreich bearbeitet.", true);
-    this.doUpdateService.doViewUpdate_AnzahlErstellteTugenden(true);
+    if(tugendData.titel != '' && tugendData.beschreibung != '' && tugendData.punkte != null &&  tugendData.benoetigteWiederholungen != null && tugendData.punkte != '' &&  tugendData.benoetigteWiederholungen != ''){
+      const newTugend =  new Tugend(tugendData.titel, tugendData.beschreibung, tugendData.punkte, tugendData.benoetigteWiederholungen,
+        aeltestenID, tugendData.kategorie);
+      this.neueTugendForm.reset();
+      console.log('Your data has been submitted', newTugend);
+      // neue Tugend in DB eintragen
+      this.tugendService.addTugend(newTugend).subscribe(data => {
+        console.log(data); } );
+      // Overlay schließen, Erfolgsmeldung anzeigen
+      this.onCloseEvent.emit(null);
+      this.messageService.setMessage("Die Tugend wurde erfolgreich bearbeitet.", true);
+      this.doUpdateService.doViewUpdate_AnzahlErstellteTugenden(true);
+    }
   }
 
   private getKategorien() {

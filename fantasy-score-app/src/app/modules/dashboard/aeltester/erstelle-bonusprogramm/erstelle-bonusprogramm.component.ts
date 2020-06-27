@@ -49,21 +49,21 @@ export class ErstelleBonusprogrammComponent implements OnInit {
 
 
   speichern(bonusprogrammData) {
-    //Todo:Validierung der Daten
-
     const aeltesterID  = this.nutzer.id_buerger;
-    const newBonusprogramm =  new Bonusprogramm(bonusprogrammData.titel, bonusprogrammData.nachricht, bonusprogrammData.punkte_in_kategorie,
-      aeltesterID, bonusprogrammData.kategorie);
-    this.neueBonusprogrammForm.reset();
-    console.log('Your data has been submitted', newBonusprogramm);
-    // neue Bonusprogramm in DB eintragen
-    this.bonusprogrammService.addBonusprogramm(newBonusprogramm).subscribe(data => {
-      console.log(data); } );
-    // Overlay schließen, Erfolgsmeldung anzeigen
-    this.onCloseEvent.emit(null);
-    this.messageService.setMessage("Die Bonusprogramm wurde erfolgreich bearbeitet.", true);
-    this.erstellteBonusprogrammeComponent.getErstellteBonusprogramme(); 
-    this.doUpdataService.doViewUpdate_AnzahlErstellteBonis(true);
+    if(bonusprogrammData.titel != '' && bonusprogrammData.nachricht != '' && bonusprogrammData.punkte_in_kategorie != null && bonusprogrammData.punkte_in_kategorie != '') {
+      const newBonusprogramm =  new Bonusprogramm(bonusprogrammData.titel, bonusprogrammData.nachricht, bonusprogrammData.punkte_in_kategorie,
+        aeltesterID, bonusprogrammData.kategorie);
+      this.neueBonusprogrammForm.reset();
+      console.log('Your data has been submitted', newBonusprogramm);
+      // neue Bonusprogramm in DB eintragen
+      this.bonusprogrammService.addBonusprogramm(newBonusprogramm).subscribe(data => {
+        console.log(data); } );
+      // Overlay schließen, Erfolgsmeldung anzeigen
+      this.onCloseEvent.emit(null);
+      this.messageService.setMessage("Die Bonusprogramm wurde erfolgreich bearbeitet.", true);
+      this.erstellteBonusprogrammeComponent.getErstellteBonusprogramme(); 
+      this.doUpdataService.doViewUpdate_AnzahlErstellteBonis(true);
+    }
   }
 
   private getKategorien() {
