@@ -121,6 +121,10 @@ export class BannerComponent implements OnInit {
 
   getNutzer() {
     this.nutzer = this.authService.getNutzer();
+    if(this.nutzer.typ == "Tugendhafter") {
+      this.getSocialScore();
+    }
+    
   }
 
   berechneStatus(socialScore: number) {
