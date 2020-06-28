@@ -44,13 +44,10 @@ export class BearbeiteBonusprogrammComponent implements OnInit {
   }
 
   speichern(bonusprogrammData) {
-
-   //Todo:Validierung der Daten
     this.bonusprogramm.titel = bonusprogrammData.titel;
     this.bonusprogramm.punkte_in_kategorie = bonusprogrammData.punkte_in_kategorie;
     this.bonusprogramm.nachricht = bonusprogrammData.nachricht;
     this.bonusprogramm.kategorieID = bonusprogrammData.kategorie;
-    // bearbeitete Bonusprogramm in DB updaten
     this.bonusprogrammService.updateBonusprogramm(this.bonusprogramm).subscribe(data => {
       console.log(data);
     } );

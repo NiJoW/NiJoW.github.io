@@ -21,7 +21,13 @@ export class DienstBuchenComponent implements OnInit {
   dienst: Dienst;
   fehler = false;
   newDienst: Observable<Dienst>;
+
   today = new Date();
+  dd = String(this.today.getDate()).padStart(2, '0');
+  mm = String(this.today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  yyyy = this.today.getFullYear();
+
+  currentDate = this.yyyy + '-' + this.mm + '-' + this.dd;
 
   constructor(private dienstService: DienstService,
     private messageService: MessageService,
@@ -29,7 +35,7 @@ export class DienstBuchenComponent implements OnInit {
     private formBuilder: FormBuilder,
     private websocketService : WebsocketService) {
     this.dienstForm = this.formBuilder.group({
-      datum: [new Date()]
+      datum: ''
     });
   }
 
@@ -42,11 +48,10 @@ export class DienstBuchenComponent implements OnInit {
     this.dienst = this.chosenDienst[0];
   }
 
-  buchen() {
-
-    console.log(this.dienstForm.value.datum);
-
-    if(this.dienstForm.value.datum == null) { //TODO funktioniert nicht + nur dates nach heute akzeptieren
+  buchen(dienstBuchenData) {
+    console.log("neu" + dienstBuchenData.datum);
+    console.log("current" + this.currentDate);
+    if(dienstBuchenData.datum === null || dienstBuchenData.datum === '' || dienstBuchenData.datum <= this.currentDate) { //TODO funktioniert nicht + nur dates nach heute akzeptieren
       this.fehler = true;
       console.log("show Fehler");
     } else {
