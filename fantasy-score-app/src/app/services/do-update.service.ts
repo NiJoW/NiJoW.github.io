@@ -16,6 +16,9 @@ export class DoUpdateService {
   private doUpdateSource_Anzeige_DienstanfrageBenachrichtigungen = new BehaviorSubject(false);
   currentDoUpdateState_Anzeige_DienstanfrageBenachrichtigungen = this.doUpdateSource_Anzeige_DienstanfrageBenachrichtigungen.asObservable();
 
+  private doUpdateSource_Anzeige_AntwortDienstanfrage = new BehaviorSubject(false);
+  currentDoUpdateState_Anzeige_AntwortDienstanfrage = this.doUpdateSource_Anzeige_AntwortDienstanfrage.asObservable();
+
 
 
   private doUpdateSource_SocialScore = new BehaviorSubject(false);
@@ -31,14 +34,19 @@ export class DoUpdateService {
   private doUpdateSource_AnzahlErstellteBonis = new BehaviorSubject(false);
   currentDoUpdateState_AnzahlErstellteBonis = this.doUpdateSource_AnzahlErstellteBonis.asObservable();
 
+  private doViewUpdateSource_AnzahlErhalteneBoni = new BehaviorSubject(false);
+  currentDoUpdateState_AnzahlErhaltenBoni = this.doViewUpdateSource_AnzahlErhalteneBoni.asObservable();
+
   private doUpdateSource_Email = new BehaviorSubject(false);
   currentDoUpdateState_Email = this.doUpdateSource_Email.asObservable();
 
+  private doUpdateSource_Anzeige_DienstSuche = new BehaviorSubject(false);
+  currentDoUpdateState_Anzeige_DienstSuche = this.doUpdateSource_Anzeige_DienstSuche.asObservable();
+
+
+
   constructor() { }
 
-  doViewUpdate(doUpdate: boolean) {
-    this.doUpdateSource.next(doUpdate)
-  }
 
   doViewUpdate_AnzahlBenachrichtigungen(doUpdate: boolean) {
     this.doUpdateSource_AnzahlBenachrichtigungen.next(doUpdate)
@@ -48,8 +56,12 @@ export class DoUpdateService {
     this.doUpdateSource_Anzeige_BonusBenachrichtigungen.next(doUpdate)
   }
 
-  doViewUpdate_DienstanfrageBenachrichtigungen(doUpdate: boolean) {
+  doViewUpdate_Anzeige_DienstanfrageBenachrichtigungen(doUpdate: boolean) {
     this.doUpdateSource_Anzeige_DienstanfrageBenachrichtigungen.next(doUpdate)
+  }
+
+  doViewUpdate_Anzeige_AntwortDienstanfrage(doUpdate: boolean) {
+    this.doUpdateSource_Anzeige_AntwortDienstanfrage.next(doUpdate)
   }
 
   doViewUpdate_SocialScore(doUpdate: boolean) {
@@ -68,12 +80,17 @@ export class DoUpdateService {
     this.doUpdateSource_AnzahlErstellteBonis.next(doUpdate)
   }
 
+  doViewUpdate_AnzahlErhalteneBoni(doUpdate: boolean) {
+    this.doViewUpdateSource_AnzahlErhalteneBoni.next(doUpdate)
+  }
+
   doViewUpdate_Email(doUpdate: boolean) {
     this.doUpdateSource_Email.next(doUpdate);
   }
 
- // resetUpdateStatus(resetUpdate: boolean) {
- //   this.doUpdateSource.next(resetUpdate)
- // }
+  doViewUpdate_Anzeige_DienstSuche(doUpdate: boolean) {
+    this.doUpdateSource_Anzeige_DienstSuche.next(doUpdate)
+  }
+
 
 }

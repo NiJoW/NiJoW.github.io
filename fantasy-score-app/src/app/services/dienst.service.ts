@@ -23,7 +23,9 @@ import { Injectable } from '@angular/core';
       private readonly dienstSuchUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dienste/suche';
       private readonly newDienstVertragUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newDienstVertrag';
       private readonly angefragenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/anfragenAnTugendhafter';
+      private readonly antwortDienstangefragenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/antwortDienstanfragen';
       private readonly updateVertragsUrl = APIConfig.URL + ':' + APIConfig.PORT + '/updateDienstvertrag';
+      private readonly updateVertragAntwortGelesenUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dienstvertragSetAntwortGelesen';
       private readonly createNewDienstUrl = APIConfig.URL + ':' + APIConfig.PORT + '/newDienst';
       private readonly updateDienstUrl = APIConfig.URL + ':' + APIConfig.PORT + '/dashboard/bearbeite-dienst';
       private readonly nichtArchivierteDiensteUrl = APIConfig.URL + ':' + APIConfig.PORT + '/nichtArchivierteDienste';
@@ -50,7 +52,7 @@ import { Injectable } from '@angular/core';
       }
 
       getDiensteInKategorie(kategorieID: number): Observable<Dienst[]> {
-        let kategorieParams = new HttpParams().set("kategorieID", kategorieID+""); 
+        let kategorieParams = new HttpParams().set("kategorieID", kategorieID+"");
          return this.http.get<Dienst[]>(this.diensteInKategorieUrl, {params : kategorieParams});
       }
 
@@ -78,7 +80,7 @@ import { Injectable } from '@angular/core';
             let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
           return this.http.get<Dienst[]>(this.gebuchteDiensteUrl, {params : buergerParams});
       }
-      
+
       getAngefragteDienste(): Observable<Dienst[]> {
             let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
           return this.http.get<Dienst[]>(this.angefragteDiensteUrl, {params : buergerParams});
@@ -88,6 +90,11 @@ import { Injectable } from '@angular/core';
         let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
         return this.http.get<Dienst[]>(this.angefragenUrl, {params : buergerParams});
       }
+
+    getAntwortAufDienstanfrage(): Observable<Dienst[]> {
+      let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
+      return this.http.get<Dienst[]>(this.antwortDienstangefragenUrl, {params : buergerParams});
+    }
 
       createDiensvertrag(dienstID: number, datum: Date): Observable<Dienst> {
         console.log(datum);
@@ -129,7 +136,14 @@ import { Injectable } from '@angular/core';
           });
       }
 
-      
+    vertragSetAntwortGelesen(dienstID: number ): Observable<Dienst> {
+      return this.http.put<Dienst>(this.updateVertragAntwortGelesenUrl,
+        {
+          "dienstID" : dienstID
+        });
+    }
+
+
       archiviereDienst(id_dienstangebot: number) :Observable<Dienst> {
       return this.http.put<Dienst>(this.archiviereUrl,
         {
@@ -146,4 +160,3 @@ import { Injectable } from '@angular/core';
 
     }
 
-    

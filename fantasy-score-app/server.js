@@ -67,13 +67,22 @@ var io = require('socket.io').listen(server);
 // Socketes: Server schickt eingehende Nachrichten per Broadcast an verbundene Clients weiter
 io.on('connection', (socket) => {
   console.log('a user connected');
-  socket.on('neueBenachrichtigung', (msg) => {
+  socket.on('neueBonusBenachrichtigung', (msg) => {
     console.log(msg);
-    socket.broadcast.emit('neueBenachrichtigung-broadcast', msg);
+    socket.broadcast.emit('neueBonusBenachrichtigung-broadcast', msg);
   });
   socket.on('neueDienstanfrageBenachrichtigung', (msg) => {
     console.log(msg);
     socket.broadcast.emit('neueDienstanfrageBenachrichtigung-broadcast', msg);
+  });
+  socket.on('antwortDienstanfrage', (msg) => {
+    console.log(msg);
+    socket.broadcast.emit('antwortDienstanfrage-broadcast', msg);
+  });
+  // sockets für Suche
+  socket.on('updateDienstSuche', (msg) => {
+    console.log(msg);
+    socket.broadcast.emit('updateDienstSuche-broadcast', msg);
   });
 });
 
@@ -589,7 +598,7 @@ app.get('/dashboard/erledigte-dienste', function (req, res) {
 //getGeplanteDienste()
 app.get('/dashboard/geplante-dienste', function (req, res) {
   const buergerID = req.query.buergerID;
-  const sql = 'SELECT da.name, b.benutzername AS suchenderName, dv.datum, da.beschreibung, dv.id_dienstvertrag FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = ? AND dv.datum > ? ';
+  const sql = 'SELECT da.name, b.benutzername AS suchenderName, dv.datum, da.beschreibung, dv.id_dienstvertrag FROM dienstangebot da, dienstvertrag dv, buerger b WHERE da.id_dienstangebot = dv.dienstID AND dv.suchenderID = b.id_buerger AND dv.status = "bestätigt" AND da.tugendhafterID = ? AND dv.datum >= ? ';
   const value = [buergerID, date+""];
   pool.query(sql, value,
     function (error, results, fields) {
@@ -626,7 +635,7 @@ app.get('/dashboard/angefragte-dienste', function (req, res) {
 //getAnfragenAnTugendhaften()
 app.get('/anfragenAnTugendhafter', function(req, res) {
   const buergerID = req.query.buergerID;
-  const sql = "SELECT da.name, da.beschreibung, dv.datum, b.benutzername AS suchenderName, dv.id_dienstvertrag FROM buerger b, dienstangebot da, dienstvertrag dv WHERE da.tugendhafterID = ? AND da.id_dienstangebot = dv.dienstID AND b.id_buerger = dv.suchenderID AND dv.status = 'angefragt';";
+  const sql = "SELECT da.name, da.beschreibung, dv.datum, b.benutzername AS suchenderName, dv.id_dienstvertrag, dv.suchenderID FROM buerger b, dienstangebot da, dienstvertrag dv WHERE da.tugendhafterID = ? AND da.id_dienstangebot = dv.dienstID AND b.id_buerger = dv.suchenderID AND dv.status = 'angefragt';";
   const value = [buergerID];
   pool.query(sql, value,
     function (error, results, fields) {
@@ -634,6 +643,23 @@ app.get('/anfragenAnTugendhafter', function(req, res) {
       if (error) throw error;
       res.send(results);
   });
+});
+
+
+//getAntwortAufDienstanfrage()
+app.get('/antwortDienstanfragen', function(req, res) {
+  const buergerID = req.query.buergerID;
+  const sql = "SELECT da.name, dv.status, da.beschreibung, dv.datum, b.benutzername AS tugendhafterName, dv.id_dienstvertrag \n" +
+    " FROM buerger b, dienstangebot da, dienstvertrag dv \n" +
+    " WHERE dv.suchenderID = ? AND da.id_dienstangebot = dv.dienstID AND b.id_buerger = da.tugendhafterID \n" +
+    " AND dv.status IN('bestätigt', 'abgelehnt') AND dv.suchenderGelesen=0;";
+  const value = [buergerID];
+  pool.query(sql, value,
+    function (error, results, fields) {
+
+      if (error) throw error;
+      res.send(results);
+    });
 });
 
 //#################### post
@@ -696,6 +722,18 @@ app.put('/updateDienstvertrag', function (request, response) {
   console.log(status); */
   const sql = "UPDATE dienstvertrag dv SET status = ? WHERE dv.id_dienstvertrag = ?";
   const values = [status, dienstID];
+  pool.query( sql, values,
+    function (error, results, fields) {
+      if (error) throw error;
+      response.send(results);
+    });
+});
+
+//vertragSetAntwortGelesen(..)
+app.put('/dienstvertragSetAntwortGelesen', function (request, response) {
+  const dienstID = request.body.dienstID;
+  const sql = "UPDATE dienstvertrag dv SET suchenderGelesen = true WHERE dv.id_dienstvertrag = ?";
+  const values = [dienstID];
   pool.query( sql, values,
     function (error, results, fields) {
       if (error) throw error;

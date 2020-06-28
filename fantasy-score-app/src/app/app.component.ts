@@ -37,8 +37,6 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-  //  this.getAnzahlBenachrichtigungen();
-   // console.log(' amount '+this.messageAmount);
     this.updateService.currentDoUpdateState_AnzahlBenachrichtigungen.subscribe(message =>
       {this.getAnzahlBenachrichtigungen(); }
     );
@@ -55,7 +53,7 @@ export class AppComponent {
         this.hasMessage = true;
       }
     });
-    
+
     // Benachrichtungen zu neuen Bonusprogrammen, von denen User profitiert
     let amountMessagesBonus : Observable<number>;
     amountMessagesBonus = this.bonusService.getBonusBenachrichtigungenUngelesen();
@@ -65,6 +63,19 @@ export class AppComponent {
         this.hasMessage = true;
       }
     });
+
+    // Benachrichtungen zu Antworten auf Dienstanfragen
+    let antwortenDienstanfragenObservable = this.dienstService.getAntwortAufDienstanfrage();
+    antwortenDienstanfragenObservable.subscribe(data => {
+      if(data.length != 0 ) {
+        this.messageAmount += data.length;
+        this.hasMessage = true;
+      }
+    });
+
+    if (this.messageAmount == 0) {
+      this.hasMessage = false;
+    }
   }
 
   get isLoggedIn() {

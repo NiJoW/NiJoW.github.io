@@ -1,0 +1,17 @@
+
+
+<div *ngFor="let dienst of antwortenAufDienstanfragen | async">
+  <div class="section" style="padding-top: 0;">
+    <div class="message is-warning" >
+      <div class="message-header">
+        <p class="messageTitle">Antwort auf deine Dienst-Anfrage:</p>
+      </div>
+      <div class="message-body">
+        <p><strong>{{dienst.tugendhafterName}}</strong> hat deine Anfrage zum Dienst <strong>"{{dienst.name}}" {{dienst.status}}</strong>.</p>
+        <p>Für den <strong>{{dienst.datum | date}}</strong>.</p>
+        <br>
+        <button class="button is-warning" (click)="setGelesen(dienst.id_dienstvertrag)">Alles klar!</button>
+      </div>
+    </div>
+  </div>
+</div>
