@@ -3,12 +3,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { Dienst } from 'src/app/models/Dienst';
 import { FormBuilder } from '@angular/forms';
-import { DienstService} from 'src/app/services/dienst.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { DienstService} from 'src/app/services/data/dienst.service';
+import { AuthService } from 'src/app/services/utility/auth.service';
 import { Observable } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
-import { MessageService } from 'src/app/services/message.service';
-import {WebsocketService} from "../../../services/websocket.service";
+import { MessageService } from 'src/app/services/utility/message.service';
+import {WebsocketService} from "../../../services/utility/websocket.service";
 
 @Component({
   selector: 'app-dienst-buchen',

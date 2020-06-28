@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs";
-import {TugendService} from "../../../../services/tugend.service";
+import {TugendService} from "../../../../services/data/tugend.service";
 import {Tugend} from "../../../../models/Tugend";
 import { faPencilAlt, faTrash, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { DoUpdateService } from 'src/app/services/do-update.service';
+import { DoUpdateService } from 'src/app/services/utility/do-update.service';
 
 
 @Component({

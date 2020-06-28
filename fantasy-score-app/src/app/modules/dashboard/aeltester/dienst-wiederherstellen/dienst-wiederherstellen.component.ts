@@ -1,4 +1,4 @@
-import { DienstService } from './../../../../services/dienst.service';
+import { DienstService } from '../../../../services/data/dienst.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Dienst } from 'src/app/models/Dienst';

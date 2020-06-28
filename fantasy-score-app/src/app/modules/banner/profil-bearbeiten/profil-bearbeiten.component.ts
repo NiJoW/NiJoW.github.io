@@ -1,9 +1,9 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { faEnvelope, faKey, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/utility/auth.service';
 import { Buerger } from 'src/app/models/Buerger';
-import { BuergerService } from 'src/app/services/buerger.service';
+import { BuergerService } from 'src/app/services/data/buerger.service';
 import { Observable } from 'rxjs';
 
 @Component({

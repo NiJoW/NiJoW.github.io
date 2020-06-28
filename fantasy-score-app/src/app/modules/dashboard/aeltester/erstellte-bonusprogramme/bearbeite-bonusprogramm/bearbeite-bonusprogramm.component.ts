@@ -1,9 +1,9 @@
 import { ErstellteBonusprogrammeComponent } from './../erstellte-bonusprogramme.component';
-import { KategorieService } from './../../../../../services/kategorie.service';
-import { BonusService } from './../../../../../services/bonus.service';
+import { KategorieService } from '../../../../../services/data/kategorie.service';
+import { BonusService } from '../../../../../services/data/bonus.service';
 import { FormBuilder } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-import { MessageService } from 'src/app/services/message.service';
+import { AuthService } from 'src/app/services/utility/auth.service';
+import { MessageService } from 'src/app/services/utility/message.service';
 import { Observable } from 'rxjs';
 import { Bonusprogramm } from './../../../../../models/Bonusprogramm';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';

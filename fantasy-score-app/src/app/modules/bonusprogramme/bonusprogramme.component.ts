@@ -1,8 +1,8 @@
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from '../../services/utility/auth.service';
 import { Bonusprogramm } from './../../models/Bonusprogramm';
 import { Component, OnInit } from '@angular/core';
-import { BonusService } from 'src/app/services/bonus.service';
-import { KategorieService } from 'src/app/services/kategorie.service';
+import { BonusService } from 'src/app/services/data/bonus.service';
+import { KategorieService } from 'src/app/services/data/kategorie.service';
 import { Kategorie } from 'src/app/models/Kategorie';
 import { Observable } from 'rxjs';
 import { FormBuilder } from '@angular/forms';

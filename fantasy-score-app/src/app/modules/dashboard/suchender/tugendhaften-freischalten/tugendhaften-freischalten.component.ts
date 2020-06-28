@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { BuergerService } from 'src/app/services/buerger.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { BuergerService } from 'src/app/services/data/buerger.service';
+import { AuthService } from 'src/app/services/utility/auth.service';
 import { Buerger } from 'src/app/models/Buerger';
 import { Router } from '@angular/router';
 

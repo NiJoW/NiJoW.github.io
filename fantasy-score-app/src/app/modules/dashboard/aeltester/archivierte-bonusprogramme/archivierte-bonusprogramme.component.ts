@@ -1,4 +1,4 @@
-import { BonusService } from './../../../../services/bonus.service';
+import { BonusService } from '../../../../services/data/bonus.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Bonusprogramm } from 'src/app/models/Bonusprogramm';

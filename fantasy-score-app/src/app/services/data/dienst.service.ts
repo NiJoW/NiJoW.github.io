@@ -1,6 +1,6 @@
-import { APIConfig } from './../../APIconfig';
-import { Dienst } from './../models/Dienst';
-import { AuthService } from './auth.service';
+import { APIConfig } from '../../../APIconfig';
+import { Dienst } from '../../models/Dienst';
+import { AuthService } from '../utility/auth.service';
 import { HttpClient , HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';

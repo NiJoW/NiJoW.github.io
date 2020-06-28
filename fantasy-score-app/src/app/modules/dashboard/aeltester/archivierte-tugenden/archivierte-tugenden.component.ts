@@ -1,4 +1,4 @@
-import { TugendService } from 'src/app/services/tugend.service';
+import { TugendService } from 'src/app/services/data/tugend.service';
 import { Tugend } from 'src/app/models/Tugend';
 import { Observable } from 'rxjs';
 import { faPencilAlt, faPlus, faAngleDown, faTrashRestore } from '@fortawesome/free-solid-svg-icons';

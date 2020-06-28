@@ -2,11 +2,11 @@ import { Bonusprogramm } from './../../../../models/Bonusprogramm';
 import { faPencilAlt, faPlus, faAngleDown, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 import { Bonuseintrag } from '../../../../models/Bonuseintrag';
-import { BonusService } from '../../../../services/bonus.service';
+import { BonusService } from '../../../../services/data/bonus.service';
 import { Component, OnInit } from '@angular/core';
 import {Buerger} from "../../../../models/Buerger";
-import {MessageService} from "../../../../services/message.service";
-import {WebsocketService} from "../../../../services/websocket.service";
+import {MessageService} from "../../../../services/utility/message.service";
+import {WebsocketService} from "../../../../services/utility/websocket.service";
 
 @Component({
   selector: 'app-erstellte-bonusprogramme',

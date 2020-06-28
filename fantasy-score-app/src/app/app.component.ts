@@ -1,14 +1,14 @@
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services/utility/auth.service';
 import { Buerger } from './models/Buerger';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
-import { DienstService } from './services/dienst.service';
+import { DienstService } from './services/data/dienst.service';
 import { Observable } from 'rxjs';
 import { Dienst } from './models/Dienst';
-import { BonusService } from './services/bonus.service';
-import {DoUpdateService} from "./services/do-update.service";
-import {WebsocketService} from "./services/websocket.service";
+import { BonusService } from './services/data/bonus.service';
+import {DoUpdateService} from "./services/utility/do-update.service";
+import {WebsocketService} from "./services/utility/websocket.service";
 
 @Component({
   selector: 'app-root',

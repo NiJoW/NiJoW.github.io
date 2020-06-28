@@ -1,6 +1,6 @@
-import { APIConfig } from './../../APIconfig';
-import { AuthService } from 'src/app/services/auth.service';
-import { Kategorie } from '../models/Kategorie';
+import { APIConfig } from '../../../APIconfig';
+import { AuthService } from 'src/app/services/utility/auth.service';
+import { Kategorie } from '../../models/Kategorie';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';

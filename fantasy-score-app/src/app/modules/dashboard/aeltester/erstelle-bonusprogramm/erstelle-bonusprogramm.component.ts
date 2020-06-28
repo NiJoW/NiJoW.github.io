@@ -1,15 +1,15 @@
 import { ErstellteBonusprogrammeComponent } from './../erstellte-bonusprogramme/erstellte-bonusprogramme.component';
-import { MessageService } from 'src/app/services/message.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { MessageService } from 'src/app/services/utility/message.service';
+import { AuthService } from 'src/app/services/utility/auth.service';
 import { FormBuilder } from '@angular/forms';
-import { BonusService } from './../../../../services/bonus.service';
-import { KategorieService } from './../../../../services/kategorie.service';
+import { BonusService } from '../../../../services/data/bonus.service';
+import { KategorieService } from '../../../../services/data/kategorie.service';
 import { Buerger } from './../../../../models/Buerger';
 import { Kategorie } from './../../../../models/Kategorie';
 import { Observable } from 'rxjs';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
-import { DoUpdateService } from 'src/app/services/do-update.service';
+import { DoUpdateService } from 'src/app/services/utility/do-update.service';
 
 @Component({
   selector: 'app-erstelle-bonusprogramm',

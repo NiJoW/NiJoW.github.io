@@ -1,19 +1,19 @@
 import { Router } from '@angular/router';
-import { BuergerService } from './../../services/buerger.service';
+import { BuergerService } from '../../services/data/buerger.service';
 import { Component, OnInit } from '@angular/core';
 import { BuergerTyp } from './../../models/BuergerTyp.enum';
 import { Buerger } from './../../models/Buerger';
-import { AuthService } from './../../services/auth.service';
-import {KategorieService} from '../../services/kategorie.service';
+import { AuthService } from '../../services/utility/auth.service';
+import {KategorieService} from '../../services/data/kategorie.service';
 import {Kategorie} from '../../models/Kategorie';
 import {Observable} from 'rxjs';
-import { DienstService } from 'src/app/services/dienst.service';
+import { DienstService } from 'src/app/services/data/dienst.service';
 import { Dienst } from 'src/app/models/Dienst';
 import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
-import { BonusService } from 'src/app/services/bonus.service';
+import { BonusService } from 'src/app/services/data/bonus.service';
 import {BonusBenachrichtigung} from "../../models/BonusBenachrichtigung";
 import { faLock } from '@fortawesome/free-solid-svg-icons';
-import {DoUpdateService} from "../../services/do-update.service";
+import {DoUpdateService} from "../../services/utility/do-update.service";
 
 
 @Component({

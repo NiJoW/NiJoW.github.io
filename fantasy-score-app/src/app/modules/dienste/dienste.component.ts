@@ -1,13 +1,13 @@
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/utility/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { DienstService } from 'src/app/services/dienst.service';
+import { DienstService } from 'src/app/services/data/dienst.service';
 import { Observable } from 'rxjs';
 import { Dienst } from 'src/app/models/Dienst';
-import { KategorieService } from 'src/app/services/kategorie.service';
+import { KategorieService } from 'src/app/services/data/kategorie.service';
 import { FormBuilder } from '@angular/forms';
 import { Kategorie } from 'src/app/models/Kategorie';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import {DoUpdateService} from "../../services/do-update.service";
+import {DoUpdateService} from "../../services/utility/do-update.service";
 import { Buerger } from 'src/app/models/Buerger';
 
 @Component({

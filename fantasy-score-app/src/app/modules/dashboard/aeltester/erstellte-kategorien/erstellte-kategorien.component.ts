@@ -1,7 +1,7 @@
 import { faAngleDown, faTrash, faPlus, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 import { Kategorie } from './../../../../models/Kategorie';
-import { KategorieService } from './../../../../services/kategorie.service';
+import { KategorieService } from '../../../../services/data/kategorie.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

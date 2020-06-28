@@ -1,14 +1,14 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Kategorie} from '../../../../models/Kategorie';
-import {KategorieService} from '../../../../services/kategorie.service';
+import {KategorieService} from '../../../../services/data/kategorie.service';
 import { FormBuilder } from '@angular/forms';
 import {Tugend} from '../../../../models/Tugend';
-import {TugendService} from '../../../../services/tugend.service';
-import {AuthService} from "../../../../services/auth.service";
+import {TugendService} from '../../../../services/data/tugend.service';
+import {AuthService} from "../../../../services/utility/auth.service";
 import {Buerger} from "../../../../models/Buerger";
-import {MessageService} from "../../../../services/message.service";
-import { DoUpdateService } from 'src/app/services/do-update.service';
+import {MessageService} from "../../../../services/utility/message.service";
+import { DoUpdateService } from 'src/app/services/utility/do-update.service';
 
 @Component({
   selector: 'app-erstelle-tugend',

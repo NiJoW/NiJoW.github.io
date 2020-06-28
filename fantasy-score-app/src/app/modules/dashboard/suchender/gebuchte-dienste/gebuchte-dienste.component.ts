@@ -1,6 +1,6 @@
 import { faPencilAlt, faPlus, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit } from '@angular/core';
-import { DienstService } from '../../../../services/dienst.service';
+import { DienstService } from '../../../../services/data/dienst.service';
 import { Dienst } from '../../../../models/Dienst';
 import { Observable } from 'rxjs';
 

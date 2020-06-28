@@ -1,8 +1,8 @@
-import { TugendService } from '../../../../services/tugend.service';
+import { TugendService } from '../../../../services/data/tugend.service';
 import { Tugend } from '../../../../models/Tugend';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import {DoUpdateService} from "../../../../services/do-update.service";
+import {DoUpdateService} from "../../../../services/utility/do-update.service";
 
 @Component({
   selector: 'app-erfuellte-tugenden',

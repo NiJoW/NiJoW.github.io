@@ -1,16 +1,16 @@
 import { Buerger } from 'src/app/models/Buerger';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/utility/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Kategorie } from 'src/app/models/Kategorie';
-import { KategorieService } from '../../services/kategorie.service';
+import { KategorieService } from '../../services/data/kategorie.service';
 import { Observable } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { Tugend } from 'src/app/models/Tugend';
-import { TugendService } from 'src/app/services/tugend.service';
+import { TugendService } from 'src/app/services/data/tugend.service';
 import { NotificationComponent } from '../notification/notification.component';
-import { MessageService } from 'src/app/services/message.service';
-import { TaetigkeitService } from 'src/app/services/taetigkeit.service';
+import { MessageService } from 'src/app/services/utility/message.service';
+import { TaetigkeitService } from 'src/app/services/data/taetigkeit.service';
 import { Taetigkeit } from 'src/app/models/Taetigkeit';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 

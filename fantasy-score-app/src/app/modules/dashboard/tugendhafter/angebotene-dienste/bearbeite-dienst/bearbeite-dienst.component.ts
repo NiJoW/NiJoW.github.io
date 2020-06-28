@@ -1,9 +1,9 @@
 import { AngeboteneDiensteComponent } from './../angebotene-dienste.component';
-import { DienstService } from '../../../../../services/dienst.service';
-import { KategorieService } from '../../../../../services/kategorie.service';
+import { DienstService } from '../../../../../services/data/dienst.service';
+import { KategorieService } from '../../../../../services/data/kategorie.service';
 import { FormBuilder } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-import { MessageService } from 'src/app/services/message.service';
+import { AuthService } from 'src/app/services/utility/auth.service';
+import { MessageService } from 'src/app/services/utility/message.service';
 import { Observable } from 'rxjs';
 import { Dienst } from '../../../../../models/Dienst';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';

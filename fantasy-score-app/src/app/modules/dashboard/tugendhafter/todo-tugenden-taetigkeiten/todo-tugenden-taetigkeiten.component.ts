@@ -1,13 +1,13 @@
 import { BannerComponent } from './../../../banner/banner.component';
-import { BuergerService } from 'src/app/services/buerger.service';
+import { BuergerService } from 'src/app/services/data/buerger.service';
 import { faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/utility/auth.service';
 import {Taetigkeit} from "../../../../models/Taetigkeit";
-import {TaetigkeitService} from "../../../../services/taetigkeit.service";
-import {MessageService} from "../../../../services/message.service";
-import {DoUpdateService} from "../../../../services/do-update.service";
+import {TaetigkeitService} from "../../../../services/data/taetigkeit.service";
+import {MessageService} from "../../../../services/utility/message.service";
+import {DoUpdateService} from "../../../../services/utility/do-update.service";
 
 @Component({
   selector: 'app-todo-tugenden-taetigkeiten',
@@ -57,15 +57,17 @@ export class TodoTugendenTaetigkeitenComponent implements OnInit {
        
 if(erhoehteWdh === benoetigteWdh) {
   this.buergerService.erhoeheSocialScore(this.authService.getNutzer().id_buerger ,wert)
-    .subscribe(data => {});
-  this.message = "Juhu, du hast eine tugendhafte Aufgabe beendet!"
+    .subscribe(data => {
+      this.message = "Juhu, du hast eine tugendhafte Aufgabe beendet!"
+      // Erfolgmitteilung + Update des Views
+      this.updateViews(this.message);
+    });
 } else {
   this.message = "Fleißig! Du hast eine tugendhafte Aufgabe angekreuzt!"
-}
-
-    // Erfolgmitteilung + Update des Views
-    this.updateViews(this.message);
+     // Erfolgmitteilung + Update des Views
+     this.updateViews(this.message);
   }
+}
 
   updateViews(message: string) {
     this.messageService.setMessage(message, true);

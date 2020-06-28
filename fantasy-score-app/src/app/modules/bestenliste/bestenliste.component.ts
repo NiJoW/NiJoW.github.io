@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Bester } from './../../models/Bester';
-import { BuergerService } from './../../services/buerger.service';
+import { BuergerService } from '../../services/data/buerger.service';
 import { Observable } from 'rxjs';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 

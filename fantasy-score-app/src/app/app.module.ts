@@ -21,7 +21,7 @@ import { BestenlisteComponent } from './modules/bestenliste/bestenliste.componen
 import { ErfuellteTugendenComponent } from './modules/dashboard/tugendhafter/erfuellte-tugenden/erfuellte-tugenden.component';
 import { TodoTugendenTaetigkeitenComponent } from './modules/dashboard/tugendhafter/todo-tugenden-taetigkeiten/todo-tugenden-taetigkeiten.component';
 import { ErstelleTugendComponent } from './modules/dashboard/aeltester/erstelle-tugend/erstelle-tugend.component';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services/utility/auth.service';
 import { AnmeldenComponent } from './modules/anmelden/anmelden.component';
 import { RegistrierenComponent } from './modules/registrieren/registrieren.component';
 import { AngeboteneDiensteComponent } from './modules/dashboard/tugendhafter/angebotene-dienste/angebotene-dienste.component';
@@ -33,11 +33,11 @@ import { ErstellteBonusprogrammeComponent } from './modules/dashboard/aeltester/
 import { ErstellteTugendenComponent } from './modules/dashboard/aeltester/erstellte-tugenden/erstellte-tugenden.component';
 import { DienstBuchenComponent } from './modules/dienste/dienst-buchen/dienst-buchen.component';
 import { NotificationComponent } from './modules/notification/notification.component';
-import { MessageService } from './services/message.service';
+import { MessageService } from './services/utility/message.service';
 import {BearbeiteTugendComponent} from "./modules/dashboard/aeltester/erstellte-tugenden/bearbeite-tugend/bearbeite-tugend.component";
 import { DienstAnfragenComponent } from './modules/dashboard/tugendhafter/dienst-anfragen/dienst-anfragen.component';
 import { ListeAllerTugendhaftenComponent } from './modules/dashboard/aeltester/liste-aller-tugendhaften/liste-aller-tugendhaften.component';
-import {DoUpdateService} from "./services/do-update.service";
+import {DoUpdateService} from "./services/utility/do-update.service";
 import { BonusprogrammBenachrichtigungenComponent } from './modules/dashboard/tugendhafter/bonusprogramm-benachrichtigungen/bonusprogramm-benachrichtigungen.component';
 import { BearbeiteDienstComponent } from './modules/dashboard/tugendhafter/angebotene-dienste/bearbeite-dienst/bearbeite-dienst.component';
 import { ErstelleDienstComponent } from './modules/dashboard/tugendhafter/erstelle-dienst/erstelle-dienst.component';

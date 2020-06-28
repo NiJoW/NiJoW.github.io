@@ -1,10 +1,10 @@
 import { async } from '@angular/core/testing';
 import { Injectable } from '@angular/core';
-import { Buerger } from '../models/Buerger';
-import { BuergerTyp } from '../models/BuergerTyp.enum';
-import { BuergerService} from './buerger.service';
-import {AnmeldenComponent} from "../modules/anmelden/anmelden.component";
-import { RegistrierenComponent } from '../modules/registrieren/registrieren.component';
+import { Buerger } from '../../models/Buerger';
+import { BuergerTyp } from '../../models/BuergerTyp.enum';
+import { BuergerService} from '../data/buerger.service';
+import {AnmeldenComponent} from "../../modules/anmelden/anmelden.component";
+import { RegistrierenComponent } from '../../modules/registrieren/registrieren.component';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DoUpdateService } from './do-update.service';
 

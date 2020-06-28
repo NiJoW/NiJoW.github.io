@@ -1,8 +1,8 @@
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/utility/auth.service';
 import { Observable } from 'rxjs';
-import { Bester } from './../models/Bester';
-import { APIConfig } from './../../APIconfig';
-import { Buerger } from './../models/Buerger';
+import { Bester } from '../../models/Bester';
+import { APIConfig } from '../../../APIconfig';
+import { Buerger } from '../../models/Buerger';
 import { HttpClient , HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 

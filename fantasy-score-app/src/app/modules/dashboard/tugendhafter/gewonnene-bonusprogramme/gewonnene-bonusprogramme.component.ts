@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
-import { BonusService } from 'src/app/services/bonus.service';
+import { BonusService } from 'src/app/services/data/bonus.service';
 import {BonusBenachrichtigung} from "../../../../models/BonusBenachrichtigung";
 
 @Component({

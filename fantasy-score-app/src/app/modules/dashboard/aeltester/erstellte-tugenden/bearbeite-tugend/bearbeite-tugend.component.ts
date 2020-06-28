@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
-import {MessageService} from "../../../../../services/message.service";
-import {AuthService} from "../../../../../services/auth.service";
+import {MessageService} from "../../../../../services/utility/message.service";
+import {AuthService} from "../../../../../services/utility/auth.service";
 import {FormBuilder} from "@angular/forms";
-import {TugendService} from "../../../../../services/tugend.service";
+import {TugendService} from "../../../../../services/data/tugend.service";
 import {Tugend} from "../../../../../models/Tugend";
-import {KategorieService} from "../../../../../services/kategorie.service";
+import {KategorieService} from "../../../../../services/data/kategorie.service";
 import {Observable} from "rxjs";
 import {Kategorie} from "../../../../../models/Kategorie";
 

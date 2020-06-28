@@ -1,8 +1,8 @@
 import { Tugend } from './../../../../models/Tugend';
 import { Observable } from 'rxjs';
-import { TugendService } from './../../../../services/tugend.service';
+import { TugendService } from '../../../../services/data/tugend.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { DoUpdateService } from 'src/app/services/do-update.service';
+import { DoUpdateService } from 'src/app/services/utility/do-update.service';
 
 @Component({
   selector: 'app-tugend-wiederherstellen',

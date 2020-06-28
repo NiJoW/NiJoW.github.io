@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { DienstService } from '../../../../services/dienst.service';
+import { DienstService } from '../../../../services/data/dienst.service';
 import { Dienst } from '../../../../models/Dienst';
 import { Component, OnInit } from '@angular/core';
 import { faAngleUp, faAngleDown, faPencilAlt, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';

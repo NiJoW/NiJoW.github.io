@@ -1,16 +1,16 @@
 import { AngeboteneDiensteComponent } from './../angebotene-dienste/angebotene-dienste.component';
 import { Dienst } from './../../../../models/Dienst';
 import { Kategorie } from './../../../../models/Kategorie';
-import { KategorieService } from './../../../../services/kategorie.service';
-import { MessageService } from 'src/app/services/message.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { KategorieService } from '../../../../services/data/kategorie.service';
+import { MessageService } from 'src/app/services/utility/message.service';
+import { AuthService } from 'src/app/services/utility/auth.service';
 import { FormBuilder } from '@angular/forms';
-import { DienstService } from 'src/app/services/dienst.service';
+import { DienstService } from 'src/app/services/data/dienst.service';
 import { Buerger } from './../../../../models/Buerger';
 import { Observable } from 'rxjs';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {DoUpdateService} from "../../../../services/do-update.service";
-import {WebsocketService} from "../../../../services/websocket.service";
+import {DoUpdateService} from "../../../../services/utility/do-update.service";
+import {WebsocketService} from "../../../../services/utility/websocket.service";
 
 @Component({
   selector: 'app-erstelle-dienst',

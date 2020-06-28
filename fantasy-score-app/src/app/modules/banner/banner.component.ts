@@ -1,16 +1,16 @@
 import { Buerger } from './../../models/Buerger';
-import { BuergerService } from './../../services/buerger.service';
+import { BuergerService } from '../../services/data/buerger.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable, interval } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/utility/auth.service';
 import { faAward, faPiggyBank, faPencilAlt, faHandshake, faTrophy, faUser, faCrown } from '@fortawesome/free-solid-svg-icons';
-import { DoUpdateService } from 'src/app/services/do-update.service';
+import { DoUpdateService } from 'src/app/services/utility/do-update.service';
 import { Dienst } from 'src/app/models/Dienst';
-import { DienstService } from 'src/app/services/dienst.service';
-import { BonusService } from 'src/app/services/bonus.service';
+import { DienstService } from 'src/app/services/data/dienst.service';
+import { BonusService } from 'src/app/services/data/bonus.service';
 import { BonusBenachrichtigung } from 'src/app/models/BonusBenachrichtigung';
 import { Tugend } from 'src/app/models/Tugend';
-import { TugendService } from 'src/app/services/tugend.service';
+import { TugendService } from 'src/app/services/data/tugend.service';
 import { Bonusprogramm } from 'src/app/models/Bonusprogramm';
 
 @Component({

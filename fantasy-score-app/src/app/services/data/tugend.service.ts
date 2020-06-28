@@ -1,12 +1,12 @@
-import { AuthService } from 'src/app/services/auth.service';
-import { APIConfig } from './../../APIconfig';
-import { Tugend } from './../models/Tugend';
+import { AuthService } from 'src/app/services/utility/auth.service';
+import { APIConfig } from '../../../APIconfig';
+import { Tugend } from '../../models/Tugend';
 import { HttpClient , HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { catchError, retry } from 'rxjs/operators';
-import {Dienst} from "../models/Dienst";
-import {Taetigkeit} from "../models/Taetigkeit";
+import {Dienst} from "../../models/Dienst";
+import {Taetigkeit} from "../../models/Taetigkeit";
 
 
 @Injectable({

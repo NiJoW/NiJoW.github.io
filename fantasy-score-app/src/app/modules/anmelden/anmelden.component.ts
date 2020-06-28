@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { BuergerTyp } from './../../models/BuergerTyp.enum';
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from '../../services/utility/auth.service';
 import { FormBuilder } from '@angular/forms';
 import { faKey, faUser, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 

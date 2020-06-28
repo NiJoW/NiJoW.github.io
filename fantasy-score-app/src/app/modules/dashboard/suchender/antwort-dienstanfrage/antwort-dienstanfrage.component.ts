@@ -1,8 +1,8 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Observable } from 'rxjs';
 import { Dienst } from 'src/app/models/Dienst';
-import { DienstService } from 'src/app/services/dienst.service';
-import {DoUpdateService} from "../../../../services/do-update.service";
+import { DienstService } from 'src/app/services/data/dienst.service';
+import {DoUpdateService} from "../../../../services/utility/do-update.service";
 
 @Component({
   selector: 'app-antwort-dienstanfrage',

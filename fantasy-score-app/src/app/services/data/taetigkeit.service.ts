@@ -1,10 +1,10 @@
 import {Observable} from "rxjs";
-import {Taetigkeit} from "../models/Taetigkeit";
+import {Taetigkeit} from "../../models/Taetigkeit";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {APIConfig} from "../../APIconfig";
+import {APIConfig} from "../../../APIconfig";
 import {Injectable} from "@angular/core";
-import {AuthService} from "./auth.service";
-import {Tugend} from "../models/Tugend";
+import {AuthService} from "../utility/auth.service";
+import {Tugend} from "../../models/Tugend";
 
 
 @Injectable({

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { BuergerService } from 'src/app/services/buerger.service';
+import { BuergerService } from 'src/app/services/data/buerger.service';
 import { Buerger } from './../../../../models/Buerger';
 import { Component, OnInit } from '@angular/core';
 

@@ -1,8 +1,8 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Observable } from 'rxjs';
 import {BonusBenachrichtigung} from "../../../../models/BonusBenachrichtigung";
-import {BonusService} from "../../../../services/bonus.service";
-import {DoUpdateService} from "../../../../services/do-update.service";
+import {BonusService} from "../../../../services/data/bonus.service";
+import {DoUpdateService} from "../../../../services/utility/do-update.service";
 
 @Component({
   selector: 'app-bonusprogramm-benachrichtigungen',

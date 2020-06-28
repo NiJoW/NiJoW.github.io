@@ -1,7 +1,7 @@
-import { KategorieService } from 'src/app/services/kategorie.service';
+import { KategorieService } from 'src/app/services/data/kategorie.service';
 import { FormBuilder } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-import { MessageService } from 'src/app/services/message.service';
+import { AuthService } from 'src/app/services/utility/auth.service';
+import { MessageService } from 'src/app/services/utility/message.service';
 import { Observable } from 'rxjs';
 import { Kategorie } from './../../../../../models/Kategorie';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';

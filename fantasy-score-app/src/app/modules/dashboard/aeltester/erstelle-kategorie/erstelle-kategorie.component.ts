@@ -1,7 +1,7 @@
-import { MessageService } from './../../../../services/message.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { MessageService } from '../../../../services/utility/message.service';
+import { AuthService } from 'src/app/services/utility/auth.service';
 import { FormBuilder } from '@angular/forms';
-import { KategorieService } from './../../../../services/kategorie.service';
+import { KategorieService } from '../../../../services/data/kategorie.service';
 import { Buerger } from './../../../../models/Buerger';
 import { Observable } from 'rxjs';
 import { Kategorie } from 'src/app/models/Kategorie';

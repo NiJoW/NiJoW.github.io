@@ -1,12 +1,12 @@
-import { AuthService } from './auth.service';
-import { Bonuseintrag } from './../models/Bonuseintrag';
-import { APIConfig } from '../../APIconfig';
+import { AuthService } from '../utility/auth.service';
+import { Bonuseintrag } from '../../models/Bonuseintrag';
+import { APIConfig } from '../../../APIconfig';
 import { HttpClient , HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Bonusprogramm } from '../models/Bonusprogramm';
-import {Buerger} from "../models/Buerger";
-import {BonusBenachrichtigung} from "../models/BonusBenachrichtigung";
+import { Bonusprogramm } from '../../models/Bonusprogramm';
+import {Buerger} from "../../models/Buerger";
+import {BonusBenachrichtigung} from "../../models/BonusBenachrichtigung";
 
 @Injectable({
     providedIn: 'root'
