@@ -14,12 +14,9 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 })
 export class BonusprogrammeComponent implements OnInit {
 
-  kategorienListe: Observable<Kategorie[]>;
+  kategorieID = -1;
   searchForm;
-  bonusprogramme: Observable<Bonusprogramm[]>;
-  shownProgramme: Bonusprogramm[];
-  kategorieID: number;
-  searchIcon = faSearch;
+ 
 
   constructor(private kategorieService: KategorieService, 
     private bonusService: BonusService,
@@ -29,6 +26,11 @@ export class BonusprogrammeComponent implements OnInit {
       });
     }
 
+    kategorienListe: Observable<Kategorie[]>;
+    bonusprogramme: Observable<Bonusprogramm[]>;
+    shownProgramme: Bonusprogramm[];
+    searchIcon = faSearch;
+
   ngOnInit(): void {
     this.kategorienListe = this.kategorieService.getKategorien();
 
@@ -37,16 +39,15 @@ export class BonusprogrammeComponent implements OnInit {
       console.log(this.kategorienListe);
     });
 
-    this.bonusprogramme = this.bonusService.getBonusprogramme();
+    this.bonusprogramme = this.bonusService.getNichtArchivierteBonusprogramme();
       this.bonusprogramme.subscribe(data => {
-        console.log(data);
         this.shownProgramme = data;
       });
   }
 
   onKategorieSelected(kategorieID):void {
     if(kategorieID == "-1") { // Alle anzeigen
-      this.bonusprogramme = this.bonusService.getBonusprogramme();
+      this.bonusprogramme = this.bonusService.getNichtArchivierteBonusprogramme();
       this.bonusprogramme.subscribe(data => {
         console.log(data);
         this.shownProgramme = data;
@@ -64,7 +65,7 @@ export class BonusprogrammeComponent implements OnInit {
   suchen(searchData) {
     console.log(searchData.searchInput);
     if(searchData.searchInput === "") {
-      this.bonusprogramme = this.bonusService.getBonusprogramme();
+      this.bonusprogramme = this.bonusService.getNichtArchivierteBonusprogramme();
       this.bonusprogramme.subscribe(data => {
         console.log(data);
         this.shownProgramme = data;
