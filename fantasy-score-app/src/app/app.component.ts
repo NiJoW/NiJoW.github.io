@@ -1,6 +1,6 @@
 import { AuthService } from './services/auth.service';
 import { Buerger } from './models/Buerger';
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { DienstService } from './services/dienst.service';
@@ -16,6 +16,10 @@ import {WebsocketService} from "./services/websocket.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  @ViewChild('navBurger') navBurger: ElementRef;
+  @ViewChild('navMenu') navMenu: ElementRef;
+
   title = 'fantasy-score-app';
   nutzer: Buerger;
   willAnmelden: boolean = false;
@@ -43,6 +47,11 @@ export class AppComponent {
       {this.getAnzahlBenachrichtigungen(); }
     );
   }
+
+   toggleNavbar() {
+    this.navBurger.nativeElement.classList.toggle('is-active');
+    this.navMenu.nativeElement.classList.toggle('is-active');
+  } 
 
 
   getAnzahlBenachrichtigungen(){
