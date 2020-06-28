@@ -43,9 +43,6 @@ export class BearbeiteDienstComponent implements OnInit {
   }
 
   speichern(dienstData) {
-
-   //Todo:Validierung der Daten
-
     this.dienst.name = dienstData.titel;
     this.dienst.beschreibung = dienstData.beschreibung;
     this.dienst.kategorieID = dienstData.kategorie;

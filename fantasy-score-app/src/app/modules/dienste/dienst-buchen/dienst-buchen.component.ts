@@ -51,7 +51,7 @@ export class DienstBuchenComponent implements OnInit {
   buchen(dienstBuchenData) {
     console.log("neu" + dienstBuchenData.datum);
     console.log("current" + this.currentDate);
-    if(dienstBuchenData.datum === null || dienstBuchenData.datum === '' || dienstBuchenData.datum <= this.currentDate) { //TODO funktioniert nicht + nur dates nach heute akzeptieren
+    if(dienstBuchenData.datum === null || dienstBuchenData.datum === '' || dienstBuchenData.datum <= this.currentDate) {
       this.fehler = true;
       console.log("show Fehler");
     } else {
