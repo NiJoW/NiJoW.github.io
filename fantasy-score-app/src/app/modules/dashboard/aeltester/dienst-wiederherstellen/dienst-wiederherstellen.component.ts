@@ -2,6 +2,7 @@ import { DienstService } from '../../../../services/data/dienst.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Dienst } from 'src/app/models/Dienst';
+import {WebsocketService} from "../../../../services/utility/websocket.service";
 
 @Component({
   selector: 'app-dienst-wiederherstellen',
@@ -17,7 +18,8 @@ export class DienstWiederherstellenComponent implements OnInit {
   done: boolean = false;
   @Output() onDone = new EventEmitter();
 
-  constructor(private dienstService: DienstService) { }
+  constructor(private dienstService: DienstService,
+              private websocketService: WebsocketService) { }
 
   ngOnInit(): void {
   }
@@ -26,13 +28,14 @@ export class DienstWiederherstellenComponent implements OnInit {
     console.log("Nutzer will die Dienst " + dienstID + " wiederherstellen");
     this.dienstObservable = this.dienstService.stelleDienstWiederHer(dienstID);
     this.dienstObservable.subscribe(data => {
+      this.websocketService.SendUpdateDienstSuche();
     });
     this.onDone.emit(true);
-    this.onClose.emit(null); 
+    this.onClose.emit(null);
   }
 
   cancel() {
-    this.onClose.emit(null); 
+    this.onClose.emit(null);
   }
 
 }
