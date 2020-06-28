@@ -49,7 +49,6 @@ export class ErstelleTugendComponent implements OnInit {
 
 
   speichern(tugendData) {
-    //Todo:Validierung der Daten
     const aeltestenID  = this.nutzer.id_buerger;
     if(tugendData.titel != '' && tugendData.beschreibung != '' && tugendData.punkte != null &&  tugendData.benoetigteWiederholungen != null && tugendData.punkte != '' &&  tugendData.benoetigteWiederholungen != ''){
       const newTugend =  new Tugend(tugendData.titel, tugendData.beschreibung, tugendData.punkte, tugendData.benoetigteWiederholungen,

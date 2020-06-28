@@ -36,12 +36,7 @@ export class BearbeiteKategorieComponent implements OnInit {
   }
 
   speichern(kategorieData) {
-
-   //Todo:Validierung der Daten
-
-    //[name, beschreibung, wert, benoetigteWdh, kategorieID, id_kategorie];
     this.kategorie.bezeichnung = kategorieData.bezeichnung;
-    // bearbeitete Kategorie in DB updaten
     this.kategorieService.updateKategorie(this.kategorie).subscribe(data => {
       console.log(data);
     } );

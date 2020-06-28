@@ -72,7 +72,7 @@ import {Taetigkeit} from "../../models/Taetigkeit";
      getTugendVonKategorie(kategorieID: number): Observable<Tugend[]> {
       console.log('in service get Tugenden');
       console.dir(kategorieID);
-      let kategorieParams = new HttpParams().set("kategorieID", kategorieID+""); //TODO: added immer ein %20
+      let kategorieParams = new HttpParams().set("kategorieID", kategorieID+"");
        return this.http.get<Tugend[]>(this.tugendVonKategorieUrl, {params : kategorieParams});
      }
 

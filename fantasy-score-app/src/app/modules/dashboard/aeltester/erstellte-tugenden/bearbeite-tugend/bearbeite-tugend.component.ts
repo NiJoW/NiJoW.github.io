@@ -43,10 +43,6 @@ export class BearbeiteTugendComponent implements OnInit {
   }
 
   speichern(tugendData) {
-
-   //Todo:Validierung der Daten
-
-    //[name, beschreibung, wert, benoetigteWdh, kategorieID, id_tugend];
     this.tugend.name = tugendData.titel;
     this.tugend.beschreibung = tugendData.beschreibung;
     this.tugend.wert = tugendData.punkte;

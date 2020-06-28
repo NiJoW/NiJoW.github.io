@@ -1132,7 +1132,6 @@ app.put('/tugendWiederherstellen', function (request, response) {
 /*app.get('/p/:tagId', function(req, res) {
   res.send("tagId is set to " + req.params.tagId);
 });*/
-//TODO: url in /tugenden?kategorieID=3 umändern -> request.query
 app.get('/tugenden', function (request, response) {
   console.log(request.query);
   console.log('Tugend request body: ');
@@ -1155,7 +1154,6 @@ app.get('/tugenden', function (request, response) {
 /*app.get('/p/:tagId', function(req, res) {
   res.send("tagId is set to " + req.params.tagId);
 });*/
-//TODO: url in /tugenden?kategorieID=3 umändern -> request.query
 
 
 
