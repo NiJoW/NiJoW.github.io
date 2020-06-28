@@ -58,12 +58,14 @@ export class ErstelleBonusprogrammComponent implements OnInit {
       console.log('Your data has been submitted', newBonusprogramm);
       // neue Bonusprogramm in DB eintragen
       this.bonusprogrammService.addBonusprogramm(newBonusprogramm).subscribe(data => {
-        console.log(data); } );
-      // Overlay schließen, Erfolgsmeldung anzeigen
-      this.onCloseEvent.emit(null);
-      this.messageService.setMessage("Die Bonusprogramm wurde erfolgreich bearbeitet.", true);
-      this.erstellteBonusprogrammeComponent.getErstellteBonusprogramme(); 
-      this.doUpdataService.doViewUpdate_AnzahlErstellteBonis(true);
+        console.log(data);
+        // Overlay schließen, Erfolgsmeldung anzeigen
+        this.onCloseEvent.emit(null);
+        this.messageService.setMessage("Die Bonusprogramm wurde erfolgreich bearbeitet.", true);
+        this.erstellteBonusprogrammeComponent.getErstellteBonusprogramme();
+        this.doUpdataService.doViewUpdate_AnzahlErstellteBonis(true);
+      } );
+
     }else {
       this.fehler = "Bitte alle Felder ausfüllen!";
     }
