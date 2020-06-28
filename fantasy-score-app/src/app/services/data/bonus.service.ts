@@ -1,5 +1,4 @@
 import { AuthService } from '../utility/auth.service';
-import { Bonuseintrag } from '../../models/Bonuseintrag';
 import { APIConfig } from '../../../APIconfig';
 import { HttpClient , HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -37,7 +36,7 @@ import {BonusBenachrichtigung} from "../../models/BonusBenachrichtigung";
         console.log("Im service");
         return this.http.get<Bonusprogramm[]>(this.bonusprogrammeUrl);
     }
-    
+
     getNichtArchivierteBonusprogramme():Observable<Bonusprogramm[]> {
       return this.http.get<Bonusprogramm[]>(this.bonusprogrammeNichtArchiviertUrl)
     }
@@ -49,11 +48,6 @@ import {BonusBenachrichtigung} from "../../models/BonusBenachrichtigung";
     getBonusprogrammeVonKategorie(kategorieID: number): Observable<Bonusprogramm[]> {
         let kategorieParams = new HttpParams().set("kategorieID", kategorieID+"");
         return this.http.get<Bonusprogramm[]>(this.programmeVonKategorieUrl, {params: kategorieParams});
-    }
-
-    getErstellteBonusprogramme(): Observable<Bonuseintrag[]> {
-        let buergerParams = new HttpParams().set("buergerID", this.authService.getNutzer().id_buerger+"");
-        return this.http.get<Bonuseintrag[]>(this.erstellteBonusprogrammeUrl, {params: buergerParams});
     }
 
     getSelbstErstellteBonusprogramme(): Observable<Bonusprogramm[]> {

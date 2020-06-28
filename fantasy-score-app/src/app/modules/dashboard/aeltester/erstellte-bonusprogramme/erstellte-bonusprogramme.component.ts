@@ -1,7 +1,6 @@
 import { Bonusprogramm } from './../../../../models/Bonusprogramm';
 import { faPencilAlt, faPlus, faAngleDown, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
-import { Bonuseintrag } from '../../../../models/Bonuseintrag';
 import { BonusService } from '../../../../services/data/bonus.service';
 import { Component, OnInit } from '@angular/core';
 import {Buerger} from "../../../../models/Buerger";
@@ -35,7 +34,7 @@ export class ErstellteBonusprogrammeComponent implements OnInit {
               private messageService: MessageService,
               private websocketService: WebsocketService) { }
 
-  erstellteBonusprogramme: Observable<Bonuseintrag[]>;
+  erstellteBonusprogramme: Observable<Bonusprogramm[]>;
 
   ngOnInit(): void {
     this.getEigeneErstellteBonusprogramme();
@@ -43,7 +42,7 @@ export class ErstellteBonusprogrammeComponent implements OnInit {
   }
 
   getErstellteBonusprogramme() {
-    this.erstellteBonusprogramme = this.bonusService.getErstellteBonusprogramme();
+    this.erstellteBonusprogramme = this.bonusService.getSelbstErstellteBonusprogramme();
 
     this.erstellteBonusprogramme.subscribe(data => {
       console.log(data);});
