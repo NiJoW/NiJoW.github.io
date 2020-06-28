@@ -58,12 +58,9 @@ strong {
     font-size: 200%;
 }
 
-.media {
+.image {
+    background-image: url(../../../assets/Pictures/startBannerGroß.jpeg);
+    background-size: cover;
+    height: 500px;
 }
 
-/* .hero-body {
-    /* background-image: url(../../../assets/Pictures/teamworkBanner1.png); */
-    /* background-position: right;
-    background-size: cover;
-    padding: 9rem 1.5rem 3rem 1.5rem;
-} */ 

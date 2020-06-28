@@ -1,8 +1,8 @@
-<section class="hero is-info is-medium is-bold">
+<section class="hero is-medium is-bold" [ngClass]="isLoggedIn() ? 'is-info' : 'image' ">
   <div class="hero-body">
     <div class="container">
       <div *ngIf="!isLoggedIn()">
-        <p class="title">Willkommen Bürger</p>
+        <p class="title is-1">Willkommen Bürger</p>
       </div>
 
       <div *ngIf="isLoggedIn()">
@@ -95,13 +95,17 @@
     </div>
   </div>
         
-  <div class="hero-foot" *ngIf="isLoggedIn() && nutzer.typ === 'Tugendhafter'">
-    <div class="content media is-center">
-      <p class="media-left subtitle"><fa-icon class="icon" [icon]="awardIcon"></fa-icon>{{nutzer.status}}</p>
-      <progress class="media-content progress is-small is-danger" value="{{nutzer.social_score}}" max="{{gesamt}}" style="margin-top: 1%;">15%</progress>
-      <p class="media-right subtitle">/{{gesamt}}</p>
-      <br>
+  <div class="hero-foot">
+    <div  *ngIf="isLoggedIn() && nutzer.typ === 'Tugendhafter'">
+      <div class="content media is-center">
+        <p class="media-left subtitle"><fa-icon class="icon" [icon]="awardIcon"></fa-icon>{{nutzer.status}}</p>
+        <progress class="media-content progress is-small is-danger" value="{{nutzer.social_score}}" max="{{gesamt}}" style="margin-top: 1%;">15%</progress>
+        <p class="media-right subtitle">/{{gesamt}}</p>
+        <br>
+      </div>
     </div>
+    <!-- <div class="image" *ngIf="!isLoggedIn()">
+    </div> -->
   </div>
 </section>
 
