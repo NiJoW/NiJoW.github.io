@@ -15,7 +15,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 })
 export class DiensteComponent implements OnInit {
 
-  kategorieID: number;
+  kategorieID = -1;
   searchInput: string;
   searchForm;
   searchText;
@@ -50,8 +50,6 @@ export class DiensteComponent implements OnInit {
 
     this.dienste = this.dienstService.getNichtArchivierteDienste();
     this.dienste.subscribe(data => {
-      console.log("Dienste: ");
-      console.log(data);
       this.shownDienste = data;
     });
   }

@@ -22,7 +22,7 @@ export class TugendenComponent implements OnInit {
 
   searchForm;
   searchIcon = faSearch;
-  kategorieID: number;
+  kategorieID = -1;
   searchInput: string;
   searchText;
   taetigkeitPruefen: Observable<Taetigkeit[]>;
