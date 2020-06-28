@@ -102,8 +102,8 @@ export class AppComponent {
   }
 
   logout() {
-    this.router.navigate(['/']);
     this.authService.logout();
+    this.router.navigate(['/']);
     window.location.reload();
   }
 

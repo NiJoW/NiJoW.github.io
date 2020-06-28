@@ -1,3 +1,4 @@
+import { Buerger } from 'src/app/models/Buerger';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Kategorie } from 'src/app/models/Kategorie';
@@ -26,6 +27,7 @@ export class TugendenComponent implements OnInit {
   searchInput: string;
   searchText;
   taetigkeitPruefen: Observable<Taetigkeit[]>;
+  nutzer: Buerger;
 
   constructor(private kategorieService: KategorieService, 
     private tugendService: TugendService,
@@ -56,6 +58,12 @@ export class TugendenComponent implements OnInit {
       console.log(data);
       this.shownTugenden = data;
     });
+  }
+
+  get isLoggedIn() {
+    const isLoggedIn = this.authService.isLoggedIn();
+    if(isLoggedIn){ this.nutzer = this.authService.getNutzer(); }
+    return isLoggedIn;
   }
 
   isTyp(typ: string) : boolean {

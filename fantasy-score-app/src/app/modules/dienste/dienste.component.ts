@@ -8,6 +8,7 @@ import { FormBuilder } from '@angular/forms';
 import { Kategorie } from 'src/app/models/Kategorie';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import {DoUpdateService} from "../../services/do-update.service";
+import { Buerger } from 'src/app/models/Buerger';
 
 @Component({
   selector: 'app-dienste',
@@ -20,6 +21,7 @@ export class DiensteComponent implements OnInit {
   searchInput: string;
   searchForm;
   searchText;
+  nutzer: Buerger;
 
   willBuchen = false;
 
@@ -54,6 +56,12 @@ export class DiensteComponent implements OnInit {
     this.updateService.currentDoUpdateState_Anzeige_DienstSuche.subscribe(message =>
       {this.getNichtArchivierteDienste();}
     );
+  }
+
+  get isLoggedIn() {
+    const isLoggedIn = this.authService.isLoggedIn();
+    if(isLoggedIn){ this.nutzer = this.authService.getNutzer(); }
+    return isLoggedIn;
   }
 
   private getNichtArchivierteDienste(){

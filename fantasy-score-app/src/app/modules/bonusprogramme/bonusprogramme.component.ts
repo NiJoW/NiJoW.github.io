@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Bonusprogramm } from './../../models/Bonusprogramm';
 import { Component, OnInit } from '@angular/core';
 import { BonusService } from 'src/app/services/bonus.service';
@@ -6,6 +7,7 @@ import { Kategorie } from 'src/app/models/Kategorie';
 import { Observable } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Buerger } from 'src/app/models/Buerger';
 
 @Component({
   selector: 'app-bonusprogramme',
@@ -16,11 +18,13 @@ export class BonusprogrammeComponent implements OnInit {
 
   kategorieID = -1;
   searchForm;
+  nutzer: Buerger;
  
 
   constructor(private kategorieService: KategorieService, 
     private bonusService: BonusService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private authService: AuthService) {
       this.searchForm = this.formBuilder.group({
         searchInput: ''
       });
@@ -43,6 +47,12 @@ export class BonusprogrammeComponent implements OnInit {
       this.bonusprogramme.subscribe(data => {
         this.shownProgramme = data;
       });
+  }
+
+  get isLoggedIn() {
+    const isLoggedIn = this.authService.isLoggedIn();
+    if(isLoggedIn){ this.nutzer = this.authService.getNutzer(); }
+    return isLoggedIn;
   }
 
   onKategorieSelected(kategorieID):void {

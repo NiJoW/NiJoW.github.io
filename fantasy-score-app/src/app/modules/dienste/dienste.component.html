@@ -1,3 +1,4 @@
+<div *ngIf="isLoggedIn">
 <div class="section searchBar control media">
   <div class="select media-left">
     <select name="kategorien" [(ngModel)]='kategorieID' (ngModelChange)='onKategorieSelected($event)'>
@@ -44,5 +45,6 @@
 </div>
 
 <app-dienst-buchen [chosenDienst] = "chosenDienst" *ngIf="willBuchen" (onClose)="willBuchen = false"></app-dienst-buchen>
+</div>
 
   
