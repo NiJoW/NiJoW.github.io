@@ -955,7 +955,7 @@ app.get('/tugendByID', function (req, res) {
 //getTugendenLike()
 app.get('/tugenden/suche', function ( req, res) {
   const suchInput = '%'+req.query.suche.trim()+'%';
-  const sql = "SELECT *, b.benutzername as aeltesterName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger WHERE name LIKE ? OR beschreibung LIKE ? AND archiviert = 0;";
+  const sql = "SELECT *, b.benutzername as aeltesterName, k.bezeichnung AS kategorieName FROM tugend t JOIN buerger b ON t.aeltesterID = b.id_buerger JOIN kategorie k ON t.kategorieID=k.id_kategorie WHERE name LIKE ? OR beschreibung LIKE ? AND archiviert = 0;";
   const value = [suchInput, suchInput];
   pool.query(sql, value, function (error, results, fields) {
     if (error) throw error;
